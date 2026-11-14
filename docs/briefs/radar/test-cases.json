@@ -1,0 +1,99 @@
+[
+  {
+    "id": "S01-verstka-sayta",
+    "input": {"channel": "fl", "title": "верстка сайта", "text": "верстка сайта", "budget": 40000, "answers": 23, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": []}
+  },
+  {
+    "id": "S02-dizayn-crm",
+    "input": {"channel": "fl", "title": "Дизайн CRM системы", "text": "Дизайн CRM системы", "budget": 40000, "answers": 19, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": []}
+  },
+  {
+    "id": "S03-otrisovka-maketa-bez-byudzheta",
+    "input": {"channel": "fl", "title": "Отрисовка макета дизайна сайта", "text": "Отрисовка макета дизайна сайта", "budget": null, "answers": 22, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["нет_бюджета"]}
+  },
+  {
+    "id": "S04-tilda-sayt-5-stranits-kabinet",
+    "input": {"channel": "tg-tilda", "title": "сайт из 5 страниц с кабинетом", "text": "Нужен сайт из 5 страниц с кабинетом на Tilda", "budget": 40000, "answers": null, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["уточнить"]}
+  },
+  {
+    "id": "S05-sayt-dlya-otelya-79-otklikov",
+    "input": {"channel": "fl", "title": "Сайт для отеля", "text": "Сайт для отеля", "budget": null, "answers": 79, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R4", "reason_contains": "R4: 79 откликов"}
+  },
+  {
+    "id": "S06-avtomatizatsiya-wb-ozon-40-otklikov",
+    "input": {"channel": "fl", "title": "Автоматизация Wb и Ozon с ИИ", "text": "Автоматизация Wb и Ozon с ИИ", "budget": null, "answers": 40, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R4", "reason_contains": "R4: 40 откликов"}
+  },
+  {
+    "id": "S06b-to-zhe-svezhee-1-chas",
+    "note": "СИНТЕТИЧЕСКИЙ вариант S06 (не из ленты): тот же заказ, возраст 1 ч — по R4 проходит",
+    "input": {"channel": "fl", "title": "Автоматизация Wb и Ozon с ИИ", "text": "Автоматизация Wb и Ozon с ИИ", "budget": null, "answers": 40, "age_hours": 1, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["нет_бюджета"]}
+  },
+  {
+    "id": "S07-napisat-10-otzyvov",
+    "input": {"channel": "fl", "title": "Написать 10 отзывов", "text": "Написать 10 отзывов", "budget": 120, "answers": 12, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R1", "reason_contains": "R1: отзыв"}
+  },
+  {
+    "id": "S08-testirovanie-telegram-bota",
+    "input": {"channel": "fl", "title": "Тестирование Telegram-бота на Python", "text": "Тестирование Telegram-бота на Python", "budget": 5000, "answers": 25, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R1", "reason_contains": "R1: тестирование"}
+  },
+  {
+    "id": "S09-vakansiya-it-spetsialist",
+    "input": {"channel": "fl", "title": "IT-специалист", "text": "IT-специалист, оклад от 300 000 ₽, штат", "budget": 300000, "answers": null, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R1", "reason_contains": "R1: вакансия"}
+  },
+  {
+    "id": "S10-tovarnye-karty-wb",
+    "input": {"channel": "frru", "title": "Заполнение товарных карт для Wb", "text": "Заполнение товарных карт для Wb", "budget": 1100, "answers": null, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R2", "reason_contains": "R2: ручное наполнение"}
+  },
+  {
+    "id": "E01-byudzhet-rovno-3000",
+    "note": "ГРАНИЦА, синтетический: порог включительно (решение Саши 13.11: «от 3 000 ₽»)",
+    "input": {"channel": "fl", "title": "Лендинг для студии йоги", "text": "Нужен лендинг для студии йоги, форма заявки", "budget": 3000, "answers": 10, "age_hours": null, "deadline_days": 5, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": []}
+  },
+  {
+    "id": "E02-byudzhet-2999",
+    "note": "ГРАНИЦА, синтетический: на рубль ниже порога",
+    "input": {"channel": "fl", "title": "Лендинг для студии йоги", "text": "Нужен лендинг для студии йоги, форма заявки", "budget": 2999, "answers": 10, "age_hours": null, "deadline_days": 5, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R3", "reason_contains": "R3: бюджет 2999"}
+  },
+  {
+    "id": "E03-bez-byudzheta",
+    "note": "КРАЙ, синтетический: бюджет не указан (null) и «договорная» — оба «берём» с флагом, вердикт не «нет»",
+    "input": {"channel": "frru", "title": "Telegram-бот для записи клиентов", "text": "Нужен бот для записи клиентов в салон", "budget": null, "answers": 8, "age_hours": 2, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["нет_бюджета"]}
+  },
+  {
+    "id": "E04-zakaz-v-23-00",
+    "note": "КРАЙ, синтетический: заказ пришёл в 23:00 UTC+7, вне часов ответа 10–20. Вердикт не меняется (допущение, вопрос 3 в PLAN §8); добавляется только пометка",
+    "input": {"channel": "tg-tilda", "title": "Лендинг для кофейни", "text": "Нужен лендинг для кофейни на Tilda", "budget": 8000, "answers": null, "age_hours": 0.5, "deadline_days": 5, "collected_at": "2026-11-13T23:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["отвечать_с_10:00"]}
+  },
+  {
+    "id": "E05-dubl-iz-dvukh-kanalov",
+    "note": "КРАЙ, синтетический: один заказ пришёл с FL.ru и из Telegram. Ожидаем ОДНУ запись с двумя каналами и один вердикт",
+    "input": {
+      "orders": [
+        {"channel": "fl", "title": "Лендинг для кофейни", "text": "Нужен лендинг для кофейни на Tilda", "budget": 8000, "answers": 5, "age_hours": 1, "deadline_days": 5, "collected_at": "2026-11-13T12:00:00+07:00"},
+        {"channel": "tg-tilda", "title": "Лендинг для кофейни!", "text": "Нужен лендинг для кофейни на Tilda", "budget": 8000, "answers": null, "age_hours": 1, "deadline_days": 5, "collected_at": "2026-11-13T12:05:00+07:00"}
+      ]
+    },
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "records": 1, "channels": ["fl", "tg-tilda"]}
+  },
+  {
+    "id": "E06-kanal-nedostupen",
+    "note": "КРАЙ, синтетический: FL.ru отвечает капчей/403. Вердикт заказам не ставится (их нет); в отчёте «канал молчит», остальные каналы собраны",
+    "input": {"channel": "fl", "fetch_result": "blocked", "http_status": 403, "other_channels_ok": ["frru", "tg-tilda"]},
+    "expect": {"verdict": null, "rule": null, "reason_contains": "канал молчит", "channel_flag": "канал_молчит", "other_channels_collected": true}
+  }
+]
