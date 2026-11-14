@@ -17,9 +17,9 @@ test('Kwork: страница → три заказа (дубль id отбро�
   assert.ok(orders.every((o) => o.channel === 'kwork' && o.collected_at === NOW));
 });
 
-test('Kwork: бюджет — максимум из желаемого и допустимого; 0 → null', () => {
+test('Kwork: бюджет — желаемая цена заказчика (не верхняя граница); допустимая — только если желаемой нет; 0 → null', () => {
   const [a, b, c] = parseKwork(html, NOW);
-  assert.equal(a.budget, 45000);
+  assert.equal(a.budget, 15000); // priceLimit 15000, possiblePriceLimit 45000 → берём желаемую
   assert.equal(b.budget, 3000);
   assert.equal(c.budget, null);
 });
@@ -89,4 +89,9 @@ test('Kwork: канал auto по решению владельца, лента 
   assert.match(c.owner_decision, /14\.11/);
   assert.doesNotMatch(c.feed, /page=/);
   assert.ok(c.pause_sec >= 10);
+});
+
+test('Kwork: желаемой цены нет (0), есть допустимая → бюджет = допустимая', () => {
+  const h = 'x"wants":[{"id":7,"name":"Лендинг","description":"","kwork_count":1,"priceLimit":"0.00","possiblePriceLimit":9000}],"z":1';
+  assert.equal(parseKwork(h, NOW)[0].budget, 9000);
 });

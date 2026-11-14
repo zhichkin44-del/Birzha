@@ -1,7 +1,7 @@
 // Правила «берём / нет» R1–R7 (PLAN §2). Чистая функция: заказ → {verdict, rule, reason, flags}.
 // Без сети и файлов. Первое нарушенное правило определяет «нет».
 import {
-  VACANCY, REVIEW, TESTING, MANUAL_FILL, OUT_OF_LINE, IN_LINE, SECRETS, CREDENTIALS, CLARIFY, findWord,
+  VACANCY, REVIEW, TESTING, MANUAL_FILL, OUT_OF_LINE, IN_LINE, PRINT_DESIGN, COPYWRITING, BUILD_WORDS, GAME_OR_CAPTCHA, SECRETS, CREDENTIALS, CLARIFY, findWord,
 } from './words.js';
 
 export const BUDGET_MIN = 3000; // решение Саши 13.11: от 3 000 ₽ включительно
@@ -43,6 +43,15 @@ export function evaluate(order) {
   if (findWord(text, MANUAL_FILL)) return no('R2', 'ручное наполнение карточек, не наша линейка');
   const out = findWord(text, OUT_OF_LINE);
   if (out) return no('R2', `«${out}» — не наша линейка`);
+  // ужесточение 14.11: игровые боты и обход капчи — всегда «нет»; чистый дизайн/полиграфия и копирайтинг — «нет», если нет слов разработки
+  const game = findWord(text, GAME_OR_CAPTCHA);
+  if (game) return no('R2', `«${game}» — игровые боты и обход капчи не берём`);
+  if (!findWord(text, BUILD_WORDS)) {
+    const print = findWord(text, PRINT_DESIGN);
+    if (print) return no('R2', `«${print}» — чистый дизайн и полиграфия, не наша линейка`);
+    const copy = findWord(text, COPYWRITING);
+    if (copy) return no('R2', `«${copy}» — копирайтинг, не наша линейка`);
+  }
   if (!findWord(text, IN_LINE)) return no('R2', 'вид работы не из линейки (сайт, лендинг, бот, автоматизация, парсер, UI-дизайн)');
 
   // R3: бюджет ≥ порога или не указан

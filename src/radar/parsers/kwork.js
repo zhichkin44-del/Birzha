@@ -60,7 +60,9 @@ export function parseKwork(html, nowIso) {
     if (!title) continue;
     seen.add(w.id);
     const posted = mskIso(w.date_active ?? w.date_create);
-    const budgets = [num(w.priceLimit), num(w.possiblePriceLimit)].filter((x) => x !== null);
+    // 14.11: бюджет — желаемая цена заказчика (priceLimit); допустимая (possiblePriceLimit) — только если желаемой нет
+    const wanted = num(w.priceLimit);
+    const budget = wanted !== null ? wanted : num(w.possiblePriceLimit);
     const answers = Number.isFinite(Number(w.kwork_count)) && w.kwork_count !== null && w.kwork_count !== '' ? Number(w.kwork_count) : null;
     out.push({
       id: `kwork-${w.id}`,
@@ -68,7 +70,7 @@ export function parseKwork(html, nowIso) {
       url: `${BASE}/projects/${w.id}`,
       title,
       text: clean(w.description) || title,
-      budget: budgets.length ? Math.max(...budgets) : null,
+      budget,
       answers,
       age_hours: posted ? Math.max(0, Math.round(((nowMs - Date.parse(posted)) / 3600_000) * 100) / 100) : null,
       posted_at: posted,
