@@ -8,3 +8,6 @@ demos/*/variants/*/*/*-s[0-9][0-9].png
 demos/**/variants/**/*.png
 demos/**/_p*.js
 demos/*/shots/*.png
+docs/cases/_shoot-content/out/
+docs/cases/_shoot-content/pages/
+docs/cases/_shoot-content/media/
