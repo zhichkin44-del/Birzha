@@ -57,7 +57,7 @@ test('Отклик: 4–6 строк, без слов про ИИ и модел�
   const bot = buildReply(ord('Telegram-бот для записи клиентов', 'x', { budget: 10000 }));
   assert.equal(bot.price, 7000);
   assert.equal(bot.discount, 30);
-  assert.match(bot.text, /скидка 30 %/);
+  assert.doesNotMatch(bot.text, /скидк/i);
   assert.match(bot.text, /https:\/\/zhichkin44-del\.github\.io\/projects\//);
 });
 

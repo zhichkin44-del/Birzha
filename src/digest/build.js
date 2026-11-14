@@ -114,8 +114,8 @@ export function buildReply(order, { firstClient = true } = {}) {
   const raw = order.budget_raw ? String(order.budget_raw).match(/^(\d+)\s+([A-Z]{3})$/) : null;
   const priceShown = raw && raw[2] !== 'RUB' && budget ? `${Math.round((Number(raw[1]) * price) / budget / 10) * 10} ${raw[2]}` : money(price);
   const priceLine = budget !== null
-    ? `Цена — ${priceShown}${discount ? ` (скидка ${discount} % для первых клиентов уже учтена)` : ''}, срок — ${sp.days} дн. после того, как получу ${sp.need}.`
-    : `Ориентир по цене — от ${money(price)}${discount ? ` (скидка ${discount} % для первых клиентов уже учтена)` : ''}, срок — ${sp.days} дн.; точную назову после ответа на вопрос. Мне нужны ${sp.need}.`;
+    ? `Цена — ${priceShown}, срок — ${sp.days} дн. после того, как получу ${sp.need}.`
+    : `Ориентир по цене — от ${money(price)}, срок — ${sp.days} дн.; точную назову после ответа на вопрос. Мне нужны ${sp.need}.`;
   const t0 = `${order.title ?? ''} ${order.text ?? ''}`;
   const maxOnly = kind === 'bot' && /(?<![а-яёa-z])max(?![а-яёa-z])|(?<![а-яё])макс(?![а-яё])/i.test(t0) && !/telegram|телеграм/i.test(t0);
   const question = maxOnly ? 'Нужен именно MAX или подойдёт Telegram — там то же самое можно сделать быстрее и проще в поддержке?' : sp.question;

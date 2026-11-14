@@ -4,7 +4,8 @@
 import { findWord } from '../radar/words.js';
 import { REPLY_FROM, REPLY_TO } from '../radar/rules.js';
 
-export const HOURS_LINE = `Отвечаю с ${REPLY_FROM}:00 до ${REPLY_TO}:00 UTC+7 (UTC+7).`;
+// Часы — во времени заказчика (Москва = UTC+7 − 4 ч), замечание проверки заказчиком 14.11.
+export const HOURS_LINE = `На связи каждый день с ${REPLY_FROM - 4}:00 до ${REPLY_TO - 4}:00 по Москве.`;
 
 export const TEMPLATES = [
   {
@@ -104,8 +105,8 @@ export const money = (n) => `${fmt(n)} ₽`;
 export function compose(ctx) {
   const { tpl } = ctx;
   const ask = `Здравствуйте! Вы ищете ${tpl.what}${ctx.titleQuote ? ` («${ctx.titleQuote}»)` : ''}.`;
-  const disc = ctx.discount ? ` (скидка ${ctx.discount} % для первых клиентов уже учтена)` : '';
-  const priceLine = `Цена — ${money(ctx.price)}${disc}, срок — ${ctx.termDays} дн. после того, как получу ${tpl.need}.`;
+  // Скидка первому клиенту уже в цене; в тексте про неё не пишем — повтор в каждом отклике читается как демпинг (14.11).
+  const priceLine = `Цена — ${money(ctx.price)}, срок — ${ctx.termDays} дн. после того, как получу ${tpl.need}.`;
   const parts = [ask, tpl.how, priceLine];
   if (ctx.pitches.length) parts.push(`Похожие работы.${ctx.pitches.join(' ')}`);
   if (tpl.extra) parts.push(tpl.extra);

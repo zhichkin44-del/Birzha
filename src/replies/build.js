@@ -38,7 +38,7 @@ export function validatePackage(pkg, order) {
   if (budget !== null && pkg.price > budget) p.push(`цена ${money(pkg.price)} выше бюджета заказа ${money(budget)}`);
   if (pkg.works.length < 1 || pkg.works.length > 2) p.push(`работ из витрины ${pkg.works.length}, нужно 1–2`);
   if (!pkg.questions.length) p.push('нет вопросов заказчику');
-  if (/скидк/i.test(pkg.text) !== Boolean(pkg.discount)) p.push('скидка в тексте и в пакете не совпадают');
+  if (/скидк/i.test(pkg.text)) p.push('в тексте отклика про скидку не пишем — она уже в цене');
   return p;
 }
 

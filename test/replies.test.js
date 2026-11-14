@@ -98,7 +98,7 @@ test('скидка 30 % только при флаге «первый клиен
   const first = buildPackage(o, { firstClient: true });
   assert.equal(first.price, 5600);
   assert.equal(first.discount, 30);
-  assert.match(first.text, /скидка 30 %/);
+  assert.doesNotMatch(first.text, /скидк/i, 'скидка уже в цене, в тексте не пишем');
   assert.match(first.text, /5 600 ₽/);
 });
 
@@ -168,9 +168,10 @@ test('срок: из заказа, если он назван; иначе по �
   assert.match(p.text, new RegExp(`${p.term_days} дн\\.`));
 });
 
-test('в тексте часы ответа 10:00–20:00 UTC+7; флаг «отвечать с 10:00» попадает в пакет', () => {
+test('в тексте часы ответа по Москве (6:00–16:00 = 10–20 UTC+7); флаг «отвечать с 10:00» попадает в пакет', () => {
   const p = buildPackage(taken.find((o) => o.id === 'syn-fix-1'));
-  assert.match(p.text, /с 10:00 до 20:00 UTC+7/);
+  assert.match(p.text, /с 6:00 до 16:00 по Москве/);
+  assert.doesNotMatch(p.text, /UTC+7/);
   assert.ok(p.flags.includes('отвечать_с_10:00'));
 });
 
