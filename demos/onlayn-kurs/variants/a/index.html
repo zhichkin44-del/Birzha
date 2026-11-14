@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Созвон на английском — курс для разработчиков · демо</title>
+<meta name="description" content="6 недель английского для айтишников: стендапы, созвоны с заказчиком и собеседования. Демо-концепт лендинга.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF5EC; --bg2:#F4EADB; --paper:#FFFFFF; --ink:#1F1B16; --muted:#5C5248; --line:#E6DACA;
+  --coral:#C8431F; --coral-soft:#FBE1D6; --green:#1E6B4E; --green-soft:#DCEFE4; --sun:#F6C445; --sun-soft:#FDF0C8; --sky:#CFE3F3;
+  --r:22px; --display:"Unbounded", "Segoe UI", system-ui, sans-serif; --body:"Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --shadow:0 1px 0 rgba(31,27,22,.04), 0 18px 40px -18px rgba(76,52,24,.28);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body);overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.08;margin:0}
+p{margin:0}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* демо-плашка */
+.demo{background:var(--ink);color:#FBF5EC;font-size:15px;text-align:center;padding:9px 16px;letter-spacing:.01em}
+.demo b{color:var(--sun);font-weight:600}
+
+/* шапка */
+.top{position:relative;top:0;z-index:30;background:rgba(251,245,236,.86);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.scrolled{border-color:var(--line);position:sticky}
+.top .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.logo svg{width:36px;height:36px;flex:none}
+.nav{display:flex;gap:26px;margin-left:auto}
+.nav a{text-decoration:none;color:var(--muted);font-weight:500;font-size:16px;padding:10px 0}
+.nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:0;font:600 17px/1 var(--body);text-decoration:none;cursor:pointer;transition:transform .15s, box-shadow .15s, background .15s}
+.btn-main{background:var(--coral);color:#fff;box-shadow:0 10px 24px -10px rgba(200,67,31,.7)}
+.btn-main:hover{background:#B13A19;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.top .btn{min-height:46px;padding:0 20px;font-size:16px}
+
+/* первый экран */
+.hero{padding:56px 0 84px;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.kicker{display:inline-flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 8px;font-size:15px;font-weight:500;color:var(--muted)}
+.kicker i{width:26px;height:26px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;font-style:normal;font-size:14px}
+.hero h1{font-size:clamp(38px,5.4vw,70px);margin:22px 0 22px;font-weight:600}
+.hero h1 .mark{position:relative;white-space:nowrap;color:var(--coral)}
+.hero h1 .mark svg{position:absolute;left:-2%;bottom:-.16em;width:104%;height:.32em;overflow:visible}
+.lead{font-size:20px;color:var(--muted);max-width:33em}
+.lead b{color:var(--ink);font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;padding:0;list-style:none}
+.facts li{display:flex;gap:10px;align-items:baseline}
+.facts strong{font-family:var(--display);font-size:26px;font-weight:600}
+.facts span{color:var(--muted);font-size:16px;line-height:1.3}
+
+/* окно созвона */
+.call{position:relative}
+.call-deco{position:absolute;inset:-28px -24px auto auto;width:150px;z-index:0;pointer-events:none}
+.call-win{position:relative;z-index:1;background:var(--paper);border-radius:28px;box-shadow:var(--shadow), 0 0 0 1px var(--line);overflow:hidden}
+.call-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);background:#FFFCF7}
+.rec{width:10px;height:10px;border-radius:50%;background:#E0412A;box-shadow:0 0 0 4px rgba(224,65,42,.15);flex:none}
+.call-title{font-weight:600;font-size:16px}
+.call-time{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--muted);font-size:15px}
+.people{display:flex;gap:10px;padding:14px 18px 6px}
+.person{flex:1;min-width:0;border-radius:16px;padding:10px 10px 9px;display:flex;align-items:center;gap:9px;background:var(--bg)}
+.person svg{width:36px;height:36px;flex:none}
+.person b{display:block;font-size:14px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.person small{display:block;font-size:13px;color:var(--muted);line-height:1.2}
+.person.speak{background:var(--green-soft);box-shadow:inset 0 0 0 2px var(--green)}
+.chat{height:392px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;padding:14px 18px 16px;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 54px);mask-image:linear-gradient(to bottom,transparent 0,#000 54px)}
+.msg{max-width:86%;padding:11px 15px;border-radius:18px;font-size:16px;line-height:1.38;animation:pop .38s cubic-bezier(.2,.9,.3,1.2) both}
+.msg small{display:block;font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:3px;opacity:.78}
+.msg.them{align-self:flex-start;background:var(--bg2);border-bottom-left-radius:6px}
+.msg.mine{align-self:flex-end;background:#F1ECE6;color:#4A4038;border-bottom-right-radius:6px}
+.msg.mine .t{text-decoration:line-through;text-decoration-color:rgba(200,67,31,.65);text-decoration-thickness:2px}
+.msg.good{align-self:flex-end;background:var(--green);color:#fff;border-bottom-right-radius:6px;box-shadow:0 10px 22px -12px rgba(30,107,78,.8)}
+.msg.good em{font-style:normal;background:rgba(246,196,69,.34);border-radius:5px;padding:0 3px}
+.msg.typing{display:flex;gap:5px;padding:14px 16px;align-self:flex-start}
+.msg.typing.r{align-self:flex-end}
+.msg.typing i{width:7px;height:7px;border-radius:50%;background:#9A8D7F;animation:dot 1s infinite}
+.msg.typing i:nth-child(2){animation-delay:.15s}.msg.typing i:nth-child(3){animation-delay:.3s}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes dot{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.call-ctl{display:flex;align-items:center;gap:10px;padding:12px 18px 16px;border-top:1px solid var(--line);background:#FFFCF7}
+.call-ctl p{font-size:14px;color:var(--muted);line-height:1.35;margin-right:auto;flex:1;min-width:0}
+.call-ctl .ctl{flex:none}
+.ctl{white-space:nowrap;min-height:44px;min-width:44px;border-radius:999px;border:0;background:var(--bg2);color:var(--ink);font:600 15px/1 var(--body);padding:0 16px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.ctl:hover{background:var(--line)}
+.ctl.next{background:var(--ink);color:#fff}
+.ctl.next:hover{background:#3a332b}
+
+/* общие секции */
+section{scroll-margin-top:84px}
+.sec{padding:92px 0}
+.eyebrow{display:inline-block;font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);margin-bottom:14px}
+.sec h2{font-size:clamp(30px,3.8vw,48px);max-width:18em}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:44px}
+.sec-head p{color:var(--muted);max-width:28em;font-size:18px}
+
+/* боль */
+.pain{padding:0 0 12px}
+.pain-box{background:var(--ink);color:#F5ECE0;border-radius:32px;padding:44px 48px;display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:center}
+.pain-box h2{font-size:clamp(26px,2.8vw,36px);color:#fff}
+.pain-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pain-list li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px 18px 20px;font-size:16px;line-height:1.45;color:#E9DFD2}
+.pain-list li b{display:block;color:var(--sun);font-family:var(--display);font-weight:500;font-size:15px;margin-bottom:8px}
+
+/* кому */
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.role{background:var(--paper);border-radius:var(--r);padding:24px 22px 22px;box-shadow:0 0 0 1px var(--line);display:flex;flex-direction:column;gap:12px;transition:transform .2s, box-shadow .2s}
+.role:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--line), var(--shadow)}
+.role .ic{width:60px;height:60px;border-radius:18px;display:grid;place-items:center}
+.role .ic svg{width:34px;height:34px}
+.role h3{font-size:21px;font-weight:600}
+.role p{color:var(--muted);font-size:16px}
+.role q{display:block;margin-top:auto;padding:12px 14px;border-radius:14px;background:var(--bg);font-size:15px;line-height:1.4;quotes:none;font-weight:500}
+.role q::before{content:"";}
+
+/* программа */
+.prog{background:var(--bg2)}
+.weeks{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:w;list-style:none;margin:0;padding:0}
+.week{position:relative;background:var(--paper);border-radius:var(--r);padding:26px 24px 24px;box-shadow:0 0 0 1px var(--line);overflow:hidden}
+.week .n{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.week .n span{font-family:var(--display);font-weight:600;font-size:15px;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--c,var(--sun-soft))}
+.week .n small{font-size:15px;color:var(--muted);font-weight:500}
+.week h3{font-size:21px;margin-bottom:10px}
+.week p{color:var(--muted);font-size:16px}
+.week .say{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:15px;color:var(--green);font-weight:600;line-height:1.4}
+.week .say::before{content:"Скажете: ";color:var(--muted);font-weight:500}
+.prog-note{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px 28px;color:var(--muted);font-size:16px}
+.prog-note b{color:var(--ink)}
+
+/* что получите */
+.bento{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:auto auto;gap:18px}
+.tile{background:var(--paper);border-radius:26px;padding:28px;box-shadow:0 0 0 1px var(--line);display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.tile h3{font-size:22px}
+.tile p{color:var(--muted);font-size:16px}
+.tile.wide{grid-column:span 2}
+.tile.dict{grid-row:span 2;background:var(--green);color:#fff;box-shadow:none}
+.tile.dict p{color:#D5EADF}
+.dict-list{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px}
+.dict-list li{background:rgba(255,255,255,.1);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.dict-list b{font-weight:600;font-size:16px}
+.dict-list span{font-size:15px;color:#CFE6DA}
+.tpl{background:var(--sun-soft);border-radius:16px;padding:14px 16px;font-size:16px;line-height:1.7;margin-top:auto}
+.tpl u{text-decoration:none;border-bottom:2px solid var(--ink);color:var(--coral);font-weight:600;padding:0 4px}
+.wave{display:flex;align-items:center;gap:12px;margin-top:auto;background:var(--coral-soft);border-radius:16px;padding:12px 14px}
+.wave .mic{width:44px;height:44px;border-radius:50%;background:var(--coral);display:grid;place-items:center;flex:none}
+.wave svg.bars{flex:1;height:34px}
+.wave .bars rect{fill:var(--coral);transform-origin:center;animation:bar 1.4s ease-in-out infinite}
+@keyframes bar{50%{transform:scaleY(.4)}}
+.cal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:auto}
+.cal div{border-radius:10px;background:var(--bg);text-align:center;padding:8px 0;font-size:14px;font-weight:600;color:var(--muted)}
+.cal div.fri{background:var(--ink);color:var(--sun)}
+
+/* автор */
+.author{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+.author > *{min-width:0}
+.portrait{position:relative;max-width:440px;width:100%;margin-inline:auto}
+.portrait .bubble{position:absolute;right:-6px;top:22px;background:var(--paper);border-radius:18px 18px 18px 6px;padding:10px 14px;font-weight:600;font-size:15px;box-shadow:var(--shadow)}
+.author blockquote{margin:0 0 22px;font-family:var(--display);font-weight:500;font-size:clamp(22px,2.3vw,30px);line-height:1.3;letter-spacing:-.015em}
+.author .bio{color:var(--muted);font-size:18px;margin-bottom:28px;max-width:34em}
+.author .sign{font-weight:600;font-size:18px}
+.author .sign span{display:block;font-weight:400;color:var(--muted);font-size:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.stat{background:var(--paper);border-radius:18px;padding:16px 16px 14px;box-shadow:0 0 0 1px var(--line)}
+.stat b{display:block;font-family:var(--display);font-weight:600;font-size:28px}
+.stat span{font-size:15px;color:var(--muted);line-height:1.3;display:block}
+
+/* тарифы */
+.price{background:var(--bg2)}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:980px;margin-inline:auto}
+.plan{background:var(--paper);border-radius:30px;padding:34px 34px 32px;box-shadow:0 0 0 1px var(--line);display:flex;flex-direction:column;position:relative}
+.plan.pro{background:var(--ink);color:#F5ECE0;box-shadow:var(--shadow)}
+.plan .tag{position:absolute;top:26px;right:26px;background:var(--sun);color:var(--ink);font-weight:600;font-size:14px;border-radius:999px;padding:6px 12px}
+.plan h3{font-size:24px;margin-bottom:6px}
+.plan .sub{color:var(--muted);font-size:16px}
+.plan.pro .sub{color:#C9BEB1}
+.plan .cost{display:flex;align-items:baseline;gap:10px;margin:22px 0 4px}
+.plan .cost b{font-family:var(--display);font-weight:600;font-size:46px;letter-spacing:-.03em;white-space:nowrap}
+.plan .cost{flex-wrap:wrap}
+.plan .cost span{font-size:16px;color:var(--muted)}
+.plan.pro .cost span{color:#C9BEB1}
+.plan .split{font-size:15px;color:var(--muted);margin-bottom:22px}
+.plan.pro .split{color:#C9BEB1}
+.plan ul{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:12px}
+.plan li{display:flex;gap:12px;font-size:16px;line-height:1.45}
+.plan li svg{width:22px;height:22px;flex:none;margin-top:1px}
+.plan li.plus{font-weight:600}
+.plan .btn{margin-top:auto;width:100%}
+.plan.pro .btn-main{background:var(--sun);color:var(--ink);box-shadow:none}
+.plan.pro .btn-main:hover{background:#FFD566}
+.price-note{text-align:center;color:var(--muted);font-size:15px;margin-top:22px}
+
+/* FAQ */
+.faq{max-width:860px;margin-inline:auto;display:grid;gap:12px}
+.faq details{background:var(--paper);border-radius:20px;box-shadow:0 0 0 1px var(--line);transition:box-shadow .2s}
+.faq details[open]{box-shadow:0 0 0 2px var(--ink)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 22px;font-weight:600;font-size:18px;min-height:64px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{width:34px;height:34px;border-radius:50%;background:var(--bg2);flex:none;position:relative;transition:transform .25s, background .2s}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--ink);transform:translate(-50%,-50%);border-radius:2px}
+.faq summary .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] .pm{transform:rotate(45deg);background:var(--sun)}
+.faq .ans{padding:0 22px 22px;color:var(--muted);font-size:17px;max-width:44em}
+
+/* форма */
+.sign-box{background:var(--coral);color:#fff;border-radius:36px;padding:56px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;position:relative;overflow:hidden}
+.sign-box h2{font-size:clamp(30px,3.6vw,46px);color:#fff}
+.sign-box .lead{color:#FFE4D9;margin-top:18px;font-size:18px}
+.sign-deco{position:absolute;left:-40px;bottom:-60px;width:360px;opacity:.9;pointer-events:none}
+.sign-points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:10px;position:relative}
+.sign-points li{display:flex;gap:10px;align-items:center;font-size:17px}
+.sign-points li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sun);flex:none}
+form{background:var(--paper);color:var(--ink);border-radius:26px;padding:30px;display:grid;gap:16px;position:relative;box-shadow:0 30px 60px -30px rgba(60,20,5,.55)}
+.field{display:grid;gap:7px}
+.field label,.field legend{font-weight:600;font-size:16px}
+.field input[type=text],.field input[type=tel]{min-height:54px;border-radius:14px;border:2px solid var(--line);background:#FFFCF7;padding:0 16px;font:400 17px var(--body);color:var(--ink);width:100%}
+.field input:focus{outline:none;border-color:var(--ink)}
+.field .hint{font-size:14px;color:var(--muted)}
+.field .err{font-size:14px;color:#B3261E;font-weight:500;display:none}
+.field.bad input{border-color:#B3261E;background:#FFF5F4}
+.field.bad .err{display:block}
+fieldset{border:0;margin:0;padding:0}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:7px}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;inset:0}
+.seg span{display:flex;flex-direction:column;gap:2px;min-height:64px;justify-content:center;border-radius:14px;border:2px solid var(--line);padding:10px 14px;font-weight:600;font-size:16px;line-height:1.25;transition:border-color .15s, background .15s}
+.seg span small{font-weight:400;color:var(--muted);font-size:14px}
+.seg input:checked + span{border-color:var(--ink);background:var(--sun-soft)}
+.seg input:focus-visible + span{outline:3px solid var(--coral);outline-offset:2px}
+.agree{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--muted);line-height:1.4;cursor:pointer}
+.agree input{width:22px;height:22px;margin:0;flex:none;accent-color:var(--ink)}
+.agree.bad{color:#B3261E}
+form .btn{width:100%;min-height:58px;font-size:18px}
+.ok{display:none;text-align:center;padding:24px 8px;gap:14px}
+.ok svg{width:72px;height:72px;margin:0 auto}
+.ok h3{font-size:24px}
+.ok p{color:var(--muted)}
+form.sent .ok{display:grid}
+form.sent > :not(.ok){display:none}
+
+/* подвал */
+footer{padding:48px 0 40px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}
+footer p{color:var(--muted);font-size:15px}
+footer a{color:var(--ink);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-demo{background:var(--sun-soft);border-radius:12px;padding:10px 14px;color:var(--ink)!important;font-weight:500}
+
+/* липкая кнопка */
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:none;transition:transform .3s, opacity .3s}
+.sticky .btn{width:100%;min-height:56px;box-shadow:0 14px 30px -10px rgba(31,27,22,.55)}
+.sticky.hide{transform:translateY(130%);opacity:0;pointer-events:none}
+
+/* появление */
+.rv.pre{opacity:0;transform:translateY(18px)}
+.rv.go{transition:opacity .6s ease, transform .6s ease}
+
+@media (max-width:1060px){
+  .hero .wrap{grid-template-columns:1fr;gap:44px}
+  .call{max-width:560px}
+  .roles{grid-template-columns:1fr 1fr}
+  .weeks{grid-template-columns:1fr 1fr}
+  .bento{grid-template-columns:1fr 1fr}
+  .tile.dict{grid-row:auto;grid-column:span 2}
+  .pain-box{grid-template-columns:1fr}
+  .author{grid-template-columns:1fr;gap:40px}
+  .sign-box{grid-template-columns:1fr}
+  .nav{display:none}
+  .top .btn{margin-left:auto}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .wrap{width:calc(100% - 32px)}
+  .demo{font-size:14px}
+  .top .wrap{height:62px;gap:12px}
+  .logo{font-size:15px}
+  .logo svg{width:32px;height:32px}
+  .top .btn{display:none}
+  .hero{padding:30px 0 56px}
+  .hero h1{font-size:36px;margin:18px 0}
+  .lead{font-size:18px}
+  .cta-row .btn{flex:1 1 100%}
+  .facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between;gap:8px;margin-top:28px}
+  .facts li{flex-direction:column;gap:2px}
+  .facts strong{font-size:22px}
+  .facts span{font-size:15px}
+  .facts br{display:none}
+  .call-deco{display:none}
+  .call-win{border-radius:22px}
+  .people{padding:12px 12px 4px;gap:6px}
+  .person{padding:8px 8px;gap:7px}
+  .person svg{width:30px;height:30px}
+  .person small{display:none}
+  .chat{height:330px;padding:12px 12px 14px}
+  .msg{max-width:92%;font-size:16px}
+  .call-ctl{padding:12px;flex-wrap:wrap}
+  .call-ctl p{flex:1 1 100%;margin-bottom:2px}
+  .call-ctl .ctl{flex:1 1 0}
+  .sec{padding:64px 0}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:30px}
+  .sec-head p{font-size:17px}
+  .pain-box{padding:30px 22px;border-radius:26px;gap:24px}
+  .pain-list{grid-template-columns:1fr;gap:10px}
+  .roles,.weeks,.bento{grid-template-columns:1fr}
+  .tile.dict,.tile.wide{grid-column:auto}
+  .cal{grid-template-columns:repeat(4,1fr) 1.9fr}
+  .tile{padding:24px 20px}
+  .stats{grid-template-columns:1fr;gap:8px}
+  .stat{padding:12px 16px;display:flex;align-items:center;gap:16px}
+  .stat b{font-size:22px;min-width:84px}
+  .stat span{font-size:16px}
+  .plans{grid-template-columns:1fr}
+  .plan{padding:28px 22px 24px;border-radius:26px}
+  .plan .tag{position:static;align-self:flex-start;margin-bottom:14px}
+  .plan .cost b{font-size:36px}
+  .faq summary{font-size:17px;padding:18px}
+  .faq .ans{padding:0 18px 20px;font-size:16px}
+  .sign-box{padding:34px 18px 18px;border-radius:28px;gap:28px}
+  form{padding:22px 18px}
+  .seg{grid-template-columns:1fr}
+  .sticky{display:block}
+  footer{padding-bottom:100px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="demo" role="note"><b>Демо-концепт</b> · данные вымышлены: курс, автор, цены и контакты придуманы для примера</div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Созвон на английском — в начало">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="4" width="28" height="22" rx="9" fill="#C8431F"/><path d="M9 26l-2 7 8-7z" fill="#C8431F"/><rect x="12" y="13" width="26" height="20" rx="9" fill="#1E6B4E"/><path d="M33 33l2 5-7-5z" fill="#1E6B4E"/><circle cx="19" cy="23" r="2" fill="#fff"/><circle cx="25" cy="23" r="2" fill="#fff"/><circle cx="31" cy="23" r="2" fill="#fff"/></svg>
+      Созвон на английском
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#who">Кому</a><a href="#program">Программа</a><a href="#author">Автор</a><a href="#price">Тарифы</a><a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn-main" href="#signup">Записаться</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div>
+      <span class="kicker"><i aria-hidden="true">🎧</i>Курс для разработчиков · 6 недель</span>
+      <h1 id="h1">Перестаньте <span class="mark">молчать<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 45 4, 95 4, 197 10" stroke="#F6C445" stroke-width="7" fill="none" stroke-linecap="round"/></svg></span> на&nbsp;созвонах</h1>
+      <p class="lead">Английский для айтишников, которые читают документацию без словаря, но теряются, когда надо <b>сказать вслух</b>: на стендапе, на созвоне с заказчиком, на собеседовании.</p>
+      <div class="cta-row">
+        <a class="btn btn-main" href="#signup">Записаться на поток
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-ghost" href="#program">Посмотреть программу</a>
+      </div>
+      <ul class="facts">
+        <li><strong>12</strong><span>уроков <br>в записи</span></li>
+        <li><strong>6</strong><span>разборов <br>по пятницам</span></li>
+        <li><strong>15&nbsp;мин</strong><span>практики <br>в день</span></li>
+      </ul>
+    </div>
+
+    <div class="call">
+      <svg class="call-deco" viewBox="0 0 150 150" aria-hidden="true"><circle cx="90" cy="60" r="58" fill="#F6C445"/><path d="M28 120c18-30 52-40 88-30" stroke="#1F1B16" stroke-width="3" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/></svg>
+      <div class="call-win" role="region" aria-label="Пример: как сказал бы я и как говорят на стендапе">
+        <div class="call-bar">
+          <span class="rec" aria-hidden="true"></span>
+          <span class="call-title">Daily standup</span>
+          <span class="call-time" id="clock" aria-hidden="true">10:02</span>
+        </div>
+        <div class="people" aria-hidden="true">
+          <div class="person" id="p-lead">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#CFE3F3"/><circle cx="20" cy="17" r="7" fill="#E9B48F"/><path d="M13 15c0-6 14-7 14 0 0-2-3-4-7-4s-7 2-7 4z" fill="#3B2A20"/><path d="M8 36c2-7 7-10 12-10s10 3 12 10" fill="#2E4A6B"/></svg>
+            <div><b>Mike</b><small>тимлид</small></div>
+          </div>
+          <div class="person" id="p-me">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#FDF0C8"/><circle cx="20" cy="17" r="7" fill="#F0C6A4"/><path d="M12.5 16c0-7 15-8 15 0-2-3-5-4-8-3-3 0-6 1-7 3z" fill="#6B4228"/><path d="M8 36c2-7 7-10 12-10s10 3 12 10" fill="#1E6B4E"/></svg>
+            <div><b>Вы</b><small>бэкенд</small></div>
+          </div>
+          <div class="person">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#FBE1D6"/><circle cx="20" cy="17" r="7" fill="#C98E6A"/><path d="M12 19c-1-9 16-10 16 0l1 6c-2-3-2-7-3-9-3 1-8 1-11-1-1 2-1 3-3 4z" fill="#1F1B16"/><path d="M8 36c2-7 7-10 12-10s10 3 12 10" fill="#C8431F"/></svg>
+            <div><b>Priya</b><small>QA</small></div>
+          </div>
+        </div>
+        <div class="chat" id="chat" aria-live="polite">
+          <div class="msg them"><small>Priya</small>Morning, all! Staging is back up.</div>
+          <div class="msg them"><small>Mike</small>Morning! Quick update from you?</div>
+          <div class="msg mine"><small>Как сказал бы я</small><span class="t">Yesterday I did the task about login.</span></div>
+          <div class="msg good"><small>Как говорят</small>Yesterday I <em>wrapped up</em> the login fix.</div>
+        </div>
+        <div class="call-ctl">
+          <p>Так выглядит урок: ваша дословная фраза и&nbsp;живой вариант.</p>
+          <button class="ctl" id="pause" type="button" aria-pressed="false">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"/></svg><span>Пауза</span></button>
+          <button class="ctl next" id="next" type="button">Ещё фраза</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pain" aria-labelledby="pain-h">
+  <div class="wrap">
+    <div class="pain-box rv">
+      <h2 id="pain-h">Код пишете свободно. А&nbsp;на&nbsp;созвоне&nbsp;— «ну&nbsp;это…&nbsp;yes»</h2>
+      <ul class="pain-list">
+        <li><b>Стендап</b>Заранее пишете в заметках, что скажете, и всё равно сбиваетесь на второй фразе.</li>
+        <li><b>Заказчик</b>Поняли половину, переспросить неловко — соглашаетесь и потом гадаете, что обещали.</li>
+        <li><b>Собеседование</b>Технически сильнее других кандидатов, но оффер уходит тому, кто бодро рассказал о себе.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="who" aria-labelledby="who-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Кому подходит</span><h2 id="who-h">Курс собран под&nbsp;четыре роли в&nbsp;команде</h2></div>
+      <p>У каждой роли свои созвоны и свои фразы. В уроках примеры из вашей работы, а не из учебника про путешествия.</p>
+    </div>
+    <div class="roles">
+      <article class="role rv">
+        <div class="ic" style="background:var(--sky)"><svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><rect x="3" y="5" width="28" height="22" rx="4" stroke="#1F1B16" stroke-width="2.4"/><path d="M3 11h28" stroke="#1F1B16" stroke-width="2.4"/><path d="M13 16l-3 3 3 3M21 16l3 3-3 3" stroke="#C8431F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Фронтенд</h3>
+        <p>Демо интерфейса, споры о макетах с дизайнером, баги «у меня не воспроизводится».</p>
+        <q>The layout breaks on Safari — I’ll push a fix today.</q>
+      </article>
+      <article class="role rv">
+        <div class="ic" style="background:var(--green-soft)"><svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><rect x="4" y="4" width="26" height="9" rx="3" stroke="#1F1B16" stroke-width="2.4"/><rect x="4" y="18" width="26" height="9" rx="3" stroke="#1F1B16" stroke-width="2.4"/><circle cx="10" cy="8.5" r="1.8" fill="#1E6B4E"/><circle cx="10" cy="22.5" r="1.8" fill="#1E6B4E"/><path d="M17 31h6" stroke="#1F1B16" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+        <h3>Бэкенд</h3>
+        <p>Архитектурные обсуждения, оценки сроков, объяснение компромиссов не-техническим людям.</p>
+        <q>The endpoint times out under load, so I’m adding a cache.</q>
+      </article>
+      <article class="role rv">
+        <div class="ic" style="background:var(--sun-soft)"><svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="15" cy="15" r="9.5" stroke="#1F1B16" stroke-width="2.4"/><path d="M22 22l8 8" stroke="#1F1B16" stroke-width="2.6" stroke-linecap="round"/><path d="M11 15l3 3 5-6" stroke="#1E6B4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>QA</h3>
+        <p>Как описать баг голосом, настоять на приоритете и не звучать как обвинение.</p>
+        <q>I can reproduce it on staging; steps are in the ticket.</q>
+      </article>
+      <article class="role rv">
+        <div class="ic" style="background:var(--coral-soft)"><svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M17 17c-3-4-5-6-8-6a6 6 0 000 12c3 0 5-2 8-6zm0 0c3 4 5 6 8 6a6 6 0 000-12c-3 0-5 2-8 6z" stroke="#1F1B16" stroke-width="2.4" stroke-linejoin="round"/><path d="M25 8l3-3M25 8l3 1" stroke="#C8431F" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+        <h3>Девопс</h3>
+        <p>Инциденты, постмортемы, «почему упал прод» — спокойно и по делу, даже в&nbsp;три ночи.</p>
+        <q>Deploys are on hold until the pipeline is green again.</q>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec prog" id="program" aria-labelledby="prog-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Программа</span><h2 id="prog-h">6 недель — от&nbsp;стендапа до&nbsp;собеседования</h2></div>
+      <p>Каждую неделю два урока в записи по 30–40 минут и короткие голосовые задания. В пятницу — разбор с ментором.</p>
+    </div>
+    <ol class="weeks">
+      <li class="week rv" style="--c:var(--sun-soft)"><div class="n"><span>01</span><small>Неделя первая</small></div>
+        <h3>Стендап за минуту</h3><p>Схема «вчера — сегодня — блокеры», глаголы, которыми говорят о задачах, и как уложиться в 60 секунд.</p>
+        <p class="say">I’m picking up the search ticket next.</p></li>
+      <li class="week rv" style="--c:var(--sky)"><div class="n"><span>02</span><small>Неделя вторая</small></div>
+        <h3>Слушать и переспрашивать</h3><p>Акценты коллег из разных стран, вежливые способы переспросить и уточнить, что вы поняли правильно.</p>
+        <p class="say">Just to make sure I got it right…</p></li>
+      <li class="week rv" style="--c:var(--green-soft)"><div class="n"><span>03</span><small>Неделя третья</small></div>
+        <h3>Обсуждаем задачу</h3><p>Оценки, сроки и риски. Как сказать «не успеем» так, чтобы вас услышали и не обиделись.</p>
+        <p class="say">That’s doable, but not by Friday.</p></li>
+      <li class="week rv" style="--c:var(--coral-soft)"><div class="n"><span>04</span><small>Неделя четвёртая</small></div>
+        <h3>Демо и код-ревью</h3><p>Показываем сделанное, объясняем решения, спорим о коде без перехода на личности.</p>
+        <p class="say">I went with this approach because…</p></li>
+      <li class="week rv" style="--c:var(--sun-soft)"><div class="n"><span>05</span><small>Неделя пятая</small></div>
+        <h3>Созвон с заказчиком</h3><p>Уточняем требования, мягко говорим «нет», подводим итоги встречи письмом и голосом.</p>
+        <p class="say">Let me recap what we agreed on.</p></li>
+      <li class="week rv" style="--c:var(--sky)"><div class="n"><span>06</span><small>Неделя шестая</small></div>
+        <h3>Собеседование</h3><p>Рассказ о себе и проектах, поведенческие вопросы, вопросы работодателю. Финал — пробный созвон.</p>
+        <p class="say">The project I’m most proud of is…</p></li>
+    </ol>
+    <div class="prog-note"><span><b>Уровень:</b> от Pre-Intermediate — если читаете документацию, справитесь</span><span><b>Нагрузка:</b> 2–3 часа в неделю</span></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="get-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Что получите</span><h2 id="get-h">Не грамматику, а&nbsp;готовые фразы и&nbsp;смелость их&nbsp;сказать</h2></div>
+    </div>
+    <div class="bento">
+      <article class="tile dict rv">
+        <h3>Словарь созвонов</h3>
+        <p>Около 400 выражений по ситуациям: стендап, ревью, инцидент, собеседование. С&nbsp;озвучкой и&nbsp;пометками, где звучит слишком резко.</p>
+        <ul class="dict-list">
+          <li><b>I’m blocked on…</b><span>у меня стопор из-за…</span></li>
+          <li><b>Can we take this offline?</b><span>давайте обсудим после созвона</span></li>
+          <li><b>It’s on my radar.</b><span>помню, займусь</span></li>
+          <li><b>Let’s circle back to it.</b><span>вернёмся к этому позже</span></li>
+        </ul>
+      </article>
+      <article class="tile rv">
+        <h3>Шаблоны для стендапов</h3>
+        <p>Каркасы фраз: подставляете свою задачу — и&nbsp;отчёт готов.</p>
+        <div class="tpl">Yesterday I <u>fixed</u> <u>the login bug</u>.<br>Today I’m working on <span style="white-space:nowrap"><u>…</u>.</span><br>No blockers so far.</div>
+      </article>
+      <article class="tile rv">
+        <h3>Практика голосом</h3>
+        <p>После урока — 5 коротких ситуаций. Записываете ответ и сравниваете с образцом.</p>
+        <div class="wave" aria-hidden="true">
+          <div class="mic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="12" rx="4" fill="#fff"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <svg class="bars" viewBox="0 0 160 34" preserveAspectRatio="none"><g id="bars"></g></svg>
+        </div>
+      </article>
+      <article class="tile wide rv">
+        <h3>Разбор по пятницам</h3>
+        <p>Ментор слушает ваши записи за неделю, разбирает ошибки и&nbsp;показывает, как сказать проще. Можно прийти на&nbsp;созвон или смотреть запись.</p>
+        <div class="cal" aria-hidden="true"><div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div class="fri">Пт · разбор</div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="author" aria-labelledby="author-h" style="padding-top:20px">
+  <div class="wrap author">
+    <div class="portrait rv">
+      <svg viewBox="0 0 400 440" role="img" aria-label="Иллюстрация: Артём Волков в наушниках с микрофоном">
+        <defs>
+          <clipPath id="pc"><path d="M200 28c104 0 176 64 176 186 0 110-70 198-176 198S24 324 24 214C24 92 96 28 200 28z"/></clipPath>
+        </defs>
+        <path d="M200 28c104 0 176 64 176 186 0 110-70 198-176 198S24 324 24 214C24 92 96 28 200 28z" fill="#F6C445"/>
+        <g clip-path="url(#pc)">
+          <circle cx="320" cy="90" r="70" fill="#F9D67A"/>
+          <path d="M40 300 l40-40 30 30 50-60 40 40" stroke="#E7A92A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/>
+          <!-- туловище -->
+          <path d="M70 440c6-86 56-128 130-128s124 42 130 128z" fill="#1E6B4E"/>
+          <path d="M160 316c10 22 24 32 40 32s30-10 40-32" fill="#17573F"/>
+          <path d="M150 330v110M250 330v110" stroke="#17573F" stroke-width="6"/>
+          <circle cx="150" cy="380" r="5" fill="#F6C445"/><circle cx="250" cy="380" r="5" fill="#F6C445"/>
+          <!-- шея -->
+          <path d="M176 262h48v52c0 12-48 12-48 0z" fill="#DFA987"/>
+          <!-- голова -->
+          <ellipse cx="200" cy="200" rx="72" ry="84" fill="#F0C6A4"/>
+          <ellipse cx="128" cy="208" rx="13" ry="19" fill="#E8B693"/>
+          <ellipse cx="272" cy="208" rx="13" ry="19" fill="#E8B693"/>
+          <!-- волосы -->
+          <path d="M124 186c-8-72 44-104 92-98 46 6 70 40 62 98-8-26-24-46-50-52-30 16-70 18-96 14-4 12-6 24-8 38z" fill="#5A3826"/>
+          <path d="M150 128c20 10 54 10 80-2" stroke="#6E4630" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- брови -->
+          <path d="M160 178c8-6 20-6 28-2M212 176c8-4 20-4 28 2" stroke="#4A2E1F" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- очки -->
+          <rect x="152" y="188" width="42" height="32" rx="12" fill="#fff" fill-opacity=".25" stroke="#1F1B16" stroke-width="5"/>
+          <rect x="208" y="188" width="42" height="32" rx="12" fill="#fff" fill-opacity=".25" stroke="#1F1B16" stroke-width="5"/>
+          <path d="M194 202c4-4 10-4 14 0" stroke="#1F1B16" stroke-width="5" fill="none"/>
+          <circle cx="174" cy="205" r="4.5" fill="#1F1B16"/><circle cx="229" cy="205" r="4.5" fill="#1F1B16"/>
+          <!-- нос, улыбка, щетина -->
+          <path d="M201 214c-4 12-6 18 0 20" stroke="#C98B66" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M178 248c14 12 34 12 48 0" stroke="#7A3E2A" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M136 236c10 40 38 50 64 50s54-10 64-50c-4 30-30 44-64 44s-58-14-64-44z" fill="#8A5A40" opacity=".35"/>
+          <circle cx="160" cy="236" r="9" fill="#EBA48A" opacity=".55"/><circle cx="244" cy="236" r="9" fill="#EBA48A" opacity=".55"/>
+          <!-- наушники -->
+          <path d="M118 210c-6-90 46-130 82-130s88 40 82 130" stroke="#1F1B16" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <rect x="104" y="188" width="30" height="50" rx="14" fill="#C8431F"/>
+          <rect x="266" y="188" width="30" height="50" rx="14" fill="#C8431F"/>
+          <path d="M120 236c0 30 20 40 50 34" stroke="#1F1B16" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <rect x="164" y="261" width="22" height="16" rx="8" fill="#1F1B16"/>
+        </g>
+        <!-- волны звука -->
+        <path d="M352 250c12 10 12 30 0 40M370 238c22 18 22 46 0 64" stroke="#C8431F" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="bubble">Let’s sync!</span>
+    </div>
+    <div class="rv">
+      <span class="eyebrow">Автор курса</span>
+      <h2 id="author-h" class="sr">Об авторе</h2>
+      <blockquote>«Я семь лет пишу код и помню свой первый созвон с заказчиком: сорок минут кивал и сказал одно слово —&nbsp;okay»</blockquote>
+      <p class="bio">После этого созвона я год собирал фразы, которые реально звучат в&nbsp;международных командах, и&nbsp;проговаривал их, пока не перестал бояться. Этот курс — то, что мне тогда было нужно: без «London is the capital», только рабочие ситуации.</p>
+      <p class="sign">Артём Волков<span>бэкенд-разработчик, автор курса</span></p>
+      <div class="stats">
+        <div class="stat"><b>7 лет</b><span>в разработке</span></div>
+        <div class="stat"><b>4 года</b><span>в распределённых командах</span></div>
+        <div class="stat"><b>~50</b><span>собеседований на английском</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec price" id="price" aria-labelledby="price-h">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center">
+      <div><span class="eyebrow">Тарифы</span><h2 id="price-h" style="margin-inline:auto">Два формата: сами или с&nbsp;ментором</h2></div>
+    </div>
+    <div class="plans">
+      <article class="plan rv">
+        <h3>Базовый</h3>
+        <p class="sub">Учитесь сами в своём темпе</p>
+        <div class="cost"><b>9 900 ₽</b><span>за 6 недель</span></div>
+        <p class="split">или 3 300 ₽ × 3 месяца</p>
+        <ul>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#DCEFE4"/><path d="M6.5 11.5l3 3 6-6.5" stroke="#1E6B4E" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>12 уроков в записи, доступ на 6 месяцев</li>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#DCEFE4"/><path d="M6.5 11.5l3 3 6-6.5" stroke="#1E6B4E" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Словарь созвонов с озвучкой</li>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#DCEFE4"/><path d="M6.5 11.5l3 3 6-6.5" stroke="#1E6B4E" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Шаблоны фраз для стендапов и ревью</li>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#DCEFE4"/><path d="M6.5 11.5l3 3 6-6.5" stroke="#1E6B4E" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Голосовые задания с образцами ответов</li>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#DCEFE4"/><path d="M6.5 11.5l3 3 6-6.5" stroke="#1E6B4E" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Общий чат потока</li>
+        </ul>
+        <a class="btn btn-ghost" href="#signup" data-plan="base">Выбрать базовый</a>
+      </article>
+      <article class="plan pro rv">
+        <span class="tag">Чаще выбирают</span>
+        <h3>С разбором</h3>
+        <p class="sub">Ментор слушает вас каждую неделю</p>
+        <div class="cost"><b>19 900 ₽</b><span>за 6 недель</span></div>
+        <p class="split">или 6 633 ₽ × 3 месяца</p>
+        <ul>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#3A332B"/><path d="M6.5 11.5l3 3 6-6.5" stroke="#F6C445" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Всё из базового</li>
+          <li class="plus"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#F6C445"/><path d="M11 6v10M6 11h10" stroke="#1F1B16" stroke-width="2.2" stroke-linecap="round"/></svg>6 пятничных разборов с ментором</li>
+          <li class="plus"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#F6C445"/><path d="M11 6v10M6 11h10" stroke="#1F1B16" stroke-width="2.2" stroke-linecap="round"/></svg>Отзыв на ваши голосовые записи</li>
+          <li class="plus"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#F6C445"/><path d="M11 6v10M6 11h10" stroke="#1F1B16" stroke-width="2.2" stroke-linecap="round"/></svg>Пробное собеседование на английском</li>
+          <li class="plus"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="#F6C445"/><path d="M11 6v10M6 11h10" stroke="#1F1B16" stroke-width="2.2" stroke-linecap="round"/></svg>Группа до 10 человек</li>
+        </ul>
+        <a class="btn btn-main" href="#signup" data-plan="pro">Выбрать с разбором</a>
+      </article>
+    </div>
+    <p class="price-note">Цены — пример для демо-концепта. Вернём деньги в течение 7 дней после старта, если курс не подошёл.</p>
+  </div>
+</section>
+
+<section class="sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center">
+      <div><span class="eyebrow">Вопросы</span><h2 id="faq-h">Что обычно спрашивают</h2></div>
+    </div>
+    <div class="faq">
+      <details><summary>Какой уровень английского нужен?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">От Pre-Intermediate. Если вы читаете документацию и понимаете задачи в трекере на английском — этого хватит. С нуля курс не подойдёт: мы не учим алфавит и времена глаголов.</div></details>
+      <details><summary>Сколько времени это займёт?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Два урока в неделю по 30–40 минут и по 10–15 минут голосовой практики в день. В сумме 2–3 часа в неделю — можно совмещать с полной занятостью.</div></details>
+      <details><summary>Что если я пропущу пятничный разбор?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Каждый разбор записывается, а свои записи вы можете отправить до четверга — ментор разберёт их, даже если вы смотрите в записи.</div></details>
+      <details><summary>Чем это отличается от курсов в школе английского?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Здесь только рабочие ситуации разработчика: стендап, ревью, инцидент, созвон с заказчиком, собеседование. Никаких тем про погоду и путешествия.</div></details>
+      <details><summary>Будет ли сертификат?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Сертификата нет. Вместо него в конце — пробный созвон, после которого вы точно знаете, что можете.</div></details>
+      <details><summary>Когда ближайший поток?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Потоки стартуют раз в месяц. Оставьте заявку — напишем дату старта и ответим на вопросы до оплаты.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="signup" aria-labelledby="sign-h" style="padding-top:0">
+  <div class="wrap">
+    <div class="sign-box">
+      <svg class="sign-deco" viewBox="0 0 360 300" aria-hidden="true"><circle cx="120" cy="200" r="150" fill="#D85A34"/><path d="M60 120c40-30 90-30 130 0" stroke="#F6C445" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="1 14"/></svg>
+      <div style="position:relative">
+        <h2 id="sign-h">Записаться на&nbsp;ближайший поток</h2>
+        <p class="lead">Оставьте контакт — Артём напишет в течение дня, расскажет о старте и поможет выбрать тариф. Оплата только после разговора.</p>
+        <ul class="sign-points">
+          <li>Без звонков от менеджеров</li>
+          <li>Можно сначала задать вопросы</li>
+          <li>Возврат в течение 7 дней</li>
+        </ul>
+      </div>
+      <form id="form" novalidate>
+        <div class="field" id="f-name">
+          <label for="name">Как вас зовут</label>
+          <input id="name" name="name" type="text" autocomplete="given-name" placeholder="Например, Дмитрий" aria-describedby="name-err">
+          <span class="err" id="name-err">Напишите имя — хотя бы две буквы</span>
+        </div>
+        <div class="field" id="f-contact">
+          <label for="contact">Телефон или Telegram</label>
+          <input id="contact" name="contact" type="text" inputmode="text" autocomplete="tel" placeholder="+7 900 000-00-00 или @ник" aria-describedby="contact-hint contact-err">
+          <span class="hint" id="contact-hint">Как удобнее — так и напишем</span>
+          <span class="err" id="contact-err">Нужен номер из 11 цифр или ник в Telegram, начинающийся с @</span>
+        </div>
+        <fieldset class="field">
+          <legend>Тариф</legend>
+          <div class="seg">
+            <label><input type="radio" name="plan" value="base"><span>Базовый<small>9 900 ₽</small></span></label>
+            <label><input type="radio" name="plan" value="pro" checked><span>С разбором<small>19 900 ₽</small></span></label>
+          </div>
+        </fieldset>
+        <label class="agree" id="f-agree"><input type="checkbox" id="agree"> Согласен на обработку контактов, чтобы со мной связались по поводу курса</label>
+        <button class="btn btn-main" type="submit">Отправить заявку</button>
+        <div class="ok" role="status" aria-live="polite">
+          <svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="36" fill="#DCEFE4"/><path d="M22 37l9 9 19-20" stroke="#1E6B4E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3 id="ok-h">Заявка принята, <span id="ok-name"></span>!</h3>
+          <p>Демо: заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</p>
+          <button class="ctl" type="button" id="again" style="justify-self:center">Заполнить ещё раз</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#top">Созвон на английском</a>
+      <p>Онлайн-курс английского для разработчиков · Артём Волков</p>
+    </div>
+    <div class="foot-links">
+      <a href="tel:+79000000000">+7 (900) 000-00-00</a>
+      <a href="tg://resolve?domain=sozvon_demo">Telegram</a>
+    </div>
+    <p class="foot-demo">Демо-концепт · данные вымышлены</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky"><a class="btn btn-main" href="#signup">Записаться · от 9 900 ₽</a></div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // шапка
+  var top = document.getElementById('top');
+  addEventListener('scroll', function(){ top.classList.toggle('scrolled', scrollY > 8); }, {passive:true});
+  // плавная прокрутка по якорям
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var t = document.querySelector(a.getAttribute('href')); if (!t) return;
+      e.preventDefault(); t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+      history.replaceState(null, '', a.getAttribute('href'));
+    });
+  });
+
+  // переписка созвона
+  var lines = [
+    {q:'Anything blocking you?', bad:'I have a problem with API, it not works.', good:'I’m <em>blocked on</em> the payments API — can we sync after this?'},
+    {q:'When do you think we can ship it?', bad:'I will make it to Friday.', good:'It <em>should be ready by</em> Friday, end of day.'},
+    {q:'Does that plan make sense to you?', bad:'Repeat please, I don’t understand.', good:'Sorry, <em>could you rephrase</em> the last part?'},
+    {q:'Can you take the bug from Priya?', bad:'Yes, but I have many tasks now.', good:'Sure, but <em>I’m at capacity</em> — what should I drop?'},
+    {q:'How did the release go?', bad:'All is good, no problems was.', good:'<em>Went smoothly</em> — no incidents so far.'},
+    {q:'Morning! Quick update from you?', bad:'Yesterday I did the task about login.', good:'Yesterday I <em>wrapped up</em> the login fix.'}
+  ];
+  var chat = document.getElementById('chat'), i = 0, timers = [], paused = false, busy = false;
+  var pLead = document.getElementById('p-lead'), pMe = document.getElementById('p-me');
+  function speak(who){ pLead.classList.toggle('speak', who==='lead'); pMe.classList.toggle('speak', who==='me'); }
+  function add(cls, html){
+    var d = document.createElement('div'); d.className = 'msg ' + cls; d.innerHTML = html; chat.appendChild(d);
+    while (chat.children.length > 9) chat.removeChild(chat.firstElementChild);
+    return d;
+  }
+  function typing(right){ return add('typing' + (right ? ' r' : ''), '<i></i><i></i><i></i>'); }
+  function later(fn, ms){ timers.push(setTimeout(fn, reduce ? 0 : ms)); }
+  function step(){
+    if (busy) return; busy = true;
+    var l = lines[i % lines.length]; i++;
+    speak('lead');
+    var t1 = reduce ? null : typing(false);
+    later(function(){
+      if (t1) t1.remove();
+      add('them', '<small>Mike</small>' + l.q); speak('me');
+      var t2 = reduce ? null : typing(true);
+      later(function(){
+        if (t2) t2.remove();
+        add('mine', '<small>Как сказал бы я</small><span class="t">' + l.bad + '</span>');
+        later(function(){
+          add('good', '<small>Как говорят</small>' + l.good); speak(null); busy = false;
+          if (!paused && !reduce) later(step, 3600);
+        }, 1300);
+      }, 1100);
+    }, 900);
+  }
+  document.getElementById('next').addEventListener('click', function(){
+    if (busy) return; timers.forEach(clearTimeout); timers = []; busy = false; step();
+  });
+  var pb = document.getElementById('pause');
+  pb.addEventListener('click', function(){
+    paused = !paused; pb.setAttribute('aria-pressed', paused);
+    pb.querySelector('span').textContent = paused ? 'Дальше' : 'Пауза';
+    if (paused) { if (!busy) { timers.forEach(clearTimeout); timers = []; } }
+    else if (!busy) step();
+  });
+  if (reduce) { paused = true; pb.hidden = true; } else later(step, 2800);
+
+  // часы созвона
+  var clock = document.getElementById('clock'), sec = 2*60+14;
+  if (!reduce) setInterval(function(){ sec++; clock.textContent = '10:' + String(Math.floor(sec/60)).padStart(2,'0'); }, 1000);
+
+  // волна
+  var g = document.getElementById('bars'), html = '';
+  for (var k = 0; k < 26; k++) { var h = 6 + Math.round(Math.abs(Math.sin(k*1.7)) * 24); html += '<rect x="'+(k*6.2)+'" y="'+((34-h)/2)+'" width="3.6" height="'+h+'" rx="1.8" style="animation-delay:'+(k*-0.09).toFixed(2)+'s"/>'; }
+  g.innerHTML = html;
+
+  // появление
+  // мягкое появление: прячем только то, что ниже экрана, и только когда человек сам листает
+  var rv = [].slice.call(document.querySelectorAll('.rv'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var armed = false;
+    var arm = function(){
+      if (armed) return; armed = true;
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('go'); e.target.classList.remove('pre'); io.unobserve(e.target); } }); }, {rootMargin:'0px 0px -6% 0px'});
+      rv.forEach(function(el){ if (el.getBoundingClientRect().top > innerHeight + 40) { el.classList.add('pre'); io.observe(el); } });
+    };
+    addEventListener('wheel', arm, {once:true, passive:true});
+    addEventListener('touchstart', arm, {once:true, passive:true});
+  }
+
+  // выбор тарифа из карточки
+  document.querySelectorAll('[data-plan]').forEach(function(a){
+    a.addEventListener('click', function(){ var r = document.querySelector('input[name=plan][value="'+a.dataset.plan+'"]'); if (r) r.checked = true; });
+  });
+
+  // липкая кнопка: прячем у формы
+  var sticky = document.getElementById('sticky'), signup = document.getElementById('signup'), hero = document.querySelector('.hero .cta-row');
+  if ('IntersectionObserver' in window) {
+    var vis = {form:false, hero:true};
+    var upd = function(){ sticky.classList.toggle('hide', vis.form || vis.hero); };
+    new IntersectionObserver(function(es){ vis.form = es[0].isIntersecting; upd(); }).observe(signup);
+    new IntersectionObserver(function(es){ vis.hero = es[0].isIntersecting; upd(); }).observe(hero);
+  }
+
+  // форма
+  var form = document.getElementById('form');
+  function setBad(id, bad){ document.getElementById(id).classList.toggle('bad', bad); }
+  function checkName(){ var v = form.name.value.trim(); var bad = v.length < 2 || !/^[A-Za-zА-Яа-яЁё\- ]+$/.test(v); setBad('f-name', bad); return !bad; }
+  function checkContact(){
+    var v = form.contact.value.trim(), digits = v.replace(/\D/g,'');
+    var ok = /^@[A-Za-z0-9_]{5,32}$/.test(v) || (/^[\d\s()+\-]+$/.test(v) && digits.length === 11 && /^[78]/.test(digits));
+    setBad('f-contact', !ok); return ok;
+  }
+  form.name.addEventListener('blur', function(){ if (form.name.value) checkName(); });
+  form.contact.addEventListener('blur', function(){ if (form.contact.value) checkContact(); });
+  form.name.addEventListener('input', function(){ if (document.getElementById('f-name').classList.contains('bad')) checkName(); });
+  form.contact.addEventListener('input', function(){ if (document.getElementById('f-contact').classList.contains('bad')) checkContact(); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var a = checkName(), b = checkContact(), c = document.getElementById('agree').checked;
+    document.getElementById('f-agree').classList.toggle('bad', !c);
+    if (!a) { form.name.focus(); return; }
+    if (!b) { form.contact.focus(); return; }
+    if (!c) { document.getElementById('agree').focus(); return; }
+    document.getElementById('ok-name').textContent = form.name.value.trim();
+    form.classList.add('sent');
+  });
+  document.getElementById('again').addEventListener('click', function(){ form.reset(); form.classList.remove('sent'); form.name.focus(); });
+})();
+</script>
+</body>
+</html>

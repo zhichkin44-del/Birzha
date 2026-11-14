@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Квартал: город для людей — форум 21 марта 2027</title>
+<meta name="description" content="Однодневный форум по урбанистике: дворы, транспорт, общественные пространства. 21 марта 2027, Цех № 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{
+  --paper:#FBF6EC; --ink:#1F2A37; --mute:#55606E; --line:#E4DCCB;
+  --green:#2E7D5B; --mint:#CFE8D8; --sky:#D6E7F4; --blue:#2F5DA8; --yellow:#F4C54A; --brick:#D9633F; --brick-ink:#B4482A; --peach:#F7D9C6; --lilac:#E4DDF4;
+  --r:22px; --pad:clamp(16px,4vw,48px); --max:1280px;
+  --fd:"Unbounded","Arial Black",system-ui,sans-serif; --fb:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--fb)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--fd);letter-spacing:-.02em;margin:0}
+
+.demo{background:var(--ink);color:#fff;font-size:14px;font-weight:600}
+.demo .wrap{display:flex;align-items:center;gap:10px;min-height:40px}
+.demo svg{flex:none}
+
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--fd);font-weight:700;font-size:19px}
+.nav{display:flex;gap:6px}
+.nav a{text-decoration:none;font-weight:600;font-size:15px;padding:10px 14px;border-radius:999px}
+.nav a:hover{background:#F1E9D8}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);font:800 16px var(--fb);text-decoration:none;cursor:pointer;transition:transform .15s, box-shadow .15s;box-shadow:0 4px 0 var(--ink)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn.ghost{background:#fff}
+.btn.dark{background:var(--ink);color:#fff;box-shadow:0 4px 0 #0c1219}
+
+/* первый экран */
+.hero{padding:8px 0 0}
+.hero-card{--hp:clamp(20px,5vw,64px);position:relative;background:var(--sky);border-radius:32px;overflow:hidden;padding:clamp(28px,5vw,56px) var(--hp) 0}
+.hero-top{display:grid;grid-template-columns:1.35fr .65fr;gap:32px;align-items:start;position:relative;z-index:2}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:6px 14px;font-weight:700;font-size:15px}
+.badge i{width:10px;height:10px;border-radius:50%;background:var(--green)}
+.hero h1{font-size:clamp(56px,9.6vw,132px);font-weight:800;line-height:.92;letter-spacing:-.045em;margin-top:22px}
+.hero .sub{font-family:var(--fd);font-weight:500;font-size:clamp(22px,2.8vw,36px);line-height:1.15;margin:14px 0 0;letter-spacing:-.02em}
+.hero .sub span{background:var(--yellow);padding:0 .18em;border-radius:.2em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero p.lead{max-width:34em;margin:22px 0 0;font-size:18px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;align-items:center}
+.date{background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 0 var(--ink);margin-top:8px}
+.date .dd{display:flex;align-items:baseline;gap:12px;font-family:var(--fd);font-weight:800}
+.date .dd b{font-size:72px;line-height:.9;letter-spacing:-.05em}
+.date .dd span{font-size:22px;line-height:1.1}
+.date .meta{margin:12px 0 0;padding-top:12px;border-top:2px dashed var(--line);font-weight:600;font-size:16px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.cd div{background:var(--paper);border-radius:14px;padding:10px 6px 8px;text-align:center}
+.cd b{display:block;font-family:var(--fd);font-weight:700;font-size:24px;line-height:1.1}
+.cd small{font-size:13px;color:var(--mute);font-weight:600}
+.cd-l{margin:16px 0 0;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.city{display:block;width:calc(100% + 2 * var(--hp));max-width:none;height:auto;margin:clamp(8px,2vw,16px) calc(-1 * var(--hp)) 0;position:relative;z-index:1}
+
+/* полоса фактов */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+.fact{border-radius:var(--r);padding:20px 22px}
+.fact b{display:block;font-family:var(--fd);font-weight:800;font-size:clamp(30px,3.4vw,44px);letter-spacing:-.04em;line-height:1}
+.fact span{display:block;margin-top:6px;font-weight:600;font-size:16px}
+.f1{background:var(--mint)}.f2{background:var(--peach)}.f3{background:var(--lilac)}.f4{background:var(--yellow)}
+
+/* секции */
+section{scroll-margin-top:16px}
+.sec{padding:clamp(64px,8vw,112px) 0 0}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 40px;margin-bottom:clamp(28px,4vw,44px)}
+.head h2{font-size:clamp(34px,4.6vw,60px);font-weight:800;line-height:1;letter-spacing:-.04em}
+.head p{margin:0;max-width:30em;color:var(--mute);font-size:17px}
+.eyebrow{display:block;font-family:var(--fb);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:12px}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px);font-size:19px;line-height:1.6}
+.about-grid p{margin:0}
+.themes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(32px,4vw,48px)}
+.theme{border-radius:var(--r);overflow:hidden;border:2px solid var(--ink)}
+.theme svg{display:block;width:100%;height:auto}
+.theme div{padding:18px 22px 22px;background:#fff;border-top:2px solid var(--ink)}
+.theme h3{font-size:22px}
+.theme p{margin:6px 0 0;color:var(--mute);font-size:16px}
+
+/* программа */
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--ink);background:#fff;font:700 15px var(--fb);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.pill i{width:12px;height:12px;border-radius:50%}
+.pill[aria-pressed="true"]{background:var(--ink);color:#fff}
+.prog{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.it{display:grid;grid-template-columns:110px 1fr 240px;gap:20px;align-items:center;background:#fff;border-radius:18px;padding:18px 22px;border:2px solid transparent;transition:opacity .25s, border-color .2s;position:relative}
+.it:hover{border-color:var(--ink)}
+.it .t{font-family:var(--fd);font-weight:700;font-size:22px;letter-spacing:-.02em}
+.it h3{font-family:var(--fb);font-weight:700;font-size:19px;line-height:1.3;letter-spacing:0}
+.it .who{display:flex;align-items:center;gap:12px;font-weight:700;font-size:15px;line-height:1.3}
+.it .who small{display:block;font-weight:500;color:var(--mute);font-size:14px}
+.tg{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:3px 10px;border-radius:999px}
+.tg.d{background:var(--mint);color:#1D5A40}.tg.tr{background:var(--sky);color:#24497F}.tg.op{background:var(--peach);color:#8E3A1F}
+.it.brk{background:transparent;border:2px dashed #D9CFBB;padding:12px 22px}
+.it.brk h3{font-weight:600;color:var(--mute);font-size:17px}
+.it.brk .t{font-size:18px;color:var(--mute)}
+.it.dim{opacity:.25}
+.mini{width:44px;height:44px;flex:none;border-radius:50%}
+
+/* спикеры */
+.spk{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sp{background:#fff;border-radius:26px;padding:14px 14px 22px;border:2px solid var(--ink);transition:transform .2s}
+.sp:hover{transform:translateY(-4px)}
+.sp svg{display:block;width:100%;height:auto;border-radius:16px}
+.sp h3{font-size:21px;margin:18px 8px 0;line-height:1.15}
+.sp .role{margin:4px 8px 0;color:var(--mute);font-size:16px}
+.sp .talk{margin:14px 8px 0;padding-top:12px;border-top:2px dashed var(--line);font-weight:600;font-size:16px;line-height:1.4}
+.sp .talk b{font-family:var(--fd);font-weight:700;color:var(--green);margin-right:6px}
+
+/* место */
+.place{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
+.mapbox{background:#FBF6EC;display:flex;align-items:center;border:2px solid var(--ink);border-radius:26px;overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.route{background:var(--mint);border-radius:26px;padding:clamp(22px,3vw,36px)}
+.route .addr{font-family:var(--fd);font-weight:700;font-size:clamp(22px,2.2vw,28px);line-height:1.2;margin:0}
+.route .sub{margin:6px 0 20px;color:#2C4A3B}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;font:700 16px var(--fd)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chips span{background:#fff;border-radius:999px;padding:8px 14px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px}
+.chips i{width:10px;height:10px;border-radius:50%}
+
+/* билеты */
+.tix{display:grid;grid-template-columns:1fr 1.1fr;gap:18px}
+.ticket{background:var(--yellow);border:2px solid var(--ink);border-radius:26px;padding:clamp(24px,3vw,40px);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.ticket::before,.ticket::after{content:"";position:absolute;width:40px;height:40px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);top:50%;transform:translateY(-50%)}
+.ticket::before{left:-22px}.ticket::after{right:-22px}
+.ticket .k{font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:14px}
+.ticket .price{font-family:var(--fd);font-weight:800;font-size:clamp(56px,6.4vw,84px);letter-spacing:-.05em;line-height:1;margin:12px 0 18px}
+.ticket ul{margin:0 0 26px;padding:16px 0 0;list-style:none;border-top:2px dashed rgba(31,42,55,.4);display:grid;gap:8px;font-weight:600}
+.ticket ul li::before{content:"✓";display:inline-block;width:24px;font-weight:800;color:var(--green)}
+.ticket .btn{background:var(--ink);color:#fff;align-self:flex-start;min-height:56px;font-size:18px;box-shadow:0 4px 0 #0c1219}
+.ticket .note{margin:16px 0 0;font-size:15px;font-weight:600;max-width:28em}
+.reg{background:#fff;border:2px solid var(--ink);border-radius:26px;padding:clamp(24px,3vw,40px)}
+.reg h3{font-size:clamp(24px,2.4vw,30px)}
+.reg .intro{margin:8px 0 22px;color:var(--mute)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f{margin-bottom:14px}
+.f label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+.f input{width:100%;min-height:52px;padding:0 16px;border:2px solid #CFC6B4;border-radius:14px;background:var(--paper);font:500 17px var(--fb);color:var(--ink)}
+.f input:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(47,93,168,.18)}
+.f input[aria-invalid="true"]{border-color:var(--brick-ink);background:#FFF3EE}
+.err{display:block;color:var(--brick-ink);font-size:14px;font-weight:600;margin-top:5px}
+.err:empty{display:none}
+.agree{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;cursor:pointer;margin:4px 0 6px}
+.agree input{width:24px;height:24px;margin:0;accent-color:var(--green);flex:none}
+.reg .btn{width:100%;margin-top:14px;min-height:56px;font-size:18px;background:var(--green);color:#fff}
+.ok{display:none;margin-top:18px;border-radius:16px;background:var(--mint);padding:16px 18px;font-size:16px}
+.ok.show{display:flex;gap:12px;align-items:flex-start}
+.ok svg{flex:none}
+
+footer{margin-top:clamp(72px,9vw,120px);background:var(--ink);color:#E9E3D6}
+footer svg{display:block;width:100%;height:auto;background:var(--paper)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:28px;padding-bottom:40px;font-size:15px}
+footer a{color:#fff}
+
+.sticky{display:none}
+
+@media (max-width:1040px){
+  .nav{display:none}
+  .hero-top{grid-template-columns:1fr}
+  .date{max-width:420px}
+  .facts{grid-template-columns:1fr 1fr}
+  .it{grid-template-columns:90px 1fr}
+  .it .who{grid-column:2}
+  .spk{grid-template-columns:1fr 1fr}
+  .place,.tix{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{padding-bottom:84px}
+  .top .btn{display:none}
+  .top .wrap{min-height:64px}
+  .hero{padding:0}
+  .hero .wrap{padding:0 10px}
+  .hero-card{border-radius:24px;padding:24px 16px 0}
+  .hero h1{font-size:clamp(46px,14.6vw,64px)}
+  .hero .ctas .btn{flex:1}
+  .date{max-width:none;padding:16px}
+  .date .dd b{font-size:60px}
+  .hero-card{--hp:16px}
+  .city{height:230px;margin-top:28px}
+  .hero .ctas .btn{white-space:nowrap;padding:0 16px}
+  .facts{padding:0 6px}
+  .fact{padding:16px}
+  .fact span{font-size:15px}
+  .about-grid{grid-template-columns:1fr;font-size:17px;gap:16px}
+  .themes{grid-template-columns:1fr}
+  .it{grid-template-columns:1fr;gap:8px;padding:16px}
+  .it .who{grid-column:1}
+  .it.brk{display:flex;gap:10px;align-items:baseline}
+  .spk{grid-template-columns:1fr}
+  .sp{display:grid;grid-template-columns:110px 1fr;column-gap:14px;align-items:center;padding:12px 12px 18px}
+  .sp svg{grid-row:span 2}
+  .sp h3{margin:0;font-size:19px}
+  .sp .role{margin:4px 0 0;font-size:15px}
+  .sp .talk{grid-column:1/-1;margin:14px 4px 0}
+  .row2{grid-template-columns:1fr;gap:0}
+  .ticket::before,.ticket::after{display:none}
+  .sticky{display:flex;position:fixed;left:10px;right:10px;bottom:10px;z-index:30;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:6px 6px 6px 18px;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(31,42,55,.18);transition:transform .25s, opacity .25s}
+  .sticky span{font-size:14px;font-weight:600;line-height:1.2;flex:1}
+  .sticky span b{display:block;font-family:var(--fd);font-size:16px}
+  .sticky .btn{min-height:50px;box-shadow:none;padding:0 20px}
+  .sticky.hide{transform:translateY(140%);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:no-preference){
+  .bus{animation:drive 22s linear infinite}
+  .bike{animation:ride 16s linear infinite}
+  @keyframes drive{from{transform:translateX(-260px)}to{transform:translateX(1260px)}}
+  @keyframes ride{from{transform:translateX(1240px)}to{transform:translateX(-120px)}}
+}
+</style>
+</head>
+<body>
+
+<div class="demo" role="note"><div class="wrap">
+  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="#F4C54A"/><path d="M9 4.5v5.5M9 12.6v.9" stroke="#1F2A37" stroke-width="2" stroke-linecap="round"/></svg>
+  Демо-концепт · данные вымышлены
+</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="10" fill="#2E7D5B"/><rect x="7" y="13" width="8" height="14" rx="2" fill="#F4C54A"/><rect x="17" y="7" width="10" height="20" rx="2" fill="#fff"/><rect x="20" y="10" width="4" height="3" fill="#2E7D5B"/><rect x="20" y="16" width="4" height="3" fill="#2E7D5B"/></svg>
+      Квартал
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#about">О форуме</a><a href="#program">Программа</a><a href="#speakers">Спикеры</a><a href="#place">Как добраться</a><a href="#tickets">Студентам</a>
+    </nav>
+    <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет ↗</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-card">
+      <div class="hero-top">
+        <div>
+          <span class="badge"><i></i>Форум по урбанистике · один день</span>
+          <h1 id="h1">Квартал</h1>
+          <p class="sub"><span>город для людей</span></p>
+          <p class="lead">Дворы, остановки, тротуары и скверы — всё, что в пяти минутах от подъезда. Десять докладов от тех, кто уже менял это в своих районах.</p>
+          <div class="ctas">
+            <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет ↗</a>
+            <a class="btn ghost" href="#program">Программа</a>
+          </div>
+        </div>
+        <aside class="date" aria-label="Дата и обратный отсчёт">
+          <div class="dd"><b class="num">21</b><span>марта<br>2027</span></div>
+          <p class="meta">Воскресенье, 10:00–19:00<br>Цех № 4, Литейный проезд, 12</p>
+          <p class="cd-l" id="cd-l">До начала</p>
+          <div class="cd" id="cd">
+            <div><b class="num" data-u="d">—</b><small>дней</small></div>
+            <div><b class="num" data-u="h">—</b><small>часов</small></div>
+            <div><b class="num" data-u="m">—</b><small>минут</small></div>
+            <div><b class="num" data-u="s">—</b><small>секунд</small></div>
+          </div>
+        </aside>
+      </div>
+
+      <svg class="city" viewBox="0 0 1200 330" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Иллюстрация: городской квартал с двором, деревьями, остановкой, велодорожкой и автобусом">
+        <defs>
+          <pattern id="w1" width="26" height="30" patternUnits="userSpaceOnUse"><rect x="7" y="8" width="12" height="14" rx="2" fill="#FBF6EC"/></pattern>
+          <pattern id="w2" width="30" height="34" patternUnits="userSpaceOnUse"><rect x="8" y="9" width="14" height="16" rx="2" fill="#D6E7F4"/></pattern>
+          <pattern id="w3" width="24" height="28" patternUnits="userSpaceOnUse"><rect x="6" y="8" width="12" height="12" rx="6" fill="#FBF6EC" opacity=".85"/></pattern>
+        </defs>
+        <circle cx="1040" cy="70" r="40" fill="#F4C54A"/>
+        <!-- дальний план -->
+        <g fill="#B9D3E8"><rect x="0" y="120" width="90" height="140"/><rect x="250" y="90" width="70" height="170"/><rect x="560" y="70" width="80" height="190"/><rect x="900" y="110" width="110" height="150"/><rect x="1120" y="130" width="80" height="130"/></g>
+        <!-- дома -->
+        <rect x="30" y="140" width="150" height="130" rx="4" fill="#D9633F"/><rect x="30" y="140" width="150" height="130" fill="url(#w1)"/>
+        <rect x="24" y="132" width="162" height="12" rx="3" fill="#B4482A"/>
+        <rect x="190" y="110" width="110" height="160" rx="4" fill="#2F5DA8"/><rect x="190" y="110" width="110" height="160" fill="url(#w2)"/>
+        <rect x="660" y="120" width="130" height="150" rx="4" fill="#E4DDF4"/><rect x="660" y="120" width="130" height="150" fill="url(#w2)" opacity=".9"/>
+        <rect x="660" y="120" width="130" height="150" rx="4" fill="none" stroke="#1F2A37" stroke-width="2"/>
+        <rect x="800" y="150" width="140" height="120" rx="4" fill="#2E7D5B"/><rect x="800" y="150" width="140" height="120" fill="url(#w3)"/>
+        <rect x="1000" y="125" width="170" height="145" rx="4" fill="#F7D9C6"/><rect x="1000" y="125" width="170" height="145" fill="url(#w1)" opacity=".7"/>
+        <rect x="1000" y="125" width="170" height="145" rx="4" fill="none" stroke="#1F2A37" stroke-width="2"/>
+        <!-- первые этажи: витрины -->
+        <rect x="1012" y="226" width="64" height="44" rx="3" fill="#F4C54A"/><rect x="1086" y="226" width="72" height="44" rx="3" fill="#FBF6EC" stroke="#1F2A37" stroke-width="2"/>
+        <path d="M1008 220h84l-6 10h-72z" fill="#D9633F"/>
+        <!-- двор -->
+        <rect x="310" y="232" width="340" height="38" rx="6" fill="#CFE8D8"/>
+        <g fill="#2E7D5B"><circle cx="345" cy="190" r="34"/><circle cx="380" cy="208" r="24"/><circle cx="610" cy="186" r="38"/></g>
+        <g fill="#1F2A37"><rect x="342" y="210" width="6" height="56"/><rect x="607" y="210" width="6" height="56"/></g>
+        <!-- площадка -->
+        <path d="M430 270v-48h60v48" fill="none" stroke="#1F2A37" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M447 222v28M473 222v28" stroke="#1F2A37" stroke-width="2"/><rect x="441" y="248" width="12" height="4" fill="#D9633F"/><rect x="467" y="244" width="12" height="4" fill="#2F5DA8"/>
+        <path d="M512 270l26-40h8l-8 40" fill="#F4C54A" stroke="#1F2A37" stroke-width="3" stroke-linejoin="round"/>
+        <!-- скамья и люди -->
+        <rect x="540" y="252" width="46" height="6" rx="2" fill="#1F2A37"/><rect x="544" y="258" width="4" height="12" fill="#1F2A37"/><rect x="578" y="258" width="4" height="12" fill="#1F2A37"/>
+        <g><circle cx="556" cy="226" r="7" fill="#1F2A37"/><rect x="549" y="234" width="14" height="20" rx="7" fill="#D9633F"/></g>
+        <g><circle cx="400" cy="232" r="6" fill="#1F2A37"/><rect x="394" y="240" width="12" height="30" rx="6" fill="#2F5DA8"/></g>
+        <g><circle cx="418" cy="248" r="4.5" fill="#1F2A37"/><rect x="414" y="254" width="9" height="16" rx="4.5" fill="#F4C54A"/></g>
+        <!-- тротуар, велодорожка, дорога -->
+        <rect x="0" y="270" width="1200" height="12" fill="#E9E1CF"/>
+        <rect x="0" y="282" width="1200" height="16" fill="#2E7D5B"/>
+        <path d="M0 290h1200" stroke="#CFE8D8" stroke-width="2" stroke-dasharray="14 12"/>
+        <rect x="0" y="298" width="1200" height="32" fill="#1F2A37"/>
+        <path d="M0 314h1200" stroke="#F4C54A" stroke-width="3" stroke-dasharray="28 22"/>
+        <!-- остановка -->
+        <g>
+          <rect x="840" y="212" width="110" height="10" rx="3" fill="#F4C54A" stroke="#1F2A37" stroke-width="2"/>
+          <rect x="846" y="222" width="4" height="48" fill="#1F2A37"/><rect x="940" y="222" width="4" height="48" fill="#1F2A37"/>
+          <rect x="852" y="226" width="40" height="26" rx="3" fill="#D6E7F4" stroke="#1F2A37" stroke-width="2"/>
+          <path d="M858 236h28M858 243h18" stroke="#1F2A37" stroke-width="2"/>
+          <rect x="900" y="252" width="34" height="5" rx="2" fill="#1F2A37"/>
+          <circle cx="972" cy="214" r="13" fill="#fff" stroke="#1F2A37" stroke-width="3"/><text x="972" y="219" text-anchor="middle" font-family="Unbounded,Arial" font-weight="800" font-size="13" fill="#1F2A37">А</text>
+          <rect x="970" y="226" width="4" height="44" fill="#1F2A37"/>
+          <g><circle cx="912" cy="232" r="6" fill="#1F2A37"/><rect x="906" y="240" width="12" height="30" rx="6" fill="#2E7D5B"/></g>
+        </g>
+        <!-- велосипедист -->
+        <g class="bike">
+          <g transform="translate(120 252)" fill="none" stroke="#FBF6EC" stroke-width="3">
+            <circle cx="0" cy="26" r="11"/><circle cx="38" cy="26" r="11"/><path d="M0 26l12-18h20l6 18M12 8l8 18 12-18M30 2h6"/>
+          </g>
+          <circle cx="139" cy="244" r="6" fill="#F4C54A"/><path d="M137 250l-4 12 8 4" stroke="#F4C54A" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- автобус -->
+        <g class="bus">
+          <rect x="0" y="236" width="200" height="74" rx="14" fill="#F4C54A" stroke="#1F2A37" stroke-width="3" transform="translate(0 -2)"/>
+          <g fill="#D6E7F4" stroke="#1F2A37" stroke-width="2"><rect x="16" y="248" width="34" height="26" rx="4"/><rect x="58" y="248" width="34" height="26" rx="4"/><rect x="100" y="248" width="34" height="26" rx="4"/><rect x="152" y="248" width="34" height="42" rx="4"/></g>
+          <rect x="0" y="282" width="140" height="6" fill="#2F5DA8"/>
+          <g fill="#1F2A37"><circle cx="44" cy="310" r="13"/><circle cx="160" cy="310" r="13"/></g><g fill="#E9E1CF"><circle cx="44" cy="310" r="5"/><circle cx="160" cy="310" r="5"/></g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="facts">
+      <div class="fact f1"><b class="num">10</b><span>докладов по 25 минут</span></div>
+      <div class="fact f2"><b class="num">6</b><span>спикеров-практиков</span></div>
+      <div class="fact f3"><b class="num">240</b><span>мест в зале</span></div>
+      <div class="fact f4"><b class="num">30</b><span>бесплатных мест студентам</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="about" aria-labelledby="h-about">
+  <div class="wrap">
+    <div class="head"><h2 id="h-about"><span class="eyebrow">О форуме</span>Город начинается<br>у подъезда</h2></div>
+    <div class="about-grid">
+      <p>«Квартал» — однодневный форум о том, что видно из окна: двор, где паркуются на газоне, остановка без навеса, тротуар, который зимой сужается до тропинки. Нас интересуют не генпланы и рендеры, а решения, которые можно провести за один сезон и проверить цифрами.</p>
+      <p>Выступают инженеры движения, ландшафтные архитекторы, председатели советов домов и исследователи — те, кто уже что-то поменял. Каждый доклад идёт 25 минут, с данными «до и после» и разбором ошибок, затем вопросы из зала. Слайды и записи участники получат через неделю.</p>
+    </div>
+    <div class="themes">
+      <article class="theme" style="background:var(--mint)">
+        <svg viewBox="0 0 360 170" aria-hidden="true">
+          <rect width="360" height="170" fill="#CFE8D8"/>
+          <rect x="20" y="40" width="90" height="130" fill="#D9633F"/><rect x="250" y="30" width="90" height="140" fill="#2F5DA8"/>
+          <g fill="#FBF6EC"><rect x="34" y="56" width="18" height="18" rx="2"/><rect x="70" y="56" width="18" height="18" rx="2"/><rect x="34" y="90" width="18" height="18" rx="2"/><rect x="70" y="90" width="18" height="18" rx="2"/><rect x="264" y="46" width="18" height="18" rx="2"/><rect x="304" y="46" width="18" height="18" rx="2"/><rect x="264" y="82" width="18" height="18" rx="2"/><rect x="304" y="82" width="18" height="18" rx="2"/></g>
+          <rect x="110" y="140" width="140" height="30" fill="#9FD0B3"/>
+          <circle cx="150" cy="104" r="30" fill="#2E7D5B"/><rect x="147" y="120" width="6" height="30" fill="#1F2A37"/>
+          <rect x="182" y="132" width="44" height="6" rx="2" fill="#1F2A37"/><rect x="186" y="138" width="4" height="12" fill="#1F2A37"/><rect x="218" y="138" width="4" height="12" fill="#1F2A37"/>
+          <circle cx="204" cy="112" r="7" fill="#1F2A37"/><rect x="197" y="120" width="14" height="16" rx="7" fill="#F4C54A"/>
+        </svg>
+        <div><h3>Дворы</h3><p>Парковка, площадки, свет, снег и как договориться с соседями.</p></div>
+      </article>
+      <article class="theme">
+        <svg viewBox="0 0 360 170" aria-hidden="true">
+          <rect width="360" height="170" fill="#D6E7F4"/>
+          <rect x="0" y="120" width="360" height="14" fill="#2E7D5B"/><rect x="0" y="134" width="360" height="36" fill="#1F2A37"/><path d="M0 152h360" stroke="#F4C54A" stroke-width="3" stroke-dasharray="22 16"/>
+          <rect x="40" y="62" width="120" height="10" rx="3" fill="#F4C54A" stroke="#1F2A37" stroke-width="2"/><rect x="46" y="72" width="4" height="48" fill="#1F2A37"/><rect x="150" y="72" width="4" height="48" fill="#1F2A37"/>
+          <rect x="58" y="78" width="44" height="26" rx="3" fill="#fff" stroke="#1F2A37" stroke-width="2"/><path d="M64 88h30M64 96h20" stroke="#1F2A37" stroke-width="2"/>
+          <rect x="108" y="104" width="36" height="5" rx="2" fill="#1F2A37"/>
+          <rect x="200" y="70" width="140" height="62" rx="12" fill="#F4C54A" stroke="#1F2A37" stroke-width="3"/>
+          <g fill="#fff" stroke="#1F2A37" stroke-width="2"><rect x="212" y="80" width="30" height="22" rx="3"/><rect x="250" y="80" width="30" height="22" rx="3"/><rect x="290" y="80" width="38" height="22" rx="3"/></g>
+          <g fill="#1F2A37"><circle cx="232" cy="134" r="11"/><circle cx="310" cy="134" r="11"/></g>
+        </svg>
+        <div><h3>Транспорт</h3><p>Остановки, выделенные полосы, велосеть и ширина тротуаров.</p></div>
+      </article>
+      <article class="theme">
+        <svg viewBox="0 0 360 170" aria-hidden="true">
+          <rect width="360" height="170" fill="#F7D9C6"/>
+          <rect x="20" y="30" width="320" height="100" fill="#E4DDF4" stroke="#1F2A37" stroke-width="2"/>
+          <g fill="#F4C54A" stroke="#1F2A37" stroke-width="2"><rect x="36" y="80" width="56" height="50"/><rect x="108" y="80" width="56" height="50" fill="#fff"/><rect x="180" y="80" width="56" height="50"/><rect x="252" y="80" width="72" height="50" fill="#fff"/></g>
+          <path d="M30 74h80l-8 10H38z" fill="#D9633F"/><path d="M174 74h80l-8 10h-64z" fill="#2E7D5B"/>
+          <rect x="0" y="130" width="360" height="40" fill="#E9E1CF"/>
+          <g><circle cx="128" cy="134" r="7" fill="#1F2A37"/><rect x="121" y="142" width="14" height="26" rx="7" fill="#2F5DA8"/></g>
+          <g><circle cx="276" cy="130" r="7" fill="#1F2A37"/><rect x="269" y="138" width="14" height="28" rx="7" fill="#D9633F"/></g>
+          <g><circle cx="294" cy="140" r="5" fill="#1F2A37"/><rect x="289" y="146" width="10" height="18" rx="5" fill="#2E7D5B"/></g>
+        </svg>
+        <div><h3>Пространства</h3><p>Первые этажи, скверы, площади — и как считать, что они работают.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="program" aria-labelledby="h-prog">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="h-prog"><span class="eyebrow">Программа · 21 марта</span>10 докладов за день</h2>
+      <div class="pills" role="group" aria-label="Фильтр по теме">
+        <button class="pill" type="button" aria-pressed="true" data-f="all">Все</button>
+        <button class="pill" type="button" aria-pressed="false" data-f="d"><i style="background:var(--green)"></i>Дворы</button>
+        <button class="pill" type="button" aria-pressed="false" data-f="tr"><i style="background:var(--blue)"></i>Транспорт</button>
+        <button class="pill" type="button" aria-pressed="false" data-f="op"><i style="background:var(--brick)"></i>Пространства</button>
+      </div>
+    </div>
+    <ol class="prog" id="prog">
+      <li class="it brk"><span class="t num">10:00</span><h3>Регистрация, кофе, бейджи</h3></li>
+      <li class="it" data-k="op"><span class="t num">10:30</span><div><h3>Пять минут от подъезда: что мы на самом деле измеряем, когда говорим о «качестве среды»</h3><span class="tg op">Пространства</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#F7D9C6"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ВО</text></svg><span>Вера Ольховская<small>бюро «Пешеход»</small></span></span></li>
+      <li class="it" data-k="d"><span class="t num">11:00</span><div><h3>Двор без машин за одно лето: как 212 квартир договорились и что пошло не так</h3><span class="tg d">Дворы</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#CFE8D8"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ТС</text></svg><span>Тимур Сафин<small>совет дома на Садовой, 14</small></span></span></li>
+      <li class="it" data-k="tr"><span class="t num">11:30</span><div><h3>Остановка как место: навес, лавка, табло и 40 секунд, которые решают, сядете ли вы в автобус</h3><span class="tg tr">Транспорт</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#D6E7F4"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">АГ</text></svg><span>Анна Гурьева<small>транспортный планировщик</small></span></span></li>
+      <li class="it" data-k="tr"><span class="t num">12:00</span><div><h3>Выделенная полоса за 90 дней: разметка, камеры, недовольные водители и цифры через год</h3><span class="tg tr">Транспорт</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#D6E7F4"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ОР</text></svg><span>Олег Ремезов<small>инженер ОДД</small></span></span></li>
+      <li class="it brk"><span class="t num">12:30</span><h3>Обед — столовая цеха и кафе на Литейном</h3></li>
+      <li class="it" data-k="op"><span class="t num">13:30</span><div><h3>Первые этажи: почему пустые витрины делают улицу тёмной и опасной</h3><span class="tg op">Пространства</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#F7D9C6"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">МК</text></svg><span>Мирослава Кунц<small>архитектор, исследователь</small></span></span></li>
+      <li class="it" data-k="d"><span class="t num">14:00</span><div><h3>Площадка не из каталога: 12 дворов, 3 типовые ошибки и как их не повторить</h3><span class="tg d">Дворы</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#CFE8D8"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ДЛ</text></svg><span>Дарья Лисовская<small>ландшафтный архитектор</small></span></span></li>
+      <li class="it" data-k="tr"><span class="t num">14:30</span><div><h3>Велодорожка, по которой ездят: сеть вместо отрезков от парка до парка</h3><span class="tg tr">Транспорт</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#E4DDF4"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">РБ</text></svg><span>Рустам Белов<small>велосообщество «Шина»</small></span></span></li>
+      <li class="it brk"><span class="t num">15:00</span><h3>Перерыв, кофе</h3></li>
+      <li class="it" data-k="tr"><span class="t num">15:30</span><div><h3>Тротуар 2,25 метра: нормативы, которые никто не мерил рулеткой</h3><span class="tg tr">Транспорт</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#E4DDF4"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ГА</text></svg><span>Глеб Аксёнов<small>проектировщик улиц</small></span></span></li>
+      <li class="it" data-k="d"><span class="t num">16:00</span><div><h3>Зимний двор: снег, темнота в 16:30 и где гулять с коляской пять месяцев в году</h3><span class="tg d">Дворы</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#E4DDF4"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ПШ</text></svg><span>Полина Шерстнёва<small>исследователь среды</small></span></span></li>
+      <li class="it" data-k="op"><span class="t num">16:30</span><div><h3>Как посчитать людей на площади: счётчики, наблюдение, анкеты — и где каждый метод врёт</h3><span class="tg op">Пространства</span></div><span class="who"><svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#E4DDF4"/><text x="22" y="28" text-anchor="middle" font-family="Unbounded,Arial" font-weight="700" font-size="15" fill="#1F2A37">ИХ</text></svg><span>Ильдар Хасанов<small>аналитик городских данных</small></span></span></li>
+      <li class="it brk"><span class="t num">17:00</span><h3>Открытая дискуссия «Кто отвечает за двор»: жители, управляющая компания, район</h3></li>
+      <li class="it brk"><span class="t num">18:30</span><h3>Закрытие, общение до 19:00</h3></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="speakers" aria-labelledby="h-spk">
+  <div class="wrap">
+    <div class="head"><h2 id="h-spk"><span class="eyebrow">Спикеры</span>Те, кто уже менял</h2><p>Практики, а не теоретики: каждый расскажет о проекте, который сам довёл до конца, — с бюджетом, сроками и ошибками.</p></div>
+    <div class="spk">
+      <article class="sp">
+        <svg viewBox="0 0 200 170" role="img" aria-label="Иллюстрированный портрет Веры Ольховской">
+          <rect width="200" height="170" fill="#F7D9C6"/><circle cx="150" cy="40" r="56" fill="#F4C54A"/>
+          <rect x="64" y="56" width="72" height="84" rx="34" fill="#3B2A20"/>
+          <path d="M44 170c0-34 26-48 56-48s56 14 56 48z" fill="#2F5DA8"/><rect x="92" y="112" width="16" height="16" fill="#E0A882"/>
+          <ellipse cx="100" cy="92" rx="29" ry="34" fill="#F1C7A8"/>
+          <path d="M70 90c0-26 14-34 30-34 18 0 30 10 30 28-14-2-28-8-36-16-4 10-12 18-24 22z" fill="#3B2A20"/>
+          <g fill="none" stroke="#1F2A37" stroke-width="2.5"><circle cx="89" cy="97" r="8"/><circle cx="111" cy="97" r="8"/><path d="M97 97h6"/></g>
+          <circle cx="89" cy="97" r="2.2" fill="#1F2A37"/><circle cx="111" cy="97" r="2.2" fill="#1F2A37"/>
+          <path d="M93 114q7 5 14 0" stroke="#1F2A37" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h3>Вера Ольховская</h3><p class="role">Урбанист, руководитель бюро «Пешеход»</p>
+        <p class="talk"><b>10:30</b>Что мы измеряем, когда говорим о «качестве среды»</p>
+      </article>
+      <article class="sp">
+        <svg viewBox="0 0 200 170" role="img" aria-label="Иллюстрированный портрет Тимура Сафина">
+          <rect width="200" height="170" fill="#CFE8D8"/><rect x="120" y="0" width="80" height="80" rx="40" fill="#2E7D5B" opacity=".9"/>
+          <path d="M44 170c0-34 26-48 56-48s56 14 56 48z" fill="#F4C54A"/><rect x="92" y="112" width="16" height="16" fill="#B97E58"/>
+          <ellipse cx="100" cy="92" rx="29" ry="34" fill="#C98D66"/>
+          <path d="M71 88c-2-24 12-32 29-32 18 0 32 8 29 32-4-12-14-18-29-18-14 0-24 6-29 18z" fill="#1F2A37"/>
+          <path d="M72 102c2 24 16 32 28 32s26-8 28-32c-6 12-16 14-28 14s-22-2-28-14z" fill="#1F2A37"/>
+          <circle cx="89" cy="96" r="2.6" fill="#1F2A37"/><circle cx="111" cy="96" r="2.6" fill="#1F2A37"/>
+          <path d="M93 113q7 4 14 0" stroke="#F1E3D3" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h3>Тимур Сафин</h3><p class="role">Председатель совета дома на Садовой, 14</p>
+        <p class="talk"><b>11:00</b>Двор без машин за одно лето</p>
+      </article>
+      <article class="sp">
+        <svg viewBox="0 0 200 170" role="img" aria-label="Иллюстрированный портрет Анны Гурьевой">
+          <rect width="200" height="170" fill="#D6E7F4"/><rect x="0" y="118" width="200" height="14" fill="#2E7D5B"/><rect x="0" y="132" width="200" height="38" fill="#B9D3E8"/>
+          <circle cx="100" cy="48" r="15" fill="#8A4B2A"/>
+          <path d="M44 170c0-34 26-48 56-48s56 14 56 48z" fill="#D9633F"/><rect x="92" y="112" width="16" height="16" fill="#E7B898"/>
+          <ellipse cx="100" cy="92" rx="29" ry="34" fill="#F3D1B5"/>
+          <path d="M70 96c-4-30 14-38 30-38s34 8 30 38c-2-16-12-26-30-26-16 0-28 10-30 26z" fill="#8A4B2A"/>
+          <circle cx="89" cy="97" r="2.6" fill="#1F2A37"/><circle cx="111" cy="97" r="2.6" fill="#1F2A37"/>
+          <path d="M93 113q7 5 14 0" stroke="#1F2A37" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="71" cy="104" r="3" fill="#F4C54A"/><circle cx="129" cy="104" r="3" fill="#F4C54A"/>
+        </svg>
+        <h3>Анна Гурьева</h3><p class="role">Транспортный планировщик</p>
+        <p class="talk"><b>11:30</b>Остановка как место, а не столб с табличкой</p>
+      </article>
+      <article class="sp">
+        <svg viewBox="0 0 200 170" role="img" aria-label="Иллюстрированный портрет Олега Ремезова">
+          <rect width="200" height="170" fill="#F4C54A"/><path d="M0 150h200" stroke="#1F2A37" stroke-width="16"/><path d="M0 150h200" stroke="#FBF6EC" stroke-width="2" stroke-dasharray="16 12"/>
+          <path d="M44 170c0-34 26-48 56-48s56 14 56 48z" fill="#1F2A37"/><path d="M90 122l10 16 10-16z" fill="#FBF6EC"/><rect x="92" y="112" width="16" height="14" fill="#D9A07A"/>
+          <ellipse cx="100" cy="92" rx="29" ry="34" fill="#EDBE9C"/>
+          <path d="M71 96c-2-14 2-24 8-28 0 10 0 20-2 28zM129 96c2-14-2-24-8-28 0 10 0 20 2 28z" fill="#7A7A7A"/>
+          <path d="M80 66c8-8 32-8 40 0-10-4-30-4-40 0z" fill="#7A7A7A"/>
+          <g fill="none" stroke="#1F2A37" stroke-width="3"><rect x="80" y="90" width="17" height="13" rx="3"/><rect x="103" y="90" width="17" height="13" rx="3"/><path d="M97 95h6"/></g>
+          <circle cx="88.5" cy="96.5" r="2.2" fill="#1F2A37"/><circle cx="111.5" cy="96.5" r="2.2" fill="#1F2A37"/>
+          <path d="M91 109c5 3 13 3 18 0" stroke="#7A7A7A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M94 117q6 4 12 0" stroke="#1F2A37" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h3>Олег Ремезов</h3><p class="role">Инженер организации дорожного движения</p>
+        <p class="talk"><b>12:00</b>Выделенная полоса за 90 дней и цифры через год</p>
+      </article>
+      <article class="sp">
+        <svg viewBox="0 0 200 170" role="img" aria-label="Иллюстрированный портрет Мирославы Кунц">
+          <rect width="200" height="170" fill="#E4DDF4"/><rect x="18" y="20" width="56" height="70" fill="#FBF6EC" stroke="#1F2A37" stroke-width="2"/><path d="M18 50h56M46 20v70" stroke="#1F2A37" stroke-width="2"/>
+          <g fill="#B0623B"><circle cx="74" cy="78" r="13"/><circle cx="82" cy="62" r="14"/><circle cx="100" cy="56" r="15"/><circle cx="118" cy="62" r="14"/><circle cx="126" cy="78" r="13"/><circle cx="70" cy="96" r="11"/><circle cx="130" cy="96" r="11"/></g>
+          <path d="M44 170c0-34 26-48 56-48s56 14 56 48z" fill="#2E7D5B"/><rect x="92" y="112" width="16" height="16" fill="#C98D66"/>
+          <ellipse cx="100" cy="94" rx="27" ry="32" fill="#D9A07A"/>
+          <g fill="#B0623B"><circle cx="86" cy="68" r="9"/><circle cx="100" cy="64" r="10"/><circle cx="114" cy="68" r="9"/></g>
+          <circle cx="90" cy="98" r="2.6" fill="#1F2A37"/><circle cx="110" cy="98" r="2.6" fill="#1F2A37"/>
+          <path d="M93 113q7 5 14 0" stroke="#1F2A37" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h3>Мирослава Кунц</h3><p class="role">Архитектор, исследователь первых этажей</p>
+        <p class="talk"><b>13:30</b>Почему пустые витрины делают улицу опасной</p>
+      </article>
+      <article class="sp">
+        <svg viewBox="0 0 200 170" role="img" aria-label="Иллюстрированный портрет Дарьи Лисовской">
+          <rect width="200" height="170" fill="#CFE8D8"/><circle cx="40" cy="120" r="34" fill="#2E7D5B"/><circle cx="168" cy="110" r="26" fill="#2E7D5B"/>
+          <rect x="66" y="58" width="68" height="100" rx="30" fill="#2E2420"/>
+          <path d="M44 170c0-34 26-48 56-48s56 14 56 48z" fill="#F7D9C6"/><rect x="92" y="112" width="16" height="16" fill="#E0A882"/>
+          <path d="M66 140c0-10 4-18 10-22v40H66zM134 140c0-10-4-18-10-22v40h10z" fill="#2E2420"/>
+          <ellipse cx="100" cy="92" rx="29" ry="34" fill="#F1C7A8"/>
+          <path d="M70 92c2-26 18-34 34-34 18 2 28 14 26 34-10-14-22-20-34-20-8 6-18 14-26 20z" fill="#2E2420"/>
+          <circle cx="89" cy="98" r="2.6" fill="#1F2A37"/><circle cx="111" cy="98" r="2.6" fill="#1F2A37"/>
+          <path d="M93 114q7 5 14 0" stroke="#1F2A37" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h3>Дарья Лисовская</h3><p class="role">Ландшафтный архитектор</p>
+        <p class="talk"><b>14:00</b>Площадка не из каталога: 12 дворов, 3 ошибки</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="place" aria-labelledby="h-place">
+  <div class="wrap">
+    <div class="head"><h2 id="h-place"><span class="eyebrow">Место</span>Цех № 4</h2><p>Бывший литейный цех: зал на 240 мест, гардероб, столовая и большие окна во двор.</p></div>
+    <div class="place">
+      <figure class="mapbox" style="margin:0">
+        <svg viewBox="0 0 640 500" role="img" aria-labelledby="mt" font-family="Manrope,Arial,sans-serif">
+          <title id="mt">Схема: от метро «Заводская», выход 2, налево по Литейному проезду, через сквер по диагонали к улице Кузнечной и проходной Цеха № 4 — около 550 метров, 7 минут</title>
+          <rect width="640" height="500" fill="#FBF6EC"/>
+          <g fill="#F7D9C6"><rect x="0" y="0" width="150" height="132" rx="10"/><rect x="190" y="0" width="186" height="132" rx="10"/><rect x="0" y="172" width="150" height="138" rx="10"/></g>
+          <g fill="#E4DDF4"><rect x="424" y="172" width="216" height="138" rx="10"/><rect x="0" y="350" width="150" height="150" rx="10"/><rect x="190" y="350" width="186" height="150" rx="10"/><rect x="424" y="350" width="216" height="150" rx="10"/></g>
+          <rect x="190" y="172" width="186" height="138" rx="10" fill="#CFE8D8"/>
+          <g fill="#2E7D5B"><circle cx="222" cy="204" r="15"/><circle cx="252" cy="192" r="10"/><circle cx="342" cy="284" r="15"/><circle cx="306" cy="292" r="9"/><circle cx="354" cy="248" r="10"/></g>
+          <circle cx="283" cy="241" r="14" fill="#D6E7F4" stroke="#2F5DA8" stroke-width="3"/>
+          <g stroke="#fff" stroke-width="40"><path d="M0 152h640M0 330h640M170 0v500M400 0v500"/></g>
+          <rect x="0" y="342" width="640" height="10" fill="#2E7D5B" opacity=".75"/>
+          <text x="210" y="338" font-size="19" font-weight="800" fill="#1F2A37">Литейный проезд</text>
+          <text x="12" y="159" font-size="19" font-weight="800" fill="#1F2A37">ул. Кузнечная</text>
+          <text transform="translate(407 318) rotate(-90)" font-size="15" font-weight="800" fill="#1F2A37">пер. Модельщиков</text>
+          <path d="M84 392V330H182L388 164V152H516V118" fill="none" stroke="#1F2A37" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M84 392V330H182L388 164V152H516V118" fill="none" stroke="#F4C54A" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="84" cy="400" r="28" fill="#D9633F" stroke="#1F2A37" stroke-width="3"/>
+          <text x="84" y="411" text-anchor="middle" font-family="Unbounded,Arial" font-weight="800" font-size="26" fill="#fff">М</text>
+          <rect x="16" y="440" width="290" height="42" rx="21" fill="#1F2A37"/>
+          <text x="34" y="468" font-size="20" font-weight="800" fill="#fff">«Заводская», выход 2</text>
+          <rect x="556" y="310" width="40" height="40" rx="10" fill="#2F5DA8" stroke="#1F2A37" stroke-width="2"/>
+          <text x="576" y="337" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">7</text>
+          <text x="626" y="380" text-anchor="end" font-size="18" font-weight="700" fill="#24497F">трамвай</text>
+          <rect x="440" y="20" width="184" height="98" rx="14" fill="#F4C54A" stroke="#1F2A37" stroke-width="3"/>
+          <text x="458" y="62" font-family="Unbounded,Arial" font-size="24" font-weight="800" fill="#1F2A37">Цех № 4</text>
+          <text x="458" y="94" font-size="18" font-weight="600" fill="#1F2A37">вход со двора</text>
+          <rect x="440" y="404" width="184" height="72" rx="16" fill="#fff" stroke="#1F2A37" stroke-width="2"/>
+          <text x="458" y="436" font-family="Unbounded,Arial" font-size="22" font-weight="800" fill="#1F2A37">7 минут</text>
+          <text x="458" y="463" font-size="18" fill="#55606E">≈ 550 м пешком</text>
+        </svg>
+      </figure>
+      <div class="route">
+        <p class="addr">Литейный проезд, 12, стр. 4</p>
+        <p class="sub">Метро «Заводская» — 7 минут пешком</p>
+        <ol class="steps">
+          <li>Последний вагон из центра, выход № 2 к Литейному проезду.</li>
+          <li>Налево по Литейному 200 метров до сквера с фонтаном.</li>
+          <li>Через сквер по диагонали к углу Кузнечной и переулка Модельщиков.</li>
+          <li>Направо 100 метров — проходная с жёлтой вывеской. Вход со двора, 2-й этаж.</li>
+        </ol>
+        <div class="chips"><span><i style="background:var(--blue)"></i>Трамвай 7 · «Литейный проезд»</span><span><i style="background:var(--green)"></i>Велопарковка на 40 мест</span><span><i style="background:var(--brick)"></i>Своей парковки нет — лучше на метро</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="tickets" aria-labelledby="h-tix">
+  <div class="wrap">
+    <div class="head"><h2 id="h-tix"><span class="eyebrow">Участие</span>Билеты и места для студентов</h2></div>
+    <div class="tix">
+      <div class="ticket">
+        <span class="k">Билет на весь день</span>
+        <p class="price num">3 500 ₽</p>
+        <ul>
+          <li>Все 10 докладов и дискуссия</li>
+          <li>Кофе-брейки и обед</li>
+          <li>Слайды и записи через неделю</li>
+        </ul>
+        <a class="btn" id="buy" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет ↗</a>
+        <p class="note">Откроется сайт билетного оператора в новой вкладке. Оплаты на этой странице нет — данные карты здесь не вводятся.</p>
+      </div>
+      <div class="reg">
+        <h3>Студентам — бесплатно</h3>
+        <p class="intro">30 мест для студентов очной формы. Оставьте контакты — пришлём подтверждение, студенческий покажете на входе.</p>
+        <form id="form" novalidate>
+          <div class="f"><label for="n">Имя и фамилия</label><input id="n" name="name" autocomplete="name" required aria-describedby="n-e"><span class="err" id="n-e"></span></div>
+          <div class="row2">
+            <div class="f"><label for="e">Почта</label><input id="e" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="e-e"><span class="err" id="e-e"></span></div>
+            <div class="f"><label for="p">Телефон</label><input id="p" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (900) 000-00-00" required aria-describedby="p-e"><span class="err" id="p-e"></span></div>
+          </div>
+          <label class="agree"><input type="checkbox" id="c" required aria-describedby="c-e"><span>Согласен на обработку персональных данных для регистрации на форум</span></label>
+          <span class="err" id="c-e"></span>
+          <button class="btn" type="submit">Зарегистрироваться</button>
+          <div class="ok" id="ok" role="status">
+            <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#2E7D5B"/><path d="M8 14.5l4 4 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><b>Место за вами.</b> Демо: заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <svg viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 90V52h60V30h50v22h40V10h70v42h30V38h60v52zM340 90V44h80V20h46v24h54V56h40V28h70v62zM640 90V34h64v18h40V8h60v44h46V26h80v64zM930 90V50h50V24h70v26h36V40h60V14h54v76z" fill="#1F2A37"/>
+  </svg>
+  <div class="wrap">
+    <span>«Квартал: город для людей» · 21 марта 2027 · Литейный проезд, 12</span>
+    <span>Организаторам: <a href="mailto:hello@example.org">hello@example.org</a> · <a href="tel:+79000000000">+7 (900) 000-00-00</a></span>
+    <span>Демо-концепт · данные вымышлены</span>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <span><b>3 500 ₽</b>оплата у оператора</span>
+  <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет ↗</a>
+</div>
+
+<script>
+(function(){
+  var target = Date.parse('2027-03-21T10:00:00+03:00');
+  var el = {}; document.querySelectorAll('#cd [data-u]').forEach(function(b){ el[b.dataset.u] = b; });
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function tick(){
+    var ms = target - Date.now();
+    if (ms <= 0){ document.getElementById('cd-l').textContent = 'Форум идёт или уже прошёл'; for (var k in el) el[k].textContent = '0'; return; }
+    var s = Math.floor(ms / 1000);
+    el.d.textContent = Math.floor(s / 86400);
+    el.h.textContent = pad(Math.floor(s % 86400 / 3600));
+    el.m.textContent = pad(Math.floor(s % 3600 / 60));
+    el.s.textContent = pad(s % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  var pills = document.querySelectorAll('.pill');
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      pills.forEach(function(x){ x.setAttribute('aria-pressed', x === p); });
+      var f = p.dataset.f;
+      document.querySelectorAll('#prog .it').forEach(function(r){ r.classList.toggle('dim', f !== 'all' && r.dataset.k !== f); });
+    });
+  });
+
+  var form = document.getElementById('form'), phone = document.getElementById('p');
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g, '');
+    if (d[0] === '8') d = '7' + d.slice(1);
+    if (d && d[0] !== '7') d = '7' + d;
+    d = d.slice(0, 11);
+    var o = d.length ? '+7' : '';
+    if (d.length > 1) o += ' (' + d.slice(1, 4);
+    if (d.length >= 4) o += ')';
+    if (d.length > 4) o += ' ' + d.slice(4, 7);
+    if (d.length > 7) o += '-' + d.slice(7, 9);
+    if (d.length > 9) o += '-' + d.slice(9, 11);
+    phone.value = o;
+  });
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var n = document.getElementById('n'), e = document.getElementById('e'), c = document.getElementById('c');
+    var ok = true, first = null;
+    function chk(input, id, msg){
+      document.getElementById(id).textContent = msg;
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (msg){ ok = false; first = first || input; }
+    }
+    chk(n, 'n-e', n.value.trim().length < 2 ? 'Напишите имя — по нему найдём вас в списке на входе' : '');
+    chk(e, 'e-e', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim()) ? '' : 'Нужен адрес вида name@mail.ru');
+    chk(phone, 'p-e', phone.value.replace(/\D/g, '').length === 11 ? '' : 'Нужно 11 цифр, например +7 (900) 000-00-00');
+    chk(c, 'c-e', c.checked ? '' : 'Без согласия мы не можем записать вас');
+    document.getElementById('ok').classList.toggle('show', ok);
+    if (first) first.focus();
+    if (ok) form.querySelector('button').textContent = 'Заявка принята';
+  });
+
+  var sticky = document.getElementById('sticky');
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){ sticky.classList.toggle('hide', en[0].isIntersecting); }, {threshold: .1}).observe(document.getElementById('tickets'));
+  }
+})();
+</script>
+</body>
+</html>

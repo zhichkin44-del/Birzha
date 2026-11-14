@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бурый Сорт — кофейня и обжарка в Новосибирске</title>
+<meta name="description" content="Фильтр, эспрессо и моно-сорта своей обжарки. Семь минут пешком от метро «Площадь Ленина». Бронь столика онлайн.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* =====================================================================
+   МЕНЮ И ЧАСЫ — ВСЁ, ЧТО МЕНЯЕТСЯ, ЗДЕСЬ.
+   Как поменять без программиста:
+   1. Откройте этот файл в любом текстовом редакторе (Блокнот подойдёт).
+   2. Найдите нужную позицию ниже и поменяйте текст в кавычках или цену.
+      Цена — просто число, без пробелов и «₽»: price: 230
+   3. Новая позиция — скопируйте строку целиком вместе с { } и запятой
+      в конце и поменяйте в копии название и цену.
+   4. Убрать позицию — удалите её строку целиком.
+   5. Сохраните файл и обновите страницу. Больше ничего трогать не нужно.
+   В зерне roast: 1 — светлая, 2 — средняя, 3 — тёмная обжарка.
+   У нового зерна картинка страны подберётся сама, если страна одна из
+   четырёх уже заведённых; для другой будет нейтральная заставка.
+   ===================================================================== */
+const MENU = {
+  beans: [
+    { name: "Кочере", country: "Эфиопия", region: "Иргачеффе", altitude: "1900–2100 м", process: "Мытая", roast: 1, notes: ["жасмин", "бергамот", "лимонная цедра"], weight: "250 г", price: 1150 },
+    { name: "Ньери AA", country: "Кения", region: "Ньери", altitude: "1700–1800 м", process: "Мытая", roast: 1, notes: ["чёрная смородина", "грейпфрут", "тростниковый сахар"], weight: "250 г", price: 1290 },
+    { name: "Уила", country: "Колумбия", region: "Уила", altitude: "1600–1900 м", process: "Хани", roast: 2, notes: ["красное яблоко", "карамель", "какао"], weight: "250 г", price: 990 },
+    { name: "Серрадо", country: "Бразилия", region: "Минас-Жерайс", altitude: "1000–1200 м", process: "Натуральная", roast: 3, notes: ["фундук", "молочный шоколад", "изюм"], weight: "250 г", price: 790 }
+  ],
+  bar: [
+    { group: "Фильтр", hint: "Зерно на выбор из витрины", items: [
+      { name: "Воронка", note: "250 мл, заваривает бариста при вас", price: 280 },
+      { name: "Аэропресс", note: "200 мл, плотнее и слаще", price: 270 },
+      { name: "Батч-брю", note: "300 мл, сварен утром, без ожидания", price: 190 },
+      { name: "Колд-брю", note: "300 мл, настаиваем 16 часов", price: 260 }
+    ]},
+    { group: "Эспрессо", hint: "На бразильском Серрадо", items: [
+      { name: "Эспрессо", note: "30 мл", price: 150 },
+      { name: "Кортадо", note: "120 мл", price: 210 },
+      { name: "Капучино", note: "250 мл", price: 230 },
+      { name: "Флэт уайт", note: "200 мл, двойной шот", price: 240 },
+      { name: "Раф", note: "300 мл, на домашнем ванильном сиропе", price: 290 },
+      { name: "Овсяное молоко", note: "к любому напитку", price: 60 }
+    ]},
+    { group: "Десерты", hint: "Печём в соседней пекарне по нашим рецептам", items: [
+      { name: "Баскский чизкейк", note: "кусок", price: 320 },
+      { name: "Морковный торт", note: "с апельсиновым кремом", price: 290 },
+      { name: "Канеле", note: "ромовый, хрустящая корочка", price: 140 },
+      { name: "Миндальный круассан", note: "", price: 220 },
+      { name: "Печенье с морской солью", note: "тёмный шоколад", price: 120 }
+    ]}
+  ]
+};
+/* Часы работы. days: 1 — понедельник … 7 — воскресенье. */
+const HOURS = [
+  { label: "Понедельник — пятница", short: "Пн — Пт", days: [1, 2, 3, 4, 5], open: 8, close: 21 },
+  { label: "Суббота и воскресенье", short: "Сб — Вс", days: [6, 7], open: 9, close: 22 }
+];
+const PHONE = { text: "+7 (900) 000-00-00", href: "tel:+79000000000" };
+</script>
+<style>
+:root{
+  --paper:#f6eedd; --paper2:#eee1c8; --cream:#fcf8ef; --ink:#2a1c13; --ink2:#53402f;
+  --rust:#8e3f1d; --brown:#6e4128; --line:#d6c3a0; --sage:#55603f; --soft:#dccaa5;
+  --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+  --text:"Lora", Georgia, serif;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:16px; -webkit-text-size-adjust:100%}
+body{margin:0; background:var(--paper); color:var(--ink); font:400 18px/1.62 var(--text); overflow-x:hidden;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .12 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rust); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1180px; margin:0 auto; padding:0 32px}
+.mono{font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase}
+h1,h2,h3{font-family:var(--serif); font-weight:700; line-height:1.04; margin:0; letter-spacing:-.012em; text-wrap:balance}
+h2{font-size:clamp(38px,5.2vw,68px)}
+h2 em, h1 em{font-style:italic; font-weight:500; color:var(--rust)}
+.kicker{display:flex; align-items:center; gap:14px; color:var(--rust); margin-bottom:22px}
+.kt{display:flex; flex-wrap:wrap; gap:2px 12px}
+.kicker::before{content:""; flex:none; width:34px; height:1px; background:currentColor}
+p{text-wrap:pretty}
+
+/* ---------- шапка ---------- */
+.top{position:relative; z-index:20; background:var(--paper); border-bottom:1px solid var(--line)}
+.demo{background:var(--ink); color:#f6e9d2; text-align:center; padding:8px 12px; font:500 13px/1.3 var(--mono); letter-spacing:.1em; text-transform:uppercase}
+.demo b{color:#f2b98f; font-weight:500}
+.bar{display:flex; align-items:center; gap:28px; height:80px}
+.logo{min-height:44px; display:flex; align-items:center; gap:11px; text-decoration:none; flex:none}
+.logo svg{width:44px; height:44px; flex:none}
+.logo span{font:700 25px/1 var(--serif); letter-spacing:-.01em; white-space:nowrap}
+.logo span i{font-style:italic; font-weight:500; color:var(--rust)}
+.nav{display:flex; gap:30px; margin-left:auto}
+.nav a{text-decoration:none; font:500 13px var(--mono); letter-spacing:.12em; text-transform:uppercase; padding:14px 0; border-bottom:1px solid transparent}
+.nav a:hover{border-color:var(--ink)}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:50px; padding:0 26px; border-radius:999px; border:1.5px solid var(--ink);
+  background:var(--ink); color:var(--cream); font:600 16.5px/1 var(--text); text-decoration:none; cursor:pointer; transition:background .2s, color .2s, border-color .2s; white-space:nowrap}
+.btn:hover{background:var(--rust); border-color:var(--rust)}
+.btn.ghost{background:transparent; color:var(--ink)}
+.btn.ghost:hover{background:var(--ink); color:var(--cream); border-color:var(--ink)}
+.btn svg{width:19px; height:19px; flex:none}
+.call-ico{display:none}
+
+/* ---------- первый экран ---------- */
+.hero{padding:56px 0 0; position:relative}
+.hero-grid{display:grid; grid-template-columns:1.02fr .98fr; gap:24px; align-items:center}
+.hero h1{font-size:clamp(84px,13.6vw,176px); line-height:.96; letter-spacing:-.035em; margin:6px 0 0; font-weight:800}
+.hero h1 span{display:block}
+.hero h1 em{font-style:normal; font-weight:500; letter-spacing:-.025em; margin-left:.9em}
+.tagline{font:italic 500 clamp(24px,2.4vw,31px)/1.25 var(--serif); color:var(--ink); margin:34px 0 0; max-width:480px}
+.lede{font-size:18px; max-width:480px; color:var(--ink2); margin:18px 0 32px}
+.cta{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
+.status{display:inline-flex; align-items:center; gap:12px; margin-top:30px; padding:10px 18px 10px 16px; border:1px solid var(--soft); border-radius:999px; background:var(--cream); font:500 14px var(--mono); letter-spacing:.03em}
+.status i{flex:none; width:10px; height:10px; border-radius:50%; background:#3f7a3a; box-shadow:0 0 0 4px rgba(63,122,58,.18)}
+.status.closed i{background:var(--rust); box-shadow:0 0 0 4px rgba(142,63,29,.18)}
+.hero-art{position:relative}
+.hero-art svg{display:block; width:100%; height:auto; border-radius:14px; box-shadow:0 40px 60px -42px rgba(70,38,14,.55)}
+
+.facts{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--ink); margin-top:72px}
+.facts div{padding:28px 28px 30px 0; display:flex; gap:18px; align-items:flex-start}
+.facts div+div{padding-left:28px; border-left:1px solid var(--line)}
+.facts b{font:700 46px/.95 var(--serif); font-variant-numeric:lining-nums; color:var(--rust); flex:none; min-width:56px}
+.facts p{margin:0; font-size:16.5px; line-height:1.5; color:var(--ink2)}
+.facts p strong{display:block; font:600 17.5px var(--text); color:var(--ink); margin-bottom:2px}
+
+/* ---------- паспорт зерна ---------- */
+section{padding:112px 0}
+.head{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:end; margin-bottom:64px}
+.head p{margin:0; color:var(--ink2); max-width:440px; justify-self:end}
+.beans{background:var(--paper2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.passports{display:grid; grid-template-columns:repeat(6,1fr); gap:24px}
+.pass{background:var(--cream); border-radius:4px; display:grid; overflow:hidden; box-shadow:0 1px 0 var(--line), 0 24px 36px -30px rgba(60,35,15,.5); grid-column:span 2}
+.pass.wide{grid-column:span 4; grid-template-columns:.9fr 1.1fr}
+.pass.wide.flip{grid-template-columns:1.1fr .9fr}
+.pass.wide.flip .pic{order:2}
+.pass.tall{grid-template-rows:170px 1fr}
+.pic{position:relative; min-height:170px; overflow:hidden; background:var(--soft)}
+.pic svg{position:absolute; inset:0; width:100%; height:100%; display:block; max-width:none}
+.pic .v-p{display:none}
+@media (min-width:1081px){.pass.wide .v-l{display:none}.pass.wide .v-p{display:block}}
+.pbody{padding:26px 28px 24px; display:flex; flex-direction:column}
+.pass .no{display:flex; justify-content:space-between; color:var(--ink2); font:500 12.5px var(--mono); letter-spacing:.14em; text-transform:uppercase}
+.pass h3{font-size:40px; margin:14px 0 4px}
+.pass.wide h3{font-size:62px}
+.pass.wide .pbody{padding:34px 38px 28px; justify-content:space-between}
+.pass.wide .rows{margin-bottom:0}
+.pass.wide .price{margin-top:0}
+.pass.wide .rows .full span{font:italic 500 24px/1.35 var(--serif)}
+.pass.wide .lead{margin-bottom:0}
+.pass.wide .lead{margin-top:32px}
+.pass.wide .lead .big{font-size:50px}
+.pass.wide .rows div{padding:17px 0 18px}
+.pass.wide .rows span{font-size:18px}
+.pass .reg{font:italic 17px var(--text); color:var(--ink2); margin:0}
+.lead{margin:22px 0 10px; padding-top:20px; border-top:1px solid var(--line)}
+.lead small, .rows small{display:block; font:500 12.5px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:#6c5745}
+.lead .big{font:700 40px/1.05 var(--serif); color:var(--rust); margin-top:8px; letter-spacing:-.01em}
+.lead .big.q{font:italic 500 23px/1.3 var(--serif); color:var(--ink)}
+.rows{display:grid; grid-template-columns:1fr 1fr; gap:0 22px; margin:6px 0 22px}
+.rows div{padding:12px 0 13px; border-top:1px solid var(--line)}
+.rows div.full{grid-column:1/-1}
+.rows span{display:block; font-size:17px; margin-top:3px; line-height:1.35}
+.rscale{display:block; position:relative; height:8px; border-radius:99px; margin:24px 12px 10px 0; background:linear-gradient(90deg,#d8a766,#a8683a 45%,#5d3219 75%,#24130a)}
+.rows span.rscale{margin:24px 12px 8px 0}
+.rscale i{position:absolute; top:50%; left:var(--p); width:20px; height:26px; transform:translate(-50%,-50%) rotate(24deg)}
+.rscale i svg{display:block; width:100%; height:100%}
+.pass .price{margin-top:auto; display:flex; justify-content:space-between; align-items:baseline; padding-top:16px}
+.pass .price b{font:700 30px var(--serif)}
+.pass .price span{font:500 13px var(--mono); color:var(--ink2); letter-spacing:.04em}
+
+/* ---------- меню ---------- */
+.menu-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:72px}
+.col h3{font-size:36px; display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:14px}
+.col h3 small{font:500 12.5px var(--mono); letter-spacing:.14em; color:var(--rust); text-transform:uppercase; white-space:nowrap}
+.col .hint{font:italic 16.5px var(--text); color:var(--ink2); margin:12px 0 8px}
+.col ul{list-style:none; margin:0; padding:0}
+.col li{padding:15px 0; border-bottom:1px solid var(--line)}
+.col .row{display:flex; align-items:baseline; gap:10px}
+.col .row span{font-weight:600}
+.col .row i{flex:1; border-bottom:2px dotted #a58c66; transform:translateY(-4px)}
+.col .row b{font:500 16.5px var(--mono)}
+.col li small{display:block; font-size:15.5px; color:#625040; line-height:1.4; margin-top:1px}
+.menu-note{display:flex; gap:24px; align-items:center; margin-top:72px; padding:26px 30px; border-top:1px solid var(--ink); border-bottom:1px solid var(--line)}
+.menu-note svg{flex:none; width:44px; height:44px; color:var(--rust)}
+.menu-note p{margin:0}
+.col .menu-note{margin-top:32px; padding:22px 0 0; gap:18px; align-items:flex-start; border-bottom:0; flex-direction:row}
+.col .menu-note p{font-size:16px; line-height:1.5}
+
+/* ---------- как дойти ---------- */
+.visit{background:var(--ink); color:#f3e7d3}
+.visit .kicker{color:#f0b48a}
+.visit h2 em{color:#f0b48a}
+.visit .head p{color:#dccdb6}
+.visit-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:64px; align-items:start}
+.map{background:#efe3cb; border-radius:6px; padding:14px; color:var(--ink); margin:0}
+.map svg{display:block; width:100%; height:auto}
+.map text{font-family:var(--mono); font-size:13px; fill:#53402f; letter-spacing:.08em}
+.map .t-name{font-family:var(--serif); font-weight:700; font-size:23px; letter-spacing:0; fill:#2a1c13}
+.map .t-pill{font-size:14px; fill:#f6eedd; letter-spacing:.02em}
+.map .t-addr{font-size:14px}
+.map .t-cap{font-size:13px}
+.map .t-n{font-size:13px}
+.map figcaption{font:500 13px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:#53402f; padding:12px 6px 2px}
+.addr{font:700 34px/1.12 var(--serif); margin:4px 0 6px}
+.addr+p{margin:0 0 30px; color:#dccdb6}
+.steps{list-style:none; counter-reset:s; padding:0; margin:0 0 36px}
+.addr+p+.steps{margin-top:0}
+.steps li{counter-increment:s; position:relative; padding:0 0 18px 52px; color:#eadcc5}
+.steps li::before{content:counter(s); position:absolute; left:0; top:-1px; width:34px; height:34px; border:1px solid #f0b48a; border-radius:50%; display:grid; place-items:center; font:500 14px var(--mono); color:#f0b48a}
+.band{display:block; margin-top:72px; border-top:1px solid #f3e7d3; border-bottom:1px solid #6a5545}
+.callcard{border-top:1px solid #6a5545; padding-top:22px}
+.callcard .mono{color:#d8c8b0}
+.phone-big{display:block; font:700 clamp(30px,3vw,38px)/1.2 var(--serif); text-decoration:none; color:#fff; margin:6px 0 20px; font-variant-numeric:lining-nums}
+.phone-big:hover{color:#f0b48a}
+.todayline{display:flex; align-items:center; gap:12px; margin:0; padding:24px 0 10px; font:500 13px/1.4 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:#f0b48a}
+.todayline i{flex:none; width:10px; height:10px; border-radius:50%; background:#7fcf7a; box-shadow:0 0 0 4px rgba(127,207,122,.2)}
+.todayline.closed i{background:#f0b48a; box-shadow:0 0 0 4px rgba(240,180,138,.2)}
+.hrs{display:grid; grid-template-columns:1fr 1fr}
+.hrs div{padding:14px 0 28px}
+.hrs div+div{border-left:1px solid #6a5545; padding-left:32px}
+.hrs .lab{display:block; font:500 13px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#d8c8b0}
+.hrs b{display:block; font:700 clamp(40px,5.4vw,72px)/1 var(--serif); letter-spacing:-.02em; color:#fff; margin-top:10px; white-space:nowrap; font-variant-numeric:lining-nums}
+.hrs b span{color:#f0b48a; font-weight:500}
+.hrs .today .lab::after{content:" · сегодня"; color:#f0b48a}
+.visit .btn{background:#f0b48a; border-color:#f0b48a; color:var(--ink)}
+.visit .btn:hover{background:#fff; border-color:#fff}
+.visit .btn.ghost{background:transparent; color:#f3e7d3; border-color:#f3e7d3}
+.visit .btn.ghost:hover{background:#f3e7d3; color:var(--ink)}
+
+/* ---------- бронь ---------- */
+.book-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:80px; align-items:start}
+.book-side p{color:var(--ink2); margin:26px 0}
+.book-side ul{padding:0; margin:0; list-style:none}
+.book-side li{padding:14px 0 14px 34px; border-top:1px solid var(--line); position:relative}
+.book-side li::before{content:""; position:absolute; left:4px; top:22px; width:14px; height:9px; border-left:2px solid var(--rust); border-bottom:2px solid var(--rust); transform:rotate(-45deg)}
+form{background:var(--cream); border:1px solid var(--ink); border-radius:6px; padding:40px; position:relative}
+.fields{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+.f{display:flex; flex-direction:column; gap:8px}
+.f.wide{grid-column:1/-1}
+label{font:500 13px var(--mono); letter-spacing:.12em; text-transform:uppercase}
+input,select{font:400 17px var(--text); color:var(--ink); background:#fff; border:1.5px solid #b9a07a; border-radius:6px; min-height:52px; padding:0 14px; width:100%; appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232a1c13' stroke-width='2'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px}
+fieldset.days{border:0; margin:0; padding:0; min-width:0}
+legend{padding:0; margin-bottom:8px; font:500 13px var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.chips{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px}
+.chip .mo{display:none}
+.chip b{font-weight:500}
+.chip{position:relative; display:block; cursor:pointer}
+.chip input{position:absolute; inset:0; opacity:0; width:100%; height:100%; min-height:0; margin:0; cursor:pointer}
+.chip span{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:68px; padding:6px 2px; border:1.5px solid #b9a07a; border-radius:8px; background:#fff; font:400 20px/1 var(--serif); font-variant-numeric:lining-nums; transition:background .15s,color .15s,border-color .15s}
+.chip span small{font:500 12.5px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:#53402f}
+.chip span em{font:500 12px/1 var(--mono); font-style:normal; color:var(--rust); letter-spacing:.02em; text-transform:lowercase}
+.chip:hover span{border-color:var(--ink)}
+.chip input:checked + span{background:var(--ink); border-color:var(--ink); color:var(--cream)}
+.chip input:checked + span small{color:#f0b48a}
+.chip input:checked + span em{color:#f0b48a}
+.chip input:focus-visible + span{outline:3px solid var(--rust); outline-offset:2px}
+input:focus,select:focus{outline:none; border-color:var(--ink); box-shadow:0 0 0 3px rgba(142,63,29,.25)}
+[aria-invalid="true"]{border-color:#b3261e; background:#fff4f1}
+.err{min-height:20px; font-size:14.5px; color:#a2231b; line-height:1.3}
+form .btn{width:100%; margin-top:10px; min-height:56px; font-size:17px}
+.fine{font-size:14.5px; color:#625040; margin:14px 0 0; text-align:center}
+.ok{display:none; text-align:center; padding:20px 4px}
+.ok svg{width:88px; height:88px}
+.ok h3{font-size:36px; margin:10px 0}
+.ok .demo-msg{background:var(--paper2); border-radius:6px; padding:14px 16px; font-size:16px; margin:16px 0}
+form.sent .fields, form.sent > .btn, form.sent .fine{display:none}
+form.sent .ok{display:block}
+
+footer{border-top:1px solid var(--ink); padding:40px 0 48px; font-size:16px; color:var(--ink2)}
+.foot{display:flex; flex-wrap:wrap; gap:18px 40px; justify-content:space-between; align-items:center}
+.foot .logo span{font-size:22px}
+.foot a.js-phone{display:inline-block; padding:12px 0}
+.foot .mono{font-size:13px}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1080px){
+  .nav{display:none}
+  .bar{justify-content:space-between}
+  .bar .logo{margin-right:auto}
+  .call-ico{display:inline-flex; width:48px; padding:0}
+  .passports{grid-template-columns:repeat(2,1fr)}
+  .pass,.pass.wide{grid-column:span 1}
+  .pass.wide,.pass.wide.flip{grid-template-columns:1fr; grid-template-rows:200px 1fr}
+  .pass.wide.flip .pic{order:0}
+  .pass.wide h3{font-size:44px}
+  .visit-grid{gap:40px}
+  .book-grid{gap:48px}
+  .menu-grid{gap:40px}
+}
+@media (max-width:860px){
+  .hero-grid,.visit-grid,.book-grid,.head{grid-template-columns:minmax(0,1fr)}
+  .head{gap:20px}
+  .head p{justify-self:start}
+  .menu-grid{grid-template-columns:1fr; gap:52px}
+  .hero-art{max-width:540px; margin:8px auto 0}
+  .hero h1{font-size:clamp(84px,24vw,150px)}
+  .facts{margin-top:64px}
+  section{padding:96px 0}
+}
+@media (max-width:700px){
+  .passports{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  body{font-size:17px}
+  html{scroll-padding-top:12px}
+  .wrap{padding:0 16px}
+  .demo{font-size:13px; letter-spacing:.04em; padding:8px 10px}
+  .bar{height:64px; gap:8px}
+  .logo{gap:8px}
+  .logo svg{width:38px; height:38px}
+  .logo span{font-size:19px}
+  .bar .btn[data-book]{padding:0 15px; font-size:14.5px; min-height:44px}
+  .call-ico{width:44px; min-height:44px}
+  .hero{padding:32px 0 0}
+  .hero h1{font-size:clamp(84px,27vw,124px)}
+  .tagline{font-size:26px; margin-top:26px}
+  .lede{font-size:17px; margin:16px 0 26px}
+  .cta .btn{flex:1 1 100%}
+  .facts{grid-template-columns:1fr; margin-top:48px}
+  .facts div, .facts div+div{padding:22px 0; border-left:0}
+  .facts div+div{border-top:1px solid var(--line)}
+  section{padding:80px 0}
+  .head{margin-bottom:40px}
+  .mono,.kicker{font-size:13px}
+  h2{font-size:clamp(32px,9.6vw,44px)}
+  .pass .no,.lead small,.rows small,.col h3 small,label,.hrs .lab,.map figcaption,.pass .price span{font-size:13px}
+  .pbody{padding:24px 22px 22px}
+  .pass h3,.pass.wide h3{font-size:40px}
+  .lead .big{font-size:34px}
+  .pass.wide .lead .big{font-size:38px}
+  .pass.wide .pbody{padding:26px 22px 22px}
+  .pass.wide .lead{margin-top:22px}
+  .kt .sep{display:none}
+  .col h3{font-size:32px}
+  .menu-note{flex-direction:column; align-items:flex-start; padding:24px 0}
+  .col .menu-note{flex-direction:row}
+  .visit-grid{gap:44px}
+  .map{padding:10px}
+  .map text{font-size:18px}
+  .map .t-cap, .map .t-addr, .map .t-n{font-size:18px}
+  .map .t-name{font-size:26px}
+  .map .t-pill{font-size:18px}
+  .steps{margin-bottom:8px}
+  .addr{font-size:28px}
+  .hrs b{font-size:clamp(34px,11vw,44px)}
+  .hrs div+div{padding-left:16px}
+  .hrs .lab{min-height:2.7em}
+  .hrs .today .lab::after{content:"сегодня"; display:block}
+  .band{margin-top:44px}
+  form{padding:24px 18px}
+  .fields{grid-template-columns:1fr; gap:16px}
+  .chips{gap:5px}
+  .chip .td{display:none}
+  .chip .mo{display:inline}
+  .chip span{min-height:64px; font-size:18px}
+  .chip span small, .chip span em{font-size:13px; letter-spacing:0}
+  .visit .cta .btn{flex:1 1 100%}
+}
+@media (max-width:380px){
+  .map text, .map .t-cap, .map .t-addr, .map .t-n, .map .t-pill{font-size:19px}
+  .map .t-name{font-size:27px}
+}
+@media (max-width:399px){
+  .bar .logo span{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+}
+
+.tabbar{display:none}
+@media (max-width:620px){
+  body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+  .tabbar{position:fixed; left:0; right:0; bottom:0; z-index:50; display:grid; grid-template-columns:repeat(4,1fr); background:rgba(246,238,221,.97); border-top:1px solid var(--ink); padding-bottom:env(safe-area-inset-bottom); backdrop-filter:blur(8px)}
+  .tabbar a{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:62px; text-decoration:none; font:500 13px/1 var(--mono); letter-spacing:.02em; color:var(--ink2)}
+  .tabbar svg{width:24px; height:24px}
+  .tabbar a[aria-current="true"]{color:var(--rust); box-shadow:inset 0 3px 0 var(--rust)}
+  .tabbar .tab-main{background:var(--ink); color:var(--cream)}
+  .tabbar .tab-main[aria-current="true"]{color:#f0b48a; box-shadow:none}
+  html{scroll-padding-top:12px}
+  section{scroll-margin-top:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important} html{scroll-behavior:auto}}
+.steam path{animation:rise 5s ease-in-out infinite}
+.steam path:nth-child(2){animation-delay:1.6s}.steam path:nth-child(3){animation-delay:3.2s}
+@keyframes rise{0%,100%{opacity:.35; transform:translateY(5px)}50%{opacity:.9; transform:translateY(-3px)}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6.6 3.5h-2a1.5 1.5 0 0 0-1.5 1.6C3.6 13.3 10.7 20.4 18.9 21a1.5 1.5 0 0 0 1.6-1.5v-2.1a1 1 0 0 0-.7-1l-3.3-1.1a1 1 0 0 0-1 .3l-1.4 1.6a12.4 12.4 0 0 1-6.3-6.3l1.6-1.4a1 1 0 0 0 .3-1L8.6 4.2a1 1 0 0 0-1-.7z"/></symbol>
+    <symbol id="logo-mark" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22.5" fill="#2a1c13"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#f0b48a" stroke-width="1" stroke-dasharray="1.5 2.5"/><g transform="translate(24 24) rotate(28)"><ellipse rx="8.5" ry="12" fill="#c9783f"/><path d="M1 -11C-5.5 -4 5.5 3 -1 11" fill="none" stroke="#2a1c13" stroke-width="2.2" stroke-linecap="round"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="demo" role="note">Демо-концепт · <b>данные вымышлены</b></div>
+  <div class="wrap bar">
+    <a class="logo" href="#" aria-label="Бурый Сорт — на главную">
+      <svg aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span>Бурый <i>Сорт</i></span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#beans">Зерно</a><a href="#menu">Меню</a><a href="#visit">Как дойти</a><a href="#book">Бронь</a>
+    </nav>
+    <a class="btn ghost call-ico js-phone" href="tel:+79000000000" aria-label="Позвонить в кофейню" title="Позвонить"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
+    <a class="btn" href="#book" data-book>Забронировать столик</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1" style="padding-bottom:0">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker mono"><span class="kt"><span>Кофе-бар и обжарка</span><span class="sep" aria-hidden="true">·</span><span>Новосибирск</span></span></div>
+      <h1 id="h1"><span>Бурый</span><span><em>Сорт</em></span></h1>
+      <p class="tagline">Кофе, который мы&nbsp;обжарили в&nbsp;этот четверг.</p>
+      <p class="lede">Фильтр в воронке, эспрессо и&nbsp;моно-сорта из Эфиопии, Кении и&nbsp;Колумбии. Небольшие партии, зал на&nbsp;20&nbsp;мест, семь минут пешком от&nbsp;метро «Площадь Ленина».</p>
+      <div class="cta">
+        <a class="btn" href="#book" data-book>Забронировать столик</a>
+        <a class="btn ghost" href="#menu">Посмотреть меню</a>
+      </div>
+      <div class="status js-status" aria-live="polite"><i></i><span>Проверяем часы работы…</span></div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 600 640" role="img" aria-label="Иллюстрация: у окна на деревянном столе стоит воронка с фильтром над стеклянным сервером, медный чайник льёт тонкую струю, рядом чашка на блюдце и веточка кофейного дерева в вазе">
+        <defs>
+          <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3c797"/><stop offset="1" stop-color="#d2ae7c"/></linearGradient>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf0d2"/><stop offset=".55" stop-color="#fbddad"/><stop offset="1" stop-color="#f4c58a"/></linearGradient>
+          <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffaf0"/><stop offset=".45" stop-color="#fff0cf"/><stop offset="1" stop-color="#fff0cf" stop-opacity="0"/></radialGradient>
+          <linearGradient id="table" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a06a3d"/><stop offset=".5" stop-color="#8a5630"/><stop offset="1" stop-color="#6d4023"/></linearGradient>
+          <linearGradient id="porc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e6d3b0"/><stop offset=".38" stop-color="#fffaf0"/><stop offset=".78" stop-color="#f0e2c6"/><stop offset="1" stop-color="#d4b88e"/></linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".22" stop-color="#fff" stop-opacity=".16"/><stop offset=".8" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".5"/></linearGradient>
+          <linearGradient id="coffee" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a4b25"/><stop offset=".25" stop-color="#5a2f18"/><stop offset="1" stop-color="#26130a"/></linearGradient>
+          <linearGradient id="copper" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f4a22"/><stop offset=".35" stop-color="#d98a52"/><stop offset=".6" stop-color="#b96a35"/><stop offset="1" stop-color="#7a3c1a"/></linearGradient>
+          <linearGradient id="glaze" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b7a4a"/><stop offset=".4" stop-color="#a1ac76"/><stop offset="1" stop-color="#55603f"/></linearGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e3a1f"/><stop offset=".5" stop-color="#b06c3e"/><stop offset="1" stop-color="#6e3a1f"/></linearGradient>
+          <clipPath id="plate"><rect width="600" height="640" rx="14"/></clipPath>
+          <clipPath id="serverClip"><path d="M225 396L220 440C158 470 146 522 160 548C168 568 195 578 270 578C345 578 372 568 380 548C394 522 382 470 320 440L315 396Z"/></clipPath>
+          <clipPath id="winClip"><path d="M126 444V212A144 144 0 0 1 414 212V444Z"/></clipPath>
+          <filter id="blur4" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+          <filter id="blur2" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+          <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .1  0 0 0 0 .05  0 0 0 .5 0"/></filter>
+          <path id="leaf" d="M0 0C10 -9 30 -10 44 0C30 10 10 9 0 0Z"/>
+        </defs>
+
+        <g clip-path="url(#plate)">
+          <!-- стена -->
+          <rect width="600" height="640" fill="url(#wall)"/>
+          <g stroke="#b78d5a" stroke-opacity=".28" stroke-width="1.2"><path d="M0 120h600M0 200h600M0 290h600M0 370h600"/></g>
+
+          <!-- окно -->
+          <path d="M112 452V212A158 158 0 0 1 428 212V452Z" fill="#7a4a2a"/>
+          <g clip-path="url(#winClip)">
+            <rect x="100" y="40" width="340" height="420" fill="url(#sky)"/>
+            <circle cx="318" cy="182" r="96" fill="url(#sun)"/>
+            <circle cx="318" cy="182" r="32" fill="#fffaf0" opacity=".95"/>
+            <!-- далёкие крыши -->
+            <path d="M126 392h40l8-18 12 18h26v-12h22l10-24 10 24h30v-20h24l12-16 12 16h28v30h50v70H126z" fill="#e9b983" opacity=".75"/>
+            <path d="M126 424h60l10-14 12 14h44l10-20 10 20h56l12-12 10 12h56v30H126z" fill="#d89a63" opacity=".8"/>
+            <!-- переплёт -->
+            <g stroke="#7a4a2a" stroke-width="7"><path d="M270 40V452M120 300H420M120 372H420"/></g>
+            <path d="M270 40V452" stroke="#fff" stroke-opacity=".25" stroke-width="2"/>
+          </g>
+          <path d="M126 444V212A144 144 0 0 1 414 212V444" fill="none" stroke="#5a3519" stroke-width="3"/>
+          <rect x="102" y="444" width="336" height="14" rx="3" fill="#8f5a33"/>
+          <rect x="102" y="444" width="336" height="3" fill="#c28a58"/>
+
+          <!-- стол -->
+          <path d="M0 458H600V640H0Z" fill="url(#table)"/>
+          <path d="M0 458H600" stroke="#2a1c13" stroke-opacity=".5" stroke-width="2"/>
+          <g fill="none" stroke="#3b2010" stroke-opacity=".3" stroke-width="1.3">
+            <path d="M0 512H600M0 566H600M0 620H600"/>
+          </g>
+          <g fill="none" stroke="#e4b27c" stroke-opacity=".22" stroke-width="1.2" stroke-linecap="round">
+            <path d="M18 480c80 -6 140 4 220 -2M300 486c60 4 130 -4 250 2M40 536c60 4 110 -3 190 2M330 540c70 -4 130 4 240 -2M60 590c90 5 150 -4 230 0M350 596c50 4 130 -4 220 2"/>
+          </g>
+          <!-- пятно света от окна и тени переплёта -->
+          <path d="M126 458H414L560 640H20Z" fill="#ffe3ae" opacity=".22"/>
+          <g fill="#2a1408" opacity=".14">
+            <path d="M266 458h8L342 640h-34Z"/>
+            <path d="M126 458h6L110 640H50Z" opacity=".5"/>
+          </g>
+
+          <!-- тени предметов -->
+          <ellipse cx="282" cy="588" rx="150" ry="17" fill="#241006" opacity=".42" filter="url(#blur4)"/>
+          <path d="M386 572C430 580 470 600 520 626L400 622Z" fill="#241006" opacity=".22" filter="url(#blur4)"/>
+          <ellipse cx="480" cy="598" rx="88" ry="12" fill="#241006" opacity=".4" filter="url(#blur4)"/>
+          <ellipse cx="92" cy="590" rx="46" ry="8" fill="#241006" opacity=".38" filter="url(#blur4)"/>
+
+          <!-- ваза с веткой кофейного дерева -->
+          <g>
+            <path d="M92 508C94 470 86 430 96 380C104 340 100 300 110 262" fill="none" stroke="#3d4a2a" stroke-width="4" stroke-linecap="round"/>
+            <path d="M96 400C70 388 58 370 52 350" fill="none" stroke="#3d4a2a" stroke-width="3" stroke-linecap="round"/>
+            <path d="M101 340C126 330 140 312 146 292" fill="none" stroke="#3d4a2a" stroke-width="3" stroke-linecap="round"/>
+            <g fill="#5d6b3c" stroke="#2a1c13" stroke-width="1.3" stroke-linejoin="round">
+              <use href="#leaf" transform="translate(110 262) rotate(-70) scale(1.05)"/>
+              <use href="#leaf" transform="translate(110 262) rotate(-20) scale(.95)" fill="#74834b"/>
+              <use href="#leaf" transform="translate(99 322) rotate(-160) scale(1.1)" fill="#74834b"/>
+              <use href="#leaf" transform="translate(101 340) rotate(-18) scale(1.05)"/>
+              <use href="#leaf" transform="translate(146 292) rotate(-50) scale(.9)" fill="#74834b"/>
+              <use href="#leaf" transform="translate(146 292) rotate(8) scale(.8)"/>
+              <use href="#leaf" transform="translate(52 350) rotate(-130) scale(.95)"/>
+              <use href="#leaf" transform="translate(52 350) rotate(-190) scale(.85)" fill="#74834b"/>
+              <use href="#leaf" transform="translate(96 400) rotate(-165) scale(.95)" fill="#74834b"/>
+              <use href="#leaf" transform="translate(94 430) rotate(-12) scale(.95)"/>
+            </g>
+            <g stroke="#2a1c13" stroke-width="1.2">
+              <circle cx="120" cy="352" r="6.5" fill="#b3321f"/><circle cx="128" cy="362" r="6" fill="#c2412a"/>
+              <circle cx="84" cy="378" r="6" fill="#b3321f"/><circle cx="76" cy="390" r="5.5" fill="#c2412a"/>
+              <circle cx="122" cy="300" r="5.5" fill="#c2412a"/>
+            </g>
+            <g fill="#fff" opacity=".6"><circle cx="118" cy="349" r="1.8"/><circle cx="82" cy="375" r="1.6"/></g>
+            <path d="M74 590C58 566 62 534 78 522L82 506H104L108 522C124 534 128 566 112 590Z" fill="url(#glaze)" stroke="#2a1c13" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M76 540C90 546 102 546 118 538" fill="none" stroke="#2a1c13" stroke-opacity=".35" stroke-width="1.5"/>
+            <path d="M72 556c-2 12 2 24 8 30" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="93" cy="506" rx="11" ry="3" fill="#2a1c13" opacity=".5"/>
+          </g>
+
+          <!-- сервер: стеклянный графин -->
+          <g>
+            <path d="M225 396L220 440C158 470 146 522 160 548C168 568 195 578 270 578C345 578 372 568 380 548C394 522 382 470 320 440L315 396Z" fill="#fffaf0" fill-opacity=".34"/>
+            <g clip-path="url(#serverClip)">
+              <rect x="140" y="498" width="260" height="90" fill="url(#coffee)"/>
+              <ellipse cx="270" cy="498" rx="124" ry="9" fill="#a35e30"/>
+              <ellipse cx="270" cy="497" rx="124" ry="8" fill="none" stroke="#e0a26c" stroke-width="1.5" opacity=".7"/>
+              <path d="M176 540c20 14 70 20 96 20" fill="none" stroke="#e0a26c" stroke-opacity=".25" stroke-width="2"/>
+            </g>
+            <path d="M225 396L220 440C158 470 146 522 160 548C168 568 195 578 270 578C345 578 372 568 380 548C394 522 382 470 320 440L315 396Z" fill="url(#glass)" stroke="#2a1c13" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M178 486c-12 18-16 44-8 62" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".75"/>
+            <path d="M366 492c8 14 10 34 4 48" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+            <path d="M232 456c-4 4-6 12-4 20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+            <!-- деревянный воротник -->
+            <path d="M221 414L219 438H321L319 414Z" fill="url(#wood)" stroke="#2a1c13" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M222 424H318" stroke="#2a1c13" stroke-opacity=".4" stroke-width="1.2"/>
+            <path d="M232 416v20M308 416v20" stroke="#2a1c13" stroke-opacity=".35" stroke-width="1"/>
+            <path d="M225 417c30 4 60 4 90 0" fill="none" stroke="#f4cf9e" stroke-opacity=".5" stroke-width="2"/>
+            <!-- капля -->
+            <path d="M270 400c-4 6-5 9-5 11a5 5 0 0 0 10 0c0-2-1-5-5-11z" fill="#5a2f18" stroke="#2a1c13" stroke-width="1.2"/>
+          </g>
+
+          <!-- воронка -->
+          <g>
+            <!-- кромка бумажного фильтра -->
+            <path d="M170 250l9-11 11 6 12-10 13 8 13-11 13 9 13-9 13 10 13-8 13 9 13-7 10 11z" fill="#fffaf0" stroke="#2a1c13" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M170 250H370L348 304L308 384H232L192 304Z" fill="url(#porc)" stroke="#2a1c13" stroke-width="3" stroke-linejoin="round"/>
+            <!-- спиральные рёбра -->
+            <g fill="none" stroke="#a9875f" stroke-width="1.6" stroke-linecap="round" opacity=".85">
+              <path d="M192 270Q204 336 244 380"/><path d="M222 270Q230 330 254 382"/><path d="M256 270Q258 330 268 382"/><path d="M292 270Q286 330 282 382"/><path d="M324 270Q312 330 292 380"/><path d="M350 270Q330 334 300 378"/>
+            </g>
+            <path d="M200 276Q214 336 246 372" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".5"/>
+            <!-- обод -->
+            <ellipse cx="270" cy="250" rx="102" ry="14" fill="#ead6b4" stroke="#2a1c13" stroke-width="3"/>
+            <ellipse cx="270" cy="251" rx="88" ry="9" fill="#4a2512"/>
+            <ellipse cx="262" cy="250" rx="52" ry="5.5" fill="#9a5a30" opacity=".85"/>
+            <path d="M226 249c10-3 24-3 36-3M282 248c14-2 26 0 34 2" fill="none" stroke="#e8bd8c" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>
+            <!-- донце воронки -->
+            <path d="M226 384h88l4 14c0 2-1 3-3 3H225c-2 0-3-1-3-3z" fill="#2a1c13"/>
+            <path d="M228 386h84" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+            <!-- ручка -->
+            <path d="M366 264C412 258 420 316 384 322" fill="none" stroke="#2a1c13" stroke-width="13" stroke-linecap="round"/>
+            <path d="M366 264C412 258 420 316 384 322" fill="none" stroke="url(#porc)" stroke-width="6.5" stroke-linecap="round"/>
+          </g>
+
+          <!-- струя из чайника -->
+          <path d="M341 197C340 218 330 234 322 250" fill="none" stroke="#6b3a1c" stroke-opacity=".55" stroke-width="6.5" stroke-linecap="round"/>
+          <path d="M341 197C340 218 330 234 322 250" fill="none" stroke="#fff8e8" stroke-width="3.6" stroke-linecap="round"/>
+          <ellipse cx="320" cy="252" rx="13" ry="3.5" fill="#fff6e0" opacity=".75"/>
+
+          <!-- пар над воронкой -->
+          <g class="steam" fill="none" stroke="#fff6e0" stroke-width="3" stroke-linecap="round" opacity=".7">
+            <path d="M232 226c-10-14 8-22 0-36s8-22 0-34"/><path d="M258 222c-9-12 7-20 0-32"/><path d="M206 230c-8-12 6-18 0-30"/>
+          </g>
+
+          <!-- чайник -->
+          <g transform="rotate(-8 490 118)">
+            <path d="M439 142C404 150 372 132 354 138C340 142 334 154 334 170" fill="none" stroke="#2a1c13" stroke-width="13" stroke-linecap="round"/>
+            <path d="M439 142C404 150 372 132 354 138C340 142 334 154 334 170" fill="none" stroke="url(#copper)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M552 96C592 94 596 146 548 150" fill="none" stroke="#2a1c13" stroke-width="12" stroke-linecap="round"/>
+            <path d="M552 96C592 94 596 146 548 150" fill="none" stroke="#6e3a1f" stroke-width="6" stroke-linecap="round"/>
+            <path d="M440 98Q440 80 458 80H532Q552 80 552 98V142Q552 160 534 160H458Q440 160 440 142Z" fill="url(#copper)" stroke="#2a1c13" stroke-width="3"/>
+            <path d="M452 100v44" stroke="#ffe0b8" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+            <path d="M444 118H550M444 128H550" stroke="#2a1c13" stroke-opacity=".25" stroke-width="1.3"/>
+            <path d="M458 80c4-12 66-12 70 0z" fill="#8f4a22" stroke="#2a1c13" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="493" cy="64" r="7" fill="#2a1c13"/>
+            <path d="M489 62c2-3 5-3 7-1" fill="none" stroke="#e8b48a" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+
+          <!-- чашка на блюдце -->
+          <g>
+            <ellipse cx="478" cy="590" rx="82" ry="15" fill="url(#porc)" stroke="#2a1c13" stroke-width="2.6"/>
+            <ellipse cx="478" cy="587" rx="60" ry="9" fill="none" stroke="#2a1c13" stroke-opacity=".3" stroke-width="1.4"/>
+            <path d="M436 530h84v22c0 24-18 38-42 38s-42-14-42-38z" fill="url(#porc)" stroke="#2a1c13" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M518 540c26-4 30 32 0 36" fill="none" stroke="#2a1c13" stroke-width="12" stroke-linecap="round"/>
+            <path d="M518 540c26-4 30 32 0 36" fill="none" stroke="url(#porc)" stroke-width="6" stroke-linecap="round"/>
+            <ellipse cx="478" cy="530" rx="42" ry="8" fill="#e9dcc2" stroke="#2a1c13" stroke-width="3"/>
+            <ellipse cx="478" cy="531" rx="35" ry="5.5" fill="#6a371b"/>
+            <path d="M458 530c8-2 18-2 26 0" fill="none" stroke="#e0a26c" stroke-width="1.5" stroke-linecap="round" opacity=".8"/>
+            <path d="M446 550c0 16 8 28 22 34" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M437 556h82" stroke="#8e3f1d" stroke-width="3.5"/>
+            <path d="M530 596l30-6" stroke="#2a1c13" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="566" cy="589" rx="9" ry="4.5" fill="#d9c6a0" stroke="#2a1c13" stroke-width="2" transform="rotate(-12 566 589)"/>
+          </g>
+          <g class="steam" fill="none" stroke="#fff6e0" stroke-width="3" stroke-linecap="round" opacity=".7">
+            <path d="M466 512c-8-12 8-18 0-30s6-18 0-28"/><path d="M488 508c-8-12 7-17 0-28"/><path d="M450 514c-7-10 5-14 0-24"/>
+          </g>
+
+          <!-- зёрна на столе -->
+          <g stroke="#2a1c13" stroke-width="1.6">
+            <g transform="translate(150 596) rotate(-30)"><ellipse rx="10" ry="14" fill="#6a3b22"/><path d="M1 -12C-6 -5 6 3 -1 12" fill="none" stroke="#1e0f06" stroke-width="2" stroke-linecap="round"/><ellipse cx="-3" cy="-5" rx="2.5" ry="5" fill="#c58555" stroke="none" opacity=".6"/></g>
+            <g transform="translate(176 604) rotate(52)"><ellipse rx="9" ry="13" fill="#7a4526"/><path d="M1 -11C-5 -5 5 3 -1 11" fill="none" stroke="#1e0f06" stroke-width="2" stroke-linecap="round"/></g>
+            <g transform="translate(128 612) rotate(10)"><ellipse rx="9" ry="13" fill="#5a2f18"/><path d="M1 -11C-5 -5 5 3 -1 11" fill="none" stroke="#1e0f06" stroke-width="2" stroke-linecap="round"/></g>
+          </g>
+        </g>
+        <!-- зерно бумаги поверх -->
+        <rect width="600" height="640" rx="14" filter="url(#grain)" opacity=".5" style="mix-blend-mode:multiply" clip-path="url(#plate)"/>
+        <rect x=".75" y=".75" width="598.5" height="638.5" rx="13.5" fill="none" stroke="#2a1c13" stroke-opacity=".5" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="facts">
+      <div><b>4</b><p><strong>моно-сорта на витрине</strong>Меняем по сезону урожая, к каждому — паспорт с фермой и высотой.</p></div>
+      <div><b>чт</b><p><strong>день обжарки</strong>Жарим по четвергам небольшими партиями, поэтому зерно всегда свежее.</p></div>
+      <div><b>20</b><p><strong>мест в зале</strong>Большие столы у окна и барная стойка. Вечером лучше бронировать.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="beans" id="beans" aria-labelledby="h-beans" style="margin-top:88px">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker mono">Паспорт зерна</div><h2 id="h-beans">Моно-сорта <em>нашей обжарки</em></h2></div>
+      <p>У каждого лота одна страна и одна ферма. В паспорте — всё, что влияет на вкус: высота, обработка, степень обжарки. Любой сорт заварим в воронке или продадим пачкой навынос.</p>
+    </div>
+    <div class="passports js-beans"></div>
+  </div>
+</section>
+
+<section id="menu" aria-labelledby="h-menu">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker mono">Меню бара</div><h2 id="h-menu">Фильтр, эспрессо <em>и&nbsp;к&nbsp;кофе</em></h2></div>
+      <p>Цены в рублях. Молоко — коровье 3,2 % или овсяное. Если не знаете, что выбрать, скажите бариста, какой вкус любите, — подберём зерно.</p>
+    </div>
+    <div class="menu-grid js-menu"></div>
+    <div class="menu-note">
+      <svg viewBox="0 0 28 28" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 11h16v5a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7z"/><path d="M20 13h1.5a3 3 0 0 1 0 6H19.5"/><path d="M9 3.5c-1 1.5 1 2.5 0 4M13 3.5c-1 1.5 1 2.5 0 4"/><path d="M3 25.5h18"/></g></svg>
+      <p><strong>Кофе навынос — в свою кружку на 20 ₽ дешевле.</strong> Зерно молем бесплатно под вашу турку, воронку или гейзерную кофеварку.</p>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="h-visit">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker mono">Адрес и часы</div><h2 id="h-visit">Семь минут <em>от&nbsp;Площади&nbsp;Ленина</em></h2></div>
+      <p>Вход с улицы, коричневая дверь с вывеской-зерном. Есть пандус и место для коляски у окна.</p>
+    </div>
+    <div class="visit-grid">
+      <div class="mapcol">
+      <figure class="map">
+        <svg class="js-map" viewBox="0 0 560 440" role="img" aria-label="Схема: от метро Площадь Ленина пешком по Красному проспекту на север около 300 метров, затем направо на улицу Обжарочную 150 метров до кофейни">
+          <rect width="560" height="440" fill="#efe3cb"/>
+          <!-- кварталы -->
+          <g fill="#e2d1ae">
+            <rect x="20" y="20" width="130" height="70" rx="4"/><rect x="238" y="20" width="108" height="70" rx="4"/><rect x="430" y="20" width="110" height="70" rx="4"/>
+            <rect x="20" y="176" width="130" height="112" rx="4"/><rect x="238" y="176" width="150" height="112" rx="4"/><rect x="404" y="176" width="136" height="112" rx="4"/>
+            <rect x="238" y="350" width="150" height="70" rx="4" fill="#e7d9b8"/><rect x="404" y="350" width="136" height="70" rx="4"/>
+          </g>
+          <rect x="20" y="350" width="130" height="70" rx="4" fill="#d5d9b4"/>
+          <g fill="#aeb584"><circle cx="48" cy="378" r="8"/><circle cx="76" cy="392" r="6"/><circle cx="118" cy="376" r="8"/><circle cx="96" cy="404" r="5"/></g>
+          <!-- улицы -->
+          <rect x="168" y="0" width="48" height="440" fill="#fcf8ef"/>
+          <rect x="0" y="104" width="560" height="44" fill="#fcf8ef"/>
+          <rect x="0" y="304" width="560" height="30" fill="#fcf8ef"/>
+          <text class="t-cap" x="236" y="168">УЛ. ОБЖАРОЧНАЯ</text>
+          <text class="t-cap" x="236" y="262">КРАСНЫЙ ПР.</text>
+          <!-- маршрут -->
+          <path d="M192 352V126H386" fill="none" stroke="#8e3f1d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 11"/>
+          <g>
+            <rect x="140" y="204" width="104" height="34" rx="17" fill="#2a1c13"/><text class="t-pill" x="192" y="226" text-anchor="middle">≈ 300 м</text>
+            <rect x="250" y="109" width="104" height="34" rx="17" fill="#2a1c13"/><text class="t-pill" x="302" y="131" text-anchor="middle">≈ 150 м</text>
+          </g>
+          <!-- метро -->
+          <g transform="translate(192 376)"><circle r="22" fill="#b3261e"/><text y="8" text-anchor="middle" style="font-family:Georgia,serif;font-weight:700;font-size:23px;letter-spacing:0;fill:#fff">М</text></g>
+          <text class="t-cap" x="250" y="372">ПЛОЩАДЬ</text><text class="t-cap" x="250" y="392">ЛЕНИНА</text>
+          <!-- кофейня -->
+          <g transform="translate(398 126)">
+            <path d="M0 0c-14-16-23-27-23-39a23 23 0 0 1 46 0c0 12-9 23-23 39z" fill="#2a1c13"/>
+            <g transform="translate(0 -39) rotate(25)"><ellipse rx="8" ry="11" fill="#f0b48a"/><path d="M1 -10C-5 -4 5 3 -1 10" fill="none" stroke="#2a1c13" stroke-width="2" stroke-linecap="round"/></g>
+          </g>
+          <text class="t-name" x="532" y="206" text-anchor="end">Бурый Сорт</text>
+          <text class="t-addr" x="532" y="228" text-anchor="end">Обжарочная, 7</text>
+          <!-- север -->
+          <g transform="translate(512 52)"><circle r="17" fill="none" stroke="#53402f" stroke-width="1.4"/><path d="M0 -12l5 13H-5z" fill="#2a1c13"/><text class="t-n" y="32" text-anchor="middle">С</text></g>
+        </svg>
+        <figcaption>Схема условная · 450 м, около 7 минут пешком</figcaption>
+      </figure>
+      </div>
+      <div>
+        <p class="addr">Новосибирск, ул.&nbsp;Обжарочная,&nbsp;7</p>
+        <p>Первый этаж, вход с улицы</p>
+        <ol class="steps">
+          <li>Выходите из метро «Площадь Ленина» на Красный проспект.</li>
+          <li>Идите по проспекту прочь от площади около 300 м, до первого перекрёстка.</li>
+          <li>Поверните направо на ул. Обжарочную, через 150 м — наша дверь.</li>
+        </ol>
+        <div class="callcard">
+          <span class="mono">Телефон кофейни</span>
+          <a class="phone-big js-phone" href="tel:+79000000000"><span class="js-phone-text">+7 (900) 000-00-00</span></a>
+          <div class="cta">
+            <a class="btn js-phone" href="tel:+79000000000"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>Позвонить</span></a>
+            <a class="btn ghost" href="#book" data-book>Забронировать</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="band">
+      <div>
+        <p class="todayline js-today" aria-live="polite"></p>
+        <div class="hrs js-hours" role="group" aria-label="Часы работы"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book" aria-labelledby="h-book">
+  <div class="wrap book-grid">
+    <div class="book-side">
+      <div class="kicker mono">Бронь столика</div>
+      <h2 id="h-book">Оставим стол <em>за&nbsp;вами</em></h2>
+      <p>Заполните форму — бариста перезвонит в течение 15 минут в часы работы и подтвердит бронь.</p>
+      <ul>
+        <li>Держим столик 15 минут после назначенного времени.</li>
+        <li>Компании больше 8 человек — по телефону, сдвинем столы.</li>
+        <li>Бронь бесплатная, предоплаты нет.</li>
+      </ul>
+    </div>
+    <form class="js-form" novalidate>
+      <div class="fields">
+        <div class="f"><label for="name">Имя</label><input id="name" name="name" autocomplete="given-name" placeholder="Как к вам обращаться" aria-describedby="e-name"><div class="err" id="e-name"></div></div>
+        <div class="f"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" aria-describedby="e-phone"><div class="err" id="e-phone"></div></div>
+        <fieldset class="f wide days" aria-describedby="e-date"><legend>Дата</legend><input id="date" name="date" type="hidden"><div class="chips js-days" role="radiogroup" aria-label="Выберите день"></div><div class="err" id="e-date"></div></fieldset>
+        <div class="f"><label for="time">Время</label><select id="time" name="time" aria-describedby="e-time"><option value="">Сначала дата</option></select><div class="err" id="e-time"></div></div>
+        <div class="f"><label for="guests">Сколько гостей</label><select id="guests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+      </div>
+      <button class="btn" type="submit">Забронировать столик</button>
+      <p class="fine">Нажимая кнопку, вы соглашаетесь, что мы перезвоним по этому номеру.</p>
+      <div class="ok" role="status" aria-live="polite" tabindex="-1">
+        <svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="44" fill="#2a1c13"/><circle cx="48" cy="48" r="38" fill="none" stroke="#f0b48a" stroke-dasharray="2 4"/><path d="M30 49l12 12 24-26" fill="none" stroke="#f0b48a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Спасибо!</h3>
+        <p class="js-summary"></p>
+        <p class="demo-msg"><strong>Демо:</strong> заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</p>
+        <button class="btn ghost" type="button" data-again>Новая заявка</button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#"><svg aria-hidden="true"><use href="#logo-mark"/></svg><span>Бурый <i>Сорт</i></span></a>
+    <span>ул. Обжарочная, 7 · <a class="js-phone js-phone-text" href="tel:+79000000000">+7 (900) 000-00-00</a></span>
+    <span class="mono">Демо-концепт · данные вымышлены</span>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Разделы страницы">
+  <a href="#beans"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><ellipse cx="12" cy="12" rx="6.2" ry="9" transform="rotate(30 12 12)"/><path d="M13.4 4.2C8.6 8 15.4 14.6 10.6 19.8" transform="rotate(30 12 12)"/></g></svg><span>Зерно</span></a>
+  <a href="#menu"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v4a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 11h1.3a2.6 2.6 0 0 1 0 5.2H16.6"/><path d="M8 3.4c-1 1.4 1 2.2 0 3.6M12 3.4c-1 1.4 1 2.2 0 3.6"/></g></svg><span>Меню</span></a>
+  <a href="#visit"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></g></svg><span>Адрес</span></a>
+  <a href="#book" class="tab-main"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg><span>Бронь</span></a>
+</nav>
+
+<script>
+(function(){
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const rub = (n) => n.toLocaleString("ru-RU").replace(/\s/g, " ") + " ₽";
+  const roastName = ["", "светлая", "средняя", "тёмная"];
+
+  /* ---- картинки паспортов: натюрморт «зерно + то, что в чашке» (свои SVG) ---- */
+  let uid = 0;
+  const SH = 'style="filter:drop-shadow(4px 7px 4px rgba(34,16,6,.34))"';
+  const INK = "#2a1c13";
+  const ROAST = [null, ["#e0b070", "#b87a43", "#7a4624"], ["#b07040", "#7c4627", "#4a2412"], ["#6e4026", "#3f2112", "#1e0e06"]];
+  const bean = (cx, cy, r, rot, lv) => {
+    const c = ROAST[lv], id = "bg" + (++uid), rx = r * .72;
+    const specks = [[-.3, -.5], [.25, -.3], [-.38, .1], [.32, .25], [-.1, .55], [.05, .05], [.4, -.6], [-.45, .5]]
+      .map(([a, b]) => `<ellipse cx="${(a * rx).toFixed(1)}" cy="${(b * r).toFixed(1)}" rx="${(r * .035).toFixed(1)}" ry="${(r * .02).toFixed(1)}" fill="#1b0d05" opacity="${lv === 1 ? .28 : .35}"/>`).join("");
+    const wr = [-.55, -.25, .3, .6].map(t => `<path d="M${(-rx * .9).toFixed(1)} ${(t * r).toFixed(1)}q${(rx * .35).toFixed(1)} ${(-r * .08).toFixed(1)} ${(rx * .55).toFixed(1)} 0" fill="none" stroke="#1b0d05" stroke-opacity=".16" stroke-width="${(r * .03).toFixed(1)}" stroke-linecap="round"/>`).join("");
+    return `<g ${SH} transform="translate(${cx} ${cy}) rotate(${rot})"><defs><radialGradient id="${id}" cx=".34" cy=".28" r=".95"><stop offset="0" stop-color="${c[0]}"/><stop offset=".5" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></radialGradient></defs>
+      <ellipse rx="${rx.toFixed(1)}" ry="${r}" fill="url(#${id})" stroke="${INK}" stroke-width="2.4"/>${wr}${specks}
+      <path d="M${(rx * .12).toFixed(1)} ${(-r * .96).toFixed(1)}C${(-rx * .8).toFixed(1)} ${(-r * .38).toFixed(1)} ${(rx * .8).toFixed(1)} ${(r * .3).toFixed(1)} ${(-rx * .12).toFixed(1)} ${(r * .96).toFixed(1)}" fill="none" stroke="#150a04" stroke-width="${(r * .09).toFixed(1)}" stroke-linecap="round"/>
+      <path d="M${(rx * .2).toFixed(1)} ${(-r * .9).toFixed(1)}C${(-rx * .62).toFixed(1)} ${(-r * .34).toFixed(1)} ${(rx * .9).toFixed(1)} ${(r * .3).toFixed(1)} ${(-rx * .05).toFixed(1)} ${(r * .9).toFixed(1)}" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="${(r * .03).toFixed(1)}" stroke-linecap="round"/>
+      <ellipse cx="${(-rx * .5).toFixed(1)}" cy="${(-r * .45).toFixed(1)}" rx="${(rx * .15).toFixed(1)}" ry="${(r * .3).toFixed(1)}" fill="#fff" opacity=".34" transform="rotate(18 ${(-rx * .5).toFixed(1)} ${(-r * .45).toFixed(1)})"/></g>`;
+  };
+  const jasmine = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">
+    <path d="M0 0C14-14 34-14 42 0C34 14 14 14 0 0Z" fill="#5f7d3b" stroke="${INK}" stroke-width="1.8" transform="rotate(35)"/><path d="M0 0C14-14 34-14 42 0C34 14 14 14 0 0Z" fill="#6f8f45" stroke="${INK}" stroke-width="1.8" transform="rotate(150)"/>
+    ${[0, 1, 2, 3, 4].map(i => `<ellipse cy="-14" rx="8.5" ry="15" transform="rotate(${i * 72})" fill="#fffaf0" stroke="${INK}" stroke-width="1.8"/><path d="M0 -6V-24" stroke="#d9c9a8" stroke-width="1" transform="rotate(${i * 72})"/>`).join("")}
+    <circle r="5.5" fill="#f2c14e" stroke="${INK}" stroke-width="1.5"/></g>`;
+  const citrus = (x, y, r, rind, pith, flesh, vs) => {
+    const seg = Array.from({ length: 10 }, (_, i) => `<path d="M0 0V${-r * .76}" stroke="${pith}" stroke-width="${(r * .05).toFixed(1)}" transform="rotate(${i * 36})"/>`).join("");
+    const ves = Array.from({ length: 30 }, (_, i) => { const a = i * 2.4, d = r * (.2 + (i % 4) * .13); return `<ellipse cx="${(Math.cos(a) * d).toFixed(1)}" cy="${(Math.sin(a) * d).toFixed(1)}" rx="${(r * .045).toFixed(1)}" ry="${(r * .07).toFixed(1)}" fill="${vs}" opacity=".7" transform="rotate(${(a * 57).toFixed(0)} ${(Math.cos(a) * d).toFixed(1)} ${(Math.sin(a) * d).toFixed(1)})"/>`; }).join("");
+    return `<g ${SH} transform="translate(${x} ${y})"><circle r="${r}" fill="${rind}" stroke="${INK}" stroke-width="2.4"/><circle r="${(r * .88).toFixed(1)}" fill="${pith}"/><circle r="${(r * .78).toFixed(1)}" fill="${flesh}"/>${ves}${seg}<circle r="${(r * .07).toFixed(1)}" fill="${pith}"/><path d="M${-r * .6} ${-r * .3}A${r * .68} ${r * .68} 0 0 1 ${-r * .2} ${-r * .66}" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="${(r * .06).toFixed(1)}" stroke-linecap="round"/></g>`;
+  };
+  const zest = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M-30 6C-16-26 24-24 28-2C32 22 0 30-4 12C-8-4 14-6 16 6" fill="none" stroke="${INK}" stroke-width="12" stroke-linecap="round"/><path d="M-30 6C-16-26 24-24 28-2C32 22 0 30-4 12C-8-4 14-6 16 6" fill="none" stroke="#efca3a" stroke-width="7" stroke-linecap="round"/><path d="M-24-4C-14-18 6-20 18-14" fill="none" stroke="#fff6c8" stroke-width="2" stroke-linecap="round" opacity=".8"/></g>`;
+  const berry = (x, y, r) => `<g transform="translate(${x} ${y})"><circle r="${r}" fill="url(#bb)" stroke="${INK}" stroke-width="2"/><ellipse cx="${-r * .35}" cy="${-r * .4}" rx="${r * .24}" ry="${r * .15}" fill="#fff" opacity=".5" transform="rotate(-35 ${-r * .35} ${-r * .4})"/><path d="M${r * .25} ${r * .45}l${r * .1}-${r * .2}l${r * .12} ${r * .18}l${r * .2}-${r * .08}l-${r * .12} ${r * .2}l${r * .08} ${r * .22}l-${r * .2}-${r * .1}l-${r * .18} ${r * .14}l.02-${r * .22}z" fill="#150d22" opacity=".85"/></g>`;
+  const cube = (x, y, s) => `<g ${SH} transform="translate(${x} ${y}) scale(${s})"><path d="M0 -18L18 -8V12L0 22L-18 12V-8Z" fill="#d99a48" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M0 -18L18 -8L0 2L-18 -8Z" fill="#f4cf8a" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M0 2V22L-18 12V-8Z" fill="#b8762c" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><g fill="#fff" opacity=".7"><circle cx="-4" cy="-8" r="1.5"/><circle cx="6" cy="-6" r="1.2"/><circle cx="-8" cy="8" r="1.2"/><circle cx="8" cy="8" r="1.4"/></g></g>`;
+  const apple = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0-34C20-50 54-34 50 6C46 40 20 54 0 46C-20 54-46 40-50 6C-54-34-20-50 0-34Z" fill="url(#ap)" stroke="${INK}" stroke-width="2.6"/><path d="M-30-20C-34-6-32 10-24 24" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="5" stroke-linecap="round"/><path d="M28-24C36-10 36 4 32 16" fill="none" stroke="#7a1410" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/><ellipse cy="-30" rx="12" ry="5" fill="#8a1c14" stroke="${INK}" stroke-width="1.6"/><path d="M0-30C2-42 6-50 10-56" fill="none" stroke="#4a2c14" stroke-width="4.5" stroke-linecap="round"/><path d="M6-46C18-60 34-56 38-48C28-40 14-40 6-46Z" fill="#5f7d3b" stroke="${INK}" stroke-width="1.8"/></g>`;
+  const caramel = (x, y, s) => `<g ${SH} transform="translate(${x} ${y}) scale(${s})"><path d="M-44-6C-50-36-8-48 18-38C50-32 58 0 42 22C28 44-14 50-34 32C-46 22-44 6-44-6Z" fill="url(#cm)" stroke="${INK}" stroke-width="2.4"/><path d="M-30-20C-20-34 0-36 14-30" fill="none" stroke="#fff4d0" stroke-width="4" stroke-linecap="round" opacity=".85"/><ellipse cx="22" cy="14" rx="9" ry="4" fill="#fff4d0" opacity=".4" transform="rotate(-20 22 14)"/></g>`;
+  const nib = (x, y, rot) => `<path ${SH} transform="translate(${x} ${y}) rotate(${rot})" d="M-8-5L4-9L10 0L3 8L-9 5Z" fill="#4a2412" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/>`;
+  const hazel = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0-30C22-30 30-8 26 12C22 30 10 34 0 34C-10 34-22 30-26 12C-30-8-22-30 0-30Z" fill="url(#hz)" stroke="${INK}" stroke-width="2.6"/><path d="M-12-22C-14-6-12 14-6 28M2-28C4-8 4 14 2 32M14-22C18-6 18 12 12 26" fill="none" stroke="#6b4320" stroke-opacity=".5" stroke-width="1.6"/><path d="M-20 14C-10 22 10 22 20 14C22 24 12 36 0 36C-12 36-22 24-20 14Z" fill="#ecc98f" stroke="${INK}" stroke-width="2"/><path d="M-16-14C-18-2-16 6-14 12" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/></g>`;
+  const choc = (x, y, rot, s) => { const q = (i, j, tone) => `<g transform="translate(${i * 37} ${j * 37})"><rect width="34" height="34" rx="4" fill="${tone}" stroke="${INK}" stroke-width="2.2"/><rect x="5" y="5" width="24" height="24" rx="2" fill="#000" opacity=".16"/><path d="M3 31V3H31" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2.4" stroke-linecap="round"/></g>`; return `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">${q(0, 0, "#5e3320")}${q(1, 0, "#6a3a24")}${q(0, 1, "#6a3a24")}</g>`; };
+  const raisin = (x, y, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot})"><ellipse rx="16" ry="10.5" fill="#4e2c3c" stroke="${INK}" stroke-width="2"/><path d="M-10-2q5 3 10 0t10 2M-9 4q5 2 9 0t9 1" fill="none" stroke="#20101a" stroke-width="1.2" opacity=".7"/><ellipse cx="-6" cy="-4" rx="5" ry="2" fill="#fff" opacity=".3"/></g>`;
+  const plant = (x, y, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot})"><path d="M0 0C14-16 34-16 44 0C34 16 14 16 0 0Z" fill="#5f7d3b" stroke="${INK}" stroke-width="1.8"/><path d="M2 0H36" stroke="#2f4a1f" stroke-width="1.4" opacity=".7"/></g>`;
+
+  const DEFS = `<defs>
+    <filter id="gr" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .2 0 0 0 0 .1 0 0 0 0 .05 0 0 0 .55 0"/></filter>
+    <radialGradient id="bb" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#7a6a96"/><stop offset=".5" stop-color="#2d2142"/><stop offset="1" stop-color="#150d22"/></radialGradient>
+    <radialGradient id="ap" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#e8573f"/><stop offset=".6" stop-color="#b3261e"/><stop offset="1" stop-color="#7a1410"/></radialGradient>
+    <radialGradient id="cm" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#f0b24a"/><stop offset=".6" stop-color="#c8741f"/><stop offset="1" stop-color="#8a4412"/></radialGradient>
+    <radialGradient id="hz" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#e2b066"/><stop offset=".7" stop-color="#a96f33"/><stop offset="1" stop-color="#7a4a20"/></radialGradient>
+    <radialGradient id="gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffaf0" stop-opacity=".75"/><stop offset="1" stop-color="#fffaf0" stop-opacity="0"/></radialGradient></defs>`;
+  const scene = (m, bg, body) => {
+    const [W, H] = m === "l" ? [400, 190] : [330, 600];
+    const rings = m === "l" ? `<circle cx="205" cy="95" r="120" fill="url(#gl)"/>` : `<circle cx="165" cy="300" r="260" fill="url(#gl)"/>`;
+    const planks = m === "l" ? "" : `<g stroke="#2a1c13" stroke-opacity=".06" stroke-width="2"><path d="M0 150H330M0 300H330M0 450H330"/></g>`;
+    return `<svg class="v-${m}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${DEFS}<rect width="${W}" height="${H}" fill="${bg}"/>${rings}${planks}${body}<rect width="${W}" height="${H}" filter="url(#gr)" opacity=".38" style="mix-blend-mode:multiply"/></svg>`;
+  };
+  const COMP = {
+    "Эфиопия": (m) => scene(m, "#d7cf9c", m === "l"
+      ? citrus(86, 98, 44, "#b9bd4a", "#f1efc2", "#e4e07f", "#fff9c8") + jasmine(322, 56, 1, 10) + jasmine(338, 140, .8, 40) + zest(262, 158, .8, -20) + bean(206, 96, 58, -24, 1) + bean(140, 168, 20, 40, 1)
+      : citrus(88, 400, 56, "#b9bd4a", "#f1efc2", "#e4e07f", "#fff9c8") + jasmine(246, 96, 1.25, 10) + jasmine(84, 120, 1, 40) + jasmine(270, 330, 1.05, -30) + zest(236, 480, 1.2, -20) + bean(166, 230, 88, -24, 1) + bean(100, 540, 30, 40, 1) + bean(214, 560, 24, -60, 1)),
+    "Кения": (m) => scene(m, "#cdbdcb", m === "l"
+      ? citrus(290, 98, 58, "#e79a46", "#fbe6cf", "#ee7f6f", "#ffd1c4") + cube(70, 150, .9) + cube(104, 168, .7) + bean(172, 98, 56, 20, 1) + berry(52, 62, 17) + berry(80, 44, 15) + berry(76, 78, 16) + plant(26, 112, 150)
+      : citrus(170, 420, 82, "#e79a46", "#fbe6cf", "#ee7f6f", "#ffd1c4") + cube(70, 560, 1.1) + cube(112, 576, .8) + bean(160, 190, 84, 20, 1) + berry(240, 80, 22) + berry(280, 108, 19) + berry(262, 52, 20) + berry(226, 118, 21) + plant(180, 40, 200)),
+    "Колумбия": (m) => scene(m, "#e6bf9d", m === "l"
+      ? apple(84, 100, 1.1, -20) + caramel(318, 108, 1) + bean(204, 96, 58, -12, 2) + nib(150, 170, 20) + nib(262, 170, -30) + nib(172, 36, 70)
+      : apple(110, 130, 1.5, -20) + caramel(210, 460, 1.4) + bean(180, 290, 86, -12, 2) + nib(60, 470, 20) + nib(270, 330, -30) + nib(80, 560, 70) + nib(290, 80, 10)),
+    "Бразилия": (m) => scene(m, "#d8c2a0", m === "l"
+      ? hazel(78, 96, 1, 12) + hazel(110, 156, .7, -30) + choc(290, 34, 10, .98) + raisin(300, 170, 20) + raisin(340, 150, -30) + bean(196, 96, 60, 14, 3)
+      : hazel(90, 120, 1.5, 12) + hazel(236, 548, 1.1, -30) + choc(168, 420, 8, 1.4) + raisin(70, 560, 20) + raisin(260, 76, -30) + bean(170, 250, 88, 14, 3))
+  };
+  const ART_GENERIC = (m) => scene(m, "#dccaa4", m === "l" ? bean(200, 96, 58, 20, 2) + bean(110, 130, 26, -30, 2) + bean(300, 70, 24, 60, 2) : bean(165, 300, 88, 20, 2) + bean(80, 150, 34, -30, 2) + bean(250, 470, 30, 60, 2));
+  const art = (country, k) => ["l", "p"].map(m => (COMP[country] || ART_GENERIC)(m).replace(/id="(\w+)"/g, (s, i) => `id="${i}_${k}${m}"`).replace(/url\(#(\w+)\)/g, (s, i) => `url(#${i}_${k}${m})`)).join("");
+  const beanSvg = `<svg viewBox="-11 -15 22 30" aria-hidden="true"><ellipse rx="9.5" ry="13.5" fill="#fcf8ef" stroke="#2a1c13" stroke-width="2"/><path d="M1 -11C-5 -4 5 3 -1 11" fill="none" stroke="#2a1c13" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+
+  /* ---- паспорт зерна: четыре разные композиции ---- */
+  const LEADS = ["alt", "notes", "process", "roast"];
+  const roastScale = (r) => `<span class="rscale" role="img" aria-label="${roastName[r]} обжарка" style="--p:${[0, 16, 50, 84][r]}%"><i>${beanSvg}</i></span>`;
+  $(".js-beans").innerHTML = MENU.beans.map((b, k) => {
+    const lead = LEADS[k % 4], wide = k % 3 === 0;
+    const fact = {
+      alt: ["Высота", esc(b.altitude).replace(/ /g, " ")],
+      process: ["Обработка", esc(b.process)],
+      roast: ["Обжарка", roastName[b.roast]],
+      notes: ["Во вкусе", b.notes.map(esc).join(" · ")]
+    };
+    const leadHtml = lead === "notes"
+      ? `<div class="lead"><small>Во вкусе</small><div class="big q">${b.notes.map(esc).join(", ")}</div></div>`
+      : lead === "roast"
+      ? `<div class="lead"><small>Обжарка</small><div class="big">${roastName[b.roast][0].toUpperCase() + roastName[b.roast].slice(1)}</div>${roastScale(b.roast)}</div>`
+      : `<div class="lead"><small>${fact[lead][0]}</small><div class="big">${fact[lead][1]}</div></div>`;
+    const order = ["alt", "process", "roast", "notes"].filter(x => x !== lead);
+    const rows = order.map(x => {
+      const full = x === "notes";
+      const val = x === "roast" ? roastScale(b.roast) + `<span>${roastName[b.roast]}</span>` : `<span>${fact[x][1]}</span>`;
+      return `<div${full ? ' class="full"' : ""}><small>${fact[x][0]}</small>${val}</div>`;
+    }).join("");
+    return `
+    <article class="pass ${wide ? "wide" : "tall"}${k % 3 === 0 && k > 0 ? " flip" : ""}">
+      <div class="pic">${art(b.country, k)}</div>
+      <div class="pbody">
+        <div class="ptop">
+          <div class="no"><span>Паспорт № ${String(k + 1).padStart(2, "0")}</span><span>${esc(b.weight)}</span></div>
+          <h3>${esc(b.country)}</h3>
+          <p class="reg">${esc(b.name)}${b.region !== b.name ? ", " + esc(b.region) : ""}</p>
+        </div>
+        ${leadHtml}
+        <div class="rows">${rows}</div>
+        <div class="price"><span>пачка ${esc(b.weight)}</span><b>${rub(b.price)}</b></div>
+      </div>
+    </article>`;
+  }).join("");
+
+  /* меню бара */
+  $(".js-menu").innerHTML = MENU.bar.map((g) => `
+    <div class="col">
+      <h3>${esc(g.group)} <small>${g.items.length} поз.</small></h3>
+      ${g.hint ? `<p class="hint">${esc(g.hint)}</p>` : ""}
+      <ul>${g.items.map(it => `<li><div class="row"><span>${esc(it.name)}</span><i></i><b>${rub(it.price)}</b></div>${it.note ? `<small>${esc(it.note)}</small>` : ""}</li>`).join("")}</ul>
+    </div>`).join("");
+
+  /* заметка про кружку — в низ первой колонки меню, чтобы не оставалось пустоты */
+  const mn = $(".menu-note"), c1 = $(".js-menu .col");
+  if (mn && c1) c1.appendChild(mn);
+
+  /* на телефоне схема крупнее: показываем только район маршрута */
+  if (matchMedia("(max-width:620px)").matches) $(".js-map").setAttribute("viewBox", "112 22 440 410");
+
+  /* подсветка раздела в нижней панели */
+  if ("IntersectionObserver" in window) {
+    const tabs = [...document.querySelectorAll(".tabbar a")];
+    const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) tabs.forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id ? "true" : "false")); }), { rootMargin: "-45% 0px -50% 0px" });
+    tabs.forEach(a => { const t = document.querySelector(a.getAttribute("href")); if (t) io.observe(t); });
+  }
+
+  /* телефон */
+  document.querySelectorAll(".js-phone").forEach(a => a.href = PHONE.href);
+  document.querySelectorAll("footer .js-phone-text, .phone-big .js-phone-text").forEach(a => a.textContent = PHONE.text);
+
+  /* часы и «открыто сейчас» — время Новосибирска, UTC+7 */
+  const nsk = () => new Date(Date.now() + 7 * 3600e3);
+  const dow = (d) => (d.getUTCDay() || 7);
+  const forDay = (n) => HOURS.find(h => h.days.includes(n));
+  const pad = (n) => String(n).padStart(2, "0");
+  const now = nsk(), today = dow(now);
+  $(".js-hours").innerHTML = HOURS.map(h => `<div class="${h.days.includes(today) ? "today" : ""}"><span class="lab">${esc(h.short || h.label)}</span><b>${pad(h.open)}<span>—</span>${h.close}</b></div>`).join("");
+  const st = $(".js-status"), hr = now.getUTCHours() + now.getUTCMinutes() / 60, t = forDay(today);
+  if (t && hr >= t.open && hr < t.close) st.lastElementChild.textContent = `Сейчас открыто · до ${t.close}:00`;
+  else {
+    st.classList.add("closed");
+    const next = hr < (t ? t.open : 0) ? t : forDay(today % 7 + 1);
+    st.lastElementChild.textContent = `Сейчас закрыто · откроемся ${next === t ? "сегодня" : "завтра"} в ${next.open}:00`;
+  }
+
+  const dayName = now.toLocaleDateString("ru-RU", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
+  const tl = $(".js-today"), isOpen = !st.classList.contains("closed");
+  tl.classList.toggle("closed", !isOpen);
+  tl.innerHTML = `<i></i><span>Сегодня · ${esc(dayName)} · ${isOpen ? "открыто до " + t.close + ":00" : st.lastElementChild.textContent.replace("Сейчас закрыто · ", "").replace(/^./, c => c)}</span>`;
+
+  /* бронь */
+  const f = $(".js-form"), name = $("#name"), phone = $("#phone"), date = $("#date"), time = $("#time");
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const minD = iso(now), maxD = iso(new Date(now.getTime() + 6 * 864e5));
+  const WD = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"], MON = ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+  /* семь ближайших дней — кнопками */
+  $(".js-days").innerHTML = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(now.getTime() + i * 864e5);
+    return `<label class="chip"><input type="radio" name="day" value="${iso(d)}"><span><small>${WD[d.getUTCDay()]}</small>${d.getUTCDate()}<em>${i === 0 ? `<b class="td">сегодня</b><b class="mo">${MON[d.getUTCMonth()]}</b>` : MON[d.getUTCMonth()]}</em></span></label>`;
+  }).join("");
+  document.querySelectorAll("[data-book]").forEach(a => a.addEventListener("click", () => setTimeout(() => name.focus({ preventScroll: true }), 450)));
+
+  phone.addEventListener("input", () => {
+    let d = phone.value.replace(/\D/g, "");
+    if (d[0] === "8") d = "7" + d.slice(1);
+    if (d && d[0] !== "7") d = "7" + d;
+    d = d.slice(0, 11);
+    const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+    phone.value = !d ? "" : "+7" + (p[0] ? ` (${p[0]}` : "") + (p[1] ? `) ${p[1]}` : "") + (p[2] ? `-${p[2]}` : "") + (p[3] ? `-${p[3]}` : "");
+  });
+
+  $(".js-days").addEventListener("change", (e) => {
+    date.value = e.target.value;
+    time.innerHTML = '<option value="">Выберите время</option>';
+    const d = new Date(date.value + "T00:00:00Z"), h = forDay(dow(d));
+    const isToday = date.value === minD;
+    for (let m = h.open * 60; m <= (h.close - 1) * 60; m += 30) {
+      if (isToday && m < hr * 60 + 30) continue;
+      const s = `${Math.floor(m / 60)}:${m % 60 ? "30" : "00"}`;
+      time.insertAdjacentHTML("beforeend", `<option>${s}</option>`);
+    }
+    if (time.options.length === 1) time.innerHTML = '<option value="">На сегодня мест уже нет</option>';
+    check(date); time.setAttribute("aria-invalid", "false"); $("#e-time").textContent = "";
+  });
+
+  const rules = {
+    name: () => name.value.trim().length < 2 ? "Напишите имя — хотя бы две буквы." : /[0-9]/.test(name.value) ? "В имени не должно быть цифр." : "",
+    phone: () => phone.value.replace(/\D/g, "").length !== 11 ? "Нужен номер целиком: +7 и ещё 10 цифр." : "",
+    date: () => !date.value ? "Выберите день." : (date.value < minD || date.value > maxD) ? "Бронируем на ближайшую неделю." : "",
+    time: () => !time.value ? "Выберите время." : ""
+  };
+  const els = { name, phone, date, time };
+  function check(el) { const msg = rules[el.name](); el.setAttribute("aria-invalid", msg ? "true" : "false"); $("#e-" + el.name).textContent = msg; return !msg; }
+  Object.values(els).forEach(el => el.addEventListener("blur", () => el.value && check(el)));
+  f.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const bad = Object.values(els).filter(el => !check(el));
+    if (bad.length) { (bad[0] === date ? $(".chip input") : bad[0]).focus(); return; }
+    const d = new Date(date.value + "T00:00:00Z").toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long", timeZone: "UTC" });
+    $(".js-summary").textContent = `${name.value.trim()}, столик на ${$("#guests").value} ${+$("#guests").value === 1 ? "гостя" : "гостей"} — ${d}, ${time.value}. Перезвоним на ${phone.value}.`;
+    f.classList.add("sent"); $(".ok").focus();
+  });
+  $("[data-again]").addEventListener("click", () => { f.reset(); date.value = ""; time.innerHTML = '<option value="">Сначала дата</option>'; f.classList.remove("sent"); name.focus(); });
+})();
+</script>
+</body>
+</html>

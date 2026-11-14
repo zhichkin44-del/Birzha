@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Лак и точка — студия маникюра, Тверь</title>
+<meta name="description" content="«Лак и точка» — маникюр, гель-лак и педикюр в Твери. ул. Солнечная, 14, оф. 3. Пн–сб 10:00–20:00. Запись в Telegram, WhatsApp или по телефону.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F3ECE2; --cream-2:#E9DFD1; --black:#171413; --black-2:#24201E; --wine:#7D1E2C; --wine-l:#C9707B;
+  --ink:#171413; --mute:#5F5751; --mute-d:#B5AAA1; --line:#D6CABB;
+  --disp:"Prata", "Didot", "Bodoni MT", Georgia, serif;
+  --sans:"Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 17px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--wine);outline-offset:3px}
+.wrap{max-width:1216px;margin:0 auto;padding:0 32px}
+h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:1;letter-spacing:-.015em}
+.lbl{font:600 13px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.dot{color:var(--wine)}
+
+.demo{background:var(--wine);color:#fff;text-align:center;font:600 14px/1.3 var(--sans);letter-spacing:.08em;padding:10px 16px;text-transform:uppercase}
+
+header.top{border-bottom:1px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.logo{font:400 26px/1 var(--disp);text-decoration:none;letter-spacing:.02em}
+.menu{display:flex;gap:34px}
+.menu a{text-decoration:none;font-weight:500;font-size:15px;padding:12px 0;border-bottom:1px solid transparent}
+.menu a:hover{border-color:var(--ink)}
+.tel{font-weight:600;text-decoration:none;font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;font:600 16px/1 var(--sans);text-decoration:none;border:1.5px solid var(--ink);background:transparent;color:var(--ink);transition:background .2s,color .2s;cursor:pointer;border-radius:0}
+.btn:hover{background:var(--ink);color:var(--cream)}
+.btn.w{background:var(--wine);border-color:var(--wine);color:#fff}
+.btn.w:hover{background:var(--ink);border-color:var(--ink)}
+.btn.k{background:var(--ink);color:var(--cream)}
+.btn.k:hover{background:var(--wine);border-color:var(--wine)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* первый экран */
+.hero{border-bottom:1px solid var(--ink)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;min-height:640px}
+.hero-l{padding:64px 48px 56px 0;border-right:1px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.hero h1{font-size:clamp(56px,8.6vw,124px);line-height:.92}
+.hero h1 .it{display:block;color:var(--wine)}
+.hero p{font-size:19px;max-width:30em;margin:0;color:var(--mute)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-r{position:relative;background:var(--black);overflow:hidden}
+.hero-r svg{position:absolute;left:0;right:0;bottom:0;width:100%;height:88%}
+.hero-r .tag{position:absolute;left:28px;top:28px;color:var(--cream);font:400 15px/1.4 var(--sans);z-index:2}
+.hero-r .tag b{display:block;font:400 30px/1.1 var(--disp)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--ink)}
+.nums div{padding:30px 32px;border-right:1px solid var(--ink)}
+.nums div:last-child{border-right:0}
+.nums b{display:block;font:400 54px/1 var(--disp);margin-bottom:8px}
+.nums span{color:var(--mute);font-size:16px}
+
+section{padding:100px 0}
+.sh{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:end;margin-bottom:56px}
+.sh .big{font:400 clamp(90px,13vw,190px)/.8 var(--disp);color:var(--wine)}
+.sh h2{font-size:clamp(40px,5vw,72px)}
+.sh p{margin:16px 0 0;max-width:34em;color:var(--mute)}
+
+/* прайс */
+#price{background:var(--black);color:var(--cream)}
+#price .sh p{color:var(--mute-d)}
+.rows{border-top:1px solid #4A423E}
+.rows details{border-bottom:1px solid #4A423E}
+.rows summary{list-style:none;display:grid;grid-template-columns:1fr auto 44px;gap:24px;align-items:center;padding:26px 0;cursor:pointer}
+.rows summary::-webkit-details-marker{display:none}
+.rows summary:hover .nm{color:var(--wine-l)}
+.nm{font:400 34px/1.1 var(--disp);transition:color .2s}
+.nm small{display:block;font:400 16px/1.4 var(--sans);color:var(--mute-d);margin-top:6px}
+.pr{font:400 clamp(44px,5.4vw,76px)/1 var(--disp);white-space:nowrap;text-align:right}
+.pr span{font-size:.45em;color:var(--wine-l);margin-left:4px}
+.ar{width:44px;height:44px;border:1px solid #6B605A;display:grid;place-items:center;transition:transform .25s,background .2s}
+.ar::before{content:"";width:10px;height:10px;border-right:1.5px solid var(--cream);border-bottom:1.5px solid var(--cream);transform:translateY(-3px) rotate(45deg)}
+details[open] .ar{transform:rotate(180deg);background:var(--wine);border-color:var(--wine)}
+.rows .body{padding:0 0 28px;max-width:42em;color:var(--mute-d)}
+.combo{margin-top:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border:1px solid #4A423E;padding:28px 32px}
+.combo p{margin:0;font-size:18px}
+.combo b{font:400 40px/1 var(--disp);color:#fff}
+.combo .btn{border-color:var(--cream);color:var(--cream)}
+.combo .btn:hover{background:var(--cream);color:var(--ink)}
+
+/* работы */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:-24px 0 36px}
+.filters button{min-height:44px;padding:0 20px;border:1.5px solid var(--ink);background:transparent;font:600 15px/1 var(--sans);cursor:pointer;color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.card{margin:0;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);position:relative;background:var(--cream)}
+.card[hidden]{display:none}
+.card svg{width:100%;aspect-ratio:4/5;height:auto}
+.card .no{position:absolute;left:14px;top:10px;font:400 44px/1 var(--disp);color:var(--cream);mix-blend-mode:normal;z-index:2;text-shadow:0 1px 0 rgba(0,0,0,.08)}
+.card.lt .no{color:var(--ink)}
+.card figcaption{padding:14px 16px 18px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.card figcaption b{font:400 21px/1.15 var(--disp)}
+.card figcaption span{font-size:14px;color:var(--mute);white-space:nowrap}
+.grid-note{margin-top:28px;color:var(--mute)}
+
+/* мастер */
+#master{border-top:1px solid var(--ink)}
+.m{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.quote{font:400 clamp(38px,4.4vw,60px)/1.08 var(--disp)}
+.quote .dot{font-size:1.1em}
+.m p{color:var(--mute);margin:0 0 16px}
+.steps{list-style:none;margin:36px 0 0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:22px 0;border-top:1px solid var(--ink)}
+.steps li::before{counter-increment:s;content:"0" counter(s);font:400 52px/1 var(--disp);color:var(--wine)}
+.steps strong{display:block;font-size:19px;margin-bottom:4px}
+.steps span{color:var(--mute)}
+.who{display:flex;gap:18px;align-items:center;margin-top:36px}
+.who .ava{width:72px;height:72px;border-radius:50%;background:var(--wine);color:var(--cream);display:grid;place-items:center;font:400 30px/1 var(--disp)}
+.who b{display:block;font:400 24px/1.1 var(--disp)}
+.who span{color:var(--mute);font-size:15px}
+
+/* контакты */
+#kontakty{background:var(--cream-2);border-top:1px solid var(--ink)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--ink);margin-bottom:48px}
+.day{padding:18px 14px 20px;border-right:1px solid var(--ink);background:var(--black);color:var(--cream);min-height:150px;display:flex;flex-direction:column;justify-content:space-between}
+.day:last-child{border-right:0;background:var(--cream);color:var(--wine)}
+.day .d{font:600 14px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.day .h{font:400 34px/1 var(--disp)}
+.day .h small{display:block;font:400 15px/1.2 var(--sans);color:var(--mute-d);margin-top:6px}
+.day:last-child .h{font-size:24px}
+.day.now{background:var(--wine)}
+.day.now:last-child{color:#fff}
+.day.now .d::after{content:" · сегодня";letter-spacing:.06em}
+.ct{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.ct h2{font-size:clamp(42px,5vw,72px);margin:14px 0 22px}
+.ct .addr{font:400 30px/1.2 var(--disp);margin:0 0 10px}
+.ct p{color:var(--mute);margin:0 0 30px}
+.ct .cta .btn{flex:1 1 auto}
+.map{margin:0;border:1px solid var(--ink);background:var(--cream)}
+.map svg{width:100%;height:auto}
+.map figcaption{border-top:1px solid var(--ink);padding:14px 18px;font-size:16px}
+
+footer{background:var(--black);color:var(--mute-d);padding:40px 0;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+footer .logo{color:var(--cream)}
+footer a{color:var(--cream)}
+
+.dock{display:none}
+
+@media (max-width:1024px){
+  .menu{display:none}
+  .hero .wrap{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .week .day .h{font-size:26px}
+  .m,.ct{gap:40px}
+}
+@media (max-width:760px){
+  .wrap{padding:0 20px}
+  .top .wrap{height:64px}
+  .logo{font-size:23px}
+  .top .btn,.top .tel{display:none}
+  .hero .wrap{grid-template-columns:1fr;min-height:0;padding:0}
+  .hero-l{padding:36px 20px 40px;border-right:0;gap:28px}
+  .hero h1{font-size:60px}
+  .hero p{font-size:17px}
+  .hero-r{aspect-ratio:1/1;order:-1;border-bottom:1px solid var(--ink)}
+  .cta .btn{flex:1 1 100%}
+  .nums{grid-template-columns:1fr}
+  .nums div{border-right:0;border-bottom:1px solid var(--ink);padding:22px 20px;display:flex;align-items:baseline;gap:16px}
+  .nums div:last-child{border-bottom:0}
+  .nums b{font-size:40px;margin:0;min-width:130px}
+  section{padding:64px 0}
+  .sh{grid-template-columns:1fr;gap:6px;margin-bottom:36px}
+  .sh .big{font-size:96px}
+  .rows summary{grid-template-columns:1fr auto;gap:6px 14px;padding:22px 0}
+  .ar{display:none}
+  .nm{font-size:26px}
+  .nm small{font-size:16px}
+  .card figcaption span{font-size:16px;white-space:normal}
+  .lbl{font-size:14px}
+  .day .d{font-size:15px}
+  .pr{font-size:38px}
+  .combo{padding:22px 20px}
+  .combo .btn{width:100%}
+  .filters{margin:-8px 0 24px}
+  .filters button{padding:0 16px}
+  .grid{grid-template-columns:1fr 1fr}
+  .card .no{font-size:32px;left:10px}
+  .card figcaption{flex-direction:column;gap:2px;padding:10px 12px 14px}
+  .card figcaption b{font-size:18px}
+  .m,.ct{grid-template-columns:1fr}
+  .steps li{grid-template-columns:64px 1fr}
+  .steps li::before{font-size:40px}
+  .week{grid-template-columns:1fr;margin-bottom:36px}
+  .day{min-height:0;flex-direction:row;align-items:center;border-right:0;border-bottom:1px solid #3A3431;padding:14px 18px}
+  .day:last-child{border-bottom:0}
+  .day .h{font-size:24px}
+  .day .h small{display:none}
+  .day:last-child .h{font-size:20px}
+  .ct .addr{font-size:26px}
+  footer{padding-bottom:110px}
+  .dock{display:grid;grid-template-columns:1.2fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--black);border-top:3px solid var(--wine);padding-bottom:env(safe-area-inset-bottom)}
+  .dock a{display:flex;align-items:center;justify-content:center;gap:7px;min-height:62px;color:var(--cream);text-decoration:none;font:600 15px/1 var(--sans);border-right:1px solid #3A3431}
+  .dock a:last-child{border-right:0}
+  .dock a.main{background:var(--wine)}
+  .dock svg{width:19px;height:19px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="demo" role="note">Демо-концепт · данные вымышлены</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">Лак и точка<span class="dot">.</span></a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#price">Цены</a><a href="#works">Работы</a><a href="#master">Мастер</a><a href="#kontakty">Адрес</a>
+    </nav>
+    <a class="tel" href="tel:+79000000000">+7 (900) 000-00-00</a>
+    <a class="btn w" href="https://t.me/+79000000000" target="_blank" rel="noopener" style="min-height:46px">Записаться</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-l">
+      <div class="lbl">Студия маникюра · Тверь</div>
+      <h1 id="h1">Маникюр <span class="it">без лишнего<span style="color:var(--ink)">.</span></span></h1>
+      <p>Чистая форма, ровное покрытие и аккуратная кутикула. Один мастер, один стол, одна клиентка за раз — поэтому запись идёт по часам, а не потоком.</p>
+      <div class="cta">
+        <a class="btn w" href="https://t.me/+79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 4.2 2.9 11.4c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.7 3.5c.7.5 1.7.1 1.9-.7L23 5.6c.2-1-.7-1.8-1.6-1.4ZM9.7 14.6l-.4 3.6-1.4-4.3 9.6-6.1-7.8 6.8Z"/></svg>Telegram</a>
+        <a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3c.2-.6.2-1.1.2-1.3-.1 0-.2-.1-.5-.2Z"/></svg>WhatsApp</a>
+        <a class="btn" href="tel:+79000000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3h3.5l1.7 4.5-2.3 1.4a11 11 0 0 0 5.2 5.2l1.4-2.3L19 13.5V17a2 2 0 0 1-2 2A15 15 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Позвонить</a>
+      </div>
+    </div>
+    <div class="hero-r" id="heroArt"><div class="tag"><b>№ 03 · Бордо</b>самый частый выбор этой осенью</div></div>
+  </div>
+</section>
+<div class="nums" aria-label="Коротко">
+  <div><b>1 500 ₽</b><span>маникюр без покрытия</span></div>
+  <div><b>10–20</b><span>каждый день, кроме воскресенья</span></div>
+  <div><b>3–4 нед.</b><span>держится гель-лак</span></div>
+</div>
+
+<section id="price" aria-labelledby="h-price">
+  <div class="wrap">
+    <div class="sh"><div class="big" aria-hidden="true">₽</div><div><div class="lbl" style="color:var(--wine-l)">Прайс</div><h2 id="h-price" style="margin-top:14px">Услуги и цены</h2><p>Цены окончательные, без «от» и доплат за длину. Откройте строку — там состав и время.</p></div></div>
+    <div class="rows">
+      <details><summary><span class="nm">Маникюр<small>комбинированный, без покрытия · 60 мин</small></span><span class="pr">1 500<span>₽</span></span><span class="ar" aria-hidden="true"></span></summary><div class="body">Кутикула, форма и длина, полировка, масло. Для тех, кто носит обычный лак или любит натуральные ногти.</div></details>
+      <details><summary><span class="nm">Гель-лак<small>однотонное покрытие, база и топ · 60 мин</small></span><span class="pr">1 200<span>₽</span></span><span class="ar" aria-hidden="true"></span></summary><div class="body">Выравнивание базой, один оттенок из палитры студии, глянцевый или матовый топ. Носится 3–4 недели.</div></details>
+      <details><summary><span class="nm">Педикюр<small>с обработкой стоп · 90 мин</small></span><span class="pr">2 000<span>₽</span></span><span class="ar" aria-hidden="true"></span></summary><div class="body">Пальцы и стопы, форма, увлажнение. Покрытие гель-лаком на стопы — по цене покрытия рук.</div></details>
+      <details><summary><span class="nm">Снятие<small>гель-лак, в том числе чужой работы · 15 мин</small></span><span class="pr">300<span>₽</span></span><span class="ar" aria-hidden="true"></span></summary><div class="body">Снимаю аппаратом, без отрыва и травм пластины.</div></details>
+      <details><summary><span class="nm">Дизайн<small>френч, точки, роспись, втирка · за 1 ноготь</small></span><span class="pr">от 100<span>₽</span></span><span class="ar" aria-hidden="true"></span></summary><div class="body">Френч на все ногти — 400 ₽. Сложный рисунок: пришлите картинку, назову цену до записи.</div></details>
+    </div>
+    <div class="combo"><p>Маникюр + гель-лак, около 2 часов</p><b>2 700 ₽</b><a class="btn" href="https://t.me/+79000000000" target="_blank" rel="noopener">Записаться на комплекс</a></div>
+  </div>
+</section>
+
+<section id="works" aria-labelledby="h-works">
+  <div class="wrap">
+    <div class="sh"><div class="big" aria-hidden="true">12</div><div><div class="lbl" style="color:var(--wine)">Портфолио</div><h2 id="h-works" style="margin-top:14px">Работы мастера</h2><p>Покрытия, которые просят чаще всего. Отфильтруйте по типу — и пришлите номер понравившейся работы при записи.</p></div></div>
+    <div class="filters" role="group" aria-label="Фильтр работ">
+      <button type="button" data-f="all" aria-pressed="true">Все</button>
+      <button type="button" data-f="nude" aria-pressed="false">Нюд</button>
+      <button type="button" data-f="french" aria-pressed="false">Френч</button>
+      <button type="button" data-f="bright" aria-pressed="false">Цвет</button>
+      <button type="button" data-f="art" aria-pressed="false">Дизайн</button>
+    </div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <p class="grid-note">Номер работы — самый быстрый способ объяснить, что вы хотите: «как № 07, только без точек».</p>
+  </div>
+</section>
+
+<section id="master" aria-labelledby="h-m">
+  <div class="wrap m">
+    <div>
+      <div class="lbl" style="color:var(--wine)">Мастер</div>
+      <h2 id="h-m" class="quote" style="margin-top:18px">Один мастер. Один стол. Никакой спешки<span class="dot">.</span></h2>
+      <div class="who"><div class="ava" aria-hidden="true">Н</div><div><b>Ника Светлова</b><span>мастер маникюра и педикюра, 7 лет практики</span></div></div>
+    </div>
+    <div>
+      <p>Я ушла из салона-потока, чтобы делать маникюр так, как его делала бы себе: без сорокаминутного таймера и с нормальным временем на кутикулу. Студия маленькая — один стол, вытяжка и чай.</p>
+      <ol class="steps">
+        <li><div><strong>Стерильно</strong><span>Сухожар, крафт-пакеты вскрываю при вас.</span></div></li>
+        <li><div><strong>Одноразовое — новое</strong><span>Пилки, бафы и педикюрные насадки — для каждой клиентки свои.</span></div></li>
+        <li><div><strong>Гарантия 7 дней</strong><span>Скол в первую неделю — исправлю бесплатно.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="kontakty" aria-labelledby="h-k">
+  <div class="wrap">
+    <div class="week" aria-label="График работы: понедельник–суббота 10:00–20:00, воскресенье выходной" id="week"></div>
+    <div class="ct">
+      <div>
+        <div class="lbl" style="color:var(--wine)">Адрес</div>
+        <h2 id="h-k">Как добраться</h2>
+        <p class="addr">Тверь, ул.&nbsp;Солнечная, 14, оф.&nbsp;3</p>
+        <p>Вход со двора, второй этаж, на двери табличка «Лак и точка». Парковка у дома бесплатная.</p>
+        <div class="cta">
+          <a class="btn w" href="https://t.me/+79000000000" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn k" href="tel:+79000000000">+7 (900) 000-00-00</a>
+        </div>
+      </div>
+      <figure class="map">
+        <svg viewBox="0 0 600 440" role="img" aria-label="Схема: студия на улице Солнечной, дом 14, офис 3, рядом с остановкой">
+          <rect width="600" height="440" fill="#F3ECE2"/>
+          <g fill="none" stroke="#D6CABB" stroke-width="1">
+            <path d="M0 40H600M0 80H600M0 120H600M0 280H600M0 320H600M0 360H600M0 400H600M40 0V440M80 0V440M120 0V440M480 0V440M520 0V440M560 0V440"/>
+          </g>
+          <g fill="#E3D8C9"><rect x="20" y="20" width="170" height="120"/><rect x="230" y="20" width="140" height="120"/><rect x="20" y="250" width="170" height="80"/><rect x="230" y="250" width="140" height="80"/><rect x="410" y="250" width="170" height="80"/><rect x="20" y="370" width="170" height="60"/><rect x="230" y="370" width="140" height="60"/><rect x="410" y="370" width="170" height="60"/></g>
+          <rect x="410" y="20" width="170" height="120" fill="#171413"/>
+          <text x="495" y="74" text-anchor="middle" font-family="Prata,Georgia,serif" font-size="40" fill="#F3ECE2">14</text>
+          <text x="495" y="108" text-anchor="middle" font-family="Onest,sans-serif" font-size="18" font-weight="600" fill="#C9707B">оф. 3 · 2 этаж</text>
+          <path d="M0 195H600" stroke="#171413" stroke-width="64"/>
+          <path d="M210 0V440M390 0V440" stroke="#171413" stroke-width="22"/>
+          <path d="M0 350H600" stroke="#171413" stroke-width="16"/>
+          <text x="300" y="203" text-anchor="middle" font-family="Onest,sans-serif" font-size="22" font-weight="700" fill="#F3ECE2" letter-spacing="3">УЛ. СОЛНЕЧНАЯ</text>
+          <circle cx="110" cy="195" r="15" fill="#7D1E2C" stroke="#F3ECE2" stroke-width="4"/>
+          <text x="105" y="290" text-anchor="middle" font-family="Onest,sans-serif" font-size="18" fill="#171413">остановка</text>
+          <path d="M110 170V150H495V140" stroke="#7D1E2C" stroke-width="4" stroke-dasharray="1 10" stroke-linecap="round" fill="none"/>
+          <circle cx="495" cy="140" r="9" fill="#7D1E2C"/>
+        </svg>
+        <figcaption>Схема условная · от остановки 3 минуты пешком</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="logo">Лак и точка<span class="dot">.</span></span>
+    <span>Демо-концепт · данные вымышлены · <a href="tel:+79000000000">+7 (900) 000-00-00</a></span>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Быстрая запись">
+  <a class="main" href="https://t.me/+79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 4.2 2.9 11.4c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.7 3.5c.7.5 1.7.1 1.9-.7L23 5.6c.2-1-.7-1.8-1.6-1.4Z"/></svg>Telegram</a>
+  <a href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a>
+  <a href="tel:+79000000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 3h3.5l1.7 4.5-2.3 1.4a11 11 0 0 0 5.2 5.2l1.4-2.3L19 13.5V17a2 2 0 0 1-2 2A15 15 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Звонок</a>
+</nav>
+
+<script>
+/* ===== Иллюстрации ногтей: свои SVG ===== */
+const SKIN=[["#F2D5C4","#D9A88F","#E7BBA5"],["#DDAA8A","#B67C5C","#C99071"],["#9A6347","#6E412C","#83523A"]];
+const FING=[{cx:68,w:50,top:136,r:-7},{cx:126,w:56,top:94,r:-2},{cx:186,w:53,top:112,r:3},{cx:240,w:43,top:168,r:9}];
+let UID=0;
+function rnd(seed){let s=seed;return()=>((s=(s*9301+49297)%233280)/233280)}
+function nailPath(l,t,nw,nh){const cx=l+nw/2,r=l+nw;
+  return `M${l} ${t+nh*.86}L${l} ${t+nh*.44}C${l} ${t+nh*.12} ${cx-nw*.24} ${t} ${cx} ${t}C${cx+nw*.24} ${t} ${r} ${t+nh*.12} ${r} ${t+nh*.44}L${r} ${t+nh*.86}Q${cx} ${t+nh*1.06} ${l} ${t+nh*.86}Z`}
+function design(d,l,t,nw,nh,u,i){
+  const cx=l+nw/2; let s="";
+  const g=(id,stops,x2="0",y2="1")=>`<linearGradient id="${id}" x1="0" y1="0" x2="${x2}" y2="${y2}">${stops.map(([o,c,a])=>`<stop offset="${o}" stop-color="${c}"${a!=null?` stop-opacity="${a}"`:""}/>`).join("")}</linearGradient>`;
+  const box=`x="${l-2}" y="${t-2}" width="${nw+4}" height="${nh+4}"`;
+  switch(d.t){
+    case"solid": s=`<rect ${box} fill="${d.a}"/>`;break;
+    case"french": s=`<rect ${box} fill="${d.a}"/><ellipse cx="${cx}" cy="${t-nh*.02}" rx="${nw*.78}" ry="${nh*.3}" fill="${Array.isArray(d.b)?d.b[i]:d.b}"/>`;break;
+    case"vfrench": {const c=Array.isArray(d.b)?d.b[i]:d.b; s=`<rect ${box} fill="${d.a}"/><path d="M${l-2} ${t-2}H${l+nw+2}V${t+nh*.18}L${cx} ${t+nh*.42}L${l-2} ${t+nh*.18}Z" fill="${c}"/>`;break;}
+    case"ombre": s=`<defs>${g(u+"o",[[0,d.b],[.75,d.a]])}</defs><rect ${box} fill="url(#${u}o)"/>`;break;
+    case"chrome": s=`<defs>${g(u+"c",[[0,d.a],[.35,"#fff"],[.55,d.b],[1,d.a]],"1","1")}</defs><rect ${box} fill="url(#${u}c)"/>`;break;
+    case"cateye": s=`<defs>${g(u+"k",[[0,d.b,0],[.5,d.b,.95],[1,d.b,0]],"1","0")}</defs><rect ${box} fill="${d.a}"/><rect x="${cx-nw*.35}" y="${t-4}" width="${nw*.7}" height="${nh+8}" fill="url(#${u}k)" transform="rotate(-18 ${cx} ${t+nh/2})"/>`;break;
+    case"dots": {s=`<rect ${box} fill="${d.a}"/>`;const p=[[.5,.3],[.3,.55],[.7,.55],[.5,.78]];p.forEach(([x,y],k)=>{if(k<(i%2?4:2)||i==2)s+=`<circle cx="${l+nw*x}" cy="${t+nh*y}" r="${nw*.07}" fill="${d.b}"/>`});break;}
+    case"line": s=`<rect ${box} fill="${d.a}"/><path d="M${l+nw*.2} ${t+nh*.95}C${l+nw*.3} ${t+nh*.6} ${l+nw*.75} ${t+nh*.55} ${l+nw*.62} ${t+nh*.15}" stroke="${d.b}" stroke-width="1.4" fill="none"/><path d="M${l+nw*.42} ${t+nh*.58}q${nw*.25} -${nh*.06} ${nw*.3} -${nh*.2}M${l+nw*.36} ${t+nh*.74}q-${nw*.18} -${nh*.04} -${nw*.22} -${nh*.18}" stroke="${d.b}" stroke-width="1.2" fill="none"/>`;break;
+    case"marble": {const R=rnd(7+i);s=`<rect ${box} fill="${d.a}"/>`;for(let k=0;k<3;k++){const y=t+nh*(.2+k*.28);s+=`<path d="M${l-2} ${y}C${l+nw*.3} ${y-nh*(.1+R()*.15)} ${l+nw*.6} ${y+nh*(.15+R()*.1)} ${l+nw+2} ${y-nh*.05}" stroke="${d.b}" stroke-width="${k==1?2.2:1}" opacity="${k==1?.55:.8}" fill="none"/>`}break;}
+    case"moon": s=`<rect ${box} fill="${d.a}"/><ellipse cx="${cx}" cy="${t+nh*.95}" rx="${nw*.36}" ry="${nh*.2}" fill="${d.b}"/>`;break;
+    case"glitter": {const R=rnd(3+i*11);s=`<defs>${g(u+"g",[[0,d.a],[1,d.c||d.a]])}</defs><rect ${box} fill="url(#${u}g)"/>`;for(let k=0;k<26;k++)s+=`<circle cx="${l+R()*nw}" cy="${t+R()*nh}" r="${.5+R()*1.4}" fill="${k%3?d.b:"#fff"}" opacity="${.6+R()*.4}"/>`;break;}
+    case"heart": s=`<rect ${box} fill="${d.a}"/><path d="M${cx} ${t+nh*.66}c-${nw*.36} -${nh*.2} -${nw*.26} -${nh*.44} 0 -${nh*.3}c${nw*.26} -${nh*.14} ${nw*.36} ${nh*.1} 0 ${nh*.3}Z" fill="${d.b}"/>`;break;
+    case"flower": {s=`<rect ${box} fill="${d.a}"/>`;const fy=t+nh*.5;for(let k=0;k<5;k++){const an=k*72*Math.PI/180;s+=`<ellipse cx="${cx+Math.sin(an)*nw*.16}" cy="${fy-Math.cos(an)*nw*.16}" rx="${nw*.11}" ry="${nw*.16}" fill="${d.b}" transform="rotate(${k*72} ${cx+Math.sin(an)*nw*.16} ${fy-Math.cos(an)*nw*.16})"/>`}s+=`<circle cx="${cx}" cy="${fy}" r="${nw*.07}" fill="${d.c||"#E8B54A"}"/>`;break;}
+  }
+  return s;
+}
+function hand(w,o={}){
+  const u="h"+(UID++), sk=SKIN[w.skin||0];
+  let defs=`<linearGradient id="${u}s" x1="0" x2="1"><stop offset="0" stop-color="${sk[1]}"/><stop offset=".35" stop-color="${sk[0]}"/><stop offset=".7" stop-color="${sk[0]}"/><stop offset="1" stop-color="${sk[2]}"/></linearGradient>
+  <filter id="${u}f" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="8" dy="14" stdDeviation="12" flood-color="#3B2A26" flood-opacity=".22"/></filter>
+  <radialGradient id="${u}b" cx=".5" cy=".42" r=".7"><stop offset="0" stop-color="${w.bg[1]}"/><stop offset="1" stop-color="${w.bg[0]}"/></radialGradient>`;
+  let body="";
+  FING.forEach((f,i)=>{
+    const nw=f.w*.72,nh=f.w*1.18,l=f.cx-nw/2,t=f.top-nh*.2;
+    const d=(w.acc&&w.acc.i===i)?w.acc:w.d;
+    const cp=`${u}c${i}`;
+    defs+=`<clipPath id="${cp}"><path d="${nailPath(l,t,nw,nh)}"/></clipPath>`;
+    body+=`<g transform="rotate(${f.r} ${f.cx} 420)">
+      <rect x="${f.cx-f.w/2}" y="${f.top}" width="${f.w}" height="360" rx="${f.w/2}" fill="url(#${u}s)"/>
+      <path d="M${f.cx-f.w*.22} ${f.top+f.w*2.05}q${f.w*.22} 6 ${f.w*.44} 0M${f.cx-f.w*.16} ${f.top+f.w*2.2}q${f.w*.16} 4 ${f.w*.32} 0" stroke="${sk[1]}" stroke-width="1.4" fill="none" opacity=".55"/>
+      <path d="M${l-2} ${t+nh*.9}Q${f.cx} ${t+nh*1.14} ${l+nw+2} ${t+nh*.9}" stroke="${sk[1]}" stroke-width="2" fill="none" opacity=".45"/>
+      <g clip-path="url(#${cp})">${design(d,l,t,nw,nh,cp,i)}
+        <rect x="${l+nw*.16}" y="${t+nh*.18}" width="${nw*.14}" height="${nh*.55}" rx="${nw*.07}" fill="#fff" opacity=".42"/>
+        <circle cx="${l+nw*.68}" cy="${t+nh*.2}" r="${nw*.06}" fill="#fff" opacity=".55"/>
+        <path d="M${l+nw} ${t}V${t+nh}" stroke="#000" stroke-opacity=".08" stroke-width="${nw*.18}"/>
+      </g>
+      <path d="${nailPath(l,t,nw,nh)}" fill="none" stroke="#000" stroke-opacity=".08"/>
+    </g>`;
+  });
+  const deco=o.plain?"":`<circle cx="${w.circ?w.circ[0]:230}" cy="${w.circ?w.circ[1]:90}" r="70" fill="#fff" opacity=".22"/>`;
+  return `<svg viewBox="0 0 300 375" preserveAspectRatio="${o.slice?'xMidYMax slice':'xMidYMid meet'}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${o.label||w.name}"><defs>${defs}</defs><rect width="300" height="375" fill="url(#${u}b)"/>${deco}<g filter="url(#${u}f)">${body}</g></svg>`;
+}
+
+
+const D=["#211C1B","#2E2724"], L=["#E6DCCD","#F4EEE5"];
+const WORKS=[
+ {name:"Молочный нюд",f:"nude",bg:L,skin:0,d:{t:"solid",a:"#EBD4C8"},acc:{i:2,t:"glitter",a:"#EBD4C8",b:"#D8B98A",c:"#F2E2D8"}},
+ {name:"Бордо с хромом",f:"bright",bg:D,skin:0,d:{t:"solid",a:"#7D1E2C"},acc:{i:2,t:"chrome",a:"#8E3446",b:"#C7A0A6"}},
+ {name:"Классический френч",f:"french",bg:L,skin:1,d:{t:"french",a:"#F1D6CC",b:"#FFFDFB"}},
+ {name:"Кошачий глаз",f:"art",bg:D,skin:0,d:{t:"cateye",a:"#123F36",b:"#8BE0C0"}},
+ {name:"Мрамор",f:"art",bg:L,skin:2,d:{t:"marble",a:"#F5F2EF",b:"#8F8783"}},
+ {name:"Красный с сердцем",f:"bright",bg:D,skin:2,d:{t:"solid",a:"#C0303F"},acc:{i:2,t:"heart",a:"#F7E4E2",b:"#C0303F"}},
+ {name:"Точки",f:"art",bg:L,skin:0,d:{t:"dots",a:"#EFD9CE",b:"#171413"}},
+ {name:"Шампань",f:"nude",bg:D,skin:1,d:{t:"glitter",a:"#E8CFAE",b:"#C59B5E",c:"#F3E3CC"}},
+ {name:"Пастельный уголок",f:"french",bg:L,skin:1,d:{t:"vfrench",a:"#F3DFD7",b:["#A9BCE3","#E8B9C6","#BFD8C4","#EBD49A"]}},
+ {name:"Лунный терракот",f:"bright",bg:D,skin:1,d:{t:"moon",a:"#B24A3B",b:"#F2D9CB"}},
+ {name:"Розовое омбре",f:"nude",bg:L,skin:2,d:{t:"ombre",a:"#F7E2DC",b:"#E395A0"}},
+ {name:"Ветка",f:"art",bg:D,skin:0,d:{t:"line",a:"#F4ECE3",b:"#6B5A4E"}}
+];
+const TAG={nude:"Нюд",french:"Френч",bright:"Цвет",art:"Дизайн"};
+const grid=document.getElementById("grid");
+WORKS.forEach((w,k)=>{
+  const f=document.createElement("figure");f.className="card"+(w.bg===L?" lt":"");f.dataset.f=w.f;
+  f.innerHTML=`<span class="no" aria-hidden="true">${String(k+1).padStart(2,"0")}</span>${hand(w,{plain:true})}<figcaption><b>${w.name}</b><span>№ ${String(k+1).padStart(2,"0")} · ${TAG[w.f]}</span></figcaption>`;
+  grid.appendChild(f);
+});
+document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  grid.querySelectorAll(".card").forEach(c=>c.hidden=!(b.dataset.f==="all"||c.dataset.f===b.dataset.f));
+}));
+document.getElementById("heroArt").insertAdjacentHTML("afterbegin",hand({name:"Бордо",bg:["#171413","#1E1918"],skin:0,d:{t:"solid",a:"#7D1E2C"},acc:{i:2,t:"chrome",a:"#8E3446",b:"#D8B0B4"}},{plain:true,label:"Иллюстрация: маникюр цвета бордо"}));
+/* неделя */
+const days=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],now=(new Date().getDay()+6)%7;
+document.getElementById("week").innerHTML=days.map((d,i)=>i<6?`<div class="day${i===now?" now":""}"><span class="d">${d}</span><span class="h">10–20<small>10:00–20:00</small></span></div>`:`<div class="day${i===now?" now":""}"><span class="d">${d}</span><span class="h">выходной</span></div>`).join("");
+</script>
+</body>
+</html>

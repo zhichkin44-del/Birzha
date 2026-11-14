@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ноктюрн-Дент — частный стоматологический кабинет, Казань</title>
+<meta name="description" content="Демо-концепт сайта стоматологии «Ноктюрн-Дент» в Казани: услуги с ценами, врачи, отзывы, адрес и запись на приём.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#F2EBE0; --paper:#FBF8F3; --sand-2:#E7DCCB; --sand-3:#D6C6AE;
+  --ink:#26231F; --graph:#2E2B27; --graph-2:#3A3631; --muted:#675E54;
+  --bronze:#8A5D33; --bronze-l:#C9A57A; --line:#DDD1BF;
+  --serif:"Cormorant Garamond","Times New Roman",Georgia,serif;
+  --sans:Manrope,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--sand);color:var(--ink);font-size:17px;line-height:1.6;overflow-x:hidden}
+svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+h1,h2,h3,.cost b,.hero-meta b,.num,.info .big{font-variant-numeric:lining-nums}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.02}
+h2{font-size:clamp(40px,4.6vw,64px)}
+h2 em,h1 em{font-style:italic;color:var(--bronze)}
+.kicker{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);font-weight:600}
+.lead{font-size:19px;color:var(--muted);max-width:520px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 30px;font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s;border-radius:2px}
+.btn-dark{background:var(--graph);color:#F6EFE4}
+.btn-dark:hover{background:var(--bronze)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-bronze{background:var(--bronze-l);color:var(--graph)}
+.btn-bronze:hover{background:#D9B98F}
+
+.demo{background:var(--graph);color:#E9DFD0;font-size:14px;text-align:center;padding:9px 16px;letter-spacing:.03em}
+.demo b{color:var(--bronze-l);font-weight:600}
+
+/* шапка */
+header{border-bottom:1px solid var(--line)}
+.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:96px;gap:24px}
+.menu{display:flex;gap:30px;list-style:none}
+.menu a{text-decoration:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px 0}
+.menu a:hover{color:var(--ink)}
+.logo{display:flex;flex-direction:column;align-items:center;text-decoration:none;gap:2px}
+.logo span{font-family:var(--serif);font-size:26px;line-height:1;letter-spacing:.02em}
+.logo small{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;gap:26px}
+.nav-r a.tel{text-decoration:none;font-weight:600;white-space:nowrap}
+.nav-r .btn{min-height:46px;padding:0 22px;font-size:13px}
+
+/* первый экран */
+.hero{padding:72px 0 96px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(52px,7vw,96px);margin:22px 0 28px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.hero-meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:0;margin-top:56px;border-top:1px solid var(--line);padding-top:24px}
+.hero-meta div{padding-right:36px;margin-right:36px;border-right:1px solid var(--line);font-size:14px;color:var(--muted);line-height:1.4}
+.hero-meta div:last-child{border:0;margin:0;padding:0}
+.hero-meta b{display:block;font-family:var(--serif);font-size:38px;font-weight:500;color:var(--ink);line-height:1.1}
+.arch{position:relative}
+.arch svg{width:100%;height:auto}
+.arch-cap{position:absolute;left:-48px;top:110px;background:var(--paper);padding:18px 22px;max-width:250px;font-size:14px;line-height:1.45;color:var(--muted);box-shadow:0 20px 40px -20px rgba(46,43,39,.35)}
+.arch-cap b{display:block;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);font-style:italic;margin-bottom:4px}
+
+section{padding:110px 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
+.head p{color:var(--muted);max-width:440px;justify-self:end}
+
+/* прайс */
+.price-list{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:70px 64px 1.1fr 1.3fr auto;gap:28px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:background .25s}
+.row:hover{background:linear-gradient(90deg,transparent,rgba(201,165,122,.12),transparent)}
+.num{font-family:var(--serif);font-size:22px;color:var(--bronze);font-style:italic}
+.row h3{font-size:34px}
+.row p{font-size:16px;color:var(--muted)}
+.cost{text-align:right;white-space:nowrap;font-size:14px;color:var(--muted);letter-spacing:.06em}
+.cost b{display:block;font-family:var(--serif);font-size:34px;font-weight:500;color:var(--ink);letter-spacing:0;line-height:1}
+.ico{width:64px;height:64px}
+.fine{font-size:14px;color:var(--muted);margin-top:22px}
+
+/* манифест */
+.manifest{background:var(--graph);color:#EFE6D8;position:relative;overflow:hidden}
+.manifest .moon{position:absolute;right:-150px;top:-150px;width:360px;opacity:.14;pointer-events:none}
+.manifest .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:center}
+.manifest blockquote{font-family:var(--serif);font-size:clamp(34px,3.6vw,50px);line-height:1.12;font-style:italic;color:#F6EFE4}
+.manifest blockquote span{color:var(--bronze-l)}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:36px 40px}
+.pillars div{border-top:1px solid #57504A;padding-top:18px}
+.pillars b{display:block;font-family:var(--serif);font-size:26px;font-weight:500;color:#F6EFE4;margin-bottom:6px}
+.pillars span{font-size:16px;color:#C9BEAE}
+.manifest .kicker{color:var(--bronze-l)}
+
+/* врачи */
+.docs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.doc{text-align:center}
+.frame{background:var(--paper);padding:18px 18px 0;margin-bottom:22px}
+.frame svg{width:100%;height:auto}
+.doc h3{font-size:28px;margin-bottom:6px}
+.doc .role{font-size:15px;color:var(--muted)}
+.doc .exp{display:inline-block;margin-top:12px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);border-top:1px solid var(--sand-3);padding-top:10px}
+
+/* отзывы */
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.rev{padding:40px 36px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column}
+.rev q{quotes:none;font-family:var(--serif);font-size:25px;line-height:1.25;flex:1}
+.rev .mark{font-family:var(--serif);font-size:72px;line-height:.6;color:var(--bronze-l);height:34px}
+.rev footer{margin-top:26px;font-size:14px;color:var(--muted);letter-spacing:.04em}
+.rev footer b{color:var(--ink);font-weight:600}
+.rev .demo-tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);margin-top:6px;display:block}
+
+/* контакты */
+.contact{display:grid;grid-template-columns:1fr 1.25fr;gap:0;background:var(--paper)}
+.info{padding:56px 52px;display:grid;gap:30px;align-content:start}
+.info h3{font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin-bottom:10px}
+.info .big{font-family:var(--serif);font-size:30px;line-height:1.15}
+.hours{display:grid;grid-template-columns:1fr auto;gap:8px 0;max-width:360px}
+.hours span:nth-child(even){padding-left:24px;text-align:right}
+.hours span:nth-child(odd){color:var(--muted)}
+.hours span{border-bottom:1px dotted var(--sand-3);padding-bottom:6px}
+.lic{border:1px solid var(--line);padding:18px 20px;font-size:14px;color:var(--muted)}
+.lic b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px;word-break:break-word}
+.map{min-height:520px;display:flex;background:#EDE4D6}
+.map svg{width:100%;height:100%}
+
+/* форма */
+.book{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--graph);color:#EFE6D8}
+.book-l{padding:72px 64px;position:relative;overflow:hidden}
+.book-l h2{color:#F6EFE4;margin:18px 0 22px}
+.book-l .lead{color:#C9BEAE}
+.book-l .kicker{color:var(--bronze-l)}
+.book-l ol{list-style:none;margin-top:36px;display:grid;gap:18px;counter-reset:s}
+.book-l li{display:grid;grid-template-columns:44px 1fr;gap:8px;color:#DDD2C2;counter-increment:s}
+.book-l li::before{content:"0" counter(s);font-family:var(--serif);font-style:italic;color:var(--bronze-l);font-size:22px;line-height:1.2}
+.book-l .moon{position:absolute;right:-90px;top:-90px;width:240px;opacity:.45;pointer-events:none}
+form{background:var(--paper);color:var(--ink);padding:64px;display:grid;gap:24px;align-content:start}
+.f{display:grid;gap:8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;border:0}
+.f input{font:inherit;font-family:var(--sans);font-size:18px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--ink);min-height:54px;border:0;border-bottom:1px solid var(--sand-3);background:transparent;padding:0 2px;border-radius:0;width:100%}
+.f input::placeholder{color:#9C9184}
+.f input:focus{outline:none;border-bottom:2px solid var(--bronze)}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px;position:relative}
+.slots input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.slots label{min-height:52px;padding:4px 6px;display:flex;flex-direction:column;justify-content:center;text-align:center;line-height:1.2;border:1px solid var(--sand-3);font-size:15px;letter-spacing:.02em;text-transform:none;color:var(--ink);font-weight:500;cursor:pointer;border-radius:999px;transition:all .2s}
+.slots label:hover{border-color:var(--bronze)}
+.slots label small{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.slots input:checked+label small{color:#C9BEAE}
+.slots input:checked+label{background:var(--graph);border-color:var(--graph);color:#F6EFE4}
+.slots input:focus-visible+label{outline:2px solid var(--bronze);outline-offset:2px}
+.msg{display:none;font-size:14px;color:#A3261B;letter-spacing:0;text-transform:none;font-weight:500}
+.err .msg{display:block}
+.err input{border-bottom-color:#A3261B}
+.check{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--muted);cursor:pointer;line-height:1.5}
+.check input{width:24px;height:24px;flex:none;accent-color:var(--graph);margin-top:1px}
+.check.err{color:#A3261B}
+form .btn{width:100%;min-height:60px}
+.small{font-size:13px;color:var(--muted);text-align:center}
+.done{display:none;text-align:center;padding:40px 0}
+.done h3{font-size:44px;margin:16px 0 12px}
+.done p{color:var(--muted);max-width:380px;margin:0 auto}
+form.sent>*:not(.done){display:none}
+form.sent .done{display:block}
+
+footer.site{background:var(--graph);color:#B8AD9E;font-size:14px;padding:40px 0 48px;border-top:1px solid #45403A}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot .logo span{color:#F6EFE4;font-size:22px}
+
+.sticky-cta{display:none}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+@media (max-width:1100px){
+  .menu{display:none}
+  .nav{grid-template-columns:auto 1fr}
+  .logo{align-items:flex-start}
+  .row{grid-template-columns:50px 56px 1fr auto}
+  .row p{grid-column:3/4}
+  .docs{grid-template-columns:repeat(2,1fr)}
+  .manifest .wrap{grid-template-columns:1fr}
+  .book{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .arch{max-width:460px;margin:0 auto;width:100%}
+  .head{grid-template-columns:1fr}
+  .head p{justify-self:start}
+  .revs{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr}
+  .map{min-height:360px}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .nav{height:72px}
+  .nav-r a.tel{display:none}
+  .nav-r .btn{min-height:44px;padding:0 16px;font-size:12px}
+  .logo span{font-size:22px}
+  .logo small{font-size:10px;letter-spacing:.26em}
+  .hero{padding:36px 0 64px}
+  .hero h1{font-size:50px;margin:16px 0 20px}
+  .lead{font-size:17px}
+  .hero-cta .btn{flex:1 1 100%}
+  .hero-meta{grid-template-columns:repeat(3,1fr);margin-top:36px}
+  .hero-meta div{padding-right:12px;margin-right:12px;font-size:13px}
+  .hero-meta b{font-size:30px}
+  .arch{margin-top:8px}
+  .arch-cap{left:12px;right:12px;top:auto;bottom:-28px;max-width:none}
+  section{padding:76px 0}
+  .head{margin-bottom:32px;gap:16px}
+  .row{grid-template-columns:44px 1fr auto;gap:6px 14px;padding:22px 0;align-items:start}
+  .row .ico{width:44px;height:44px;grid-row:1/3}
+  .row .num{display:none}
+  .row h3{font-size:27px;grid-column:2/3}
+  .row p{grid-column:2/4;font-size:16px}
+  .cost{grid-column:3/4;grid-row:1/2}
+  .cost b{font-size:25px}
+  .manifest .wrap{gap:40px}
+  .pillars{grid-template-columns:1fr;gap:22px}
+  .docs{gap:24px 14px}
+  .frame{padding:10px 10px 0;margin-bottom:14px}
+  .doc h3{font-size:22px}
+  .doc .role{font-size:14px;line-height:1.4}
+  .doc .exp{font-size:11px;letter-spacing:.1em}
+  .revs{grid-template-columns:1fr}
+  .rev{padding:30px 22px}
+  .rev q{font-size:23px}
+  .info{padding:36px 22px}
+  .info .big{font-size:26px}
+  .map{min-height:300px}
+  .book-l{padding:48px 22px}
+  form{padding:36px 22px 40px}
+  .check{font-size:16px}
+  .slots{grid-template-columns:1fr 1fr}
+  footer.site{padding-bottom:110px}
+  .sticky-cta{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:10px;transition:transform .3s,opacity .3s}
+  .sticky-cta .btn{flex:1;min-height:56px;box-shadow:0 14px 30px -10px rgba(38,35,31,.6)}
+  .sticky-cta .call{flex:0 0 56px;padding:0;background:var(--paper);color:var(--ink);box-shadow:0 14px 30px -10px rgba(38,35,31,.45),inset 0 0 0 1px var(--sand-3)}
+  .sticky-cta.hide{transform:translateY(120%);opacity:0;pointer-events:none}
+}
+</style>
+</head>
+<body>
+
+<div class="demo" role="note"><b>Демо-концепт</b> · данные вымышлены: клиника, врачи, цены, отзывы, адрес и лицензия придуманы для примера</div>
+
+<header>
+  <div class="wrap nav">
+    <ul class="menu">
+      <li><a href="#prices">Услуги</a></li>
+      <li><a href="#doctors">Врачи</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+    <a class="logo" href="#" aria-label="Ноктюрн-Дент, на главную">
+      <span>Ноктюрн·Дент</span>
+      <small>Казань · с 2014</small>
+    </a>
+    <div class="nav-r">
+      <a class="tel" href="tel:+79000000000">+7 (900) 000-00-00</a>
+      <a class="btn btn-dark" href="#book">Записаться</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Частный стоматологический кабинет</span>
+      <h1>Стоматология, где&nbsp;вас <em>не&nbsp;торопят</em></h1>
+      <p class="lead">Три кабинета, четыре врача и один принцип: сначала разговор и понятный план, потом лечение. Без потока, без очереди в коридоре, без сюрпризов в счёте.</p>
+      <div class="hero-cta">
+        <a class="btn btn-dark" href="#book">Записаться на приём</a>
+        <a class="btn btn-line" href="#prices">Услуги и цены</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>3</b>кабинета</div>
+        <div><b>4</b>врача, стаж<br>от 7 до 16 лет</div>
+        <div><b>до 21:00</b>по будням<br>и в субботу</div>
+      </div>
+    </div>
+    <div class="arch" aria-hidden="true">
+      <svg viewBox="0 0 460 560">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2724"/><stop offset=".65" stop-color="#4A3F35"/><stop offset="1" stop-color="#8E6D4E"/></linearGradient>
+          <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7DCCB"/><stop offset="1" stop-color="#D6C6AE"/></linearGradient>
+          <radialGradient id="moonglow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F3DFC0" stop-opacity=".55"/><stop offset="1" stop-color="#F3DFC0" stop-opacity="0"/></radialGradient>
+          <linearGradient id="enamel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFDF8"/><stop offset="1" stop-color="#E9DCC8"/></linearGradient>
+          <clipPath id="archclip"><path d="M30 560V230C30 112 120 22 230 22s200 90 200 208v330z"/></clipPath>
+        </defs>
+        <path d="M14 560V230C14 102 112 6 230 6s216 96 216 224v330" fill="none" stroke="#C9A57A" stroke-width="1.5"/>
+        <g clip-path="url(#archclip)">
+          <rect width="460" height="560" fill="url(#sky)"/>
+          <circle cx="300" cy="150" r="120" fill="url(#moonglow)"/>
+          <path d="M318 98a52 52 0 1 0 34 82 44 44 0 1 1-34-82Z" fill="#F3E3C7"/>
+          <g fill="#F3E3C7"><circle cx="110" cy="110" r="2"/><circle cx="160" cy="70" r="1.4"/><circle cx="200" cy="140" r="1.6"/><circle cx="90" cy="200" r="1.2"/><circle cx="380" cy="250" r="1.4"/><circle cx="250" cy="60" r="1.2"/><circle cx="140" cy="250" r="1.6"/></g>
+          <path d="M120 78l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#F3E3C7" opacity=".8"/>
+          <!-- силуэты города -->
+          <path d="M30 360h40v-40h22v-30l12-14 12 14v30h20v26h30v-50h8l6-20 6 20h8v64h40v-34h30v-20h26v54h28v-24h36v44h34v120H30z" fill="#3A322B" opacity=".8"/>
+          <!-- пол-подиум -->
+          <path d="M30 420h400v140H30z" fill="url(#floor)"/>
+          <path d="M30 420h400" stroke="#C9A57A" stroke-width="1"/>
+          <!-- большой зуб-скульптура -->
+          <ellipse cx="230" cy="520" rx="120" ry="16" fill="#B59C7D" opacity=".45"/>
+          <path d="M178 300c-34 0-56 28-52 66 3 28 14 46 20 70 8 30 10 70 31 70 19 0 21-40 33-62 7-12 15-18 26-18s19 6 26 18c12 22 14 62 33 62 21 0 23-40 31-70 6-24 17-42 20-70 4-38-18-66-52-66-26 0-38 13-58 13s-32-13-58-13Z" fill="url(#enamel)"/>
+          <path d="M150 350c4-22 18-34 38-34" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M228 330v150" stroke="#E2D2BA" stroke-width="1.2" opacity=".7"/>
+          <!-- постамент -->
+          <rect x="140" y="506" width="180" height="54" fill="#2E2B27"/>
+          <rect x="140" y="506" width="180" height="4" fill="#C9A57A"/>
+          <text x="230" y="540" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="16" font-style="italic" fill="#E7DCCB">Ноктюрн · Казань</text>
+        </g>
+        <path d="M30 560V230C30 112 120 22 230 22s200 90 200 208v330" fill="none" stroke="#2E2B27" stroke-width="3"/>
+      </svg>
+      <div class="arch-cap"><b>Первый визит — разговор</b>Врач осматривает, делает снимок и расписывает план с ценой. Лечить или нет — решаете вы.</div>
+    </div>
+  </div>
+</section>
+
+<section id="prices" style="padding-top:40px">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kicker">Услуги и цены</span><h2 style="margin-top:16px">Шесть направлений.<br><em>Цены — заранее.</em></h2></div>
+      <p>Указана стоимость «от». Точную сумму врач называет после осмотра и фиксирует в смете — она не меняется по ходу лечения.</p>
+    </div>
+    <div class="price-list">
+      <a class="row" href="#book">
+        <span class="num">01</span>
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#2E2B27" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="31" stroke="#D6C6AE"/><path d="M24 17c-6 0-9.5 5-8.7 11.5.6 4.6 2.4 7.4 3.4 11.4 1.3 4.8 1.7 11.6 5 11.6 3 0 3.4-6.4 5.4-9.8 1-2 2.3-2.9 3.9-2.9s2.9.9 3.9 2.9c2 3.4 2.4 9.8 5.4 9.8 3.3 0 3.7-6.8 5-11.6 1-4 2.8-6.8 3.4-11.4C49.5 22 46 17 40 17c-4.2 0-6 2.2-8 2.2s-3.8-2.2-8-2.2Z"/><circle cx="37" cy="27" r="3" fill="#C9A57A" stroke="none"/></svg>
+        <h3>Лечение кариеса</h3>
+        <p>Под увеличением, с сохранением здоровой эмали. Обычно — один визит.</p>
+        <span class="cost">от<b>3 500 ₽</b></span>
+      </a>
+      <a class="row" href="#book">
+        <span class="num">02</span>
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#2E2B27" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="31" stroke="#D6C6AE"/><path d="M24 17c-6 0-9.5 5-8.7 11.5.6 4.6 2.4 7.4 3.4 11.4 1.3 4.8 1.7 11.6 5 11.6 3 0 3.4-6.4 5.4-9.8 1-2 2.3-2.9 3.9-2.9s2.9.9 3.9 2.9c2 3.4 2.4 9.8 5.4 9.8 3.3 0 3.7-6.8 5-11.6 1-4 2.8-6.8 3.4-11.4C49.5 22 46 17 40 17c-4.2 0-6 2.2-8 2.2s-3.8-2.2-8-2.2Z"/><path d="M24 24c3 2.4 13 2.4 16 0v5c-3 2.4-13 2.4-16 0z" fill="#E7DCCB"/></svg>
+        <h3>Пломбы</h3>
+        <p>Светоотверждаемые материалы в цвет ваших зубов — пломбу не заметно.</p>
+        <span class="cost">от<b>4 200 ₽</b></span>
+      </a>
+      <a class="row" href="#book">
+        <span class="num">03</span>
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#2E2B27" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="31" stroke="#D6C6AE"/><path d="M22 14h20c1 7-3 10-10 10s-11-3-10-10Z" fill="#FBF8F3"/><path d="M26 28h12M25 33h14M26 38h12M27.5 43h9M29.5 48h5"/></svg>
+        <h3>Имплантация</h3>
+        <p>3D-планирование, установка импланта и коронка. Хирург и ортопед — в паре.</p>
+        <span class="cost">от<b>32 000 ₽</b></span>
+      </a>
+      <a class="row" href="#book">
+        <span class="num">04</span>
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#2E2B27" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="31" stroke="#D6C6AE"/><path d="M14 32c6 9 12 13 18 13s12-4 18-13c-5 2.6-11 4-18 4s-13-1.4-18-4Z"/><path d="M21 35v4M27 36.4v5M37 36.4v5M43 35v4"/><path d="M44 14l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5-5.5-2 5.5-2z" fill="#C9A57A" stroke="none"/></svg>
+        <h3>Отбеливание</h3>
+        <p>Кабинетное — за один визит, или бережное домашнее по индивидуальным каппам.</p>
+        <span class="cost">от<b>14 000 ₽</b></span>
+      </a>
+      <a class="row" href="#book">
+        <span class="num">05</span>
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#2E2B27" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="31" stroke="#D6C6AE"/><path d="M20 20c-5 0-8 4-7.3 9.6.5 3.8 2 6.2 2.8 9.5 1.1 4 1.4 9.7 4.2 9.7 2.5 0 2.8-5.3 4.5-8.2.8-1.6 1.9-2.4 3.2-2.4s2.4.8 3.2 2.4c1.7 2.9 2 8.2 4.5 8.2 2.8 0 3.1-5.7 4.2-9.7.8-3.3 2.3-5.7 2.8-9.5C42.8 24 39.8 20 34.8 20c-3.5 0-5 1.8-7.4 1.8S23.5 20 20 20Z"/><path d="M44 18l7-5M46 25h7M45 32l6 3" stroke="#8A5D33"/></svg>
+        <h3>Удаление зуба мудрости</h3>
+        <p>Со снимком до операции и анестезией. На следующий день врач звонит сам.</p>
+        <span class="cost">от<b>6 500 ₽</b></span>
+      </a>
+      <a class="row" href="#book">
+        <span class="num">06</span>
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#2E2B27" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="31" stroke="#D6C6AE"/><path d="M12 34c7 4 14 6 20 6s13-2 20-6"/><rect x="16" y="27" width="7" height="9" rx="2" fill="#FBF8F3"/><rect x="25" y="29" width="6" height="9" rx="2" fill="#FBF8F3"/><rect x="33" y="29" width="6" height="9" rx="2" fill="#FBF8F3"/><rect x="41" y="27" width="7" height="9" rx="2" fill="#FBF8F3"/><path d="M14 31.5c6 3 12 4.4 18 4.4s12-1.4 18-4.4" stroke="#8A5D33"/></svg>
+        <h3>Брекеты</h3>
+        <p>Металлические, керамические или элайнеры. Покажем на модели, как сдвинется каждый зуб.</p>
+        <span class="cost">от<b>65 000 ₽</b></span>
+      </a>
+    </div>
+    <p class="fine">Цены вымышлены для демонстрации. В рабочей версии — ваш прайс, который легко обновлять.</p>
+  </div>
+</section>
+
+<section class="manifest">
+  <svg class="moon" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="none" stroke="#C9A57A"/><circle cx="100" cy="100" r="70" fill="none" stroke="#C9A57A"/><path d="M90 50a52 52 0 1 0 60 70 44 44 0 1 1-60-70Z" fill="#C9A57A"/></svg>
+  <div class="wrap">
+    <div>
+      <span class="kicker">Почему «кабинет», а не клиника</span>
+      <blockquote style="margin-top:22px">«Мы принимаем столько пациентов, сколько можем выслушать. <span>Остальное — следствие.</span>»</blockquote>
+    </div>
+    <div class="pillars">
+      <div><b>Час на первый приём</b><span>Осмотр, снимок, план и ответы на вопросы — без спешки.</span></div>
+      <div><b>Смета до начала</b><span>Цена на бумаге. Итог не растёт по ходу лечения.</span></div>
+      <div><b>Стерильно при вас</b><span>Инструменты в крафт-пакетах, вскрываем на ваших глазах.</span></div>
+      <div><b>Вечерние часы</b><span>Будни до 21:00 и суббота — удобно после работы.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="doctors">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kicker">Врачи</span><h2 style="margin-top:16px">Четыре врача.<br><em>Вы знаете, к кому идёте.</em></h2></div>
+      <p>На первом приёме врач сам рассказывает про план, сроки и стоимость. Каждый ведёт пациента от начала до конца.</p>
+    </div>
+    <div class="docs">
+      <article class="doc">
+        <div class="frame"><svg viewBox="0 0 240 300" aria-hidden="true">
+          <path d="M6 300V120C6 57 57 6 120 6s114 51 114 114v180" fill="#2E2B27"/>
+          <path d="M20 300V122C20 66 65 20 120 20s100 46 100 102v178" fill="none" stroke="#C9A57A"/>
+          <g fill="none" stroke="#C9A57A" stroke-width=".8" opacity=".5"><circle cx="120" cy="150" r="60"/><circle cx="120" cy="150" r="72"/></g>
+          <text x="120" y="176" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="78" font-style="italic" fill="#F3E3C7">АГ</text>
+          <path d="M96 210h48" stroke="#C9A57A"/><text x="120" y="244" text-anchor="middle" font-family="Manrope,Arial" font-size="11" letter-spacing="3" fill="#C9BEAE">ТЕРАПИЯ</text>
+        </svg></div>
+        <h3>Алия Гарипова</h3><div class="role">Терапевт, лечение кариеса и пломбы</div><span class="exp">Стаж 12 лет</span>
+      </article>
+      <article class="doc">
+        <div class="frame"><svg viewBox="0 0 240 300" aria-hidden="true">
+          <path d="M6 300V120C6 57 57 6 120 6s114 51 114 114v180" fill="#8A5D33"/>
+          <path d="M20 300V122C20 66 65 20 120 20s100 46 100 102v178" fill="none" stroke="#F3E3C7" opacity=".7"/>
+          <g fill="none" stroke="#F3E3C7" stroke-width=".8" opacity=".35"><circle cx="120" cy="150" r="60"/><circle cx="120" cy="150" r="72"/></g>
+          <text x="120" y="176" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="78" font-style="italic" fill="#FBF8F3">ТС</text>
+          <path d="M96 210h48" stroke="#F3E3C7"/><text x="120" y="244" text-anchor="middle" font-family="Manrope,Arial" font-size="11" letter-spacing="3" fill="#F3E3C7">ХИРУРГИЯ</text>
+        </svg></div>
+        <h3>Тимур Сафин</h3><div class="role">Хирург-имплантолог</div><span class="exp">Стаж 16 лет</span>
+      </article>
+      <article class="doc">
+        <div class="frame"><svg viewBox="0 0 240 300" aria-hidden="true">
+          <path d="M6 300V120C6 57 57 6 120 6s114 51 114 114v180" fill="#E7DCCB"/>
+          <path d="M20 300V122C20 66 65 20 120 20s100 46 100 102v178" fill="none" stroke="#8A5D33"/>
+          <g fill="none" stroke="#8A5D33" stroke-width=".8" opacity=".35"><circle cx="120" cy="150" r="60"/><circle cx="120" cy="150" r="72"/></g>
+          <text x="120" y="176" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="78" font-style="italic" fill="#2E2B27">МО</text>
+          <path d="M96 210h48" stroke="#8A5D33"/><text x="120" y="244" text-anchor="middle" font-family="Manrope,Arial" font-size="11" letter-spacing="3" fill="#675E54">ОРТОДОНТИЯ</text>
+        </svg></div>
+        <h3>Мария Озерова</h3><div class="role">Ортодонт, брекеты и элайнеры</div><span class="exp">Стаж 9 лет</span>
+      </article>
+      <article class="doc">
+        <div class="frame"><svg viewBox="0 0 240 300" aria-hidden="true">
+          <path d="M6 300V120C6 57 57 6 120 6s114 51 114 114v180" fill="#3A3631"/>
+          <path d="M20 300V122C20 66 65 20 120 20s100 46 100 102v178" fill="none" stroke="#C9A57A"/>
+          <g fill="none" stroke="#C9A57A" stroke-width=".8" opacity=".5"><circle cx="120" cy="150" r="60"/><circle cx="120" cy="150" r="72"/></g>
+          <text x="120" y="176" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="78" font-style="italic" fill="#F3E3C7">ИХ</text>
+          <path d="M96 210h48" stroke="#C9A57A"/><text x="120" y="244" text-anchor="middle" font-family="Manrope,Arial" font-size="11" letter-spacing="3" fill="#C9BEAE">ЭСТЕТИКА</text>
+        </svg></div>
+        <h3>Ильнур Хайруллин</h3><div class="role">Эстетика и отбеливание</div><span class="exp">Стаж 7 лет</span>
+      </article>
+    </div>
+    <p class="fine" style="text-align:center;margin-top:36px">Врачи, стаж и монограммы вымышлены. В рабочей версии — ваши портреты.</p>
+  </div>
+</section>
+
+<section id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kicker">Отзывы</span><h2 style="margin-top:16px">Пациенты <em>о нас</em></h2></div>
+      <p>Шесть отзывов для примера — помечены как демо. В рабочей версии будут ваши.</p>
+    </div>
+    <div class="revs">
+      <article class="rev"><div class="mark" aria-hidden="true">“</div><q>Боялась удалять восьмёрку десять лет. Двадцать минут — и на следующий день врач сам позвонил узнать, как я.</q><footer><b>Эльмира</b> · удаление зуба мудрости<span class="demo-tag">демо-отзыв</span></footer></article>
+      <article class="rev"><div class="mark" aria-hidden="true">“</div><q>Смету дали на бумаге до начала. Итог совпал до рубля.</q><footer><b>Андрей</b> · имплантация<span class="demo-tag">демо-отзыв</span></footer></article>
+      <article class="rev"><div class="mark" aria-hidden="true">“</div><q>Дочке показали на модели, как сдвинутся зубы, — она сама захотела начать.</q><footer><b>Динара</b> · брекеты<span class="demo-tag">демо-отзыв</span></footer></article>
+      <article class="rev"><div class="mark" aria-hidden="true">“</div><q>Пломбу поставили так, что жена не нашла, какой зуб лечили.</q><footer><b>Руслан</b> · лечение кариеса<span class="demo-tag">демо-отзыв</span></footer></article>
+      <article class="rev"><div class="mark" aria-hidden="true">“</div><q>Записалась вечером, утром перезвонили. Приняли минута в минуту, никто не торопил.</q><footer><b>Ольга</b> · осмотр<span class="demo-tag">демо-отзыв</span></footer></article>
+      <article class="rev"><div class="mark" aria-hidden="true">“</div><q>Отбеливание без чувствительности, как и обещали. Тихо и очень спокойно.</q><footer><b>Камила</b> · отбеливание<span class="demo-tag">демо-отзыв</span></footer></article>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <div class="info">
+        <div><span class="kicker">Как нас найти</span><p class="big" style="margin-top:14px">Казань, ул. Лунная, 7<br><em style="color:var(--bronze)">вход со двора</em></p><p style="color:var(--muted);font-size:16px;margin-top:8px">5 минут от остановки, своя парковка на 6 мест</p></div>
+        <div><h3>Часы работы</h3><div class="hours"><span>Понедельник — пятница</span><span>9:00 — 21:00</span><span>Суббота</span><span>10:00 — 18:00</span><span>Воскресенье</span><span>выходной</span></div></div>
+        <div><h3>Связь</h3><p class="big"><a href="tel:+79000000000" style="text-decoration:none">+7 (900) 000-00-00</a></p><p style="margin-top:6px"><a href="https://t.me/" rel="nofollow">Telegram</a> · <a href="https://wa.me/79000000000" rel="nofollow">WhatsApp</a></p></div>
+        <div class="lic"><b>Лицензия № Л041-00000-16/00000000</b>Номер вымышленный, вид — как в реестре. В рабочей версии — ваш номер со ссылкой на реестр.</div>
+      </div>
+      <div class="map" role="img" aria-label="Схема: клиника на улице Лунной, 7, рядом остановка, сквер и парковка">
+        <svg viewBox="0 0 560 560" preserveAspectRatio="xMidYMid slice">
+          <rect width="560" height="560" fill="#EDE4D6"/>
+          <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v8" stroke="#D6C6AE" stroke-width="1.4"/></pattern></defs>
+          <path d="M-10 440c110-40 180 0 280-30s170-80 300-50v220H-10z" fill="#D9D4C8"/>
+          <path d="M-10 440c110-40 180 0 280-30s170-80 300-50" fill="none" stroke="#B9B1A2"/>
+          <text x="410" y="490" font-family="Cormorant Garamond,Georgia,serif" font-style="italic" font-size="22" fill="#7C7468">р. Казанка</text>
+          <g fill="#E3D8C6" stroke="#D6C6AE">
+            <rect x="40" y="40" width="140" height="120"/><rect x="220" y="40" width="120" height="120"/><rect x="380" y="40" width="140" height="120"/>
+            <rect x="40" y="210" width="140" height="130"/><rect x="380" y="210" width="60" height="130"/><rect x="460" y="210" width="60" height="130"/>
+          </g>
+          <rect x="220" y="210" width="120" height="130" fill="url(#hatch)" stroke="#D6C6AE"/>
+          <text x="280" y="282" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-style="italic" font-size="20" fill="#675E54">сквер</text>
+          <g stroke="#FBF8F3" stroke-linecap="square"><path d="M0 185h560" stroke-width="30"/><path d="M200 0v400" stroke-width="22"/><path d="M360 0v390" stroke-width="22"/></g>
+          <text x="60" y="190" font-family="Manrope,Arial" font-size="12" letter-spacing="2" fill="#675E54">УЛ. ЛУННАЯ</text>
+          <text x="206" y="50" font-family="Manrope,Arial" font-size="12" letter-spacing="2" fill="#675E54" transform="rotate(90 206 50)">ПЕР. ТИХИЙ</text>
+          <path d="M120 200v20h236" stroke="#8A5D33" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" fill="none"/>
+          <circle cx="120" cy="230" r="13" fill="#2E2B27"/><text x="120" y="235" text-anchor="middle" font-family="Manrope,Arial" font-size="12" font-weight="700" fill="#F3E3C7">A</text>
+          <text x="120" y="262" text-anchor="middle" font-family="Manrope,Arial" font-size="12" fill="#26231F">остановка</text>
+          <g transform="translate(410 275)"><rect x="-16" y="-14" width="32" height="28" fill="#FBF8F3" stroke="#8A5D33"/><text y="5" text-anchor="middle" font-family="Manrope,Arial" font-size="14" font-weight="700" fill="#8A5D33">P</text></g>
+          <g transform="translate(380 150)">
+            <circle r="40" fill="#8A5D33" opacity=".12"/><circle r="24" fill="#8A5D33" opacity=".18"/>
+            <circle r="11" fill="#2E2B27" stroke="#F3E3C7" stroke-width="3"/>
+          </g>
+          <g transform="translate(286 74)"><rect width="214" height="54" fill="#2E2B27"/><text x="16" y="24" font-family="Cormorant Garamond,Georgia,serif" font-size="20" fill="#F6EFE4">Ноктюрн·Дент</text><text x="16" y="42" font-family="Manrope,Arial" font-size="11" letter-spacing="1" fill="#C9BEAE">ул. Лунная, 7 · вход со двора</text><path d="M80 54l-8 12-2-12z" fill="#2E2B27"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book" style="padding-top:0">
+  <div class="wrap">
+    <div class="book">
+      <div class="book-l">
+        <svg class="moon" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="none" stroke="#C9A57A" stroke-width=".8"/><path d="M90 50a52 52 0 1 0 60 70 44 44 0 1 1-60-70Z" fill="#C9A57A"/></svg>
+        <span class="kicker">Запись на приём</span>
+        <h2>Оставьте номер — <em style="color:var(--bronze-l)">перезвоним</em></h2>
+        <p class="lead">Администратор подберёт врача и время. Если не знаете, что именно беспокоит, — просто расскажите по телефону.</p>
+        <ol>
+          <li>Перезваниваем в течение 15 минут в рабочее время</li>
+          <li>Первичный осмотр и план лечения — бесплатно</li>
+          <li>За день напомним о визите в Telegram</li>
+        </ol>
+      </div>
+      <form id="form" novalidate>
+        <label class="f" id="f-name">Имя
+          <input name="name" autocomplete="name" placeholder="Как к вам обращаться" maxlength="60">
+          <span class="msg">Напишите имя — хотя бы две буквы</span>
+        </label>
+        <label class="f" id="f-phone">Телефон
+          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__">
+          <span class="msg">Нужен номер из 11 цифр, например +7 (900) 000-00-00</span>
+        </label>
+        <fieldset class="f" id="f-time">
+          <legend style="margin-bottom:8px">Удобное время</legend>
+          <div class="slots">
+            <input type="radio" name="time" id="t1" value="утро"><label for="t1">Утро<small>9–12</small></label>
+            <input type="radio" name="time" id="t2" value="день"><label for="t2">День<small>12–16</small></label>
+            <input type="radio" name="time" id="t3" value="вечер"><label for="t3">Вечер<small>16–21</small></label>
+            <input type="radio" name="time" id="t4" value="суббота"><label for="t4">Суббота<small>10–18</small></label>
+          </div>
+          <span class="msg" style="margin-top:6px">Выберите удобное время</span>
+        </fieldset>
+        <label class="check" id="f-agree"><input type="checkbox" name="agree"><span>Согласен на обработку персональных данных для записи на приём</span></label>
+        <button class="btn btn-dark" type="submit">Записаться на приём</button>
+        <p class="small">Демо: заявка никуда не уходит</p>
+        <div class="done" role="status" aria-live="polite">
+          <svg width="80" height="80" viewBox="0 0 80 80" style="margin:0 auto" aria-hidden="true"><circle cx="40" cy="40" r="39" fill="none" stroke="#C9A57A"/><path d="M36 22a20 20 0 1 0 24 26 17 17 0 1 1-24-26Z" fill="#8A5D33"/></svg>
+          <h3>Спасибо, <em id="who"></em></h3>
+          <p>Демо: заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</p>
+          <button type="button" class="btn btn-line" id="again" style="margin-top:26px">Заполнить ещё раз</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap foot">
+    <a class="logo" href="#" style="align-items:flex-start"><span>Ноктюрн·Дент</span></a>
+    <span>Демо-концепт · все данные вымышлены</span>
+    <span>Имеются противопоказания, необходима консультация специалиста</span>
+  </div>
+</footer>
+
+<div class="sticky-cta" id="sticky">
+  <a class="btn btn-dark" href="#book">Записаться на приём</a>
+  <a class="btn call" href="tel:+79000000000" aria-label="Позвонить в клинику"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
+</div>
+
+<script>
+(function(){
+  var sticky=document.getElementById('sticky'), book=document.getElementById('book');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){sticky.classList.toggle('hide',es[0].isIntersecting)},{threshold:.15}).observe(book);
+  }
+  var form=document.getElementById('form'), phone=form.phone;
+  phone.addEventListener('input',function(){
+    var d=phone.value.replace(/\D/g,''); if(d[0]==='8') d='7'+d.slice(1); if(d && d[0]!=='7') d='7'+d; d=d.slice(0,11);
+    var o='+7'; if(d.length>1) o+=' ('+d.slice(1,4); if(d.length>=4) o+=')'; if(d.length>4) o+=' '+d.slice(4,7); if(d.length>7) o+='-'+d.slice(7,9); if(d.length>9) o+='-'+d.slice(9,11);
+    phone.value=d?o:'';
+  });
+  function mark(id,bad){document.getElementById(id).classList.toggle('err',bad);return !bad}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    ok=mark('f-name',form.name.value.trim().length<2)&&ok;
+    ok=mark('f-phone',phone.value.replace(/\D/g,'').length!==11)&&ok;
+    ok=mark('f-time',!form.querySelector('input[name=time]:checked'))&&ok;
+    ok=mark('f-agree',!form.agree.checked)&&ok;
+    if(!ok){var f=form.querySelector('.err input');if(f)f.focus();return}
+    document.getElementById('who').textContent=form.name.value.trim();
+    form.classList.add('sent');
+  });
+  function clr(e){var p=e.target.closest('.err');if(p)p.classList.remove('err')}
+  form.addEventListener('input',clr);form.addEventListener('change',clr);
+  document.getElementById('again').addEventListener('click',function(){form.reset();form.classList.remove('sent')});
+})();
+</script>
+</body>
+</html>

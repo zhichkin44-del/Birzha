@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Квартал: город для людей — форум по урбанистике, 21 марта 2027</title>
+<meta name="description" content="Однодневный форум о дворах, транспорте и общественных пространствах. 21 марта 2027, Цех № 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{
+  --paper:#F3F1EC; --ink:#111111; --mute:#5E5B55; --line:#CFCAC0; --red:#D1341A; --red-ink:#B32A12; --white:#FFFFFF;
+  --pad:clamp(16px,4vw,56px); --max:1360px;
+  --f:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.5 var(--f);font-feature-settings:"tnum" 0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,2vw,28px)}
+.num{font-variant-numeric:tabular-nums}
+
+/* демо */
+.demo{background:var(--ink);color:#fff;font-size:14px;letter-spacing:.02em}
+.demo .wrap{display:flex;gap:10px;align-items:center;min-height:40px}
+.demo i{width:10px;height:10px;border-radius:50%;background:var(--red);flex:none}
+
+/* шапка */
+.top{position:relative;z-index:20;background:var(--paper);border-bottom:1px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.logo svg{flex:none}
+.nav{display:flex;gap:28px;font-size:15px;font-weight:500}
+.nav a{text-decoration:none;padding:12px 0}
+.nav a:hover{color:var(--red-ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;background:var(--red);color:#fff;font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;transition:background .2s}
+.btn:hover{background:var(--red-ink)}
+.btn.dark{background:var(--ink)}
+.btn.dark:hover{background:#333}
+.btn svg{flex:none}
+
+/* первый экран */
+.hero{padding:clamp(28px,5vw,64px) 0 0;border-bottom:1px solid var(--ink)}
+.kicker{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.kicker span:first-child{color:var(--red-ink)}
+.title{grid-column:1/-1;margin:clamp(18px,3vw,36px) 0 0;font-weight:800;line-height:.82;letter-spacing:-.065em;font-size:clamp(84px,19.2vw,262px);margin-left:-.06em}
+.subtitle{grid-column:1/8;margin:clamp(14px,2vw,24px) 0 0;font-weight:500;font-size:clamp(30px,4.4vw,60px);line-height:1.02;letter-spacing:-.035em}
+.subtitle em{font-style:normal;color:var(--red)}
+.datebox{grid-column:9/13;grid-row:span 2;align-self:end;margin-top:28px;background:var(--red);color:#fff;padding:22px 24px 20px;position:relative;overflow:hidden}
+.datebox .d{font-weight:800;font-size:clamp(96px,10vw,148px);line-height:.78;letter-spacing:-.07em;display:block}
+.datebox .m{display:flex;justify-content:space-between;margin-top:14px;font-weight:600;font-size:18px;border-top:2px solid rgba(255,255,255,.75);padding-top:10px}
+.lead{grid-column:1/7;margin:clamp(24px,3vw,40px) 0 0;font-size:19px;color:var(--ink);max-width:34em}
+.facts{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(36px,5vw,64px);border-top:1px solid var(--ink)}
+.facts div{padding:16px 16px 22px 0;border-right:1px solid var(--line)}
+.facts div+div{padding-left:16px}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-size:clamp(30px,3.4vw,46px);font-weight:700;letter-spacing:-.04em;line-height:1}
+.facts small{display:block;margin-top:6px;font-size:15px;color:var(--mute)}
+.count{grid-column:1/-1;display:grid;grid-template-columns:auto repeat(4,1fr) auto;align-items:end;gap:0;border-top:1px solid var(--ink);padding:18px 0 22px}
+.count .lbl{font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding-right:28px;align-self:center}
+.count .cell{border-left:1px solid var(--line);padding-left:16px}
+.count .cell b{display:block;font-size:clamp(34px,4.6vw,64px);font-weight:700;letter-spacing:-.05em;line-height:1}
+.count .cell small{font-size:15px;color:var(--mute)}
+.count .act{padding-left:24px;align-self:center}
+
+/* секции */
+section{scroll-margin-top:72px}
+.sec{padding:clamp(56px,8vw,120px) 0;border-bottom:1px solid var(--ink)}
+.sh{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:baseline;margin-bottom:clamp(28px,4vw,56px)}
+.sh .no{grid-column:1/3;font-size:15px;font-weight:700;letter-spacing:.08em;color:var(--red-ink)}
+.sh h2{grid-column:3/-1;margin:0;font-weight:800;font-size:clamp(44px,7vw,104px);line-height:.9;letter-spacing:-.055em}
+
+/* о форуме */
+.about p{margin:0;font-size:clamp(19px,1.65vw,23px);line-height:1.45}
+.about .p1{grid-column:3/8}
+.about .p2{grid-column:8/13}
+.themes{grid-column:3/-1;display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--ink)}
+.theme{padding:20px 20px 0 0}
+.theme+.theme{padding-left:20px;border-left:1px solid var(--line)}
+.theme svg{display:block;margin-bottom:18px}
+.theme h3{margin:0 0 6px;font-size:22px;letter-spacing:-.02em}
+.theme p{margin:0;font-size:16px;color:var(--mute)}
+
+/* программа */
+.filters{grid-column:3/-1;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{min-height:44px;padding:0 18px;border:1px solid var(--ink);background:transparent;font:600 15px var(--f);cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff}
+.prog{grid-column:1/-1;list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,2vw,28px);padding:22px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:opacity .25s}
+.row .t{grid-column:1/3;font-size:clamp(24px,2.4vw,32px);font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.row h3{grid-column:3/9;margin:0;font-size:clamp(19px,1.7vw,24px);line-height:1.25;letter-spacing:-.02em;font-weight:600}
+.row .who{grid-column:9/12;font-size:16px}
+.row .who small{display:block;color:var(--mute);font-size:15px}
+.row .tag{grid-column:12/13;justify-self:end;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.tag::before{content:"";display:inline-block;width:9px;height:9px;margin-right:6px;vertical-align:1px}
+.tag.d::before{background:var(--red)}
+.tag.tr::before{background:var(--ink);border-radius:50%}
+.tag.op::before{border:2px solid var(--ink);width:5px;height:5px}
+.row.brk{padding:14px 0}
+.row.brk .t{font-size:18px;color:var(--mute);font-weight:600}
+.row.brk h3{font-size:17px;color:var(--mute);font-weight:500}
+.row.dim{opacity:.18}
+
+/* спикеры */
+.spk{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,3vw,44px) clamp(12px,2vw,28px)}
+.card{border-top:1px solid var(--ink);padding-top:16px}
+.card svg{display:block;width:100%;height:auto;aspect-ratio:1/1;margin-bottom:18px}
+.card h3{margin:0;font-size:24px;letter-spacing:-.03em;line-height:1.1}
+.card .role{margin:4px 0 12px;color:var(--mute);font-size:16px}
+.card .talk{margin:0;font-size:16px;line-height:1.4;display:flex;gap:10px}
+.card .talk b{flex:none;font-variant-numeric:tabular-nums;color:var(--red-ink)}
+
+/* место */
+.place .map{grid-column:1/8;background:#E6E2DA;border:1px solid var(--ink)}
+.place .map svg{display:block;width:100%;height:auto}
+.place .how{grid-column:8/13}
+.addr{font-size:clamp(26px,2.6vw,36px);font-weight:700;letter-spacing:-.035em;line-height:1.1;margin:0 0 6px}
+.how .sub{color:var(--mute);margin:0 0 26px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;border-top:1px solid var(--ink)}
+.steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
+.steps li::before{content:counter(s,decimal-leading-zero);font-weight:700;color:var(--red-ink);font-variant-numeric:tabular-nums}
+.alt{margin:22px 0 0;font-size:16px;color:var(--mute)}
+.alt b{color:var(--ink)}
+
+/* билеты и регистрация */
+.tix .buy{grid-column:1/7;background:var(--ink);color:#fff;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column}
+.tix .buy h3,.tix .reg h3{margin:0 0 6px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.price{font-size:clamp(64px,8vw,112px);font-weight:800;letter-spacing:-.06em;line-height:.9;margin:18px 0 16px}
+.price span{font-size:.4em;letter-spacing:-.02em}
+.incl{list-style:none;margin:0 0 30px;padding:0;font-size:17px}
+.incl li{padding:9px 0;border-top:1px solid rgba(255,255,255,.22)}
+.buy .btn{align-self:flex-start;min-height:56px;font-size:18px;padding:0 28px}
+.note{margin:14px 0 0;font-size:15px;color:#CFCBC4}
+.tix .reg{grid-column:7/13;border:1px solid var(--ink);padding:clamp(24px,3vw,40px);background:var(--white)}
+.reg .intro{margin:6px 0 22px;font-size:17px}
+.f{margin-bottom:16px}
+.f label{display:block;font-weight:600;font-size:15px;margin-bottom:6px}
+.f input{width:100%;min-height:50px;padding:0 14px;border:1px solid var(--ink);background:#fff;font:400 17px var(--f);color:var(--ink);border-radius:0}
+.f input:focus{outline:3px solid var(--red);outline-offset:0}
+.f input[aria-invalid="true"]{border-color:var(--red);border-width:2px;background:#FFF5F2}
+.err{display:block;min-height:0;color:var(--red-ink);font-size:14px;margin-top:5px}
+.err:empty{display:none}
+.agree{display:flex;gap:12px;align-items:flex-start;margin:6px 0 20px;font-size:15px;line-height:1.4;cursor:pointer}
+.agree input{width:24px;height:24px;margin:0;accent-color:var(--red);flex:none}
+.reg .btn{width:100%;min-height:56px;font-size:18px}
+.ok{display:none;border-left:4px solid var(--red);background:#F7F4EF;padding:16px 18px;margin-top:18px;font-size:16px}
+.ok.show{display:block}
+.ok b{display:block;margin-bottom:4px}
+
+footer{padding:40px 0 48px;font-size:15px;color:var(--mute)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+
+.sticky{display:none}
+
+/* планшет */
+@media (max-width:1080px){
+  .nav{display:none}
+  .datebox{grid-column:8/13}
+  .subtitle{grid-column:1/8}
+  .lead{grid-column:1/8}
+  .row .t{grid-column:1/3}
+  .row h3{grid-column:3/10}
+  .row .who{grid-column:3/10;margin-top:6px}
+  .row .tag{grid-column:10/13;grid-row:1}
+  .place .map,.place .how{grid-column:1/-1}
+  .place .how{margin-top:32px}
+  .tix .buy,.tix .reg{grid-column:1/-1}
+  .tix .reg{margin-top:20px}
+}
+/* телефон */
+@media (max-width:700px){
+  body{font-size:17px;padding-bottom:84px}
+  .grid{column-gap:0}
+  .top .wrap{min-height:56px}
+  .top .btn{display:none}
+  .title{font-size:clamp(70px,22.5vw,140px);letter-spacing:-.06em}
+  .subtitle,.lead,.datebox{grid-column:1/-1}
+  .datebox{grid-row:auto;padding:18px 18px 16px}
+  .datebox .d{font-size:104px}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div{padding:14px 12px 16px 0}
+  .facts div:nth-child(2){border-right:0}
+  .facts div:nth-child(3){padding-left:0;border-top:1px solid var(--line)}
+  .facts div:nth-child(4){border-top:1px solid var(--line)}
+  .count{grid-template-columns:repeat(4,1fr)}
+  .count .lbl{grid-column:1/-1;padding:0 0 12px}
+  .count .cell{padding-left:10px}
+  .count .cell:nth-child(2){border-left:0;padding-left:0}
+  .count .act{display:none}
+  .sh .no{grid-column:1/-1;margin-bottom:10px}
+  .sh h2{grid-column:1/-1}
+  .about .p1,.about .p2,.themes,.filters{grid-column:1/-1}
+  .about .p2{margin-top:18px}
+  .themes{grid-template-columns:1fr}
+  .theme,.theme+.theme{padding:18px 0;border-left:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:64px 1fr;column-gap:14px}
+  .theme svg{grid-row:span 2;margin:0;width:56px;height:56px}
+  .row{display:block;padding:18px 0}
+  .row .t{display:inline-block;font-size:24px;margin-right:10px}
+  .row .tag{display:inline-block}
+  .row h3{margin-top:6px;font-size:19px}
+  .row .who{margin-top:6px}
+  .row.brk h3{display:inline;margin:0}
+  .spk{grid-template-columns:1fr 1fr;column-gap:14px}
+  .card h3{font-size:19px}
+  .card .role,.card .talk{font-size:16px}
+  .card .talk{display:block}
+  .card .talk b{display:block}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--paper);border-top:1px solid var(--ink);gap:12px;align-items:center;transition:transform .25s}
+  .sticky .btn{flex:1;min-height:52px}
+  .sticky small{font-size:14px;line-height:1.2;color:var(--mute);max-width:9em}
+  .sticky.hide{transform:translateY(110%)}
+}
+@media (max-width:420px){
+  .spk{grid-template-columns:1fr}
+  .card{display:grid;grid-template-columns:112px 1fr;column-gap:16px}
+  .card svg{grid-row:span 3;margin:0}
+  .card .talk{grid-column:1/-1;margin-top:12px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="demo" role="note"><div class="wrap"><i aria-hidden="true"></i><span>Демо-концепт · данные вымышлены</span></div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Квартал — в начало">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" fill="#111"/><rect x="14" y="14" width="14" height="14" fill="#D1341A"/></svg>
+      Квартал
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#about">Форум</a><a href="#program">Программа</a><a href="#speakers">Спикеры</a><a href="#place">Место</a><a href="#tickets">Студентам</a>
+    </nav>
+    <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap grid">
+    <p class="kicker"><span>Форум по урбанистике</span><span>Один день</span><span>200–250 участников</span></p>
+    <h1 class="title" id="h1">Квартал</h1>
+    <p class="subtitle">город <em>для людей</em>. Дворы, транспорт, общественные пространства.</p>
+    <div class="datebox" aria-label="21 марта 2027, воскресенье">
+      <span class="d num">21</span>
+      <span class="m"><span>марта 2027</span><span>вс · 10:00</span></span>
+    </div>
+    <p class="lead">Десять коротких докладов о том, что можно поменять в пяти минутах от подъезда: с цифрами, фотофиксацией «до и после» и честным разбором ошибок.</p>
+
+    <div class="facts">
+      <div><b class="num">10</b><small>докладов по 25 минут</small></div>
+      <div><b class="num">6</b><small>спикеров-практиков</small></div>
+      <div><b class="num">240</b><small>мест в зале</small></div>
+      <div><b class="num">30</b><small>бесплатных мест студентам</small></div>
+    </div>
+
+    <div class="count" id="count" aria-live="off">
+      <span class="lbl">До начала</span>
+      <div class="cell"><b class="num" data-u="d">—</b><small>дней</small></div>
+      <div class="cell"><b class="num" data-u="h">—</b><small>часов</small></div>
+      <div class="cell"><b class="num" data-u="m">—</b><small>минут</small></div>
+      <div class="cell"><b class="num" data-u="s">—</b><small>секунд</small></div>
+      <div class="act"><a class="btn dark" href="#program">Программа</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec about" id="about" aria-labelledby="h-about">
+  <div class="wrap grid">
+    <div class="sh"><span class="no">01 — Форум</span><h2 id="h-about">О чём день</h2></div>
+    <p class="p1">«Квартал» — про город на расстоянии пяти минут от подъезда. Не генпланы и не рендеры, а двор, где паркуются на газоне, остановка без навеса, тротуар, который зимой сужается до тропинки. То, что видно из окна и что реально поменять за один сезон.</p>
+    <p class="p2">Выступают те, кто это уже менял: инженеры движения, ландшафтные архитекторы, председатели советов домов, исследователи. Каждый доклад — 25 минут с цифрами и разбором ошибок, затем вопросы из зала. Записи и слайды участники получат через неделю после форума.</p>
+    <div class="themes">
+      <div class="theme">
+        <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true"><rect x="1" y="1" width="70" height="70" fill="none" stroke="#111" stroke-width="2"/><rect x="14" y="14" width="44" height="44" fill="#D1341A"/><rect x="26" y="26" width="20" height="20" fill="#F3F1EC"/></svg>
+        <h3>Дворы</h3><p>Парковка, площадки, свет, снег и договорённости соседей.</p>
+      </div>
+      <div class="theme">
+        <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true"><rect x="1" y="1" width="70" height="70" fill="none" stroke="#111" stroke-width="2"/><path d="M1 36h70" stroke="#111" stroke-width="2"/><circle cx="24" cy="36" r="10" fill="#111"/><circle cx="50" cy="36" r="10" fill="#D1341A"/></svg>
+        <h3>Транспорт</h3><p>Остановки, выделенные полосы, велосеть и тротуары.</p>
+      </div>
+      <div class="theme">
+        <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true"><rect x="1" y="1" width="70" height="70" fill="none" stroke="#111" stroke-width="2"/><path d="M1 71 71 1" stroke="#111" stroke-width="2"/><path d="M71 71V30L30 71Z" fill="#D1341A"/></svg>
+        <h3>Пространства</h3><p>Первые этажи, скверы, площади и то, как их измерять.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="program" aria-labelledby="h-prog">
+  <div class="wrap grid">
+    <div class="sh"><span class="no">02 — 10:00–19:00</span><h2 id="h-prog">Программа</h2></div>
+    <div class="filters" role="group" aria-label="Фильтр по теме">
+      <button class="chip" type="button" aria-pressed="true" data-f="all">Все доклады</button>
+      <button class="chip" type="button" aria-pressed="false" data-f="d">Дворы</button>
+      <button class="chip" type="button" aria-pressed="false" data-f="tr">Транспорт</button>
+      <button class="chip" type="button" aria-pressed="false" data-f="op">Пространства</button>
+    </div>
+    <ol class="prog" id="prog">
+      <li class="row brk"><span class="t num">10:00</span><h3>Регистрация, кофе, бейджи</h3></li>
+      <li class="row" data-k="op"><span class="t num">10:30</span><h3>Пять минут от подъезда: что мы на самом деле измеряем, когда говорим о «качестве среды»</h3><span class="who">Вера Ольховская<small>бюро «Пешеход»</small></span><span class="tag op">Пространства</span></li>
+      <li class="row" data-k="d"><span class="t num">11:00</span><h3>Двор без машин за одно лето: как 212 квартир договорились и что пошло не так</h3><span class="who">Тимур Сафин<small>совет дома на Садовой, 14</small></span><span class="tag d">Дворы</span></li>
+      <li class="row" data-k="tr"><span class="t num">11:30</span><h3>Остановка как место: навес, лавка, табло и 40 секунд, которые решают, сядете ли вы в автобус</h3><span class="who">Анна Гурьева<small>транспортный планировщик</small></span><span class="tag tr">Транспорт</span></li>
+      <li class="row" data-k="tr"><span class="t num">12:00</span><h3>Выделенная полоса за 90 дней: разметка, камеры, недовольные водители и цифры через год</h3><span class="who">Олег Ремезов<small>инженер ОДД</small></span><span class="tag tr">Транспорт</span></li>
+      <li class="row brk"><span class="t num">12:30</span><h3>Обед — в столовой цеха и на фудкортах рядом</h3></li>
+      <li class="row" data-k="op"><span class="t num">13:30</span><h3>Первые этажи: почему пустые витрины делают улицу тёмной и опасной</h3><span class="who">Мирослава Кунц<small>архитектор, исследователь</small></span><span class="tag op">Пространства</span></li>
+      <li class="row" data-k="d"><span class="t num">14:00</span><h3>Площадка не из каталога: 12 дворов, 3 типовые ошибки и как их не повторить</h3><span class="who">Дарья Лисовская<small>ландшафтный архитектор</small></span><span class="tag d">Дворы</span></li>
+      <li class="row" data-k="tr"><span class="t num">14:30</span><h3>Велодорожка, по которой ездят: сеть вместо отрезков от парка до парка</h3><span class="who">Рустам Белов<small>велосообщество «Шина»</small></span><span class="tag tr">Транспорт</span></li>
+      <li class="row brk"><span class="t num">15:00</span><h3>Перерыв, кофе</h3></li>
+      <li class="row" data-k="tr"><span class="t num">15:30</span><h3>Тротуар 2,25 метра: нормативы, которые никто не мерил рулеткой</h3><span class="who">Глеб Аксёнов<small>проектировщик улиц</small></span><span class="tag tr">Транспорт</span></li>
+      <li class="row" data-k="d"><span class="t num">16:00</span><h3>Зимний двор: снег, темнота в 16:30 и где гулять с коляской пять месяцев в году</h3><span class="who">Полина Шерстнёва<small>исследователь городской среды</small></span><span class="tag d">Дворы</span></li>
+      <li class="row" data-k="op"><span class="t num">16:30</span><h3>Как посчитать людей на площади: счётчики, наблюдение, анкеты — и где каждый метод врёт</h3><span class="who">Ильдар Хасанов<small>аналитик городских данных</small></span><span class="tag op">Пространства</span></li>
+      <li class="row brk"><span class="t num">17:00</span><h3>Открытая дискуссия «Кто отвечает за двор»: жители, управляющая компания, район</h3></li>
+      <li class="row brk"><span class="t num">18:30</span><h3>Закрытие и неформальное общение до 19:00</h3></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="speakers" aria-labelledby="h-spk">
+  <div class="wrap grid">
+    <div class="sh"><span class="no">03 — Спикеры</span><h2 id="h-spk">Те, кто уже менял</h2></div>
+    <div class="spk">
+      <article class="card">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Монограмма В. О."><rect width="200" height="200" fill="#111"/><circle cx="140" cy="60" r="44" fill="#D1341A"/><text x="16" y="186" fill="#F3F1EC" font-family="Inter Tight,Arial,sans-serif" font-weight="800" font-size="104" letter-spacing="-4">ВО</text></svg>
+        <h3>Вера Ольховская</h3><p class="role">Урбанист, руководитель бюро «Пешеход»</p>
+        <p class="talk"><b>10:30</b>Что мы измеряем, когда говорим о «качестве среды»</p>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Монограмма Т. С."><rect width="200" height="200" fill="#E6E2DA"/><rect x="100" y="0" width="100" height="100" fill="#D1341A"/><text x="16" y="186" fill="#111" font-family="Inter Tight,Arial,sans-serif" font-weight="800" font-size="104" letter-spacing="-4">ТС</text></svg>
+        <h3>Тимур Сафин</h3><p class="role">Председатель совета дома на Садовой, 14</p>
+        <p class="talk"><b>11:00</b>Двор без машин за одно лето</p>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Монограмма А. Г."><rect width="200" height="200" fill="#D1341A"/><path d="M0 100h200" stroke="#111" stroke-width="10"/><circle cx="150" cy="100" r="26" fill="#111"/><text x="16" y="186" fill="#fff" font-family="Inter Tight,Arial,sans-serif" font-weight="800" font-size="104" letter-spacing="-4">АГ</text></svg>
+        <h3>Анна Гурьева</h3><p class="role">Транспортный планировщик</p>
+        <p class="talk"><b>11:30</b>Остановка как место, а не столб с табличкой</p>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Монограмма О. Р."><rect width="200" height="200" fill="#E6E2DA"/><rect x="0" y="22" width="200" height="22" fill="#111"/><rect x="0" y="56" width="200" height="22" fill="#D1341A"/><text x="16" y="186" fill="#111" font-family="Inter Tight,Arial,sans-serif" font-weight="800" font-size="104" letter-spacing="-4">ОР</text></svg>
+        <h3>Олег Ремезов</h3><p class="role">Инженер организации дорожного движения</p>
+        <p class="talk"><b>12:00</b>Выделенная полоса за 90 дней и цифры через год</p>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Монограмма М. К."><rect width="200" height="200" fill="#111"/><path d="M200 0v110H90Z" fill="#D1341A"/><text x="16" y="186" fill="#F3F1EC" font-family="Inter Tight,Arial,sans-serif" font-weight="800" font-size="104" letter-spacing="-4">МК</text></svg>
+        <h3>Мирослава Кунц</h3><p class="role">Архитектор, исследователь первых этажей</p>
+        <p class="talk"><b>13:30</b>Почему пустые витрины делают улицу опасной</p>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Монограмма Д. Л."><rect width="200" height="200" fill="#E6E2DA"/><circle cx="140" cy="60" r="40" fill="none" stroke="#111" stroke-width="10"/><rect x="122" y="42" width="36" height="36" fill="#D1341A"/><text x="16" y="186" fill="#111" font-family="Inter Tight,Arial,sans-serif" font-weight="800" font-size="104" letter-spacing="-4">ДЛ</text></svg>
+        <h3>Дарья Лисовская</h3><p class="role">Ландшафтный архитектор</p>
+        <p class="talk"><b>14:00</b>Площадка не из каталога: 12 дворов, 3 ошибки</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec place" id="place" aria-labelledby="h-place">
+  <div class="wrap grid">
+    <div class="sh"><span class="no">04 — Место</span><h2 id="h-place">Цех № 4</h2></div>
+    <figure class="map" style="margin:0">
+      <svg viewBox="0 0 640 500" role="img" aria-labelledby="map-t" font-family="Inter Tight,Arial,sans-serif">
+        <title id="map-t">Схема: от метро «Заводская», выход 2, налево по Литейному проезду, через сквер по диагонали к улице Кузнечной и проходной Цеха № 4 — около 550 метров, 7 минут</title>
+        <rect width="640" height="500" fill="#E6E2DA"/>
+        <g fill="#D6D1C7">
+          <rect x="0" y="0" width="150" height="132"/><rect x="190" y="0" width="186" height="132"/>
+          <rect x="0" y="172" width="150" height="138"/>
+          <rect x="424" y="172" width="216" height="138"/>
+          <rect x="0" y="350" width="150" height="150"/><rect x="190" y="350" width="186" height="150"/><rect x="424" y="350" width="216" height="150"/>
+        </g>
+        <rect x="190" y="172" width="186" height="138" fill="#CBC5B9"/>
+        <g fill="#B4AD9F"><circle cx="222" cy="206" r="14"/><circle cx="258" cy="196" r="9"/><circle cx="338" cy="286" r="14"/><circle cx="300" cy="290" r="8"/><circle cx="350" cy="250" r="9"/></g>
+        <g stroke="#FAF9F6" stroke-width="40"><path d="M0 152h640"/><path d="M0 330h640"/><path d="M170 0v500"/><path d="M400 0v500"/></g>
+        <path d="M0 330h640" stroke="#111" stroke-width="2" stroke-dasharray="3 7" opacity=".5"/>
+        <text x="214" y="337" font-size="19" font-weight="700" fill="#111" letter-spacing=".5">ЛИТЕЙНЫЙ ПР.</text>
+        <text x="12" y="159" font-size="19" font-weight="700" fill="#111" letter-spacing=".5">УЛ. КУЗНЕЧНАЯ</text>
+        <text transform="translate(407 300) rotate(-90)" font-size="17" font-weight="700" fill="#111" letter-spacing=".5">ПЕР. МОДЕЛЬЩИКОВ</text>
+        <text x="283" y="232" text-anchor="middle" font-size="19" font-weight="600" fill="#4A4741">сквер</text>
+        <path d="M84 392V330H182L388 164V152H516V118" fill="none" stroke="#D1341A" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1 16"/>
+        <path d="M84 392V330H182L388 164V152H516V118" fill="none" stroke="#D1341A" stroke-width="4" stroke-linejoin="round" opacity=".35"/>
+        <circle cx="84" cy="400" r="28" fill="#D1341A"/>
+        <text x="84" y="411" text-anchor="middle" font-weight="800" font-size="30" fill="#fff">М</text>
+        <rect x="16" y="440" width="296" height="40" fill="#111"/>
+        <text x="30" y="467" font-size="20" font-weight="700" fill="#fff">«Заводская», выход 2</text>
+        <rect x="560" y="312" width="36" height="36" fill="#111"/>
+        <text x="578" y="338" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">7</text>
+        <text x="620" y="378" text-anchor="end" font-size="18" fill="#111">трамвай</text>
+        <rect x="440" y="20" width="184" height="98" fill="#111"/>
+        <rect x="440" y="20" width="14" height="98" fill="#D1341A"/>
+        <text x="470" y="62" font-size="26" font-weight="800" fill="#fff">Цех № 4</text>
+        <text x="470" y="94" font-size="18" fill="#E6E2DA">вход со двора</text>
+        <rect x="440" y="404" width="184" height="72" fill="#FAF9F6" stroke="#111" stroke-width="2"/>
+        <text x="458" y="436" font-size="24" font-weight="800" fill="#111">7 минут</text>
+        <text x="458" y="463" font-size="18" fill="#4A4741">≈ 550 м пешком</text>
+      </svg>
+    </figure>
+    <div class="how">
+      <p class="addr">Литейный проезд, 12, стр. 4</p>
+      <p class="sub">Бывший литейный цех, зал на 240 мест, гардероб и столовая</p>
+      <ol class="steps">
+        <li>Метро «Заводская», последний вагон из центра, выход № 2 к Литейному проезду.</li>
+        <li>Налево по Литейному проезду 200 метров до сквера с фонтаном.</li>
+        <li>Через сквер по диагонали к углу улицы Кузнечной и переулка Модельщиков.</li>
+        <li>Направо по Кузнечной 100 метров, проходная с красной вывеской «Цех № 4». Вход со двора, 2-й этаж.</li>
+      </ol>
+      <p class="alt"><b>Трамвай 7</b> — остановка «Литейный проезд», 3 минуты. <b>Велопарковка</b> на 40 мест у проходной. Своей парковки нет — приезжайте на метро.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec tix" id="tickets" aria-labelledby="h-tix">
+  <div class="wrap grid">
+    <div class="sh"><span class="no">05 — Участие</span><h2 id="h-tix">Билеты</h2></div>
+    <div class="buy">
+      <h3>Полный день</h3>
+      <p class="price num">3 500 <span>₽</span></p>
+      <ul class="incl">
+        <li>Все 10 докладов и дискуссия</li>
+        <li>Кофе-брейки и обед</li>
+        <li>Записи и слайды через неделю</li>
+      </ul>
+      <a class="btn" id="buy" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет
+        <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+      <p class="note">Откроется сайт билетного оператора в новой вкладке. На этой странице оплаты нет — ни карты, ни данных мы не принимаем.</p>
+    </div>
+    <div class="reg">
+      <h3>Студентам — бесплатно</h3>
+      <p class="intro">30 мест для студентов очной формы. Заполните форму — пришлём подтверждение, студенческий покажете на входе.</p>
+      <form id="form" novalidate>
+        <div class="f"><label for="n">Имя и фамилия</label><input id="n" name="name" autocomplete="name" required aria-describedby="n-e"><span class="err" id="n-e"></span></div>
+        <div class="f"><label for="e">Почта</label><input id="e" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-e"><span class="err" id="e-e"></span></div>
+        <div class="f"><label for="p">Телефон</label><input id="p" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 (900) 000-00-00" required aria-describedby="p-e"><span class="err" id="p-e"></span></div>
+        <label class="agree"><input type="checkbox" id="c" required aria-describedby="c-e"><span>Согласен на обработку персональных данных для регистрации на форум</span></label>
+        <span class="err" id="c-e" style="margin:-12px 0 16px"></span>
+        <button class="btn" type="submit">Зарегистрироваться</button>
+        <div class="ok" id="ok" role="status"><b>Готово, место за вами.</b>Демо: заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>«Квартал: город для людей» · 21 марта 2027 · Литейный проезд, 12</span>
+    <span>Организаторам: <a href="mailto:hello@example.org">hello@example.org</a> · <a href="tel:+79000000000">+7 (900) 000-00-00</a></span>
+    <span>Демо-концепт · данные вымышлены</span>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Купить билет ↗</a>
+  <small><b style="color:var(--ink);font-size:16px">3 500 ₽</b><br>оплата у оператора</small>
+</div>
+
+<script>
+(function(){
+  // обратный отсчёт до 21.03.2027 10:00 МСК
+  var target = Date.parse('2027-03-21T10:00:00+03:00');
+  var box = document.getElementById('count');
+  var el = {}; box.querySelectorAll('[data-u]').forEach(function(b){ el[b.dataset.u] = b; });
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function tick(){
+    var ms = target - Date.now();
+    if (ms <= 0){ box.querySelector('.lbl').textContent = 'Форум идёт или уже прошёл'; ['d','h','m','s'].forEach(function(k){ el[k].textContent = '0'; }); return; }
+    var s = Math.floor(ms / 1000);
+    el.d.textContent = Math.floor(s / 86400);
+    el.h.textContent = pad(Math.floor(s % 86400 / 3600));
+    el.m.textContent = pad(Math.floor(s % 3600 / 60));
+    el.s.textContent = pad(s % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // фильтр программы
+  var chips = document.querySelectorAll('.chip');
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      chips.forEach(function(x){ x.setAttribute('aria-pressed', x === c); });
+      var f = c.dataset.f;
+      document.querySelectorAll('#prog .row').forEach(function(r){
+        r.classList.toggle('dim', f !== 'all' && r.dataset.k !== f);
+      });
+    });
+  });
+
+  // форма
+  var form = document.getElementById('form');
+  var phone = document.getElementById('p');
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g, '');
+    if (d[0] === '8') d = '7' + d.slice(1);
+    if (d && d[0] !== '7') d = '7' + d;
+    d = d.slice(0, 11);
+    var o = '';
+    if (d.length) o = '+7';
+    if (d.length > 1) o += ' (' + d.slice(1, 4);
+    if (d.length >= 4) o += ')';
+    if (d.length > 4) o += ' ' + d.slice(4, 7);
+    if (d.length > 7) o += '-' + d.slice(7, 9);
+    if (d.length > 9) o += '-' + d.slice(9, 11);
+    phone.value = o;
+  });
+  function setErr(input, errId, msg){
+    document.getElementById(errId).textContent = msg || '';
+    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return !msg;
+  }
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var n = document.getElementById('n'), e = document.getElementById('e'), c = document.getElementById('c');
+    var ok = true, first = null;
+    function chk(input, id, msg){ if (!setErr(input, id, msg)){ ok = false; first = first || input; } }
+    chk(n, 'n-e', n.value.trim().length < 2 ? 'Напишите имя — так мы найдём вас в списке на входе' : '');
+    chk(e, 'e-e', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim()) ? 'Проверьте почту: нужен адрес вида name@mail.ru' : '');
+    chk(phone, 'p-e', phone.value.replace(/\D/g, '').length !== 11 ? 'Нужен номер из 11 цифр, например +7 (900) 000-00-00' : '');
+    chk(c, 'c-e', !c.checked ? 'Без согласия мы не можем записать вас' : '');
+    document.getElementById('ok').classList.toggle('show', ok);
+    if (first) first.focus();
+    if (ok) form.querySelector('button').textContent = 'Заявка принята';
+  });
+
+  // липкая кнопка: прячем, когда видна секция билетов
+  var sticky = document.getElementById('sticky');
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){ sticky.classList.toggle('hide', en[0].isIntersecting); }, {threshold: .15}).observe(document.getElementById('tickets'));
+  }
+})();
+</script>
+</body>
+</html>

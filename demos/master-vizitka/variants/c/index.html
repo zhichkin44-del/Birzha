@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Лак и точка — маникюр и педикюр в Твери</title>
+<meta name="description" content="Студия маникюра «Лак и точка», Тверь, ул. Солнечная, 14, оф. 3. Маникюр, гель-лак, педикюр. Запись в Telegram, WhatsApp или по телефону.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FBF4EE; --powder:#F4E1D8; --peach:#EFC9B6; --blush:#E7B3A6;
+  --rose:#A8503F; --rose-d:#8F4136; --ink:#3B2A26; --ink-2:#573F39; --line:#E5D0C5;
+  --serif:"Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --sans:"Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --wrap:1160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rose-d);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;margin:0;letter-spacing:-.01em}
+h2{font-weight:600}
+em{font-style:italic;color:var(--rose-d)}
+.kicker{font:700 14px/1.2 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--rose-d)}
+.nw{white-space:nowrap}
+
+/* демо-плашка */
+.demo{background:var(--ink);color:#FBF4EE;text-align:center;font:600 14px/1.3 var(--sans);letter-spacing:.06em;padding:10px 16px}
+.demo b{color:var(--peach);font-weight:700}
+
+/* шапка */
+header.top{position:relative;z-index:20;background:rgba(251,244,238,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.logo{font:600 28px/1 var(--serif);text-decoration:none;white-space:nowrap}
+.logo i{color:var(--rose);font-style:normal}
+nav.menu{display:flex;gap:28px}
+nav.menu a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-2);padding:12px 0}
+nav.menu a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:600 16px/1 var(--sans);text-decoration:none;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .2s,color .2s,transform .2s;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--cream)}
+.btn.fill{background:var(--rose-d);border-color:var(--rose-d);color:#fff}
+.btn.fill:hover{background:var(--ink);border-color:var(--ink)}
+.btn svg{width:20px;height:20px;flex:none}
+.top .btn{min-height:44px;padding:0 20px;font-size:15px}
+
+/* первый экран */
+.hero{padding:64px 0 96px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(46px,6.4vw,84px);margin:22px 0 26px}
+.hero p.lead{font-size:19px;color:var(--ink-2);max-width:31em;margin:0 0 34px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero-tel{margin:20px 0 0;color:var(--ink-2);font-size:16px}
+.hero-tel a{font:600 24px/1.2 var(--serif);color:var(--ink);text-decoration:none;white-space:nowrap;margin-left:6px}
+.hero-tel a:hover{color:var(--rose-d)}
+.btn .num{display:none}
+.facts{display:flex;gap:36px;margin-top:44px;padding-top:26px;border-top:1px solid var(--line);flex-wrap:wrap}
+.facts div{font-size:15px;color:var(--ink-2)}
+.facts strong{display:block;font:500 26px/1.1 var(--serif);color:var(--ink);margin-bottom:4px;white-space:nowrap}
+.arch{position:relative;aspect-ratio:4/5;border-radius:999px 999px 28px 28px;overflow:hidden;background:linear-gradient(170deg,#F6D9CB,#EDBFAE);box-shadow:0 40px 80px -40px rgba(147,70,58,.45)}
+.arch>svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-art{position:relative;max-width:470px;justify-self:end;width:100%}
+.badge{position:absolute;left:48px;top:64px;width:132px;height:132px;border-radius:50%;background:var(--rose-d);color:#FFF6EF;display:grid;place-items:center;text-align:center;font:500 23px/1.02 var(--serif);box-shadow:0 14px 34px -10px rgba(59,42,38,.5);transform:rotate(-8deg);border:3px solid var(--cream)}
+.badge small{display:block;font:700 13px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#FBE3D6;margin-top:7px}
+
+/* общие секции */
+section{padding:96px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+.head h2{font-size:clamp(44px,5.4vw,76px);margin-top:14px;line-height:1}
+.head p{max-width:30em;color:var(--ink-2);margin:0}
+
+/* услуги */
+#uslugi{background:var(--powder)}
+.price{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start}
+.acc{border-top:1px solid #D2B2A3}
+.acc details{border-bottom:1px solid #D2B2A3}
+.acc summary{list-style:none;display:grid;grid-template-columns:44px 1fr auto 32px;align-items:baseline;gap:12px;padding:24px 0;cursor:pointer;min-height:44px}
+.acc summary::-webkit-details-marker{display:none}
+.acc .n{font:500 18px/1 var(--serif);color:var(--rose-d);font-style:italic}
+.acc .t{font:500 30px/1.15 var(--serif)}
+.acc .t small{display:block;font:500 15px/1.4 var(--sans);color:var(--ink-2);margin-top:4px}
+.acc .p{font:600 30px/1 var(--serif);white-space:nowrap}
+.acc .p span{font-size:20px}
+.acc .pl{width:32px;height:32px;border-radius:50%;border:1px solid var(--ink);position:relative;align-self:center}
+.acc .pl::before,.acc .pl::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .25s}
+.acc .pl::after{transform:translate(-50%,-50%) rotate(90deg)}
+.acc details[open] .pl::after{transform:translate(-50%,-50%) rotate(0)}
+.acc .body{padding:0 44px 26px 56px;color:var(--ink-2);max-width:40em}
+.note{background:var(--cream);border-radius:24px;padding:32px;position:sticky;top:100px}
+.note h3{font-size:32px;font-weight:600;margin-bottom:14px}
+.note p{color:var(--ink-2);margin:0 0 14px;font-size:16px}
+.note .sum{display:flex;justify-content:space-between;border-top:1px dashed #D6B6A8;padding:14px 0 0;margin-top:6px;font-weight:600}
+.note .sum b{font:600 28px/1 var(--serif);color:var(--rose-d)}
+
+/* работы: мозаика колонок одинаковой высоты */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.work{margin:0;display:flex;flex-direction:column;min-width:0}
+.work button{all:unset;display:block;width:100%;cursor:zoom-in;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 18px 40px -28px rgba(59,42,38,.55);transition:transform .35s,box-shadow .35s;aspect-ratio:var(--r,4/5)}
+.work button:hover{transform:translateY(-3px);box-shadow:0 24px 44px -26px rgba(59,42,38,.6)}
+.work button:focus-visible{outline:2px solid var(--rose-d);outline-offset:4px}
+.work svg{position:absolute;inset:0;width:100%;height:100%}
+.work.big button{aspect-ratio:auto;flex:1;min-height:0}
+.work.wide button{aspect-ratio:4/3}
+.work figcaption{display:flex;flex-direction:column;gap:2px;padding:12px 2px 0;height:70px;flex:none}
+.work figcaption b{font:500 22px/1.2 var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.work figcaption span{font-size:14px;line-height:1.4;color:var(--ink-2);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.work.big figcaption b{font-size:28px}
+.g1{grid-column:1/3;grid-row:1/3}.g2{grid-column:3;grid-row:1;--r:4/5}.g3{grid-column:4;grid-row:1;--r:4/5}
+.g4{grid-column:3;grid-row:2;--r:2/3}.g5{grid-column:4;grid-row:2;--r:2/3}
+.g6{grid-column:1;grid-row:3;--r:4/5}.g7{grid-column:2;grid-row:3;--r:4/5}
+.g8{grid-column:1;grid-row:4;--r:1/1}.g9{grid-column:2;grid-row:4;--r:1/1}
+.g10{grid-column:3/5;grid-row:3/5}
+.g11{grid-column:1/3;grid-row:5}.g12{grid-column:3/5;grid-row:5}
+.gal-foot{margin-top:56px;text-align:center;color:var(--ink-2)}
+
+/* лайтбокс */
+dialog{border:0;padding:0;border-radius:24px;max-width:min(860px,94vw);width:100%;background:var(--cream);color:var(--ink)}
+dialog::backdrop{background:rgba(59,42,38,.6);backdrop-filter:blur(4px)}
+.lb{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.lb .pic svg{width:100%;height:100%;min-height:100%}
+.lb .txt{padding:40px 36px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.lb h3{font-size:40px}
+.lb p{color:var(--ink-2);margin:0}
+.lb .meta{font-size:15px;border-top:1px solid var(--line);padding-top:14px}
+.x{position:absolute;right:14px;top:14px;width:44px;height:44px;border-radius:50%;border:0;background:var(--cream);font-size:26px;line-height:1;cursor:pointer;color:var(--ink)}
+
+/* цитата-акцент */
+.quote{background:radial-gradient(ellipse at 20% 0,#6B2433 0,#4A1A26 55%,#2F1519 100%);color:#FBEAE0;padding:120px 0;position:relative;overflow:hidden}
+.quote .wrap{position:relative;max-width:1080px}
+.quote svg.qm{display:block;width:96px;height:96px;color:#E7B3A6;opacity:.55;margin:0 0 10px -8px}
+.quote blockquote{margin:0;font:italic 500 clamp(32px,4.6vw,64px)/1.12 var(--serif);letter-spacing:-.01em;max-width:18em}
+.quote blockquote em{color:#EFC9B6}
+.quote .by{margin-top:34px;display:flex;align-items:center;gap:16px;font:600 15px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#EFC9B6}
+.quote .by::before{content:"";width:56px;height:1px;background:#EFC9B6}
+
+/* отзывы */
+#otzyvy{background:var(--powder)}
+.rev{display:grid;grid-template-columns:repeat(6,1fr);gap:22px;align-items:stretch}
+.rev article{background:var(--cream);border-radius:26px;padding:34px 34px 28px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;box-shadow:0 22px 40px -32px rgba(59,42,38,.5)}
+.rev .qg{position:absolute;right:22px;top:12px;width:84px;height:84px;color:var(--blush);opacity:.5}
+.rev .a{grid-column:span 4}.rev .b{grid-column:span 2;background:var(--ink);color:#FBEAE0}.rev .c{grid-column:span 2;background:var(--peach)}.rev .d{grid-column:span 4}
+.rev .a blockquote{font-size:32px}
+.rev .b .qg{color:var(--peach);opacity:.25}
+.rev .stars{display:flex;gap:4px;color:var(--rose)}
+.rev .b .stars{color:var(--peach)}
+.rev .stars svg{width:18px;height:18px}
+.rev blockquote{margin:0;font:italic 500 25px/1.3 var(--serif);flex:1;position:relative}
+.rev .who{display:flex;align-items:center;gap:14px;border-top:1px solid var(--line);padding-top:18px;flex-wrap:wrap}
+.rev .b .who{border-color:rgba(251,234,224,.25)}.rev .c .who{border-color:rgba(59,42,38,.22)}
+.rev .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:500 24px/1 var(--serif);color:#fff;flex:none}
+.rev .who b{display:block;font:600 16px/1.3 var(--sans)}
+.rev .who div span{display:block;font-size:14px;color:var(--ink-2)}
+.rev .b .who div span{color:#E6D8CF}.rev .c .who div span{color:#4A3631}
+.rev .chip{margin-left:auto;font:700 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--rose-d);border:1px solid var(--rose-d);padding:6px 10px;border-radius:99px;white-space:nowrap}
+.rev .b .chip{color:var(--peach);border-color:var(--peach)}.rev .c .chip{color:var(--ink);border-color:var(--ink)}
+.rev-foot{margin:26px 0 0;color:var(--ink-2);font-size:15px;text-align:center}
+
+/* о мастере */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.portrait{aspect-ratio:4/5;border-radius:32px;position:relative;overflow:hidden;box-shadow:0 40px 80px -44px rgba(147,70,58,.55);max-width:560px;width:100%}
+.portrait svg{position:absolute;inset:0;width:100%;height:100%}
+.about h2{font-size:clamp(46px,5.6vw,80px);margin:14px 0 8px;line-height:1}
+.role{font:600 24px/1.2 var(--serif);color:var(--rose-d);margin:0 0 22px!important}
+.about>div>p{color:var(--ink-2);margin:0 0 16px}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:24px;border-top:1px solid var(--line)}
+.facts3 div{padding:30px 32px 6px 0}
+.facts3 div+div{padding-left:32px;border-left:1px solid var(--line)}
+.facts3 small{font:700 14px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--rose-d)}
+.facts3 strong{display:block;font:italic 500 34px/1.1 var(--serif);margin:10px 0 8px}
+.facts3 span{display:block;color:var(--ink-2);font-size:16px}
+
+/* контакты */
+#kontakty{background:var(--ink);color:#F6EAE2}
+#kontakty .kicker{color:var(--peach)}
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:stretch}
+.contact h2{font-size:clamp(42px,4.6vw,62px);margin:14px 0 30px;line-height:1}
+.addr{font:500 30px/1.2 var(--serif);margin:0 0 6px}
+.muted{color:#E6D8CF}
+.sched{width:100%;border-collapse:collapse;margin:28px 0 32px;font-size:16px}
+.sched td{padding:11px 0;border-bottom:1px solid rgba(246,234,226,.16)}
+.sched td:last-child{text-align:right;font-weight:600}
+.sched tr.off td{color:#E6D8CF}
+.sched tr.off td:last-child{font-weight:500}
+.sched tr.today td:first-child::after{content:"сегодня";margin-left:10px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--peach);padding:3px 8px;border-radius:99px;font-weight:700}
+#kontakty .btn{border-color:#F6EAE2;color:#F6EAE2}
+#kontakty .btn:hover{background:#F6EAE2;color:var(--ink)}
+#kontakty .btn.fill{background:var(--peach);border-color:var(--peach);color:var(--ink)}
+.map{border-radius:24px;overflow:hidden;background:#F3E6DD;align-self:center}
+.map>svg{width:100%;height:auto}
+.map figcaption{background:#FBF4EE;color:var(--ink);padding:16px 20px 20px;font-size:16px;display:flex;flex-direction:column;gap:14px}
+.map figcaption span{color:var(--ink-2)}
+.map figcaption strong{font:600 22px/1.1 var(--serif)}
+#kontakty .map .btn{border-color:var(--rose-d);color:#fff;background:var(--rose-d);width:100%}
+#kontakty .map .btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+
+footer{padding:36px 0 40px;font-size:15px;color:var(--ink-2)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* липкая панель записи (телефон) */
+.dock{display:none}
+
+@media (max-width:1024px){
+  nav.menu{display:none}
+  .hero .wrap{grid-template-columns:1fr 1fr;gap:36px}
+  .price{grid-template-columns:1fr}
+  .note{position:static}
+  .badge{left:36px;top:54px;width:116px;height:116px;font-size:20px}
+  .gal{gap:16px}
+  .quote{padding:90px 0}
+  .rev .a,.rev .b,.rev .c,.rev .d{grid-column:span 6}
+  .rev .a blockquote{font-size:28px}
+  .facts3 strong{font-size:28px}
+  .gal{grid-template-columns:1fr 1fr}.g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8,.g9,.g10,.g11,.g12{grid-column:auto;grid-row:auto}
+  .g1,.g10,.g11,.g12{grid-column:1/-1}
+  .work.big button,.work.wide button{flex:none;aspect-ratio:4/3}
+  .work.g1 button{aspect-ratio:1/1}.work.g10 button{aspect-ratio:4/5}
+  .rev blockquote{font-size:22px}
+  .rev article{padding:28px 24px 24px}
+  .about{gap:44px}
+}
+@media (max-width:760px){
+  body{font-size:17px}
+  .wrap{padding:0 20px}
+  .top .wrap{height:62px}
+  .top .btn{display:none}
+  .logo{font-size:26px}
+  .hero{padding:28px 0 56px}
+  .hero .wrap{grid-template-columns:1fr;gap:32px}
+  .hero h1{font-size:46px;margin:16px 0 18px}
+  .hero p.lead{font-size:17px;margin-bottom:26px}
+  .hero-art{justify-self:center;max-width:330px;order:-1}
+  .badge{left:30px;top:48px;width:106px;height:106px;font-size:18px;border-width:2px}
+  .badge small{letter-spacing:.1em}
+  .btn .num{display:inline;font-weight:700;white-space:nowrap;margin-left:-4px}
+  .cta .btn{white-space:nowrap;padding:0 18px;gap:8px}
+  .hero-tel{display:none}
+  .quote{padding:72px 0}
+  .quote svg.qm{width:64px;height:64px}
+  .rev .a blockquote{font-size:24px}
+  .facts3{grid-template-columns:1fr;margin-top:8px}
+  .facts3 div,.facts3 div+div{padding:22px 0;border-left:0;border-top:1px solid var(--line)}
+  .facts3 div:first-child{border-top:0}
+  .badge small{font-size:12px;margin-top:4px}
+  .cta .btn{flex:1 1 100%}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+  .facts div:nth-child(2){grid-column:1/-1;order:3}
+  .facts div{font-size:16px}
+  section{padding:64px 0}
+  .head{margin-bottom:32px}
+  .acc summary{grid-template-columns:30px 1fr auto 28px;gap:8px;padding:20px 0}
+  .acc .t{font-size:24px}
+  .acc .p{font-size:24px}
+  .acc .p span{font-size:17px}
+  .acc .pl{width:28px;height:28px}
+  .acc .body{padding:0 0 22px 38px;font-size:16px}
+  .acc .t small{font-size:16px}
+  .gal{gap:22px 14px}
+  .work figcaption{padding-top:10px;height:66px}
+  .work.big figcaption b{font-size:24px}
+  .work figcaption b{font-size:21px}
+  .work figcaption span{font-size:16px}
+  .kicker{font-size:14px}
+  .gal-foot{margin-top:36px}
+  .lb{grid-template-columns:1fr}
+  .lb .txt{padding:24px 22px 28px}
+  .lb h3{font-size:32px}
+  dialog{max-height:92vh;overflow:auto}
+  .rev{grid-template-columns:1fr}
+  .rev article{padding:26px 22px 22px}
+  .rev blockquote{font-size:23px}
+  .rev .who{flex-wrap:wrap}
+  .rev .chip{margin-left:62px}
+  .about{grid-template-columns:1fr;gap:36px}
+  .portrait{max-width:380px;margin:0 auto}
+  .contact{grid-template-columns:1fr;gap:36px}
+  .addr{font-size:25px}
+  footer{padding-bottom:110px}
+  .dock{display:grid;grid-template-columns:1fr 1.2fr .85fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(251,244,238,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -10px 30px -18px rgba(59,42,38,.35)}
+  .dock a{display:flex;align-items:center;justify-content:center;gap:6px;min-height:50px;padding:0 8px;min-width:0;border-radius:14px;text-decoration:none;font:700 14px/1 var(--sans);background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .dock a.main{background:var(--rose-d);border-color:var(--rose-d);color:#fff}
+  .dock svg{width:18px;height:18px;flex:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="demo" role="note"><b>Демо-концепт</b> · данные вымышлены</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Лак и точка — на главную">Лак и точка<i>.</i></a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#uslugi">Услуги и цены</a>
+      <a href="#raboty">Работы</a>
+      <a href="#otzyvy">Отзывы</a>
+      <a href="#master">О мастере</a>
+      <a href="#kontakty">Адрес и график</a>
+    </nav>
+    <a class="btn fill" href="https://t.me/+79000000000" target="_blank" rel="noopener">Записаться</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Маникюр и педикюр · Тверь</div>
+      <h1 id="h1">Ухоженные руки <em>без&nbsp;спешки</em> и&nbsp;сколов</h1>
+      <p class="lead">Я Ника Светлова, мастер студии «Лак и точка». Принимаю по одной клиентке, работаю стерильным инструментом и подбираю оттенок под ваш тон кожи, а не под моду недели.</p>
+      <div class="cta">
+        <a class="btn fill" href="https://t.me/+79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 4.2 2.9 11.4c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.7 3.5c.7.5 1.7.1 1.9-.7L23 5.6c.2-1-.7-1.8-1.6-1.4ZM9.7 14.6l-.4 3.6-1.4-4.3 9.6-6.1-7.8 6.8Z"/></svg>Telegram</a>
+        <a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3c.2-.6.2-1.1.2-1.3-.1 0-.2-.1-.5-.2Z"/></svg>WhatsApp</a>
+        <a class="btn" href="tel:+79000000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3h3.5l1.7 4.5-2.3 1.4a11 11 0 0 0 5.2 5.2l1.4-2.3L19 13.5V17a2 2 0 0 1-2 2A15 15 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Позвонить<span class="num"> +7 (900) 000-00-00</span></a>
+      </div>
+      <p class="hero-tel">Позвоните: <a href="tel:+79000000000">+7 (900) 000-00-00</a></p>
+      <div class="facts">
+        <div><strong>Пн–Сб</strong>10:00–20:00</div>
+        <div><strong>ул.&nbsp;Солнечная,&nbsp;14</strong>офис 3, Тверь</div>
+        <div><strong>от 300&nbsp;₽</strong>прайс без доплат</div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="arch" id="heroHand"></div>
+      <div class="badge"><div>Запись<br>на неделю<small>вперёд</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="uslugi" aria-labelledby="h-usl">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">Прайс</div><h2 id="h-usl">Услуги и цены</h2></div>
+      <p>Цена в прайсе — окончательная. Нажмите на услугу, чтобы увидеть, что в неё входит и сколько она длится.</p>
+    </div>
+    <div class="price">
+      <div class="acc">
+        <details open>
+          <summary><span class="n">01</span><span class="t">Маникюр<small><span class="nw">комбинированный,</span> без покрытия · <span class="nw">60&nbsp;мин</span></small></span><span class="p">1&nbsp;500 <span>₽</span></span><span class="pl" aria-hidden="true"></span></summary>
+          <div class="body">Обработка кутикулы, форма и длина свободного края, полировка и масло. Подходит, если хотите просто аккуратные руки или носите обычный лак.</div>
+        </details>
+        <details>
+          <summary><span class="n">02</span><span class="t">Покрытие <span class="nw">гель-лаком</span><small>однотонное, база и топ · <span class="nw">60&nbsp;мин</span></small></span><span class="p">1&nbsp;200 <span>₽</span></span><span class="pl" aria-hidden="true"></span></summary>
+          <div class="body">Выравнивание базой, один оттенок из палитры студии, топ с глянцем или матовый. Носится 3–4 недели. Чаще всего берут вместе с маникюром.</div>
+        </details>
+        <details>
+          <summary><span class="n">03</span><span class="t">Педикюр<small>с обработкой стоп · <span class="nw">90&nbsp;мин</span></small></span><span class="p">2&nbsp;000 <span>₽</span></span><span class="pl" aria-hidden="true"></span></summary>
+          <div class="body">Ванночка, обработка пальцев и стоп, форма ногтей, увлажнение. Покрытие гель-лаком на стопы — по цене покрытия рук.</div>
+        </details>
+        <details>
+          <summary><span class="n">04</span><span class="t">Снятие покрытия<small><span class="nw">гель-лак,</span> в том числе не моё · <span class="nw">15&nbsp;мин</span></small></span><span class="p">300 <span>₽</span></span><span class="pl" aria-hidden="true"></span></summary>
+          <div class="body">Аккуратно снимаю аппаратом, без отслаивания и травм ногтевой пластины. Если сразу делаем новое покрытие — снятие всё равно 300&nbsp;₽, без скрытых наценок.</div>
+        </details>
+      </div>
+      <aside class="note" aria-label="Популярный набор">
+        <div class="kicker">Чаще всего берут</div>
+        <h3>Маникюр + гель-лак</h3>
+        <p>Около двух часов: кутикула, форма, выравнивание и однотонное покрытие.</p>
+        <div class="sum"><span>1&nbsp;500 + 1&nbsp;200</span><b>2&nbsp;700&nbsp;₽</b></div>
+        <p style="margin-top:20px">Пришлите в сообщении услугу и удобный день, я отвечу со свободными окнами.</p>
+        <a class="btn fill" style="width:100%" href="https://t.me/+79000000000" target="_blank" rel="noopener">Выбрать время</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="raboty" aria-labelledby="h-rab">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">Портфолио</div><h2 id="h-rab">Мои <em>работы</em></h2></div>
+      <p>Двенадцать покрытий, которые просят чаще всего: от молочного нюда до кошачьего глаза. Нажмите на работу, чтобы рассмотреть ближе.</p>
+    </div>
+    <div class="gal" id="gal"></div>
+    <p class="gal-foot">Свой референс можно прислать в Telegram — скажу, получится ли и сколько это займёт.</p>
+  </div>
+</section>
+
+<section class="quote" aria-label="Слова мастера">
+  <div class="wrap">
+    <svg class="qm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 17.5C4 12 6.6 8 11 6l.7 1.3C9.2 8.8 8 10.8 8 13h3.5v6.5H4Zm9 0C13 12 15.6 8 20 6l.7 1.3C18.2 8.8 17 10.8 17 13h3.5v6.5H13Z"/></svg>
+    <blockquote>Хороший маникюр — тот, <em>о котором вы забываете</em> на целый месяц.</blockquote>
+    <div class="by">Ника Светлова · мастер студии</div>
+  </div>
+</section>
+
+<section id="otzyvy" aria-labelledby="h-otz">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">Отзывы</div><h2 id="h-otz">Что говорят клиентки</h2></div>
+      <p>Четыре коротких слова от тех, кто возвращается.</p>
+    </div>
+    <div class="rev">
+      <article class="a">
+        <svg class="qg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 17.5C4 12 6.6 8 11 6l.7 1.3C9.2 8.8 8 10.8 8 13h3.5v6.5H4Zm9 0C13 12 15.6 8 20 6l.7 1.3C18.2 8.8 17 10.8 17 13h3.5v6.5H13Z"/></svg>
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path id="st" d="m12 2.5 2.9 6.2 6.7.8-5 4.6 1.4 6.7L12 17.3 6 20.8l1.4-6.7-5-4.6 6.7-.8Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg></div>
+        <blockquote>«Хожу к Нике полгода. Гель-лак держится четыре недели, ни одного скола. И в студии тихо, пахнет чаем, а не растворителем.»</blockquote>
+        <div class="who"><span class="av" style="background:linear-gradient(140deg,#C98B7A,#A8503F)">А</span><div><b>Алина К.</b><span>клиентка с апреля</span></div><span class="chip">демо-текст</span></div>
+      </article>
+      <article class="b">
+        <svg class="qg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 17.5C4 12 6.6 8 11 6l.7 1.3C9.2 8.8 8 10.8 8 13h3.5v6.5H4Zm9 0C13 12 15.6 8 20 6l.7 1.3C18.2 8.8 17 10.8 17 13h3.5v6.5H13Z"/></svg>
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg></div>
+        <blockquote>«Принесла референс. Ника честно сказала, что выйдет, а что нет. Вышло лучше, чем на картинке.»</blockquote>
+        <div class="who"><span class="av" style="background:linear-gradient(140deg,#8FA286,#5E7557)">М</span><div><b>Марина В.</b><span>рисунок на заказ</span></div><span class="chip">демо-текст</span></div>
+      </article>
+      <article class="c">
+        <svg class="qg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 17.5C4 12 6.6 8 11 6l.7 1.3C9.2 8.8 8 10.8 8 13h3.5v6.5H4Zm9 0C13 12 15.6 8 20 6l.7 1.3C18.2 8.8 17 10.8 17 13h3.5v6.5H13Z"/></svg>
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg></div>
+        <blockquote>«Записалась на 90 минут, ушла через 90. Без спешки и доплат.»</blockquote>
+        <div class="who"><span class="av" style="background:linear-gradient(140deg,#B6A1C9,#7E6A97)">Д</span><div><b>Дарья С.</b><span>педикюр</span></div><span class="chip">демо-текст</span></div>
+      </article>
+      <article class="d">
+        <svg class="qg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 17.5C4 12 6.6 8 11 6l.7 1.3C9.2 8.8 8 10.8 8 13h3.5v6.5H4Zm9 0C13 12 15.6 8 20 6l.7 1.3C18.2 8.8 17 10.8 17 13h3.5v6.5H13Z"/></svg>
+        <div class="stars" aria-label="5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><use href="#st"/></svg></div>
+        <blockquote>«На третий день откололся край. Написала Нике, она исправила в тот же вечер, без вопросов и без денег. Теперь советую подругам.»</blockquote>
+        <div class="who"><span class="av" style="background:linear-gradient(140deg,#D9A66B,#A8702F)">К</span><div><b>Ксения Т.</b><span>клиентка</span></div><span class="chip">демо-текст</span></div>
+      </article>
+    </div>
+    <p class="rev-foot">Отзывы вымышлены и нужны для показа оформления. В рабочей версии здесь будут живые слова клиенток.</p>
+  </div>
+</section>
+
+<section id="master" aria-labelledby="h-mas">
+  <div class="wrap about">
+    <div class="portrait" id="portrait"></div>
+    <div>
+      <div class="kicker">О мастере</div>
+      <h2 id="h-mas">Ника Светлова</h2>
+      <p class="role">Мастер маникюра и педикюра</p>
+      <p>Начинала в большом салоне, где на клиентку давали сорок минут. Ушла, чтобы работать так, как нравится мне самой: спокойно, по одной, с разговором о том, что вы будете носить ближайший месяц.</p>
+      <p>В студии один стол, хорошая вытяжка и чай. Если покрытие сколется в первую неделю, исправлю бесплатно.</p>
+    </div>
+    <div class="facts3" style="grid-column:1/-1">
+      <div><small>Стаж</small><strong>Годы у стола</strong><span>Практика у одного стола: сначала в салоне, теперь в своей студии. На каждое покрытие даю гарантию.</span></div>
+      <div><small>Материалы</small><strong>Базы, которые не желтеют</strong><span>Показываю банку и состав, если спросите. Оттенок подбираю под тон кожи.</span></div>
+      <div><small>Стерилизация</small><strong>Сухожар и крафт-пакеты</strong><span>Инструмент вскрываю при вас, пилки и бафы — новые для каждой клиентки.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakty" aria-labelledby="h-kon">
+  <div class="wrap contact">
+    <div>
+      <div class="kicker">Адрес и график</div>
+      <h2 id="h-kon">Приходите в гости</h2>
+      <p class="addr"><span class="nw">Тверь,</span> <span class="nw">ул. Солнечная, 14, оф.&nbsp;3</span></p>
+      <p class="muted">Вход со двора, второй этаж, табличка «Лак и точка». Парковка у дома бесплатная.</p>
+      <table class="sched" aria-label="График работы">
+        <tbody id="sched">
+          <tr data-d="1"><td>Понедельник</td><td>10:00–20:00</td></tr>
+          <tr data-d="2"><td>Вторник</td><td>10:00–20:00</td></tr>
+          <tr data-d="3"><td>Среда</td><td>10:00–20:00</td></tr>
+          <tr data-d="4"><td>Четверг</td><td>10:00–20:00</td></tr>
+          <tr data-d="5"><td>Пятница</td><td>10:00–20:00</td></tr>
+          <tr data-d="6"><td>Суббота</td><td>10:00–20:00</td></tr>
+          <tr data-d="0" class="off"><td>Воскресенье</td><td>выходной</td></tr>
+        </tbody>
+      </table>
+      <div class="cta">
+        <a class="btn fill" href="https://t.me/+79000000000" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn" href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn" href="tel:+79000000000">+7 (900) 000-00-00</a>
+      </div>
+    </div>
+    <figure class="map" style="margin:0">
+      <svg viewBox="0 0 600 470" role="img" aria-label="Схема проезда: студия на улице Солнечной, дом 14, офис 3">
+        <rect width="600" height="470" fill="#F3E6DD"/>
+        <g fill="#EAD7CB">
+          <rect x="24" y="24" width="160" height="112" rx="12"/><rect x="226" y="24" width="140" height="112" rx="12"/>
+          <rect x="24" y="214" width="160" height="104" rx="12"/><rect x="408" y="214" width="168" height="104" rx="12"/>
+          <rect x="24" y="364" width="160" height="90" rx="12"/><rect x="226" y="364" width="140" height="90" rx="12"/><rect x="408" y="364" width="168" height="90" rx="12"/>
+        </g>
+        <rect x="408" y="24" width="168" height="112" rx="12" fill="#EFC9B6"/>
+        <text x="492" y="118" text-anchor="middle" font-family="Manrope,sans-serif" font-size="26" font-weight="700" fill="#8F4136">д. 14, оф. 3</text>
+        <rect x="226" y="214" width="140" height="104" rx="12" fill="#DCE4CF"/>
+        <g fill="#C3D2B0"><circle cx="258" cy="244" r="14"/><circle cx="300" cy="292" r="18"/><circle cx="338" cy="248" r="12"/></g>
+        <g fill="none" stroke="#fff" stroke-linecap="round">
+          <path d="M0 175H600" stroke-width="56"/><path d="M0 341H600" stroke-width="22"/>
+          <path d="M205 0V470" stroke-width="22"/><path d="M387 0V470" stroke-width="22"/>
+        </g>
+        <path d="M150 194H470V140" stroke="#8F4136" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round" fill="none"/>
+        <text x="300" y="180" text-anchor="middle" font-family="Manrope,sans-serif" font-size="30" font-weight="700" fill="#3B2A26">ул. Солнечная</text>
+        <circle cx="120" cy="194" r="13" fill="#fff" stroke="#8F4136" stroke-width="4"/>
+        <text x="104" y="254" text-anchor="middle" font-family="Manrope,sans-serif" font-size="22" fill="#573F39">остановка</text>
+        <text x="104" y="282" text-anchor="middle" font-family="Manrope,sans-serif" font-size="22" fill="#573F39">«Солнечная»</text>
+        <g transform="translate(492 62)">
+          <circle r="30" fill="#8F4136" opacity=".18"><animate attributeName="r" values="20;34;20" dur="3s" repeatCount="indefinite"/></circle>
+          <path d="M0 22C-14 6-19-3-19-12a19 19 0 0 1 38 0c0 9-5 18-19 34Z" fill="#8F4136" transform="translate(0 -14)"/>
+          <circle cy="-26" r="7" fill="#FBF4EE"/>
+        </g>
+      </svg>
+      <figcaption>
+        <strong>Схема проезда (не карта)</strong>
+        <span>Это рисунок, не карта, и он не в масштабе. От остановки — 3 минуты пешком по Солнечной до дома 14.</span>
+        <a class="btn fill" href="https://yandex.ru/maps/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Открыть в картах</a>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© «Лак и точка», Тверь. Демо-концепт · данные вымышлены.</span>
+    <span>Ника Светлова · <a href="tel:+79000000000">+7 (900) 000-00-00</a></span>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Быстрая запись">
+  <a class="main" href="https://t.me/+79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 4.2 2.9 11.4c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.7 3.5c.7.5 1.7.1 1.9-.7L23 5.6c.2-1-.7-1.8-1.6-1.4Z"/></svg>Telegram</a>
+  <a href="https://wa.me/79000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>WhatsApp</a>
+  <a href="tel:+79000000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 3h3.5l1.7 4.5-2.3 1.4a11 11 0 0 0 5.2 5.2l1.4-2.3L19 13.5V17a2 2 0 0 1-2 2A15 15 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Звонок</a>
+</nav>
+
+<dialog id="lb" aria-labelledby="lbTitle">
+  <div class="lb">
+    <div class="pic" id="lbPic"></div>
+    <div class="txt">
+      <div class="kicker" id="lbNum"></div>
+      <h3 id="lbTitle"></h3>
+      <p id="lbDesc"></p>
+      <p class="meta" id="lbMeta"></p>
+      <a class="btn fill" href="https://t.me/+79000000000" target="_blank" rel="noopener">Хочу так же</a>
+    </div>
+  </div>
+  <button class="x" id="lbClose" aria-label="Закрыть">×</button>
+</dialog>
+
+<script>
+/* ===== Иллюстрации: свои SVG, общий «движок» рук и ногтей ===== */
+const rad=a=>a*Math.PI/180;
+const rng=s=>()=>((s=(Math.imul(s,1664525)+1013904223)>>>0)/4294967296);
+let UID=0;
+const SK={
+ light:{e:"#DFA98F",m:"#F0CDB9",l:"#F9E2D5",s:"#C48A70"},
+ med:{e:"#B77B58",m:"#DAA583",l:"#EBC4A6",s:"#9D6444"},
+ dark:{e:"#6B3D28",m:"#A06C4B",l:"#BC8663",s:"#58321F"}
+};
+const mk=H=>({u:"i"+(UID++),H,d:[],b:[],f:[],t:[],k:0,sk:{}});
+const id=(S,n)=>S.u+n+(S.k++);
+function lg(S,stops,x1=0,y1=0,x2=0,y2=1){const i=id(S,"g");S.d.push(`<linearGradient id="${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops.map(([o,c,a])=>`<stop offset="${o}" stop-color="${c}"${a==null?"":` stop-opacity="${a}"`}/>`).join("")}</linearGradient>`);return i}
+function rg(S,stops,cx=.5,cy=.5,r=.5){const i=id(S,"r");S.d.push(`<radialGradient id="${i}" cx="${cx}" cy="${cy}" r="${r}">${stops.map(([o,c,a])=>`<stop offset="${o}" stop-color="${c}"${a==null?"":` stop-opacity="${a}"`}/>`).join("")}</radialGradient>`);return i}
+function skg(S,k){if(!S.sk[k]){const s=SK[k],i=id(S,"s");S.sk[k]=i;S.d.push(`<linearGradient id="${i}" x1="0" x2="1"><stop offset="0" stop-color="${s.e}"/><stop offset=".3" stop-color="${s.m}"/><stop offset=".62" stop-color="${s.l}"/><stop offset="1" stop-color="${s.m}"/></linearGradient>`)}return S.sk[k]}
+function blur(S,sd){const i=id(S,"b");S.d.push(`<filter id="${i}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${sd}"/></filter>`);return i}
+function sparkle(x,y,s,c,o=.9){return `<path d="M${x} ${y-s}Q${x} ${y} ${x+s} ${y}Q${x} ${y} ${x} ${y+s}Q${x} ${y} ${x-s} ${y}Q${x} ${y} ${x} ${y-s}Z" fill="${c}" opacity="${o}"/>`}
+function heartD(x,y,s){return `M${x} ${y+.9*s}C${x-1.6*s} ${y-.2*s} ${x-.7*s} ${y-1.3*s} ${x} ${y-.5*s}C${x+.7*s} ${y-1.3*s} ${x+1.6*s} ${y-.2*s} ${x} ${y+.9*s}Z`}
+function leaf(x,y,l,rot,fill,op=1,w=.22){return `<g transform="translate(${x} ${y}) rotate(${rot})" opacity="${op}"><path d="M0 0C${l*.3} ${-l*w} ${l*.75} ${-l*w*.8} ${l} 0C${l*.75} ${l*w*.8} ${l*.3} ${l*w} 0 0Z" fill="${fill}"/><path d="M0 0L${l*.92} 0" stroke="#fff" stroke-opacity=".28" stroke-width="1"/></g>`}
+
+/* форма ногтя: основание в (0,0), кончик в (0,-h) */
+function nailD(sh,w,h){const a=w/2,b=h*.04,c=Math.min(h*.2,w*.3),M=`M${-a} ${-b}`,bot=`L${a} ${-b}Q${a} ${c} 0 ${c}Q${-a} ${c} ${-a} ${-b}Z`;
+ switch(sh){
+  case"square":{const r=w*.12;return `${M}L${-a} ${-h+r}Q${-a} ${-h} ${-a+r} ${-h}L${a-r} ${-h}Q${a} ${-h} ${a} ${-h+r}${bot}`}
+  case"coffin":{const t=w*.3,r=w*.06;return `${M}L${-a} ${-h*.5}L${-t} ${-h+r}Q${-t} ${-h} ${-t+r} ${-h}L${t-r} ${-h}Q${t} ${-h} ${t} ${-h+r}L${a} ${-h*.5}${bot}`}
+  case"almond":return `${M}L${-a} ${-h*.4}C${-a} ${-h*.68} ${-a*.45} ${-h*.9} ${-w*.08} ${-h*.99}Q0 ${-h*1.02} ${w*.08} ${-h*.99}C${a*.45} ${-h*.9} ${a} ${-h*.68} ${a} ${-h*.4}${bot}`;
+  case"stiletto":return `${M}L${-a} ${-h*.28}C${-a*.92} ${-h*.58} ${-a*.3} ${-h*.84} ${-w*.035} ${-h*.985}Q0 ${-h*1.02} ${w*.035} ${-h*.985}C${a*.3} ${-h*.84} ${a*.92} ${-h*.58} ${a} ${-h*.28}${bot}`;
+  default:return `${M}L${-a} ${-h*.55}C${-a} ${-h*.9} ${-a*.55} ${-h} 0 ${-h}C${a*.55} ${-h} ${a} ${-h*.9} ${a} ${-h*.55}${bot}`}}
+
+/* покрытия ногтя; координаты ногтя: x от -nw/2 до nw/2, y от 0 (основание) до -nh (кончик) */
+function paint(S,p,nw,nh){
+ const x=-nw/2-2,y=-nh-3,W=nw+4,H=nh+6,sc=Math.max(1,Math.min(nw/42,2)),R=rng(p.seed||5);
+ const B=f=>`<rect x="${x}" y="${y}" width="${W}" height="${H}" fill="${f}"/>`;
+ let s="";
+ switch(p.t){
+  case"solid":s=B(`url(#${lg(S,[[0,p.c2||p.c],[1,p.c]])})`);break;
+  case"french":{const gl=lg(S,[[0,p.c2||p.c],[1,p.c]]);s=B(`url(#${gl})`);
+    if(p.v)s+=`<path d="M${x} ${y}H${x+W}V${-nh*.78}L0 ${-nh*.52}L${x} ${-nh*.78}Z" fill="${p.a}"/>`;
+    else s+=`<ellipse cx="0" cy="${-nh*1.05}" rx="${nw*.95}" ry="${nh*.36}" fill="${p.a}"/>`;
+    if(p.k)s+=`<ellipse cx="0" cy="${-nh*1.05}" rx="${nw*.95}" ry="${nh*.36}" fill="none" stroke="${p.k}" stroke-width="${.9*sc}"/>`;break}
+  case"ombre":s=B(`url(#${lg(S,[[0,p.a],[.5,p.m||p.a],[1,p.c]])})`);break;
+  case"chrome":{const m=p.m;s=B(`url(#${lg(S,m.map((c,i)=>[i/(m.length-1),c]),0,0,1,.7)})`)+B(p.tint||"none").replace("/>",` opacity=".35"/>`)+`<rect x="${-nw*.52}" y="${-nh*1.1}" width="${nw*.16}" height="${nh*1.4}" fill="#fff" opacity=".5" transform="rotate(22 0 ${-nh*.5})"/><rect x="${nw*.1}" y="${-nh*1.1}" width="${nw*.07}" height="${nh*1.4}" fill="#fff" opacity=".35" transform="rotate(22 0 ${-nh*.5})"/>`;break}
+  case"cateye":{const gb=lg(S,[[0,p.g,0],[.5,p.g,.95],[1,p.g,0]],0,0,1,0),gb2=lg(S,[[0,p.g,0],[.5,p.g,.45],[1,p.g,0]],0,0,1,0);
+    s=B(`url(#${lg(S,[[0,p.c2||p.c],[1,p.c]])})`)+`<g transform="rotate(-24 0 ${-nh*.5})"><rect x="${-nw*.2}" y="${-nh*1.25}" width="${nw*.4}" height="${nh*1.6}" fill="url(#${gb})"/><rect x="${nw*.26}" y="${-nh*1.25}" width="${nw*.2}" height="${nh*1.6}" fill="url(#${gb2})"/></g>`;
+    for(let i=0;i<16;i++)s+=`<circle cx="${x+R()*W}" cy="${y+R()*H}" r="${.5*sc}" fill="${p.g}" opacity=".35"/>`;break}
+  case"glitter":{s=B(`url(#${lg(S,[[0,p.c2||p.c],[1,p.c]])})`);const n=Math.round(nw*nh/9),cs=p.g;
+    for(let i=0;i<n;i++){const cx=x+R()*W,cy=y+R()*H;if(i%11==0)s+=sparkle(cx,cy,(1.6+R()*1.6)*sc,"#fff",.95);else s+=`<circle cx="${cx}" cy="${cy}" r="${(.45+R()*1.1)*sc}" fill="${cs[i%cs.length]}" opacity="${.55+R()*.45}"/>`}break}
+  case"moon":s=B(p.c)+`<ellipse cx="0" cy="${nh*.02}" rx="${nw*.4}" ry="${nh*.22}" fill="${p.a}"/>`+(p.k?`<ellipse cx="0" cy="${nh*.02}" rx="${nw*.4}" ry="${nh*.22}" fill="none" stroke="${p.k}" stroke-width="${.8*sc}"/>`:"");break;
+  case"marble":{const bf=blur(S,2.4*sc);s=B(p.c);
+    for(let i=0;i<3;i++)s+=`<ellipse cx="${(R()-.5)*nw}" cy="${-R()*nh}" rx="${nw*.4}" ry="${nh*.1}" fill="${p.v}" opacity="${p.nv?.34:.2}" filter="url(#${bf})" transform="rotate(${R()*60-30} 0 ${-nh*.5})"/>`;
+    for(let i=0;i<(p.nv||5);i++){const y1=-nh*(.05+R()*.9),y2=-nh*(.05+R()*.9),y3=-nh*(.05+R()*.9);
+      s+=`<path d="M${x} ${y1}C${x+W*.3} ${y1+(R()-.5)*nh*.6} ${x+W*.6} ${y2+(R()-.5)*nh*.5} ${x+W} ${y3}" fill="none" stroke="${i%4==3&&p.gold?p.gold:p.v}" stroke-width="${(i%3==1?1.7:.7)*sc}" opacity="${i%3==1?.7:.85}"/>`}
+    break}
+  case"dots":{s=B(p.c);const pts=[[-.22,-.78],[.2,-.62],[-.12,-.42],[.24,-.24],[-.2,-.16]];pts.forEach(([a,b],i)=>{s+=`<circle cx="${nw*a}" cy="${nh*b}" r="${nw*(i%2?.055:.075)}" fill="${p.k}"/>`});break}
+  case"art":{s=B(p.c);const k=p.k,w=nw,h=nh,st=`fill="none" stroke="${k}" stroke-width="${.034*w}" stroke-linecap="round" stroke-linejoin="round"`;
+    if(p.n==0){for(let i=0;i<3;i++){const yy=-h*(.78-i*.2),a=w*(.34-i*.04);s+=`<path d="M${-a} ${yy}q${a*.5} ${-h*.1} ${a} 0t${a} 0" ${st}/>`}s+=`<circle cx="${w*.14}" cy="${-h*.12}" r="${w*.04}" fill="${k}"/>`}
+    else if(p.n==1){s+=`<path d="M${-w*.3} ${-h*.9}C${-w*.1} ${-h*.92} ${-w*.05} ${-h*.8} ${-w*.02} ${-h*.7}L${w*.2} ${-h*.62}Q${w*.04} ${-h*.57} ${w*.08} ${-h*.52}Q${w*.2} ${-h*.5} ${w*.08} ${-h*.46}Q${w*.18} ${-h*.42} ${w*.04} ${-h*.38}Q${w*.08} ${-h*.3} ${-w*.08} ${-h*.26}C${-w*.2} ${-h*.24} ${-w*.26} ${-h*.14} ${-w*.3} ${-h*.05}" ${st}/><path d="M${-w*.1} ${-h*.24}C${-w*.02} ${-h*.12} ${w*.1} ${-h*.08} ${w*.3} ${-h*.1}" ${st}/><circle cx="${w*.26}" cy="${-h*.86}" r="${w*.1}" ${st}/>`}
+    else if(p.n==2){s+=`<path d="${heartD(0,-h*.52,w*.26)}" ${st}/>`+sparkle(w*.22,-h*.86,w*.1,k,1)+sparkle(-w*.22,-h*.18,w*.07,k,1)}
+    else{for(let i=0;i<3;i++)s+=`<circle cx="${-w*.5}" cy="${-h*.1}" r="${w*(.3+i*.2)}" ${st}/>`;s+=`<circle cx="${w*.2}" cy="${-h*.78}" r="${w*.05}" fill="${k}"/>`}
+    break}
+  case"branch":{s=B(p.c);const k=p.k,w=nw,h=nh,x0=-w*.3,y0=-h*.06,x1=w*.2,y1=-h*.5,x2=w*.05,y2=-h*.92;
+    s+=`<path d="M${x0} ${y0}Q${x1} ${y1} ${x2} ${y2}" fill="none" stroke="${k}" stroke-width="${.03*w}" stroke-linecap="round"/>`;
+    for(let i=1;i<=6;i++){const t=i/7,X=(1-t)*(1-t)*x0+2*(1-t)*t*x1+t*t*x2,Y=(1-t)*(1-t)*y0+2*(1-t)*t*y1+t*t*y2,dx=2*(1-t)*(x1-x0)+2*t*(x2-x1),dy=2*(1-t)*(y1-y0)+2*t*(y2-y1),an=Math.atan2(dy,dx)*180/Math.PI,sd=i%2?-1:1;
+      s+=leaf(X,Y,w*.3,an+sd*52,k,.95,.28)}
+    s+=leaf(x2,y2,w*.28,Math.atan2(y2-y1,x2-x1)*180/Math.PI,k,.95,.28);break}
+  case"heart":s=B(p.c)+`<path d="${heartD(0,-nh*.5,nw*.2)}" fill="${p.a}"/>`;break;
+  default:s=B(p.c||"#eee")}
+ return s}
+function gloss(S,nw,nh){return `<rect x="${-nw*.3}" y="${-nh*.88}" width="${nw*.13}" height="${nh*.64}" rx="${nw*.065}" fill="url(#${S.u}gl)" opacity=".85"/><ellipse cx="${nw*.2}" cy="${-nh*.8}" rx="${nw*.1}" ry="${nh*.04}" fill="#fff" opacity=".65" transform="rotate(-24 ${nw*.2} ${-nh*.8})"/><rect x="${-nw/2-2}" y="${-nh-3}" width="${nw+4}" height="${nh+6}" fill="url(#${S.u}sd)"/>`}
+function matte(S,nw,nh){return `<rect x="${-nw/2-2}" y="${-nh-3}" width="${nw+4}" height="${nh+6}" fill="#fff" opacity=".1"/><rect x="${-nw/2-2}" y="${-nh-3}" width="${nw+4}" height="${nh+6}" fill="url(#${S.u}sd)" opacity=".8"/><rect x="${-nw*.3}" y="${-nh*.8}" width="${nw*.5}" height="${nh*.5}" fill="#fff" opacity=".06" transform="rotate(-20 0 ${-nh*.5})"/>`}
+
+/* палец: начало координат — верх подушечки; ноготь выступает за край на ov */
+function finger(S,o){
+ const fw=o.fw,sk=SK[o.skin||"light"],g=skg(S,o.skin||"light");
+ const nw=o.nw||fw*.8,nh=o.nh||nw*(o.nk||1.5),ov=o.ov==null?nh*.2:o.ov,nb=nh-ov,len=o.len;
+ const P=nailD(o.sh||"oval",nw,nh),cid=id(S,"c");
+ S.d.push(`<clipPath id="${cid}"><path d="${P}"/></clipPath>`);
+ let s=`<g transform="translate(${o.x} ${o.y}) rotate(${o.rot||0})">`;
+ const yd=nb+fw*1.7,yp=nb+fw*3.5,RP=[[.46,.46],[.5,nb+fw*.9],[.54,yd],[.5,yd+fw*.75],[.56,yp],[.54,yp+fw*.8]].filter(q=>q[1]<len-fw*.3).map(q=>[q[0]*fw,q[1]]);RP.push([.55*fw,len]);
+ const LP=RP.slice().reverse().map(q=>[-q[0],q[1]]);
+ s+=`<path d="M${-.46*fw} ${.46*fw}A${.46*fw} ${.46*fw} 0 0 1 ${.46*fw} ${.46*fw}${cr(RP)}L${LP[0][0]} ${LP[0][1]}${cr(LP)}Z" fill="url(#${g})"/>`;
+ s+=`<rect x="${-fw*.28}" y="${nb+nh*.25}" width="${fw*.1}" height="${Math.max(10,len-nb-nh*.7)}" rx="${fw*.05}" fill="#fff" opacity=".22"/>`;
+ [1.62,1.8,3.4,3.58].forEach((k,i)=>{if(nb+fw*k>len-fw*.4)return;const a=fw*(.2-(i%2)*.05);s+=`<path d="M${-a} ${nb+fw*k}q${a} ${fw*.1} ${a*2} 0" stroke="${sk.s}" stroke-width="${Math.max(1,fw*.026)}" fill="none" opacity=".5"/>`});
+ s+=`<g transform="translate(0 ${nb})"><path d="M${-nw*.55} ${nh*.02}Q0 ${nh*.2} ${nw*.55} ${nh*.02}" stroke="${sk.s}" stroke-width="${Math.min(fw*.05,3)}" fill="none" opacity=".3"/>`;
+ s+=`<path d="${P}" fill="none" stroke="${sk.s}" stroke-width="${Math.min(fw*.075,4.5)}" opacity=".28"/>`;
+ s+=`<g clip-path="url(#${cid})">${paint(S,o.p,nw,nh)}${o.p.matte?matte(S,nw,nh):gloss(S,nw,nh)}</g>`;
+ s+=`<path d="${P}" fill="none" stroke="#000" stroke-opacity=".1"/></g>`;
+ if(o.ring){const yy=nb+fw*2.3;s+=`<path d="M${-fw*.52} ${yy}Q0 ${yy+fw*.14} ${fw*.52} ${yy}" stroke="#E5C16B" stroke-width="${fw*.1}" fill="none"/><path d="M${-fw*.5} ${yy-fw*.02}Q0 ${yy+fw*.12} ${fw*.5} ${yy-fw*.02}" stroke="#FFF1C4" stroke-width="${fw*.025}" fill="none" opacity=".8"/>`}
+ return s+`</g>`}
+function cr(P){let d="";for(let i=0;i<P.length-1;i++){const p0=P[i-1]||P[i],p1=P[i],p2=P[i+1],p3=P[i+2]||p2;d+=`C${p1[0]+(p2[0]-p0[0])/6} ${p1[1]+(p2[1]-p0[1])/6} ${p2[0]-(p3[0]-p1[0])/6} ${p2[1]-(p3[1]-p1[1])/6} ${p2[0]} ${p2[1]}`}return d}
+function fan(S,o){
+ let s=`<g filter="url(#${S.u}fs)">`;
+ if(o.palm)s+=`<path d="${o.palm}" fill="url(#${skg(S,o.skin||"light")})"/>`;
+ o.fs.forEach(f=>{const th=rad(f.rot),bx=o.bx+(f.dx||0),by=o.by+(f.dy||0);
+  s+=finger(S,Object.assign({skin:o.skin},f,{x:bx+f.len*Math.sin(th),y:by-f.len*Math.cos(th)}))});
+ (o.into||S.f).push(s+"</g>")}
+function out(S,label){return `<svg viewBox="0 0 400 ${S.H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${label}"><defs><linearGradient id="${S.u}gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="${S.u}sd" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></linearGradient><filter id="${S.u}fs" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="6" dy="12" stdDeviation="9" flood-color="#3B2A26" flood-opacity=".26"/></filter>${S.d.join("")}</defs>${S.b.join("")}${S.f.join("")}${S.t.join("")}</svg>`}
+function bgv(S,c1,c2){S.b.push(`<rect width="400" height="${S.H}" fill="url(#${lg(S,[[0,c1],[1,c2]])})"/>`)}
+function plume(S,x,y,h,lean,c1,c2){let s=`<path d="M${x} ${y}Q${x+lean*.2} ${y-h*.6} ${x+lean} ${y-h}" stroke="${c1}" stroke-width="2" fill="none"/>`;const tx=x+lean,ty=y-h;
+ for(let i=0;i<26;i++){const a=-90+(i-13)*6+lean*.12,l=h*.26+((i*37)%11)*h*.012,ex=tx+Math.cos(rad(a))*l*.75,ey=ty+Math.sin(rad(a))*l;s+=`<path d="M${tx} ${ty+h*.08}Q${(tx+ex)/2+((i%3)-1)*5} ${(ty+ey)/2} ${ex} ${ey}" stroke="${i%2?c1:c2}" stroke-width="1.3" fill="none" opacity=".7"/>`}
+ S.b.push(s)}
+function sprigL(S,x,y,h,lean,stem,fl){let s=`<path d="M${x} ${y}Q${x+lean*.3} ${y-h*.5} ${x+lean} ${y-h}" stroke="${stem}" stroke-width="1.8" fill="none"/>`;
+ for(let i=0;i<9;i++){const t=.45+i*.06,X=x+lean*(t*t*.7+t*.3),Y=y-h*t;s+=`<ellipse cx="${X+(i%2?4:-4)}" cy="${Y}" rx="4.5" ry="8" fill="${fl}" transform="rotate(${i%2?25:-25} ${X} ${Y})"/>`}
+ s+=`<ellipse cx="${x+lean}" cy="${y-h-4}" rx="4" ry="9" fill="${fl}"/>`;S.b.push(s)}
+
+/* ===== 12 работ ===== */
+const nl=(sh,p,fw,extra)=>Object.assign({sh,p,fw},extra||{});
+function sc1(){const S=mk(500);bgv(S,"#E9D0C2","#F9EDE4");
+ S.b.push(`<circle cx="300" cy="170" r="150" fill="#FCF3EC" opacity=".8"/><path d="M0 500V380Q120 330 260 360T400 340V500Z" fill="#E3C6B5" opacity=".35"/>`);
+ plume(S,40,520,330,40,"#D9B99D","#EBD6C4");plume(S,78,520,260,-14,"#E3CAB5","#F2E4D6");
+ const milk={t:"solid",c:"#E8D2C7",c2:"#F0DED4"},gl={t:"glitter",c:"#E8D2C7",c2:"#F1E0D4",g:["#D4AE72","#E9C98E","#F7E7C2"],seed:9};
+ fan(S,{bx:205,by:580,skin:"light",fs:[
+  nl("oval",milk,50,{dx:-54,rot:-10,len:440,nk:1.55}),nl("oval",milk,54,{dx:-18,rot:-3,len:480,nk:1.55}),nl("oval",gl,51,{dx:18,rot:5,len:455,nk:1.55}),nl("oval",milk,43,{dx:52,rot:14,len:380,nk:1.5})]});
+ return out(S,"Иллюстрация: молочный нюд с золотым глиттером")}
+function sc2(){const S=mk(400);bgv(S,"#D9DEE6","#EEF0F4");
+ S.b.push(`<path d="M-20 330C80 250 140 380 240 290S380 190 430 230V290C380 250 280 360 200 340S60 300-20 400Z" fill="#F6EEE4"/><path d="M-20 330C80 250 140 380 240 290S380 190 430 230" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>`);
+ [[60,70],[345,60],[330,340],[40,330]].forEach(([x,y],i)=>S.b.push(sparkle(x,y,8+i*2,"#fff",.95)));
+ const fr={t:"french",c:"#F4D9D0",c2:"#F9E4DC",a:"#FFFFFF",k:"#E9D2C9"};
+ fan(S,{bx:-90,by:235,skin:"light",fs:[nl("square",fr,46,{dy:-34,rot:58,len:272,nk:1.4}),nl("square",fr,46,{dy:0,rot:68,len:276,nk:1.4}),nl("square",fr,46,{dy:34,rot:78,len:272,nk:1.4})]});
+ fan(S,{bx:490,by:245,skin:"med",fs:[nl("square",fr,46,{dy:-34,rot:-58,len:272,nk:1.4}),nl("square",fr,46,{dy:0,rot:-68,len:276,nk:1.4}),nl("square",fr,46,{dy:34,rot:-78,len:272,nk:1.4})]});
+ return out(S,"Иллюстрация: две руки с белым френчем")}
+function sc3(){const S=mk(600);
+ S.b.push(`<rect width="400" height="600" fill="url(#${rg(S,[[0,"#9A3048"],[.6,"#4C1624"],[1,"#22090F"]],.3,.2,1)})"/>`);
+ [[430,.07,0],[500,.05,50],[310,.09,30],[220,.06,-20]].forEach(([y,o,sh],i)=>S.b.push(`<path d="M-20 ${y+sh}C100 ${y-90} 220 ${y+80} 420 ${y-30}V${y+60}C260 ${y+120} 120 ${y-10}-20 ${y+110}Z" fill="${i%2?"#000":"#fff"}" opacity="${o*2}"/>`));
+ [[70,90,10],[340,150,7],[320,520,9],[60,470,6]].forEach(([x,y,s])=>S.b.push(sparkle(x,y,s*1.6,"#F3CFD6",.8)));
+ const mm=["#5C1B2C","#E7B7C1","#8B3548","#FFFFFF","#C98797","#6E2335","#F0CCD3","#8B3548"];
+ fan(S,{bx:205,by:660,skin:"med",fs:[nl("stiletto",{t:"chrome",m:mm,tint:"#8A1F3A",seed:2},158,{rot:0,len:515,nw:132,nh:310,ov:110})]});
+ return out(S,"Иллюстрация: стилетто с зеркальной втиркой цвета бордо, крупным планом")}
+function peony(S,cx,cy,R,cl){let s="";const cols=cl||[["#F2B8C2","#E48FA2"],["#F5C6CF","#E8A0B0"],["#F7D2D8","#EDAEBB"],["#FADDE2","#F2BFC9"]];
+ cols.forEach(([f,st],k)=>{const r=R*(1-k*.2),n=9-k;for(let i=0;i<n;i++){const a=i*360/n+k*20;s+=`<g transform="rotate(${a} ${cx} ${cy})"><ellipse cx="${cx}" cy="${cy-r*.58}" rx="${r*.38}" ry="${r*.56}" fill="${f}" stroke="${st}" stroke-opacity=".6" stroke-width="1.2"/><path d="M${cx} ${cy-r*.2}V${cy-r*1.05}" stroke="${st}" stroke-opacity=".35" fill="none"/></g>`}});
+ s+=`<circle cx="${cx}" cy="${cy}" r="${R*.1}" fill="#E8B54A"/>`;for(let i=0;i<14;i++){const a=i*25.7;s+=`<circle cx="${cx+Math.cos(rad(a))*R*.14}" cy="${cy+Math.sin(rad(a))*R*.14}" r="2.2" fill="#F4D27A"/>`}return s}
+function sc4(){const S=mk(500);bgv(S,"#F6D3D6","#FBE8E3");
+ S.b.push(`<circle cx="70" cy="420" r="210" fill="#F3C6CC" opacity=".5"/>`+peony(S,115,370,215)+leaf(330,470,150,-150,"#9DB48F",.8)+leaf(40,120,130,60,"#A9BE9A",.7));
+ const om={t:"ombre",c:"#FBE6E0",m:"#F0B0BC",a:"#D9607E"};
+ fan(S,{bx:440,by:-20,skin:"light",fs:[nl("almond",om,58,{dx:30,dy:-30,rot:-152,len:370,nk:1.65}),nl("almond",om,62,{dx:-10,rot:-141,len:390,nk:1.65}),nl("almond",om,58,{dx:-50,dy:25,rot:-130,len:380,nk:1.6})]});
+ return out(S,"Иллюстрация: розовое омбре на миндалевидных ногтях над цветком пиона")}
+function sc5(){const S=mk(400);S.b.push(`<rect width="400" height="400" fill="url(#${rg(S,[[0,"#24423B"],[1,"#0F1E1B"]],.6,.3,.9)})"/>`);
+ const R=rng(31),vb=blur(S,1.4);let v="";for(let i=0;i<9;i++){const y=R()*400;v+=`<path d="M-10 ${y}C${80+R()*60} ${y-90+R()*60} ${200+R()*80} ${y+80-R()*60} 420 ${y+(R()-.5)*160}" fill="none" stroke="${i%3==0?"#D8B66E":"#E8EFE9"}" stroke-width="${i%3==0?1.2:.8+R()*1.4}" opacity="${i%3==0?.7:.25+R()*.2}"${i%2?` filter="url(#${vb})"`:""}/>`}S.b.push(v);
+ const ce={t:"cateye",c:"#0E4A3C",c2:"#082A24",g:"#9BF0CF",seed:4};
+ fan(S,{bx:40,by:470,skin:"light",fs:[nl("almond",ce,48,{dx:-30,rot:33,len:350,nk:1.7}),nl("almond",ce,52,{dx:6,rot:41,len:390,nk:1.7}),nl("almond",ce,49,{dx:42,rot:50,len:380,nk:1.7,ring:true}),nl("almond",ce,41,{dx:74,rot:60,len:310,nk:1.65})]});
+ return out(S,"Иллюстрация: эффект «кошачий глаз» цвета изумруд на тёмном мраморе")}
+function sc6(){const S=mk(500);bgv(S,"#D6BE9D","#E8D8BF");
+ S.b.push(`<defs><pattern id="${S.u}w" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 0H6M0 0V6" stroke="#8B6B45" stroke-width=".6" opacity=".22"/></pattern></defs><rect width="400" height="500" fill="url(#${S.u}w)"/><path d="M-10 90C120 120 240 40 420 110V40H-10Z" fill="#fff" opacity=".18"/><path d="M0 470C110 400 260 460 400 380V500H0Z" fill="#8B6B45" opacity=".16"/>`);
+ sprigL(S,60,520,420,-30,"#8E7556","#F6EFE6");sprigL(S,110,520,330,20,"#8E7556","#EFE4D4");
+ const tm={t:"moon",c:"#B04A38",a:"#F0D8C6",k:"#F8E8DB",matte:true};
+ fan(S,{bx:455,by:215,skin:"med",fs:[nl("oval",tm,50,{dy:-70,rot:-80,len:330,nk:1.45}),nl("oval",tm,54,{dy:-22,rot:-87,len:370,nk:1.45}),nl("oval",tm,50,{dy:26,rot:-95,len:350,nk:1.45}),nl("oval",tm,42,{dy:68,rot:-104,len:290,nk:1.4})]});
+ return out(S,"Иллюстрация: матовый терракот с лунками на льняной ткани")}
+function leafShadow(S,x,y,l,rot,op){S.b.push(leaf(x,y,l,rot,"#3F5A3A",op,.3))}
+function sc7(){const S=mk(600);bgv(S,"#BCCBB4","#DCE5D3");
+ [[-20,200,420,-30,.16],[-20,350,380,-12,.12],[430,130,380,200,.13],[420,420,360,205,.14],[200,-20,300,75,.1]].forEach(([x,y,l,r,o])=>leafShadow(S,x,y,l,r,o));
+ S.b.push(leaf(380,560,300,-120,"#fff",.12,.3));
+ let d=`<path d="M200 300C198 230 204 180 199 125" stroke="#6F8A5E" stroke-width="3.4" fill="none" stroke-linecap="round"/>`+leaf(200,215,46,-35,"#7E9C6B",1,.3)+leaf(201,178,38,-148,"#7E9C6B",1,.3);
+ for(let i=0;i<11;i++){const an=i*32.7;d+=`<ellipse cx="199" cy="${125-24}" rx="6.5" ry="21" fill="#FFFDF8" stroke="#E6D9CC" stroke-width=".8" transform="rotate(${an} 199 125)"/>`}
+ d+=`<circle cx="199" cy="125" r="13" fill="#E8B54A"/><circle cx="195" cy="121" r="4" fill="#F7D98A"/>`;S.b.push(d);
+ const a=n=>({t:"art",c:"#F2DCD1",c2:"#F7E7DF",k:"#2C2420",n});
+ fan(S,{bx:30,by:772,skin:"light",fs:[nl("square",a(3),80,{rot:6,len:560,nw:60,nh:92})]});
+ fan(S,{bx:12,by:745,skin:"light",fs:[nl("square",a(1),78,{rot:18,len:520,nw:58,nh:92})]});
+ fan(S,{bx:400,by:701,skin:"light",fs:[nl("square",a(2),94,{rot:-22,len:470,nw:70,nh:90})]});
+ return out(S,"Иллюстрация: мини-арт тонким контуром, пальцы щепотью держат ромашку")}
+function sc8(){const S=mk(400);bgv(S,"#E4DBC5","#F0EADB");
+ S.b.push(`<path d="M-10 90C100 130 200 40 420 70" stroke="#6F7550" stroke-width="3" fill="none"/>`);
+ [[40,104,70,-30],[80,112,66,-70],[130,98,72,-20],[170,76,70,-62],[225,68,74,-10],[265,64,66,-52],[320,66,72,-5],[350,72,60,-48],[60,110,60,38],[110,112,70,62],[160,92,64,32],[205,70,70,60],[250,66,64,24],[305,66,70,48]].forEach(([x,y,l,r],i)=>S.b.push(leaf(x,y,l,r,i%3?"#7C8559":"#9AA26F",.95,.2)));
+ [[150,70],[290,50]].forEach(([x,y])=>S.b.push(`<ellipse cx="${x}" cy="${y+10}" rx="10" ry="13" fill="#4E4A3A"/><ellipse cx="${x-3}" cy="${y+6}" rx="3" ry="5" fill="#fff" opacity=".3"/>`));
+ const br={t:"branch",c:"#F4EDE0",c2:"#F8F3EA",k:"#5F6844"};
+ fan(S,{bx:350,by:500,skin:"light",fs:[nl("oval",br,48,{dx:-60,rot:-24,len:330,nk:1.5}),nl("oval",br,52,{dx:-22,rot:-16,len:360,nk:1.5}),nl("oval",br,47,{dx:18,rot:-8,len:330,nk:1.5})]});
+ return out(S,"Иллюстрация: роспись веточкой оливы на молочных ногтях")}
+function sc9(){const S=mk(500);S.b.push(`<rect width="400" height="500" fill="url(#${rg(S,[[0,"#F4F2F0"],[1,"#C3BFBB"]],.5,.25,.95)})"/>`);
+ const R=rng(44),vb=blur(S,1.2);let v="";for(let i=0;i<8;i++){const y=R()*500;v+=`<path d="M-10 ${y}C${60+R()*80} ${y-80+R()*70} ${200+R()*90} ${y+70-R()*70} 420 ${y+(R()-.5)*180}" fill="none" stroke="${i%4==0?"#C9A45B":"#8E8A86"}" stroke-width="${i%4==0?1.3:.8+R()*1.6}" opacity="${i%4==0?.7:.22+R()*.15}"${i%2?` filter="url(#${vb})"`:""}/>`}S.b.push(v+`<ellipse cx="200" cy="520" rx="260" ry="90" fill="#5F5A56" opacity=".2"/>`);
+ const mb={t:"marble",c:"#F1EDE8",v:"#6F6A66",gold:"#C9A45B",seed:12,nv:11};
+ fan(S,{bx:205,by:700,skin:"med",fs:[nl("square",mb,190,{rot:-5,len:600,nw:152,nh:196,ov:44})]});
+ return out(S,"Иллюстрация: мраморный дизайн с золотой нитью на одном ногте, крупный план на каменной поверхности")}
+function sc10(){const S=mk(600);S.b.push(`<rect width="400" height="600" fill="url(#${rg(S,[[0,"#7A5630"],[.6,"#3A2514"],[1,"#1B100A"]],.5,.55,.85)})"/>`);
+ const R=rng(77),bf=blur(S,3);let b="";for(let i=0;i<26;i++){const r=8+R()*34;b+=`<circle cx="${R()*400}" cy="${280+R()*320}" r="${r}" fill="${i%3?"#E9C77F":"#FFF0C9"}" opacity="${.08+R()*.22}" filter="url(#${bf})"/>`}
+ for(let i=0;i<22;i++){const r=2+R()*5;b+=`<circle cx="${R()*400}" cy="${R()*600}" r="${r}" fill="none" stroke="#F8E3B0" stroke-width="1.2" opacity="${.3+R()*.4}"/>`}
+ S.b.push(b);
+ const gp={t:"glitter",c:"#C79A55",c2:"#E8CD97",g:["#F6DDA0","#B88438","#FFF4D2","#D9AE64"],seed:6};
+ fan(S,{bx:8,by:235,skin:"med",fs:[nl("coffin",gp,64,{rot:176,len:230,nk:1.35})]});
+ fan(S,{bx:198,by:270,skin:"med",palm:"M60 -40H336V290Q336 350 276 362H120Q60 350 60 290Z",fs:[nl("coffin",gp,56,{dx:-90,rot:184,len:190,nk:1.6}),nl("coffin",gp,60,{dx:-31,rot:181,len:228,nk:1.6}),nl("coffin",gp,58,{dx:29,rot:179,len:218,nk:1.6}),nl("coffin",gp,52,{dx:86,rot:175,len:170,nk:1.6})]});
+ const kg=rg(S,[[0,"#EBC4A6"],[1,"#D39E7D"]],.4,.35,.7);
+ S.f.push([[108,290],[168,282],[228,284],[284,294]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="30" fill="url(#${kg})" opacity=".95"/>`).join("")+`<path d="M60 56Q198 96 336 56" stroke="#D9B05A" stroke-width="22" fill="none"/><path d="M60 50Q198 90 336 50" stroke="#F8E3A6" stroke-width="4" fill="none" opacity=".8"/>`+sparkle(60,520,10,"#FFF0C9",.9)+sparkle(340,430,8,"#FFF0C9",.9)+sparkle(300,560,6,"#FFF0C9",.8));
+ return out(S,"Иллюстрация: рука в кулаке, на виду длинные ногти с золотистым глиттером шампань, на тёмном фоне")}
+function sc11(){const S=mk(500);bgv(S,"#E0D9EA","#F3EFF7");
+ S.b.push(`<path d="M-10 420C100 380 260 450 420 390V510H-10Z" fill="#C9BFD9" opacity=".35"/>`);
+ sprigL(S,330,520,280,-40,"#7F8A6A","#9B84C2");sprigL(S,370,520,360,-50,"#7F8A6A","#B49DD6");sprigL(S,290,520,220,-20,"#7F8A6A","#8F76B8");
+ const v=c=>({t:"french",v:true,c:"#F4E1DA",c2:"#F8EBE6",a:c});
+ fan(S,{bx:-90,by:250,skin:"light",fs:[nl("oval",v("#A9BCE3"),54,{dy:-100,rot:82,len:360,nk:1.5}),nl("oval",v("#EBB4C4"),58,{dy:-35,rot:86,len:385,nk:1.5}),nl("oval",v("#BFD8C4"),54,{dy:30,rot:90,len:385,nk:1.5}),nl("oval",v("#EBD49A"),46,{dy:90,rot:94,len:320,nk:1.45})]});
+ return out(S,"Иллюстрация: пастельный френч уголком, разный цвет на каждом пальце")}
+function sc12(){const S=mk(500);bgv(S,"#F0CFCC","#F9E6E2");
+ S.b.push(`<path d="M20 520V190Q20 80 130 80Q240 80 240 190V520Z" fill="#B24A4F" opacity=".1" transform="skewX(-8) translate(60 0)"/><path d="M130 80V520M20 260H240" stroke="#F9E6E2" stroke-width="10" opacity=".7" transform="skewX(-8) translate(60 0)"/><path d="${heartD(310,140,70)}" fill="none" stroke="#C0303F" stroke-width="1.6" opacity=".35"/>`);
+ S.b.push(sparkle(60,70,9,"#fff",.9)+sparkle(350,300,7,"#fff",.9));
+ const rd={t:"solid",c:"#C2303F",c2:"#D0414F"},hr={t:"heart",c:"#FBE9E6",a:"#C2303F"};
+ fan(S,{bx:300,by:610,skin:"light",fs:[nl("coffin",rd,50,{dx:-70,rot:-34,len:420,nk:1.6}),nl("coffin",rd,54,{dx:-26,rot:-23,len:470,nk:1.6}),nl("coffin",hr,52,{dx:20,rot:-12,len:455,nk:1.6}),nl("coffin",rd,44,{dx:62,rot:-1,len:380,nk:1.55})]});
+ return out(S,"Иллюстрация: красный гель-лак и маленькое сердце на безымянном пальце")}
+function heroScene(){const S=mk(500);
+ const f1=lg(S,[[0,"#FBE6DA"],[1,"#E7B09D"]],0,0,1,1),f2=lg(S,[[0,"#F9D8C8"],[1,"#D99C88"]],1,0,0,1);
+ S.b.push(`<rect width="400" height="500" fill="url(#${lg(S,[[0,"#F6D9CB"],[1,"#E9B8A5"]])})"/><circle cx="300" cy="120" r="150" fill="#FBEAE0" opacity=".5"/>`
+  +`<path d="M-30 330C70 250 150 330 240 220S380 90 440 40V190C370 230 310 330 230 380S60 470-30 430Z" fill="url(#${f1})" opacity=".85"/>`
+  +`<path d="M-30 430C60 360 150 430 250 330S390 230 440 200V330C380 350 320 430 240 470S80 540-30 520Z" fill="url(#${f2})" opacity=".8"/>`
+  +`<path d="M-30 330C70 250 150 330 240 220S380 90 440 40" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>`
+  +sparkle(330,60,9,"#fff",.9)+sparkle(52,330,7,"#fff",.9)+sparkle(372,430,8,"#fff",.8));
+ const bo={t:"chrome",m:["#4E1422","#C9919C","#7A2232","#FFF","#B0606F","#5C1826"],tint:"#7A1F34"},bs={t:"solid",c:"#7A2232",c2:"#8E3446"};
+ fan(S,{bx:110,by:650,skin:"light",fs:[nl("almond",bs,62,{dx:-60,rot:10,len:440,nk:1.75}),nl("almond",bs,66,{dx:-22,rot:17,len:480,nk:1.75}),nl("almond",bo,62,{dx:18,rot:24,len:450,nk:1.75,ring:true}),nl("almond",bs,52,{dx:56,rot:33,len:370,nk:1.7})]});
+ const bf=blur(S,6),pc=[["#F7D9CF","#E3AFA0"],["#FAE3DA","#E9BDAF"],["#FCEBE4","#EFC9BC"],["#FFF3EE","#F2D3C8"]];
+ S.t.push(`<ellipse cx="130" cy="470" rx="190" ry="60" fill="#5A2A24" opacity=".3" filter="url(#${bf})"/>`
+  +leaf(30,520,150,-62,"#8FA582",1,.25)+leaf(190,470,140,-24,"#7E966F",1,.25)+leaf(260,540,150,-88,"#93AA85",1,.25)
+  +peony(S,70,520,175,pc)+peony(S,265,585,135,pc.map(c=>[c[0],"#E7B3A6"])));
+ return out(S,"Иллюстрация: рука с бордовым маникюром, выходящая из букета пионов")}
+
+/* портрет мастера (вымышленная Ника Светлова) */
+function portrait(){const S=mk(500);
+ const hair="#3A2420",skin="#F0CDB8",sh="#D9A58C";
+ S.b.push(`<rect width="400" height="500" fill="url(#${lg(S,[[0,"#F3D6C8"],[1,"#E9BBA8"]])})"/>`);
+ S.b.push(`<circle cx="200" cy="215" r="165" fill="#FBEDE4" opacity=".85"/><path d="M0 330C100 300 300 320 400 280V500H0Z" fill="#E2AF9C" opacity=".4"/>`);
+ S.b.push(`<path d="M52 520Q40 330 86 190" stroke="#7C8F6D" stroke-width="3" fill="none"/>`+[[72,440,-20],[60,380,28],[66,330,-30],[62,280,34],[74,236,-26],[86,196,20]].map(([x,y,r],i)=>leaf(x,y,64,-90+r*2.2+(i%2?25:-25),i%2?"#8EA17E":"#A8B993",.95,.3)).join(""));
+ S.b.push(`<path d="M148 330Q142 390 70 430L20 520H380L330 430Q258 390 252 330Z" fill="#B96B5A"/><path d="M148 330Q142 390 70 430L20 520H110Q120 440 190 396Z" fill="#000" opacity=".08"/><path d="M168 318V372Q200 404 232 372V318Z" fill="${skin}"/><path d="M168 318V345Q200 372 232 345V318Z" fill="${sh}" opacity=".55"/><path d="M150 332L200 430L170 360Z" fill="#F7E3D6"/><path d="M250 332L200 430L230 360Z" fill="#F0D3C3"/>`);
+ S.b.push(`<path d="M132 238C112 130 168 108 206 108C250 108 290 138 268 238Z" fill="${hair}"/><circle cx="205" cy="96" r="38" fill="${hair}"/><path d="M180 82Q205 62 232 84" stroke="#6A453B" stroke-width="2" fill="none" opacity=".7"/>`);
+ S.b.push(`<ellipse cx="133" cy="252" rx="10" ry="16" fill="${skin}"/><ellipse cx="267" cy="252" rx="10" ry="16" fill="${skin}"/><circle cx="133" cy="272" r="4" fill="#E5C16B"/><circle cx="267" cy="272" r="4" fill="#E5C16B"/>`);
+ S.b.push(`<path d="M136 232C136 172 166 154 204 154C242 154 266 172 264 232C262 292 234 326 200 326C166 326 138 292 136 232Z" fill="${skin}"/>`);
+ S.b.push(`<path d="M132 238C128 172 156 142 206 140C252 140 280 172 268 238C264 196 246 170 208 168C172 168 142 192 132 238Z" fill="${hair}"/><path d="M206 140C190 150 170 168 150 196" stroke="#6A453B" stroke-width="2" fill="none" opacity=".6"/>`);
+ S.b.push(`<path d="M166 224Q178 216 190 222M210 222Q222 216 234 224" stroke="${hair}" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M168 240Q178 247 190 240M210 240Q222 247 233 240" stroke="#2E1B17" stroke-width="2.6" stroke-linecap="round" fill="none"/><path d="M200 242Q195 262 203 268" stroke="${sh}" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="168" cy="268" r="13" fill="#E89A8C" opacity=".28"/><circle cx="232" cy="268" r="13" fill="#E89A8C" opacity=".28"/><path d="M184 291Q192 285 200 289Q208 285 216 291Q200 305 184 291Z" fill="#B24E47"/>`);
+ fan(S,{bx:338,by:600,skin:"light",fs:[nl("oval",{t:"solid",c:"#7A2232",c2:"#8E3446"},32,{dx:-26,rot:-7,len:320,nk:1.6}),nl("oval",{t:"solid",c:"#7A2232",c2:"#8E3446"},35,{dx:2,rot:3,len:345,nk:1.6}),nl("oval",{t:"solid",c:"#7A2232",c2:"#8E3446"},31,{dx:28,rot:12,len:310,nk:1.6})]});
+ return out(S,"Иллюстрация: портрет мастера Ники Светловой")}
+
+const WORKS=[
+ {name:"Молочный нюд",tag:"Нюд · овал",draw:sc1,desc:"Плотный молочный оттенок с одним мерцающим ногтем. Подходит к офису и к свадьбе подруги.",time:"2 ч · маникюр + покрытие + дизайн 1 ногтя"},
+ {name:"Белый френч",tag:"Френч · квадрат",draw:sc2,desc:"Тонкая белая улыбка на розовой базе. Линию веду кистью, без трафаретов. Любимый вариант невест.",time:"2 ч 15 мин"},
+ {name:"Бордо и хром",tag:"Зеркало · стилетто",draw:sc3,desc:"Глубокий винный цвет и зеркальная втирка на всех ногтях. Блик меняется при каждом движении кисти.",time:"2 ч 30 мин"},
+ {name:"Розовое омбре",tag:"Градиент · миндаль",draw:sc4,desc:"Мягкий переход от прозрачно-розового к ягодному у края. Хорошо скрывает отросшую кутикулу.",time:"2 ч 20 мин"},
+ {name:"Кошачий глаз",tag:"Магнит · миндаль",draw:sc5,desc:"Магнитный гель-лак цвета изумруд: полоса света «гуляет» при повороте руки.",time:"2 ч"},
+ {name:"Лунный терракот",tag:"Лунки · матовый",draw:sc6,desc:"Тёплый терракотовый с кремовой лункой у основания и матовым топом. Отрастание почти не видно.",time:"2 ч 15 мин"},
+ {name:"Мини-арт",tag:"Контур · квадрат",draw:sc7,desc:"Тонкие чёрные линии на нюдовой базе: профиль, сердце, волны. Рисунок подбираем под вас и рисуем в одну линию.",time:"2 ч 40 мин"},
+ {name:"Ветка оливы",tag:"Роспись · овал",draw:sc8,desc:"Тонкая роспись кистью по молочной базе. Лёгкий рисунок, который не надоест за месяц.",time:"2 ч 30 мин"},
+ {name:"Мрамор",tag:"Дизайн · квадрат",draw:sc9,desc:"Белый мрамор с серыми прожилками и золотой нитью. Рисунок на каждом ногте свой, как у настоящего камня.",time:"2 ч 30 мин"},
+ {name:"Шампань",tag:"Глиттер · кофин",draw:sc10,desc:"Мелкий золотистый глиттер на всех ногтях. Праздничный, но не кричащий.",time:"2 ч 10 мин"},
+ {name:"Френч-пастель",tag:"V-френч · овал",draw:sc11,desc:"Уголок-френч, на каждом пальце свой пастельный цвет. Летняя классика.",time:"2 ч 20 мин"},
+ {name:"Красное сердце",tag:"Гель-лак · кофин",draw:sc12,desc:"Чистый красный и одно маленькое сердце на безымянном. Для тех, кто любит красный, но хочет деталь.",time:"2 ч 10 мин"}
+];
+
+/* галерея: крупные и мелкие работы в единой сетке */
+const gal=document.getElementById("gal");
+const ORDER=[[8,"big g1"],[0,"g2"],[3,"g3"],[2,"g4"],[9,"g5"],[5,"g6"],[10,"g7"],[7,"g8"],[11,"g9"],[6,"big g10"],[1,"wide g11"],[4,"wide g12"]];
+ORDER.forEach(([k,c])=>{const w=WORKS[k],f=document.createElement("figure");f.className="work "+c;
+ f.innerHTML=`<button type="button" aria-label="Открыть работу: ${w.name}">${w.draw()}</button><figcaption><b>${w.name}</b><span>${w.tag}</span></figcaption>`;
+ f.querySelector("button").addEventListener("click",()=>openLb(k));gal.appendChild(f)});
+/* первый экран и портрет */
+document.getElementById("heroHand").innerHTML=heroScene();
+document.getElementById("portrait").innerHTML=portrait();
+
+/* лайтбокс */
+const lb=document.getElementById("lb");let lastBtn=null;
+function openLb(k){const w=WORKS[k];lastBtn=document.activeElement;
+ document.getElementById("lbPic").innerHTML=w.draw();
+ document.getElementById("lbNum").textContent=`Работа № ${String(k+1).padStart(2,"0")} · ${w.tag}`;
+ document.getElementById("lbTitle").textContent=w.name;
+ document.getElementById("lbDesc").textContent=w.desc;
+ document.getElementById("lbMeta").textContent="По времени: "+w.time;
+ lb.showModal();}
+document.getElementById("lbClose").onclick=()=>lb.close();
+lb.addEventListener("click",e=>{if(e.target===lb)lb.close()});
+lb.addEventListener("close",()=>lastBtn&&lastBtn.focus());
+
+/* аккордеон: открыт один пункт */
+document.querySelectorAll(".acc details").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)document.querySelectorAll(".acc details").forEach(o=>{if(o!==d)o.open=false})}));
+
+/* сегодня в графике */
+const today=new Date().getDay();const tr=document.querySelector(`#sched tr[data-d="${today}"]`);if(tr)tr.classList.add("today");
+</script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бурый Сорт — кофейня и обжарка в Новосибирске</title>
+<meta name="description" content="Фильтр, эспрессо и моно-сорта своей обжарки. Семь минут пешком от метро «Площадь Ленина». Бронь столика онлайн.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* =====================================================================
+   МЕНЮ И ЧАСЫ — ВСЁ, ЧТО МЕНЯЕТСЯ, ЗДЕСЬ.
+   Как поменять без программиста:
+   1. Откройте этот файл в любом текстовом редакторе (Блокнот подойдёт).
+   2. Найдите нужную позицию ниже и поменяйте текст в кавычках или цену.
+      Цена — просто число, без пробелов и «₽»: price: 230
+   3. Новая позиция — скопируйте строку целиком вместе с { } и запятой
+      в конце и поменяйте в копии название и цену.
+   4. Убрать позицию — удалите её строку целиком.
+   5. Сохраните файл и обновите страницу. Больше ничего трогать не нужно.
+   В зерне roast: 1 — светлая, 2 — средняя, 3 — тёмная обжарка.
+   ===================================================================== */
+const MENU = {
+  beans: [
+    { name: "Кочере", country: "Эфиопия", region: "Иргачеффе", altitude: "1900–2100 м", process: "Мытая", roast: 1, notes: ["жасмин", "бергамот", "лимонная цедра"], weight: "250 г", price: 1150 },
+    { name: "Ньери AA", country: "Кения", region: "Ньери", altitude: "1700–1800 м", process: "Мытая", roast: 1, notes: ["чёрная смородина", "грейпфрут", "тростниковый сахар"], weight: "250 г", price: 1290 },
+    { name: "Уила", country: "Колумбия", region: "Уила", altitude: "1600–1900 м", process: "Хани", roast: 2, notes: ["красное яблоко", "карамель", "какао"], weight: "250 г", price: 990 },
+    { name: "Серрадо", country: "Бразилия", region: "Минас-Жерайс", altitude: "1000–1200 м", process: "Натуральная", roast: 3, notes: ["фундук", "молочный шоколад", "изюм"], weight: "250 г", price: 790 }
+  ],
+  bar: [
+    { group: "Фильтр", hint: "Зерно на выбор из витрины", items: [
+      { name: "Воронка", note: "250 мл, заваривает бариста при вас", price: 280 },
+      { name: "Аэропресс", note: "200 мл, плотнее и слаще", price: 270 },
+      { name: "Батч-брю", note: "300 мл, сварен утром, без ожидания", price: 190 },
+      { name: "Колд-брю", note: "300 мл, настаиваем 16 часов", price: 260 }
+    ]},
+    { group: "Эспрессо", hint: "На бразильском Серрадо", items: [
+      { name: "Эспрессо", note: "30 мл", price: 150 },
+      { name: "Кортадо", note: "120 мл", price: 210 },
+      { name: "Капучино", note: "250 мл", price: 230 },
+      { name: "Флэт уайт", note: "200 мл, двойной шот", price: 240 },
+      { name: "Раф", note: "300 мл, на домашнем ванильном сиропе", price: 290 },
+      { name: "Овсяное молоко", note: "к любому напитку", price: 60 }
+    ]},
+    { group: "Десерты", hint: "Печём в соседней пекарне по нашим рецептам", items: [
+      { name: "Баскский чизкейк", note: "кусок", price: 320 },
+      { name: "Морковный торт", note: "с апельсиновым кремом", price: 290 },
+      { name: "Канеле", note: "ромовый, хрустящая корочка", price: 140 },
+      { name: "Миндальный круассан", note: "", price: 220 },
+      { name: "Печенье с морской солью", note: "тёмный шоколад", price: 120 }
+    ]}
+  ]
+};
+/* Часы работы. days: 1 — понедельник … 7 — воскресенье. */
+const HOURS = [
+  { label: "Понедельник — пятница", days: [1, 2, 3, 4, 5], open: 8, close: 21 },
+  { label: "Суббота и воскресенье", days: [6, 7], open: 9, close: 22 }
+];
+const PHONE = { text: "+7 (900) 000-00-00", href: "tel:+79000000000" };
+</script>
+<style>
+:root{
+  --paper:#f4ead7; --paper2:#ebdcc0; --cream:#fbf6ec; --ink:#2a1c13; --ink2:#594434;
+  --rust:#9a4521; --brown:#6e4128; --line:#cbb48d; --sage:#55603f;
+  --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+  --text:"Lora", Georgia, serif;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:16px}
+body{margin:0; background:var(--paper); color:var(--ink); font:400 17px/1.6 var(--text);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .12 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rust); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+.mono{font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase}
+h1,h2,h3{font-family:var(--serif); font-weight:700; line-height:1.05; margin:0; letter-spacing:-.01em}
+h2{font-size:clamp(36px,5vw,60px)}
+h2 em, h1 em{font-style:italic; font-weight:500; color:var(--rust)}
+.kicker{display:flex; align-items:center; gap:12px; color:var(--rust); margin-bottom:18px}
+.kicker::before{content:""; width:34px; height:1px; background:currentColor}
+
+/* ---------- шапка ---------- */
+.top{position:relative; top:0; z-index:20; background:rgba(244,234,215,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+.demo{background:var(--ink); color:#f6e9d2; text-align:center; padding:7px 12px; font:500 12.5px/1.3 var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.demo b{color:#f2b98f; font-weight:500}
+.bar{display:flex; align-items:center; gap:28px; height:72px}
+.logo{min-height:44px; display:flex; align-items:center; gap:10px; text-decoration:none; flex:none}
+.logo svg{width:44px; height:44px}
+.logo span{font:700 24px/1 var(--serif); letter-spacing:-.01em}
+.logo span i{font-style:italic; font-weight:500; color:var(--rust)}
+.nav{display:flex; gap:26px; margin-left:auto}
+.nav a{text-decoration:none; font:500 13px var(--mono); letter-spacing:.12em; text-transform:uppercase; padding:12px 0; border-bottom:1px solid transparent}
+.nav a:hover{border-color:var(--ink)}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:48px; padding:0 24px; border-radius:999px; border:1.5px solid var(--ink);
+  background:var(--ink); color:var(--cream); font:600 16px/1 var(--text); text-decoration:none; cursor:pointer; transition:background .2s, color .2s}
+.btn:hover{background:var(--rust); border-color:var(--rust)}
+.btn.ghost{background:transparent; color:var(--ink)}
+.btn.ghost:hover{background:var(--ink); color:var(--cream)}
+.btn svg{width:18px; height:18px}
+.call-ico{display:none}
+
+/* ---------- первый экран ---------- */
+.hero{padding:64px 0 40px; position:relative}
+.hero-grid{display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:center}
+.hero h1{font-size:clamp(46px,6vw,78px); line-height:1}
+.hero h1 em{display:block}
+.lede{font-size:19px; max-width:520px; color:var(--ink2); margin:26px 0 30px}
+.cta{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
+.status{display:inline-flex; align-items:center; gap:10px; margin-top:30px; padding:10px 16px; border:1px dashed var(--brown); border-radius:999px; font:500 14px var(--mono); letter-spacing:.04em}
+.status i{width:10px; height:10px; border-radius:50%; background:#3f7a3a; box-shadow:0 0 0 4px rgba(63,122,58,.18)}
+.status.closed i{background:var(--rust); box-shadow:0 0 0 4px rgba(154,69,33,.18)}
+.hero-art{position:relative}
+.hero-art svg{display:block; width:100%; height:auto}
+
+.facts{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); margin-top:48px}
+.facts div{padding:22px 24px 24px; display:flex; gap:16px; align-items:flex-start}
+.facts div+div{border-left:1px solid var(--line)}
+.facts b{font:700 40px/1 var(--serif); color:var(--rust); flex:none; min-width:58px}
+.facts p{margin:0; font-size:15.5px; line-height:1.45}
+.facts p strong{display:block; font:600 16.5px var(--text)}
+
+/* ---------- паспорт зерна ---------- */
+section{padding:96px 0}
+.head{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; margin-bottom:48px}
+.head p{margin:0; color:var(--ink2); max-width:470px; justify-self:end}
+.beans{background:var(--paper2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; overflow:hidden}
+.beans::before{content:""; position:absolute; inset:0; opacity:.3; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cg fill='none' stroke='%23b8976b' stroke-width='1.2'%3E%3Cellipse cx='22' cy='24' rx='7' ry='10' transform='rotate(-25 22 24)'/%3E%3Cpath d='M25 15c-6 6 0 12-5 18' /%3E%3Cellipse cx='68' cy='66' rx='7' ry='10' transform='rotate(30 68 66)'/%3E%3Cpath d='M64 57c6 5 0 12 7 18'/%3E%3C/g%3E%3C/svg%3E")}
+.beans .wrap{position:relative}
+.passports{display:grid; grid-template-columns:repeat(4,1fr); gap:22px}
+.pass{position:relative; background:var(--cream); border-radius:6px; padding:26px 24px 22px; box-shadow:0 1px 0 var(--line), 0 18px 30px -22px rgba(60,35,15,.45);
+  display:flex; flex-direction:column; overflow:hidden}
+.pass::after{content:""; position:absolute; left:0; right:0; top:118px; height:14px;
+  background:radial-gradient(circle at 7px 7px, var(--paper2) 5px, transparent 5.5px) 0 0/16px 14px repeat-x}
+.pass .no{display:flex; justify-content:space-between; color:var(--brown); font:500 12px var(--mono); letter-spacing:.14em; text-transform:uppercase}
+.pass h3{font-size:31px; margin:12px 0 2px}
+.pass .reg{font:italic 16px var(--text); color:var(--ink2); height:26px}
+.pass .topo{position:absolute; right:-36px; top:-30px; width:150px; opacity:.55; pointer-events:none}
+.pass dl{display:grid; grid-template-columns:1fr; gap:12px; margin:40px 0 18px}
+.pass dl > div{display:grid; grid-template-columns:30px 1fr; gap:10px; align-items:center}
+.pass dt{grid-row:span 2; color:var(--rust)}
+.pass dt svg{width:28px; height:28px; display:block}
+.pass dd{margin:0; font-size:15.5px; line-height:1.25}
+.pass dd small{display:block; font:500 11px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:#7a6452}
+.roast{display:flex; gap:3px; align-items:center}
+.roast svg{width:13px; height:17px}
+.notes{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 20px}
+.notes span{font-size:14px; padding:4px 11px; border:1px solid var(--line); border-radius:999px; background:#fff8ec}
+.pass .price{margin-top:auto; display:flex; justify-content:space-between; align-items:baseline; padding-top:16px; border-top:1px dashed var(--line)}
+.pass .price b{font:700 26px var(--serif)}
+.pass .price span{font:500 13px var(--mono); color:var(--ink2)}
+
+/* ---------- меню ---------- */
+.menu-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:56px}
+.col h3{font-size:34px; display:flex; align-items:baseline; justify-content:space-between; border-bottom:2px solid var(--ink); padding-bottom:12px}
+.col h3 small{font:500 12px var(--mono); letter-spacing:.14em; color:var(--rust); text-transform:uppercase}
+.col .hint{font:italic 15.5px var(--text); color:var(--ink2); margin:10px 0 8px}
+.col ul{list-style:none; margin:0; padding:0}
+.col li{padding:13px 0; border-bottom:1px solid var(--line)}
+.col .row{display:flex; align-items:baseline; gap:8px}
+.col .row span{font-weight:600}
+.col .row i{flex:1; border-bottom:2px dotted #b39a76; transform:translateY(-4px)}
+.col .row b{font:500 16px var(--mono)}
+.col li small{display:block; font-size:14.5px; color:#6c5745; line-height:1.4}
+.menu-note{display:flex; gap:22px; align-items:center; margin-top:56px; padding:22px 26px; border:1px solid var(--ink); border-radius:6px; background:var(--cream)}
+.menu-note svg{flex:none; width:64px; height:64px}
+.menu-note p{margin:0}
+
+/* ---------- как дойти ---------- */
+.visit{background:var(--ink); color:#f3e7d3}
+.visit .kicker{color:#f0b48a}
+.visit h2 em{color:#f0b48a}
+.visit-grid{display:grid; grid-template-columns:1.25fr 1fr; gap:48px; align-items:start}
+.map{background:#efe2c9; border-radius:8px; padding:12px; color:var(--ink)}
+.map svg{display:block; width:100%; height:auto}
+.map figcaption{font:500 12px var(--mono); letter-spacing:.1em; text-transform:uppercase; color:#6b5544; padding:10px 6px 2px}
+.addr{font:700 30px/1.15 var(--serif); margin:6px 0 4px}
+.addr+p{margin:0 0 26px; color:#d8c8b0}
+.steps{list-style:none; counter-reset:s; padding:0; margin:0 0 30px}
+.steps li{counter-increment:s; position:relative; padding:0 0 16px 50px; color:#eadcc5}
+.steps li::before{content:counter(s); position:absolute; left:0; top:-2px; width:34px; height:34px; border:1px solid #f0b48a; border-radius:50%; display:grid; place-items:center; font:500 14px var(--mono); color:#f0b48a}
+.hours{width:100%; border-collapse:collapse; margin-bottom:30px}
+.hours td{padding:12px 0; border-top:1px solid #4e3c2f}
+.hours td:last-child{text-align:right; font:500 16px var(--mono); white-space:nowrap; padding-left:12px}
+.hours tr.today td{color:#fff}
+.hours tr.today td:first-child::after{content:"сегодня"; margin-left:10px; font:500 11px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink); background:#f0b48a; padding:3px 7px; border-radius:99px; vertical-align:2px}
+.visit .btn{background:#f0b48a; border-color:#f0b48a; color:var(--ink)}
+.visit .btn:hover{background:#fff; border-color:#fff}
+.visit .btn.ghost{background:transparent; color:#f3e7d3; border-color:#f3e7d3}
+
+/* ---------- бронь ---------- */
+.book-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:64px; align-items:start}
+.book-side p{color:var(--ink2); margin:22px 0}
+.book-side ul{padding:0; margin:0; list-style:none}
+.book-side li{padding:12px 0 12px 34px; border-top:1px solid var(--line); position:relative}
+.book-side li::before{content:""; position:absolute; left:4px; top:20px; width:14px; height:10px; border-left:2px solid var(--rust); border-bottom:2px solid var(--rust); transform:rotate(-45deg)}
+form{background:var(--cream); border:1px solid var(--ink); border-radius:8px; padding:34px; position:relative; box-shadow:10px 10px 0 var(--paper2)}
+.fields{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.f{display:flex; flex-direction:column; gap:7px}
+.f.wide{grid-column:1/-1}
+label{font:500 12.5px var(--mono); letter-spacing:.12em; text-transform:uppercase}
+input,select{font:400 17px var(--text); color:var(--ink); background:#fff; border:1.5px solid #b9a07a; border-radius:6px; min-height:52px; padding:0 14px; width:100%; appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232a1c13' stroke-width='2'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px}
+input:focus,select:focus{outline:none; border-color:var(--ink); box-shadow:0 0 0 3px rgba(154,69,33,.25)}
+[aria-invalid="true"]{border-color:#b3261e; background:#fff4f1}
+.err{min-height:18px; font-size:14px; color:#a2231b; line-height:1.3}
+form .btn{width:100%; margin-top:10px; min-height:56px; font-size:17px}
+.fine{font-size:14px; color:#6c5745; margin:14px 0 0; text-align:center}
+.ok{display:none; text-align:center; padding:20px 4px}
+.ok svg{width:96px; height:96px}
+.ok h3{font-size:34px; margin:10px 0}
+.ok .demo-msg{background:var(--paper2); border-radius:6px; padding:14px 16px; font-size:15.5px; margin:16px 0}
+form.sent .fields, form.sent > .btn, form.sent .fine{display:none}
+form.sent .ok{display:block}
+
+footer{border-top:1px solid var(--ink); padding:36px 0 44px; font-size:15px; color:var(--ink2)}
+.foot{display:flex; flex-wrap:wrap; gap:18px 40px; justify-content:space-between; align-items:center}
+.foot .logo span{font-size:21px}
+.foot a.js-phone{display:inline-block; padding:12px 0}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1080px){
+  .passports{grid-template-columns:repeat(2,1fr)}
+  .nav{display:none}
+  .bar{justify-content:space-between}
+  .call-ico{display:inline-flex}
+}
+@media (max-width:860px){
+  .hero-grid,.visit-grid,.book-grid,.head{grid-template-columns:1fr}
+  .head p{justify-self:start}
+  .menu-grid{grid-template-columns:1fr; gap:44px}
+  .hero-art{max-width:520px; margin:0 auto}
+}
+@media (max-width:620px){
+  body{font-size:17px}
+  .top{position:relative}
+  html{scroll-padding-top:12px}
+  .wrap{padding:0 16px}
+  .demo{font-size:11.5px; letter-spacing:.08em}
+  .bar{height:64px; gap:10px}
+  .logo svg{width:38px; height:38px}
+  .logo span{font-size:19px; line-height:.95}
+  .logo span i{display:block}
+  .bar .btn{padding:0 16px; font-size:15px; min-height:44px}
+  .call-ico{width:44px; min-height:44px; padding:0}
+  .hero{padding:36px 0 20px}
+  .hero h1{font-size:46px}
+  .lede{font-size:17.5px; margin:20px 0 24px}
+  .cta .btn{flex:1 1 100%}
+  .facts{grid-template-columns:1fr; margin-top:28px}
+  .facts div+div{border-left:0; border-top:1px solid var(--line)}
+  .facts div{padding:18px 4px}
+  section{padding:68px 0}
+  .head{margin-bottom:32px; gap:16px}
+  .passports{grid-template-columns:1fr}
+  .pass dl{grid-template-columns:1fr 1fr; gap:14px 10px; margin-top:34px}
+  .pass dl > div:last-child{grid-column:1/-1}
+  .pass .price{margin-top:4px}
+  .col h3{font-size:30px}
+  form{padding:22px 18px; box-shadow:6px 6px 0 var(--paper2)}
+  .fields{grid-template-columns:1fr; gap:14px}
+  .addr{font-size:26px}
+  .menu-note{flex-direction:column; align-items:flex-start; padding:20px}
+  .visit .cta .btn{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important} html{scroll-behavior:auto}}
+.steam path{animation:rise 4s ease-in-out infinite; transform-box:fill-box}
+.steam path:nth-child(2){animation-delay:1.3s}.steam path:nth-child(3){animation-delay:2.6s}
+@keyframes rise{0%,100%{opacity:.25; transform:translateY(6px)}50%{opacity:.8; transform:translateY(-4px)}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="bean" viewBox="-11 -15 22 30"><ellipse rx="9.5" ry="13.5" fill="#6a3b22"/><ellipse rx="9.5" ry="13.5" fill="url(#beanShade)"/><path d="M1 -12.5C-6 -5 6 3 -1 12.5" fill="none" stroke="#2c170c" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <radialGradient id="beanShade" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#b9774a" stop-opacity=".9"/><stop offset=".6" stop-color="#6a3b22" stop-opacity="0"/></radialGradient>
+    <symbol id="i-globe" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="14" cy="14" r="11"/><ellipse cx="14" cy="14" rx="4.6" ry="11"/><path d="M3.5 10.5h21M3.5 17.5h21"/></g><circle cx="19" cy="8" r="2.2" fill="currentColor"/></symbol>
+    <symbol id="i-alt" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 23 10 9l5 8 3-4 8 10z"/><path d="m8 12.5 2 1.5 2-1.6"/><path d="M19 4v5M17 6l2-2 2 2"/></g></symbol>
+    <symbol id="i-proc" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3c-4 6-7 9.5-7 13.5a7 7 0 0 0 14 0C21 12.5 18 9 14 3z"/><path d="M10.5 17a3.6 3.6 0 0 0 3.5 3.5"/></g></symbol>
+    <symbol id="i-roast" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14 25c-5 0-8-3.4-8-7.6 0-4.6 4-6.6 4.6-11.4 2.6 1.8 3.6 4 3.4 6.6 1.4-.8 2.4-2.2 2.6-3.8 3.2 2.6 5.4 5.6 5.4 8.6C22 21.6 19 25 14 25z"/><path d="M14 25c-2 0-3.4-1.4-3.4-3.3 0-2 1.8-3 2.4-5 1.8 1.4 4.4 2.8 4.4 5 0 1.9-1.4 3.3-3.4 3.3z"/></g></symbol>
+    <symbol id="i-cup" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 11h16v5a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7z"/><path d="M20 13h1.5a3 3 0 0 1 0 6H19.5"/><path d="M9 3.5c-1 1.5 1 2.5 0 4M13 3.5c-1 1.5 1 2.5 0 4"/><path d="M3 25.5h18"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6.6 3.5h-2a1.5 1.5 0 0 0-1.5 1.6C3.6 13.3 10.7 20.4 18.9 21a1.5 1.5 0 0 0 1.6-1.5v-2.1a1 1 0 0 0-.7-1l-3.3-1.1a1 1 0 0 0-1 .3l-1.4 1.6a12.4 12.4 0 0 1-6.3-6.3l1.6-1.4a1 1 0 0 0 .3-1L8.6 4.2a1 1 0 0 0-1-.7z"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="demo" role="note">Демо-концепт · <b>данные вымышлены</b></div>
+  <div class="wrap bar">
+    <a class="logo" href="#" aria-label="Бурый Сорт — на главную">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="#2a1c13"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#f0b48a" stroke-width="1" stroke-dasharray="1.5 2.5"/><g transform="translate(24 24) rotate(28)"><ellipse rx="8.5" ry="12" fill="#c9783f"/><path d="M1 -11C-5.5 -4 5.5 3 -1 11" fill="none" stroke="#2a1c13" stroke-width="2.2" stroke-linecap="round"/></g></svg>
+      <span>Бурый <i>Сорт</i></span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#beans">Зерно</a><a href="#menu">Меню</a><a href="#visit">Как дойти</a><a href="#book">Бронь</a>
+    </nav>
+    <a class="btn ghost call-ico js-phone" href="tel:+79000000000" aria-label="Позвонить"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
+    <a class="btn" href="#book" data-book>Забронировать столик</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker mono">Кофе-бар и обжарка · Новосибирск</div>
+      <h1 id="h1">Кофе, который мы обжарили <em>в&nbsp;этот четверг</em></h1>
+      <p class="lede">Фильтр в&nbsp;воронке, эспрессо и&nbsp;моно-сорта из&nbsp;Эфиопии, Кении и&nbsp;Колумбии. Обжариваем сами, небольшими партиями. Семь минут пешком от&nbsp;метро «Площадь Ленина», в&nbsp;зале 20&nbsp;мест.</p>
+      <div class="cta">
+        <a class="btn" href="#book" data-book>Забронировать столик</a>
+        <a class="btn ghost" href="#menu">Посмотреть меню</a>
+      </div>
+      <div class="status js-status" aria-live="polite"><i></i><span>Проверяем часы работы…</span></div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 520 540" role="img" aria-label="Иллюстрация: воронка заваривает кофе в стеклянный сервер, рядом зёрна и чашка">
+        <defs>
+          <radialGradient id="glow" cx=".5" cy=".42" r=".62"><stop offset="0" stop-color="#fbf1df"/><stop offset="1" stop-color="#e3cca6"/></radialGradient>
+          <linearGradient id="coffee" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a4b25"/><stop offset=".35" stop-color="#5a2f18"/><stop offset="1" stop-color="#2e170c"/></linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>
+          <linearGradient id="cone" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8d2ae"/><stop offset=".45" stop-color="#fbf3e4"/><stop offset="1" stop-color="#d6bb91"/></linearGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7d4526"/><stop offset=".5" stop-color="#b06c3e"/><stop offset="1" stop-color="#6e3a1f"/></linearGradient>
+          <path id="ring" d="M98 50a58 58 0 1 1 0 116a58 58 0 1 1 0-116"/>
+        </defs>
+        <circle cx="270" cy="270" r="236" fill="url(#glow)"/>
+        <g fill="none" stroke="#a97c4d"><circle cx="270" cy="270" r="236" stroke-opacity=".5"/><circle cx="270" cy="270" r="252" stroke-dasharray="2 7" stroke-opacity=".6"/></g>
+        <!-- кофейные пятна -->
+        <g fill="none" stroke="#7a4524">
+          <path d="M60 430c8-34 52-50 86-38 30 11 40 46 22 70-18 25-62 30-88 14-16-10-24-28-20-46z" stroke-width="5" stroke-opacity=".12"/>
+          <path d="M70 433c6-26 44-40 72-30" stroke-width="2" stroke-opacity=".18"/>
+          <path d="M412 120c22-6 46 6 50 28 3 18-10 34-28 36" stroke-width="4" stroke-opacity=".13"/>
+          <circle cx="458" cy="210" r="5" fill="#7a4524" fill-opacity=".12" stroke="none"/><circle cx="96" cy="390" r="3.5" fill="#7a4524" fill-opacity=".14" stroke="none"/>
+        </g>
+        <!-- штамп -->
+        <g transform="translate(-6 -2)">
+          <circle cx="98" cy="108" r="70" fill="#2a1c13"/>
+          <circle cx="98" cy="108" r="64" fill="none" stroke="#f0b48a" stroke-width="1" stroke-dasharray="2 3"/>
+          <text font-family="IBM Plex Mono, monospace" font-size="11.2" letter-spacing="2.6" fill="#f3e7d3"><textPath href="#ring">ОБЖАРКА ПО ЧЕТВЕРГАМ · НОВОСИБИРСК ·</textPath></text>
+          <use href="#bean" x="81" y="88" width="34" height="42" transform="rotate(20 98 108)"/>
+        </g>
+        <!-- чайник и струя -->
+        <path d="M540 70c-30 0-58 6-74 18l-62 52" fill="none" stroke="#2a1c13" stroke-width="12" stroke-linecap="round"/>
+        <path d="M540 52c-22 2-44 8-60 18" fill="none" stroke="#f0b48a" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <path d="M402 142c-10 10-42 28-82 46-26 12-44 20-56 34" fill="none" stroke="#6a3618" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- пар -->
+        <g class="steam" fill="none" stroke="#9b6a43" stroke-width="2.2" stroke-linecap="round" opacity=".7">
+          <path d="M214 176c-8-12 8-18 0-30s6-18 0-28"/><path d="M236 166c-8-12 8-18 0-30"/><path d="M196 186c-8-12 8-16 0-28"/>
+        </g>
+        <!-- стол -->
+        <path d="M30 478h470" stroke="#2a1c13" stroke-width="2.5"/>
+        <path d="M60 490h120M220 490h80M340 490h130" stroke="#2a1c13" stroke-width="1.2" stroke-dasharray="1 7" stroke-linecap="round"/>
+        <!-- сервер -->
+        <g>
+          <path d="M196 316h128l-6 26c40 22 58 64 48 104-6 22-26 32-102 32s-96-10-102-32c-10-40 8-82 48-104z" fill="#f7efe1" fill-opacity=".55"/>
+          <path d="M156 404c34-12 174-12 208 0 4 22 0 40-6 50-8 16-34 22-98 22s-90-6-98-22c-6-10-10-28-6-50z" fill="url(#coffee)"/>
+          <path d="M160 404c40-9 160-9 200 0" fill="none" stroke="#c88a58" stroke-width="2" opacity=".8"/>
+          <path d="M196 316h128l-6 26c40 22 58 64 48 104-6 22-26 32-102 32s-96-10-102-32c-10-40 8-82 48-104z" fill="url(#glass)" stroke="#2a1c13" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M178 380c-10 20-12 44-6 62" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+          <path d="M200 330h120l-4 18H204z" fill="url(#wood)" stroke="#2a1c13" stroke-width="2.5"/>
+          <path d="M228 452h64" stroke="#e8b48a" stroke-width="2" opacity=".5" stroke-linecap="round"/>
+        </g>
+        <!-- воронка -->
+        <g>
+          <path d="M178 206l-8-30 16 16 14-22 14 20 16-24 14 22 16-24 14 22 16-22 12 22 16-14-6 34z" fill="#fffaf0" stroke="#2a1c13" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M166 210h188l-42 92H208z" fill="url(#cone)" stroke="#2a1c13" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M196 222l26 72M226 222l12 72M260 222v72M294 222l-12 72M324 222l-26 72" stroke="#a9875f" stroke-width="1.5" opacity=".8"/>
+          <ellipse cx="260" cy="210" rx="96" ry="12" fill="#ead6b4" stroke="#2a1c13" stroke-width="3"/>
+          <ellipse cx="260" cy="210" rx="80" ry="7" fill="#5a2f18"/>
+          <path d="M192 300h136v12a4 4 0 0 1-4 4H196a4 4 0 0 1-4-4z" fill="#2a1c13"/>
+          <path d="M354 220c26 0 32 34 4 44" fill="none" stroke="#2a1c13" stroke-width="7" stroke-linecap="round"/>
+        </g>
+        <!-- чашка -->
+        <g>
+          <ellipse cx="428" cy="474" rx="58" ry="10" fill="#d9c09a" stroke="#2a1c13" stroke-width="2.5"/>
+          <path d="M392 412h72v26c0 22-16 34-36 34s-36-12-36-34z" fill="#fbf6ec" stroke="#2a1c13" stroke-width="3"/>
+          <path d="M464 422c22-4 26 30 0 32" fill="none" stroke="#2a1c13" stroke-width="5"/>
+          <ellipse cx="428" cy="412" rx="36" ry="7" fill="#7b4424" stroke="#2a1c13" stroke-width="3"/>
+          <path d="M402 432c0 14 8 26 22 30" fill="none" stroke="#e3cba6" stroke-width="4" stroke-linecap="round"/>
+          <path d="M392 446h72" stroke="#9a4521" stroke-width="4"/>
+        </g>
+        <!-- зёрна -->
+        <use href="#bean" x="70" y="448" width="26" height="34" transform="rotate(-30 83 465)"/>
+        <use href="#bean" x="104" y="452" width="24" height="31" transform="rotate(40 116 467)"/>
+        <use href="#bean" x="132" y="458" width="20" height="26" transform="rotate(-70 142 471)"/>
+        <use href="#bean" x="340" y="456" width="22" height="28" transform="rotate(60 351 470)"/>
+        <use href="#bean" x="86" y="430" width="18" height="24" transform="rotate(10 95 442)"/>
+      </svg>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="facts">
+      <div><b>4</b><p><strong>моно-сорта на витрине</strong>Меняем по сезону урожая, к каждому — паспорт с фермой и высотой.</p></div>
+      <div><b>чт</b><p><strong>день обжарки</strong>Жарим по четвергам небольшими партиями, поэтому зерно всегда свежее.</p></div>
+      <div><b>20</b><p><strong>мест в зале</strong>Большие столы у окна и барная стойка. Вечером лучше бронировать.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="beans" id="beans" aria-labelledby="h-beans">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker mono">Паспорт зерна</div><h2 id="h-beans">Моно-сорта <em>нашей обжарки</em></h2></div>
+      <p>У каждого лота одна страна и одна ферма. В паспорте — всё, что влияет на вкус: высота, обработка, степень обжарки. Любой сорт заварим в воронке или продадим пачкой навынос.</p>
+    </div>
+    <div class="passports js-beans"></div>
+  </div>
+</section>
+
+<section id="menu" aria-labelledby="h-menu">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker mono">Меню бара</div><h2 id="h-menu">Фильтр, эспрессо <em>и&nbsp;к&nbsp;кофе</em></h2></div>
+      <p>Цены в рублях. Молоко — коровье 3,2 % или овсяное. Если не знаете, что выбрать, скажите бариста, какой вкус любите, — подберём зерно.</p>
+    </div>
+    <div class="menu-grid js-menu"></div>
+    <div class="menu-note">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#2a1c13"/><path d="M18 26h26v8a11 11 0 0 1-11 11h-4a11 11 0 0 1-11-11z" fill="#f0b48a"/><path d="M44 29h2.5a4.5 4.5 0 0 1 0 9H43" fill="none" stroke="#f0b48a" stroke-width="2.5"/><path d="M25 16c-2 3 2 4 0 7M32 16c-2 3 2 4 0 7" stroke="#f3e7d3" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M16 49h32" stroke="#f3e7d3" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <p><strong>Кофе навынос — в свою кружку на 20 ₽ дешевле.</strong> Зерно молем бесплатно под вашу турку, воронку или гейзерную кофеварку.</p>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="h-visit">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker mono">Адрес и часы</div><h2 id="h-visit">Семь минут <em>от&nbsp;Площади Ленина</em></h2></div>
+      <p style="color:#d8c8b0">Вход с улицы, коричневая дверь с вывеской-зерном. Есть пандус и место для коляски у окна.</p>
+    </div>
+    <div class="visit-grid">
+      <figure class="map" style="margin:0">
+        <svg class="js-map" viewBox="0 0 640 470" role="img" aria-label="Схема: от метро Площадь Ленина пешком по Красному проспекту на север около 300 метров, затем направо на улицу Обжарочную 150 метров до кофейни">
+          <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v8" stroke="#d5c09c" stroke-width="3"/></pattern></defs>
+          <rect width="640" height="470" fill="#efe2c9"/>
+          <!-- кварталы -->
+          <g fill="url(#hatch)" stroke="#cdb48c">
+            <rect x="20" y="20" width="200" height="110" rx="6"/><rect x="20" y="160" width="200" height="120" rx="6"/>
+            <rect x="300" y="20" width="140" height="110" rx="6"/><rect x="470" y="20" width="150" height="110" rx="6"/>
+            <rect x="300" y="160" width="320" height="120" rx="6"/><rect x="460" y="310" width="160" height="140" rx="6"/>
+          </g>
+          <!-- площадь и сквер -->
+          <rect x="20" y="310" width="200" height="140" rx="6" fill="#cfd3b0" stroke="#a7ad7f"/>
+          <g fill="#97a170"><circle cx="50" cy="340" r="9"/><circle cx="78" cy="352" r="7"/><circle cx="190" cy="340" r="9"/><circle cx="60" cy="420" r="8"/><circle cx="196" cy="424" r="7"/></g>
+          <rect x="300" y="310" width="140" height="140" rx="6" fill="#e2d2b2" stroke="#cdb48c"/>
+          <text x="370" y="384" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="1.5" fill="#6b5544">ПЛОЩАДЬ</text><text x="370" y="402" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="1.5" fill="#6b5544">ЛЕНИНА</text>
+          <!-- улицы -->
+          <rect x="236" y="0" width="48" height="470" fill="#fbf6ec"/>
+          <rect x="0" y="138" width="640" height="16" fill="#fbf6ec"/>
+          <rect x="0" y="288" width="640" height="16" fill="#fbf6ec"/>
+          <text transform="translate(266 120) rotate(-90)" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2" fill="#594434">КРАСНЫЙ ПР.</text>
+          <text x="470" y="150" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="1.5" fill="#594434">УЛ. ОБЖАРОЧНАЯ</text>
+          <!-- маршрут -->
+          <path d="M260 372V146h148" fill="none" stroke="#9a4521" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 11"/>
+          <g fill="#2a1c13" font-family="IBM Plex Mono, monospace" font-size="12">
+            <rect x="140" y="214" width="84" height="28" rx="14" fill="#2a1c13"/><text x="182" y="233" text-anchor="middle" fill="#f3e7d3">≈ 300 м</text>
+            <rect x="314" y="102" width="84" height="28" rx="14" fill="#2a1c13"/><text x="356" y="121" text-anchor="middle" fill="#f3e7d3">≈ 150 м</text>
+          </g>
+          <!-- метро -->
+          <g transform="translate(260 380)"><circle r="20" fill="#b3261e"/><text y="7" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="21" fill="#fff">М</text></g>
+          <text x="256" y="428" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" fill="#2a1c13"></text>
+          <!-- кофейня -->
+          <g transform="translate(420 146)">
+            <path d="M0 0c-16-18-26-30-26-44a26 26 0 0 1 52 0c0 14-10 26-26 44z" fill="#2a1c13"/>
+            <g transform="translate(0 -44) rotate(25)"><ellipse rx="9" ry="12.5" fill="#f0b48a"/><path d="M1 -11C-5.5 -4 5.5 3 -1 11" fill="none" stroke="#2a1c13" stroke-width="2.2" stroke-linecap="round"/></g>
+          </g>
+          <g font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="20" fill="#2a1c13"><text x="456" y="96">Бурый Сорт</text></g>
+          <text x="456" y="116" font-family="IBM Plex Mono, monospace" font-size="12" fill="#594434">ул. Обжарочная, 7</text>
+          <!-- роза ветров -->
+          <g transform="translate(590 410)" font-family="IBM Plex Mono, monospace" font-size="11" fill="#594434"><circle r="18" fill="none" stroke="#594434"/><path d="M0 -14l5 14H-5z" fill="#2a1c13"/><text y="-24" text-anchor="middle">С</text></g>
+        </svg>
+        <figcaption>Схема условная · 450 м, около 7 минут пешком</figcaption>
+      </figure>
+      <div>
+        <p class="addr">Новосибирск, ул.&nbsp;Обжарочная,&nbsp;7</p>
+        <p>Первый этаж, вход с улицы</p>
+        <ol class="steps">
+          <li>Выходите из метро «Площадь Ленина» на Красный проспект.</li>
+          <li>Идите по проспекту прочь от площади около 300 м, до первого перекрёстка.</li>
+          <li>Поверните направо на ул. Обжарочную, через 150 м — наша дверь.</li>
+        </ol>
+        <table class="hours js-hours" aria-label="Часы работы"></table>
+        <div class="cta">
+          <a class="btn js-phone" href="tel:+79000000000"><svg aria-hidden="true"><use href="#i-phone"/></svg><span class="js-phone-text">Позвонить</span></a>
+          <a class="btn ghost" href="#book" data-book>Забронировать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book" aria-labelledby="h-book">
+  <div class="wrap book-grid">
+    <div class="book-side">
+      <div class="kicker mono">Бронь столика</div>
+      <h2 id="h-book">Оставим стол <em>за&nbsp;вами</em></h2>
+      <p>Заполните форму — бариста перезвонит в течение 15 минут в часы работы и подтвердит бронь.</p>
+      <ul>
+        <li>Держим столик 15 минут после назначенного времени.</li>
+        <li>Компании больше 8 человек — по телефону, сдвинем столы.</li>
+        <li>Бронь бесплатная, предоплаты нет.</li>
+      </ul>
+    </div>
+    <form class="js-form" novalidate>
+      <div class="fields">
+        <div class="f"><label for="name">Имя</label><input id="name" name="name" autocomplete="given-name" placeholder="Как к вам обращаться" aria-describedby="e-name"><div class="err" id="e-name"></div></div>
+        <div class="f"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" aria-describedby="e-phone"><div class="err" id="e-phone"></div></div>
+        <div class="f"><label for="date">Дата</label><input id="date" name="date" type="date" aria-describedby="e-date"><div class="err" id="e-date"></div></div>
+        <div class="f"><label for="time">Время</label><select id="time" name="time" aria-describedby="e-time"><option value="">Сначала дата</option></select><div class="err" id="e-time"></div></div>
+        <div class="f wide"><label for="guests">Сколько гостей</label><select id="guests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+      </div>
+      <button class="btn" type="submit">Забронировать столик</button>
+      <p class="fine">Нажимая кнопку, вы соглашаетесь, что мы перезвоним по этому номеру.</p>
+      <div class="ok" role="status" aria-live="polite" tabindex="-1">
+        <svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="44" fill="#2a1c13"/><circle cx="48" cy="48" r="38" fill="none" stroke="#f0b48a" stroke-dasharray="2 4"/><path d="M30 49l12 12 24-26" fill="none" stroke="#f0b48a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Спасибо!</h3>
+        <p class="js-summary"></p>
+        <p class="demo-msg"><strong>Демо:</strong> заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</p>
+        <button class="btn ghost" type="button" data-again>Новая заявка</button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="#2a1c13"/><g transform="translate(24 24) rotate(28)"><ellipse rx="8.5" ry="12" fill="#c9783f"/><path d="M1 -11C-5.5 -4 5.5 3 -1 11" fill="none" stroke="#2a1c13" stroke-width="2.2" stroke-linecap="round"/></g></svg><span>Бурый <i>Сорт</i></span></a>
+    <span>ул. Обжарочная, 7 · <a class="js-phone js-phone-text" href="tel:+79000000000">+7 (900) 000-00-00</a></span>
+    <span class="mono" style="font-size:12px">Демо-концепт · данные вымышлены</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const rub = (n) => n.toLocaleString("ru-RU").replace(/ /g, " ") + " ₽";
+  const roastName = ["", "светлая", "средняя", "тёмная"];
+
+  /* паспорт зерна */
+  const topo = (k) => { let p = ""; for (let i = 0; i < 6; i++) { const r = 12 + i * 11; p += `<ellipse cx="75" cy="75" rx="${r + (k % 3) * 2}" ry="${r * .78}" transform="rotate(${k * 37 + i * 6} 75 75)"/>`; } return `<svg class="topo" viewBox="0 0 150 150" aria-hidden="true"><g fill="none" stroke="#c49a6c" stroke-width="1">${p}</g></svg>`; };
+  $(".js-beans").innerHTML = MENU.beans.map((b, k) => `
+    <article class="pass">
+      ${topo(k)}
+      <div class="no"><span>Паспорт № ${String(k + 1).padStart(2, "0")}</span><span>${esc(b.weight)}</span></div>
+      <h3>${esc(b.country)}</h3>
+      <div class="reg">${esc(b.name)}${b.region !== b.name ? ", " + esc(b.region) : ""}</div>
+      <dl>
+        <div><dt><svg aria-hidden="true"><use href="#i-alt"/></svg></dt><dd><small>Высота</small>${esc(b.altitude)}</dd></div>
+        <div><dt><svg aria-hidden="true"><use href="#i-proc"/></svg></dt><dd><small>Обработка</small>${esc(b.process)}</dd></div>
+        <div><dt><svg aria-hidden="true"><use href="#i-roast"/></svg></dt><dd><small>Обжарка</small><span class="roast" aria-label="${roastName[b.roast]}">${[1,2,3].map(i => `<svg viewBox="-11 -15 22 30" aria-hidden="true">${i <= b.roast ? '<ellipse rx="9" ry="13" fill="#6a3b22"/><path d="M1 -11C-5 -4 5 3 -1 11" fill="none" stroke="#f3e2c8" stroke-width="2"/>' : '<ellipse rx="9" ry="13" fill="none" stroke="#b39a76" stroke-width="2"/>'}</svg>`).join("")}&nbsp;${roastName[b.roast]}</span></dd></div>
+        <div><dt><svg aria-hidden="true"><use href="#i-cup"/></svg></dt><dd><small>Во вкусе</small><div class="notes">${b.notes.map(n => `<span>${esc(n)}</span>`).join("")}</div></dd></div>
+      </dl>
+      <div class="price"><span>пачка ${esc(b.weight)}</span><b>${rub(b.price)}</b></div>
+    </article>`).join("");
+
+  /* меню бара */
+  $(".js-menu").innerHTML = MENU.bar.map((g) => `
+    <div class="col">
+      <h3>${esc(g.group)} <small>${g.items.length} поз.</small></h3>
+      ${g.hint ? `<p class="hint">${esc(g.hint)}</p>` : ""}
+      <ul>${g.items.map(it => `<li><div class="row"><span>${esc(it.name)}</span><i></i><b>${rub(it.price)}</b></div>${it.note ? `<small>${esc(it.note)}</small>` : ""}</li>`).join("")}</ul>
+    </div>`).join("");
+
+  /* на телефоне схема крупнее: показываем только район маршрута */
+  if (matchMedia("(max-width:620px)").matches) $(".js-map").setAttribute("viewBox", "130 56 450 390");
+
+  /* телефон */
+  document.querySelectorAll(".js-phone").forEach(a => a.href = PHONE.href);
+  document.querySelectorAll("footer .js-phone-text").forEach(a => a.textContent = PHONE.text);
+
+  /* часы и «открыто сейчас» — время Новосибирска, UTC+7 */
+  const nsk = () => new Date(Date.now() + 7 * 3600e3);
+  const dow = (d) => (d.getUTCDay() || 7);
+  const forDay = (n) => HOURS.find(h => h.days.includes(n));
+  const now = nsk(), today = dow(now);
+  $(".js-hours").innerHTML = HOURS.map(h => `<tr class="${h.days.includes(today) ? "today" : ""}"><td>${esc(h.label)}</td><td>${h.open}:00–${h.close}:00</td></tr>`).join("");
+  const st = $(".js-status"), hr = now.getUTCHours() + now.getUTCMinutes() / 60, t = forDay(today);
+  if (t && hr >= t.open && hr < t.close) st.lastElementChild.textContent = `Сейчас открыто · до ${t.close}:00`;
+  else {
+    st.classList.add("closed");
+    const next = hr < (t ? t.open : 0) ? t : forDay(today % 7 + 1);
+    st.lastElementChild.textContent = `Сейчас закрыто · откроемся ${next === t ? "сегодня" : "завтра"} в ${next.open}:00`;
+  }
+
+  /* бронь */
+  const f = $(".js-form"), name = $("#name"), phone = $("#phone"), date = $("#date"), time = $("#time");
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const minD = iso(now), maxD = iso(new Date(now.getTime() + 30 * 864e5));
+  date.min = minD; date.max = maxD;
+  document.querySelectorAll("[data-book]").forEach(a => a.addEventListener("click", () => setTimeout(() => name.focus({ preventScroll: true }), 450)));
+
+  phone.addEventListener("input", () => {
+    let d = phone.value.replace(/\D/g, "");
+    if (d[0] === "8") d = "7" + d.slice(1);
+    if (d && d[0] !== "7") d = "7" + d;
+    d = d.slice(0, 11);
+    const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+    phone.value = !d ? "" : "+7" + (p[0] ? ` (${p[0]}` : "") + (p[1] ? `) ${p[1]}` : "") + (p[2] ? `-${p[2]}` : "") + (p[3] ? `-${p[3]}` : "");
+  });
+
+  date.addEventListener("change", () => {
+    time.innerHTML = '<option value="">Выберите время</option>';
+    if (!date.value) return;
+    const d = new Date(date.value + "T00:00:00Z"), h = forDay(dow(d));
+    const isToday = date.value === minD;
+    for (let m = h.open * 60; m <= (h.close - 1) * 60; m += 30) {
+      if (isToday && m < hr * 60 + 30) continue;
+      const s = `${Math.floor(m / 60)}:${m % 60 ? "30" : "00"}`;
+      time.insertAdjacentHTML("beforeend", `<option>${s}</option>`);
+    }
+    if (time.options.length === 1) time.innerHTML = '<option value="">На сегодня мест уже нет</option>';
+    check(date);
+  });
+
+  const rules = {
+    name: () => name.value.trim().length < 2 ? "Напишите имя — хотя бы две буквы." : /[0-9]/.test(name.value) ? "В имени не должно быть цифр." : "",
+    phone: () => phone.value.replace(/\D/g, "").length !== 11 ? "Нужен номер целиком: +7 и ещё 10 цифр." : "",
+    date: () => !date.value ? "Выберите дату." : (date.value < minD || date.value > maxD) ? "Бронируем на ближайшие 30 дней." : "",
+    time: () => !time.value ? "Выберите время." : ""
+  };
+  const els = { name, phone, date, time };
+  function check(el) { const msg = rules[el.name](); el.setAttribute("aria-invalid", msg ? "true" : "false"); $("#e-" + el.name).textContent = msg; return !msg; }
+  Object.values(els).forEach(el => el.addEventListener("blur", () => el.value && check(el)));
+  f.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const bad = Object.values(els).filter(el => !check(el));
+    if (bad.length) { bad[0].focus(); return; }
+    const d = new Date(date.value + "T00:00:00Z").toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long", timeZone: "UTC" });
+    $(".js-summary").textContent = `${name.value.trim()}, столик на ${$("#guests").value} ${+$("#guests").value === 1 ? "гостя" : "гостей"} — ${d}, ${time.value}. Перезвоним на ${phone.value}.`;
+    f.classList.add("sent"); $(".ok").focus();
+  });
+  $("[data-again]").addEventListener("click", () => { f.reset(); time.innerHTML = '<option value="">Сначала дата</option>'; f.classList.remove("sent"); name.focus(); });
+})();
+</script>
+</body>
+</html>

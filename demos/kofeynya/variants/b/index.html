@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бурый Сорт — фильтр-бар и обжарка, Новосибирск</title>
+<meta name="description" content="Фильтр, эспрессо и моно-сорта своей обжарки у метро «Площадь Ленина». Бронь столика онлайн.">
+<meta name="theme-color" content="#131110">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* =====================================================================
+   МЕНЮ, ЧАСЫ, ТЕЛЕФОН — ВСЁ РЕДАКТИРУЕМОЕ ЗДЕСЬ, ВЫШЕ НИЧЕГО НЕТ.
+   Как поменять без программиста:
+   • Цена — число без пробелов и «₽»:            price: 230
+   • Новая позиция — скопируйте строку { … }, вставьте ниже,
+     поменяйте название и цену. Запятая в конце строки обязательна.
+   • Убрать позицию — удалите строку целиком.
+   • Сохраните файл, обновите страницу — меню перестроится само.
+   В зерне: roast 1–3 (светлая → тёмная), acid / sweet / body — шкала 1–5
+   (кислотность, сладость, плотность), из неё рисуется диаграмма вкуса.
+   ===================================================================== */
+const MENU = {
+  beans: [
+    { name: "Кочере", country: "Эфиопия", region: "Иргачеффе", altitude: "1900–2100 м", process: "мытая", roast: 1, acid: 5, sweet: 3, body: 2, notes: "жасмин, бергамот, лимонная цедра", price: 1150 },
+    { name: "Ньери AA", country: "Кения", region: "Ньери", altitude: "1700–1800 м", process: "мытая", roast: 1, acid: 5, sweet: 4, body: 3, notes: "чёрная смородина, грейпфрут, тростниковый сахар", price: 1290 },
+    { name: "Уила", country: "Колумбия", region: "Уила", altitude: "1600–1900 м", process: "хани", roast: 2, acid: 3, sweet: 5, body: 3, notes: "красное яблоко, карамель, какао", price: 990 },
+    { name: "Серрадо", country: "Бразилия", region: "Минас-Жерайс", altitude: "1000–1200 м", process: "натуральная", roast: 3, acid: 1, sweet: 4, body: 5, notes: "фундук, молочный шоколад, изюм", price: 790 }
+  ],
+  bar: [
+    { group: "Фильтр", items: [
+      { name: "Воронка", note: "250 мл · любой сорт с витрины", price: 280 },
+      { name: "Аэропресс", note: "200 мл · плотнее и слаще", price: 270 },
+      { name: "Батч-брю", note: "300 мл · без ожидания", price: 190 },
+      { name: "Колд-брю", note: "300 мл · настой 16 часов", price: 260 }
+    ]},
+    { group: "Эспрессо", items: [
+      { name: "Эспрессо", note: "30 мл", price: 150 },
+      { name: "Кортадо", note: "120 мл", price: 210 },
+      { name: "Капучино", note: "250 мл", price: 230 },
+      { name: "Флэт уайт", note: "200 мл · двойной шот", price: 240 },
+      { name: "Раф", note: "300 мл · домашний ванильный сироп", price: 290 },
+      { name: "Овсяное молоко", note: "к любому напитку", price: 60 }
+    ]},
+    { group: "Десерты", items: [
+      { name: "Баскский чизкейк", note: "кусок", price: 320 },
+      { name: "Морковный торт", note: "апельсиновый крем", price: 290 },
+      { name: "Канеле", note: "ромовый", price: 140 },
+      { name: "Миндальный круассан", note: "", price: 220 },
+      { name: "Печенье с морской солью", note: "тёмный шоколад", price: 120 }
+    ]}
+  ]
+};
+/* Часы: days 1 — понедельник … 7 — воскресенье */
+const HOURS = [
+  { label: "Пн — Пт", days: [1, 2, 3, 4, 5], open: 8, close: 21 },
+  { label: "Сб — Вс", days: [6, 7], open: 9, close: 22 }
+];
+const PHONE = { text: "+7 (900) 000-00-00", href: "tel:+79000000000" };
+</script>
+<style>
+:root{
+  --bg:#131110; --bg2:#1c1816; --bg3:#262019; --line:#342c26; --text:#f2e9dd; --mute:#b4a596;
+  --acc:#ff7b39; --acc2:#ffb27d; --cream:#efe5d6; --ink:#171310;
+  --disp:"Unbounded", "Arial Black", system-ui, sans-serif;
+  --sans:"Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:16px}
+body{margin:0; background:var(--bg); color:var(--text); font:400 17px/1.55 var(--sans); -webkit-font-smoothing:antialiased}
+a{color:inherit}
+svg{max-width:100%}
+:focus-visible{outline:3px solid var(--acc); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1240px; margin:0 auto; padding:0 32px}
+.lab{font:500 12.5px/1.3 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--mute)}
+h1,h2,h3{font-family:var(--disp); margin:0; line-height:.95; letter-spacing:-.02em; font-weight:800}
+h2{font-size:clamp(40px,6.4vw,92px); text-transform:uppercase}
+h2 .o{color:var(--acc)}
+
+/* шапка */
+.top{position:relative; top:0; z-index:30; background:rgba(19,17,16,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+.demo{background:var(--acc); color:#1a0f08; font:500 12.5px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase; text-align:center; padding:9px 12px}
+.bar{display:flex; align-items:center; gap:32px; height:70px}
+.logo{min-height:44px; display:flex; align-items:center; gap:12px; text-decoration:none; font:800 17px/1 var(--disp); letter-spacing:.02em; text-transform:uppercase}
+.logo svg{width:38px; height:38px; flex:none}
+.nav{display:flex; gap:28px; margin-left:auto}
+.nav a{font:500 13px var(--mono); letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--mute); padding:12px 0}
+.nav a:hover{color:var(--text)}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:50px; padding:0 24px; border:0; border-radius:0; background:var(--acc); color:#1a0f08;
+  font:600 16px/1 var(--sans); text-decoration:none; cursor:pointer; transition:background .2s, transform .2s}
+.btn:hover{background:var(--acc2)}
+.btn.line{background:transparent; color:var(--text); box-shadow:inset 0 0 0 1.5px var(--text)}
+.btn.line:hover{background:var(--text); color:var(--ink)}
+.btn svg{width:18px; height:18px}
+.ico{display:none; width:50px; padding:0}
+
+/* первый экран */
+.hero{padding:56px 0 0; overflow:hidden; position:relative}
+.hero-top{display:flex; justify-content:space-between; gap:24px; align-items:center; margin-bottom:22px}
+.status{display:inline-flex; align-items:center; gap:10px; font:500 13px var(--mono); letter-spacing:.06em; text-transform:uppercase}
+.status i{width:9px; height:9px; border-radius:50%; background:#6fd27a; box-shadow:0 0 0 5px rgba(111,210,122,.15)}
+.status.closed i{background:var(--acc); box-shadow:0 0 0 5px rgba(255,123,57,.18)}
+.big{padding-top:.08em; font:800 clamp(60px,19.6vw,250px)/.86 var(--disp); text-transform:uppercase; letter-spacing:-.045em; margin:0}
+.big span{display:block}
+.big .l2{display:flex; align-items:center; gap:.08em}
+.big .l2 em{font-style:normal; color:var(--acc)}
+.badge{width:.92em; height:.92em; flex:none; position:relative}
+.badge svg{width:100%; height:100%; display:block}
+.badge .spin{animation:spin 30s linear infinite; transform-origin:50% 50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-low{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:32px; padding:40px 0 56px; border-bottom:1px solid var(--line); margin-top:36px; align-items:end}
+.hero-low p{margin:0; font-size:19px; max-width:460px; color:#e2d6c7}
+.hero-low .cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end; grid-column:2/4}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid var(--line)}
+.stats div{padding:26px 24px 28px 0}
+.stats div+div{padding-left:24px; border-left:1px solid var(--line)}
+.stats b{display:block; font:700 34px/1 var(--disp); margin-bottom:10px}
+.stats b small{font-size:.5em; color:var(--acc); margin-left:4px}
+.stats span{color:var(--mute); font-size:15.5px; line-height:1.4; display:block}
+
+section{padding:110px 0}
+.sh{display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:56px}
+.sh p{max-width:420px; margin:0; color:var(--mute)}
+.sh .lab{display:block; margin-bottom:18px; color:var(--acc)}
+
+/* зерно */
+.lots{border-top:1px solid var(--text)}
+.lot{display:grid; grid-template-columns:44px 1.25fr 1.25fr 1.1fr 116px 128px; gap:24px; align-items:center; padding:30px 0; border-bottom:1px solid var(--line); position:relative}
+.lot:hover{background:linear-gradient(90deg, transparent, rgba(255,123,57,.06), transparent)}
+.lot .n{font:500 13px var(--mono); color:var(--acc)}
+.lot h3{font-size:clamp(26px,2.7vw,36px); text-transform:uppercase}
+.lot .sub{color:var(--mute); margin-top:8px; font-size:15.5px}
+.spec{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; font-size:15px; margin:0}
+.spec dt{font:500 11.5px/1.9 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--mute)}
+.spec dd{margin:0; white-space:nowrap}
+.rs{display:inline-flex; gap:3px; vertical-align:-1px; margin-right:6px}
+.rs i{width:16px; height:8px; background:var(--line)}
+.rs i.on{background:var(--acc)}
+.notes{font-size:16px; color:#e2d6c7}
+.notes::before{content:"Во вкусе"; display:block; font:500 11.5px var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--mute); margin-bottom:6px}
+.dial svg{width:116px; height:116px; display:block}
+.lot .pr{text-align:right}
+.lot .pr b{display:block; font:700 26px var(--disp)}
+.lot .pr span{font:500 12px var(--mono); color:var(--mute); letter-spacing:.08em}
+
+/* меню */
+.menu{background:var(--bg2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.menu-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:64px; align-items:start}
+.art{position:relative; background:var(--bg3); border:1px solid var(--line); aspect-ratio:4/5; overflow:hidden}
+.art svg{width:100%; height:100%; display:block}
+.tabs{display:flex; gap:0; border:1px solid var(--line); margin-bottom:30px; width:max-content; max-width:100%}
+.tabs button{font:500 13px var(--mono); letter-spacing:.1em; text-transform:uppercase; background:transparent; color:var(--mute); border:0; padding:0 20px; min-height:48px; cursor:pointer}
+.tabs button+button{border-left:1px solid var(--line)}
+.tabs button[aria-selected="true"]{background:var(--text); color:var(--ink)}
+.grp h3{font:700 14px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--acc); padding:28px 0 12px; border-bottom:1px solid var(--text); display:flex; justify-content:space-between}
+.grp h3 span{color:var(--mute); font-weight:400}
+.grp:first-child h3{padding-top:0}
+.grp ul{list-style:none; padding:0; margin:0}
+.grp li{display:grid; grid-template-columns:1fr auto; gap:4px 20px; padding:16px 0; border-bottom:1px solid var(--line)}
+.grp li b{font:600 19px var(--sans)}
+.grp li small{grid-column:1; color:var(--mute); font-size:15px}
+.grp li em{grid-row:1/3; grid-column:2; align-self:center; font:500 18px var(--mono); font-style:normal}
+.grp[hidden]{display:none}
+.js-menu{column-count:2; column-gap:40px}
+.grp{display:contents}
+.grp h3{break-after:avoid}
+.grp li{break-inside:avoid}
+.grp[hidden]{display:none}
+
+/* адрес */
+.visit{background:var(--cream); color:var(--ink)}
+.visit .lab{color:#6b5a4b}
+.visit .sh .lab{color:#b4471a}
+.visit h2 .o{color:#b4471a}
+.visit .sh p{color:#4b3d31}
+.v-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:0; border:1.5px solid var(--ink)}
+.map{background:var(--ink); padding:0; margin:0; position:relative}
+.map svg{display:block; width:100%; height:auto}
+.map figcaption{position:absolute; left:20px; bottom:16px; font:500 12px var(--mono); letter-spacing:.1em; text-transform:uppercase; color:#a99886}
+.v-info{padding:36px}
+.v-info .addr{font:700 28px/1.1 var(--disp); text-transform:uppercase; margin:10px 0 6px; letter-spacing:-.01em}
+.steps{list-style:none; margin:26px 0; padding:0; counter-reset:s}
+.steps li{counter-increment:s; display:grid; grid-template-columns:44px 1fr; padding:12px 0; border-top:1px solid #cbbba4}
+.steps li::before{content:"0" counter(s); font:500 14px var(--mono); color:#b4471a; padding-top:2px}
+.hrs{display:grid; grid-template-columns:1fr 1fr; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); margin-bottom:26px}
+.hrs div{padding:16px 0}
+.hrs div+div{border-left:1px solid #cbbba4; padding-left:20px}
+.hrs b{display:block; font:700 30px/1.1 var(--disp); letter-spacing:-.02em}
+.hrs .today .lab::after{content:" · сегодня"; color:#b4471a}
+.visit .btn{background:var(--ink); color:var(--cream)}
+.visit .btn:hover{background:#b4471a}
+.visit .btn.line{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--ink)}
+.visit .btn.line:hover{background:var(--ink); color:var(--cream)}
+.v-cta{display:flex; flex-wrap:wrap; gap:12px}
+
+/* бронь */
+.book-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px}
+.book-grid .lead{font-size:19px; color:#e2d6c7; margin:28px 0}
+.rules{list-style:none; margin:0; padding:0; border-top:1px solid var(--line)}
+.rules li{padding:14px 0; border-bottom:1px solid var(--line); color:var(--mute); display:flex; gap:14px}
+.rules li::before{content:"→"; color:var(--acc); font-family:var(--mono)}
+form{background:var(--bg2); border:1px solid var(--line); padding:40px}
+.fs{display:grid; grid-template-columns:1fr 1fr; gap:6px 24px}
+.f{display:flex; flex-direction:column}
+.f.w{grid-column:1/-1}
+label{font:500 12px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--mute); margin-bottom:4px}
+input,select{font:500 19px var(--sans); color:var(--text); background:transparent; border:0; border-bottom:1.5px solid #5b4e44; border-radius:0; min-height:52px; padding:0 2px; width:100%; appearance:none; color-scheme:dark}
+select{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23f2e9dd' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 4px center; padding-right:26px}
+select option{background:var(--bg2); color:var(--text)}
+input::placeholder{color:#8f8073}
+input:focus,select:focus{outline:none; border-color:var(--acc)}
+[aria-invalid="true"]{border-color:#ff6a5c}
+.err{min-height:22px; font-size:14px; color:#ff8f84; padding-top:4px}
+form .btn{width:100%; min-height:58px; margin-top:18px; font-size:17px}
+.fine{color:var(--mute); font-size:14px; margin:14px 0 0}
+.ok{display:none}
+form.sent .fs, form.sent > .btn, form.sent .fine{display:none}
+form.sent .ok{display:block}
+.ok h3{font-size:44px; text-transform:uppercase; margin:16px 0}
+.ok .dm{border-left:3px solid var(--acc); padding:12px 16px; background:var(--bg3); font-size:15.5px; margin:18px 0 24px}
+
+footer{border-top:1px solid var(--line); padding:56px 0 40px; overflow:hidden}
+.fbig{font:800 clamp(34px,11.6vw,146px)/.9 var(--disp); text-transform:uppercase; letter-spacing:-.045em; color:#2c2420; white-space:nowrap; margin-bottom:36px}
+.frow a{display:inline-block; padding:12px 0}
+.frow{align-items:center; display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px 32px; color:var(--mute); font-size:15px}
+
+@media (max-width:1100px){
+  .nav{display:none}
+  .ico{display:inline-flex}
+  .bar{justify-content:space-between; gap:12px}
+  .lot{grid-template-columns:40px 1fr 1fr; gap:18px 24px}
+  .lot .dial{grid-column:2}
+  .lot .pr{grid-column:3; text-align:left}
+  .lot .notes{grid-column:2/4}
+}
+@media (max-width:860px){
+  .menu-grid,.book-grid,.v-grid{grid-template-columns:1fr}
+  .art{max-width:480px; width:100%}
+  .js-menu{column-count:1}
+  .hero-low{grid-template-columns:1fr}
+  .hero-low .cta{grid-column:auto; justify-content:flex-start}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats div:nth-child(3){padding-left:0; border-left:0}
+  .stats div:nth-child(n+3){border-top:1px solid var(--line)}
+  .sh{flex-direction:column; align-items:flex-start; gap:20px}
+  .book-grid{gap:44px}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px}
+  .top{position:relative}
+  html{scroll-padding-top:12px}
+  .demo{font-size:11.5px; letter-spacing:.08em}
+  .bar{height:64px}
+  .logo{font-size:14px; gap:9px}
+  .logo svg{width:32px; height:32px}
+  .bar .btn{padding:0 14px; font-size:15px; min-height:46px}
+  .ico{width:46px; min-height:46px}
+  .hero{padding-top:30px}
+  .hero-top{flex-direction:column; align-items:flex-start; gap:10px}
+  .hero-low{padding:30px 0 36px; margin-top:24px; gap:24px}
+  .hero-low p{font-size:17.5px}
+  .hero-low .cta .btn{flex:1 1 100%}
+  .stats div, .stats div+div{padding:20px 12px 20px 0}
+  .stats div:nth-child(2n){padding-left:14px}
+  .stats b{font-size:26px}
+  .stats span{font-size:14.5px}
+  section{padding:72px 0}
+  .sh{margin-bottom:36px}
+  .lot{grid-template-columns:1fr auto; gap:16px; padding:26px 0}
+  .lot .n{grid-column:1/-1}
+  .lot > div:nth-child(2){grid-column:1/-1}
+  .lot .spec{grid-column:1/2}
+  .lot .dial{grid-column:2; grid-row:3}
+  .dial svg{width:96px; height:96px}
+  .lot .notes{grid-column:1/-1}
+  .lot .pr{grid-column:1/-1; text-align:left; display:flex; justify-content:space-between; align-items:baseline; border-top:1px dashed var(--line); padding-top:14px}
+  .tabs{width:100%}
+  .tabs button{flex:1; padding:0 6px; font-size:12px; letter-spacing:.04em}
+  .grp li b{font-size:17.5px}
+  .v-info{padding:24px 18px}
+  .v-info .addr{font-size:23px}
+  .hrs b{font-size:23px}
+  .v-cta .btn{flex:1 1 100%}
+  form{padding:24px 18px}
+  .fs{grid-template-columns:1fr}
+  .ok h3{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important} html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="demo" role="note">Демо-концепт · данные вымышлены</div>
+  <div class="wrap bar">
+    <a class="logo" href="#" aria-label="Бурый Сорт — наверх">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#ff7b39"/><g transform="translate(20 20) rotate(30)"><ellipse rx="8" ry="12" fill="#171310"/><path d="M1 -11C-5 -4 5 3 -1 11" fill="none" stroke="#ff7b39" stroke-width="2.4" stroke-linecap="round"/></g></svg>
+      Бурый Сорт
+    </a>
+    <nav class="nav" aria-label="Разделы"><a href="#beans">Зерно</a><a href="#menu">Меню</a><a href="#visit">Адрес</a><a href="#book">Бронь</a></nav>
+    <a class="btn line ico js-phone" href="tel:+79000000000" aria-label="Позвонить"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6.6 3.5h-2a1.5 1.5 0 0 0-1.5 1.6C3.6 13.3 10.7 20.4 18.9 21a1.5 1.5 0 0 0 1.6-1.5v-2.1a1 1 0 0 0-.7-1l-3.3-1.1a1 1 0 0 0-1 .3l-1.4 1.6a12.4 12.4 0 0 1-6.3-6.3l1.6-1.4a1 1 0 0 0 .3-1L8.6 4.2a1 1 0 0 0-1-.7z"/></svg></a>
+    <a class="btn" href="#book" data-book>Забронировать столик</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-bottom:0" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-top">
+      <span class="lab">Фильтр-бар и обжарка · Новосибирск</span>
+      <span class="status js-status" aria-live="polite"><i></i><span>Проверяем часы…</span></span>
+    </div>
+    <h1 class="big" id="h1" aria-label="Бурый Сорт">
+      <span>Бурый</span>
+      <span class="l2"><em>Сорт</em>
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <path id="circ" d="M100 14a86 86 0 1 1 0 172a86 86 0 1 1 0-172"/>
+              <radialGradient id="crema" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#e7a46a"/><stop offset=".55" stop-color="#b8662f"/><stop offset="1" stop-color="#5b2a12"/></radialGradient>
+            </defs>
+            <g class="spin"><text font-family="JetBrains Mono, monospace" font-size="13.4" font-weight="500" letter-spacing="3.1" fill="#f2e9dd"><textPath href="#circ">ОБЖАРИВАЕМ САМИ · ФИЛЬТР · МОНО-СОРТА · </textPath></text></g>
+            <circle cx="100" cy="100" r="66" fill="#f2e9dd"/>
+            <circle cx="100" cy="100" r="66" fill="none" stroke="#171310" stroke-width="2"/>
+            <circle cx="100" cy="100" r="50" fill="#171310"/>
+            <circle cx="100" cy="100" r="45" fill="url(#crema)"/>
+            <path d="M100 66c-12 8-14 20-6 28s6 18-6 26M112 70c-8 8-8 16-2 22" fill="none" stroke="#f4cfa4" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+            <path d="M162 92h14a10 10 0 0 1 0 20h-14" fill="none" stroke="#f2e9dd" stroke-width="9"/>
+          </svg>
+        </span>
+      </span>
+    </h1>
+    <div class="hero-low">
+      <p>Фильтр, эспрессо и&nbsp;четыре моно-сорта своей обжарки. Зал на&nbsp;20&nbsp;мест в&nbsp;семи минутах от&nbsp;метро «Площадь Ленина».</p>
+      <div class="cta">
+        <a class="btn" href="#book" data-book>Забронировать столик</a>
+        <a class="btn line" href="#menu">Меню и цены</a>
+      </div>
+    </div>
+    <div class="stats">
+      <div><b>04</b><span>моно-сорта на витрине, меняем по урожаю</span></div>
+      <div><b>ЧТ</b><span>обжариваем каждый четверг малыми партиями</span></div>
+      <div><b>20<small>мест</small></b><span>зал, барная стойка и стол у окна</span></div>
+      <div><b>7<small>мин</small></b><span>пешком от метро «Площадь Ленина»</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="beans" aria-labelledby="h-beans">
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="lab">01 / Зерно</span><h2 id="h-beans">Моно-<span class="o">сорта</span></h2></div>
+      <p>Одна страна, одна ферма, свой профиль вкуса. Диаграмма справа — кислотность, сладость и плотность по шкале от 1 до 5. Пачка 250 г, молем бесплатно.</p>
+    </div>
+    <div class="lots js-beans"></div>
+  </div>
+</section>
+
+<section class="menu" id="menu" aria-labelledby="h-menu">
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="lab">02 / Бар</span><h2 id="h-menu">Меню <span class="o">бара</span></h2></div>
+      <p>Цены в рублях. Молоко коровье 3,2 % или овсяное. Кофе в свою кружку — на 20 ₽ дешевле.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#3b322b"/></pattern>
+            <linearGradient id="brew" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c46a32"/><stop offset="1" stop-color="#4a210d"/></linearGradient>
+            <clipPath id="srv"><path d="M128 330h144c26 18 34 54 26 84-6 22-30 34-98 34s-92-12-98-34c-8-30 0-66 26-84z"/></clipPath>
+          </defs>
+          <rect width="400" height="500" fill="url(#dots)"/>
+          <circle cx="200" cy="250" r="168" fill="none" stroke="#ff7b39" stroke-width="1.2" stroke-dasharray="3 7"/>
+          <circle cx="200" cy="250" r="128" fill="#2e2620"/>
+          <!-- подставка -->
+          <path d="M96 470V120M304 470V120" stroke="#5b4e44" stroke-width="6" stroke-linecap="round"/>
+          <path d="M78 470h244" stroke="#f2e9dd" stroke-width="3"/>
+          <rect x="88" y="214" width="224" height="14" fill="#5b4e44"/>
+          <!-- воронка -->
+          <path d="M118 150h164l-46 64h-72z" fill="#f2e9dd"/>
+          <path d="M140 150l26 64M170 150l12 64M200 150v64M230 150l-12 64M260 150l-26 64" stroke="#c9b9a5" stroke-width="2"/>
+          <path d="M118 150h164" stroke="#171310" stroke-width="3"/>
+          <ellipse cx="200" cy="150" rx="82" ry="10" fill="#4a210d"/>
+          <path d="M126 150l-6-20 14 10 12-16 12 14 14-18 12 16 14-18 12 16 14-16 12 16 12-10-4 26" fill="none" stroke="#f2e9dd" stroke-width="2.4" stroke-linejoin="round"/>
+          <rect x="182" y="214" width="36" height="12" fill="#f2e9dd"/>
+          <!-- капли -->
+          <path d="M200 240v26" stroke="#c46a32" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 9"/>
+          <!-- сервер -->
+          <g clip-path="url(#srv)"><rect x="90" y="388" width="220" height="70" fill="url(#brew)"/><path d="M90 388q30 -8 60 0t60 0t60 0t40 0" fill="none" stroke="#e8955a" stroke-width="2"/></g>
+          <path d="M128 330h144c26 18 34 54 26 84-6 22-30 34-98 34s-92-12-98-34c-8-30 0-66 26-84z" fill="none" stroke="#f2e9dd" stroke-width="3"/>
+          <path d="M138 330h124v-12H138z" fill="#ff7b39"/>
+          <path d="M120 372c-6 16-6 32-2 44" stroke="#f2e9dd" stroke-width="4" stroke-linecap="round" opacity=".5"/>
+          <!-- чайник -->
+          <path d="M398 40c-44 6-74 24-96 58" fill="none" stroke="#f2e9dd" stroke-width="10" stroke-linecap="round"/>
+          <path d="M302 98c-16 18-48 32-90 44" fill="none" stroke="#c46a32" stroke-width="3" stroke-linecap="round"/>
+          <!-- зёрна -->
+          <g fill="#ff7b39"><ellipse cx="60" cy="440" rx="9" ry="13" transform="rotate(-30 60 440)"/><ellipse cx="344" cy="452" rx="9" ry="13" transform="rotate(40 344 452)"/><ellipse cx="40" cy="70" rx="7" ry="10" transform="rotate(20 40 70)"/></g>
+          <g fill="none" stroke="#171310" stroke-width="2"><path d="M64 429c-8 6 0 14-8 22"/><path d="M337 443c8 4 0 14 10 18"/></g>
+          <text x="24" y="482" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#8a7a6c">ВОРОНКА · 15 Г · 250 МЛ · 3:00</text>
+        </svg>
+      </div>
+      <div>
+        <div class="tabs" role="tablist" aria-label="Разделы меню"></div>
+        <div class="js-menu"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="h-visit">
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="lab">03 / Как дойти</span><h2 id="h-visit">7 минут <span class="o">от метро</span></h2></div>
+      <p>Из метро «Площадь Ленина» — по Красному проспекту и направо. Вход с улицы, дверь с оранжевым зерном. Есть пандус.</p>
+    </div>
+    <div class="v-grid">
+      <figure class="map">
+        <svg class="js-map" viewBox="0 0 640 520" role="img" aria-label="Схема: от метро Площадь Ленина на север по Красному проспекту около 300 метров, затем направо на улицу Обжарочную 150 метров до кофейни">
+          <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0v20" fill="none" stroke="#231d19" stroke-width="1"/></pattern></defs>
+          <rect width="640" height="520" fill="#171310"/>
+          <rect width="640" height="520" fill="url(#grid)"/>
+          <g fill="#241e1a" stroke="#352d27">
+            <rect x="24" y="24" width="196" height="120" rx="2"/><rect x="24" y="176" width="196" height="132"/><rect x="304" y="24" width="140" height="120"/><rect x="476" y="24" width="140" height="120"/>
+            <rect x="304" y="176" width="312" height="132"/><rect x="476" y="340" width="140" height="156"/>
+          </g>
+          <rect x="24" y="340" width="196" height="156" fill="#1f2a1d" stroke="#2f3e2b"/>
+          <g fill="#2f3e2b"><circle cx="58" cy="374" r="10"/><circle cx="90" cy="390" r="7"/><circle cx="186" cy="372" r="10"/><circle cx="64" cy="458" r="9"/><circle cx="190" cy="462" r="8"/></g>
+          <rect x="304" y="340" width="140" height="156" fill="#2a221c" stroke="#3d332b"/>
+          <text x="374" y="414" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="1.6" fill="#a99886">ПЛОЩАДЬ</text>
+          <text x="374" y="432" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="1.6" fill="#a99886">ЛЕНИНА</text>
+          <g fill="#3a3029"><rect x="236" y="0" width="52" height="520"/><rect x="0" y="152" width="640" height="16"/><rect x="0" y="316" width="640" height="16"/></g>
+          <text transform="translate(268 130) rotate(-90)" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="2" fill="#cdbca8">КРАСНЫЙ ПР.</text>
+          <text x="478" y="164.5" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.4" fill="#cdbca8">УЛ. ОБЖАРОЧНАЯ</text>
+          <path d="M262 404V160h150" fill="none" stroke="#ff7b39" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M262 404V160h150" fill="none" stroke="#171310" stroke-width="1.5" stroke-dasharray="4 8"/>
+          <g font-family="JetBrains Mono, monospace" font-size="12" font-weight="500">
+            <rect x="150" y="240" width="76" height="26" fill="#ff7b39"/><text x="188" y="257.5" text-anchor="middle" fill="#171310">300 м</text>
+            <rect x="300" y="114" width="76" height="26" fill="#ff7b39"/><text x="338" y="131.5" text-anchor="middle" fill="#171310">150 м</text>
+          </g>
+          <g transform="translate(262 412)"><circle r="21" fill="#e2322b"/><text y="7.5" text-anchor="middle" font-family="Unbounded, Arial, sans-serif" font-weight="700" font-size="19" fill="#fff">М</text></g>
+          <g transform="translate(424 160)"><rect x="-20" y="-20" width="40" height="40" fill="#ff7b39"/><g transform="rotate(30)"><ellipse rx="8" ry="12" fill="#171310"/><path d="M1 -11C-5 -4 5 3 -1 11" fill="none" stroke="#ff7b39" stroke-width="2.4"/></g></g>
+          <text x="452" y="94" font-family="Unbounded, Arial, sans-serif" font-weight="700" font-size="17" fill="#f2e9dd">БУРЫЙ СОРТ</text>
+          <text x="452" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#a99886">ул. Обжарочная, 7</text>
+          <g transform="translate(596 480)" font-family="JetBrains Mono, monospace" font-size="11" fill="#a99886"><path d="M0 -16l6 16H-6z" fill="#f2e9dd"/><text y="16" text-anchor="middle">С</text></g>
+        </svg>
+        <figcaption>Схема условная · ≈ 450 м</figcaption>
+      </figure>
+      <div class="v-info">
+        <span class="lab">Адрес</span>
+        <p class="addr">ул. Обжарочная, 7</p>
+        <span>Новосибирск · первый этаж, вход с улицы</span>
+        <ol class="steps">
+          <li>Выход из метро «Площадь Ленина» на Красный проспект.</li>
+          <li>По проспекту прочь от площади ≈ 300 м до перекрёстка.</li>
+          <li>Направо на ул. Обжарочную, через 150 м — мы.</li>
+        </ol>
+        <div class="hrs js-hours"></div>
+        <div class="v-cta">
+          <a class="btn js-phone" href="tel:+79000000000"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6.6 3.5h-2a1.5 1.5 0 0 0-1.5 1.6C3.6 13.3 10.7 20.4 18.9 21a1.5 1.5 0 0 0 1.6-1.5v-2.1a1 1 0 0 0-.7-1l-3.3-1.1a1 1 0 0 0-1 .3l-1.4 1.6a12.4 12.4 0 0 1-6.3-6.3l1.6-1.4a1 1 0 0 0 .3-1L8.6 4.2a1 1 0 0 0-1-.7z"/></svg>Позвонить</a>
+          <a class="btn line" href="#book" data-book>Забронировать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book" aria-labelledby="h-book">
+  <div class="wrap book-grid">
+    <div>
+      <span class="lab" style="color:var(--acc)">04 / Бронь</span>
+      <h2 id="h-book" style="margin-top:18px">Стол <span class="o">за вами</span></h2>
+      <p class="lead">Оставьте заявку — бариста перезвонит в течение 15 минут в часы работы и подтвердит бронь.</p>
+      <ul class="rules">
+        <li>Держим столик 15 минут после назначенного времени</li>
+        <li>Компания больше 8 человек — звоните, сдвинем столы</li>
+        <li>Без предоплаты и депозита</li>
+      </ul>
+    </div>
+    <form class="js-form" novalidate>
+      <div class="fs">
+        <div class="f"><label for="name">Имя</label><input id="name" name="name" autocomplete="given-name" placeholder="Как вас зовут" aria-describedby="e-name"><div class="err" id="e-name"></div></div>
+        <div class="f"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" aria-describedby="e-phone"><div class="err" id="e-phone"></div></div>
+        <div class="f"><label for="date">Дата</label><input id="date" name="date" type="date" aria-describedby="e-date"><div class="err" id="e-date"></div></div>
+        <div class="f"><label for="time">Время</label><select id="time" name="time" aria-describedby="e-time"><option value="">Сначала дата</option></select><div class="err" id="e-time"></div></div>
+        <div class="f w"><label for="guests">Гостей</label><select id="guests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select><div class="err"></div></div>
+      </div>
+      <button class="btn" type="submit">Забронировать столик</button>
+      <p class="fine">Перезвоним только по этой заявке, без рассылок.</p>
+      <div class="ok" role="status" aria-live="polite" tabindex="-1">
+        <span class="lab" style="color:var(--acc)">Заявка принята</span>
+        <h3>Спасибо!</h3>
+        <p class="js-summary"></p>
+        <p class="dm"><strong>Демо:</strong> заявка никуда не уходит, в рабочей версии придёт вам на почту и в Telegram.</p>
+        <button class="btn line" type="button" data-again>Новая заявка</button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fbig" aria-hidden="true">Бурый Сорт</div>
+    <div class="frow">
+      <span>Новосибирск, ул. Обжарочная, 7</span>
+      <a class="js-phone js-ptext" href="tel:+79000000000">+7 (900) 000-00-00</a>
+      <span class="lab">Демо-концепт · данные вымышлены</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s) => document.querySelectorAll(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const rub = (n) => n.toLocaleString("ru-RU").replace(/ /g, " ") + " ₽";
+  const roastName = ["", "светлая", "средняя", "тёмная"];
+
+  /* диаграмма вкуса: три луча по шкале 1–5 */
+  const dial = (b) => {
+    const ax = [["кисл.", b.acid, -90], ["слад.", b.sweet, 30], ["плотн.", b.body, 150]];
+    const pt = (v, a) => { const r = 12 + v * 7.4, t = a * Math.PI / 180; return [55 + r * Math.cos(t), 55 + r * Math.sin(t)]; };
+    const rings = [1, 2, 3, 4, 5].map(v => `<circle cx="55" cy="55" r="${12 + v * 7.4}" fill="none" stroke="#342c26"/>`).join("");
+    const poly = ax.map(([, v, a]) => pt(v, a).join(",")).join(" ");
+    const lbl = ax.map(([n, , a]) => { const [x, y] = pt(5.9, a); return `<text x="${x}" y="${y + 3}" text-anchor="middle" font-size="10" fill="#b4a596" font-family="JetBrains Mono, monospace">${n}</text>`; }).join("");
+    return `<svg viewBox="-16 -10 142 132" role="img" aria-label="Кислотность ${b.acid}, сладость ${b.sweet}, плотность ${b.body} из 5">${rings}<polygon points="${poly}" fill="rgba(255,123,57,.28)" stroke="#ff7b39" stroke-width="2" stroke-linejoin="round"/>${ax.map(([, v, a]) => { const [x, y] = pt(v, a); return `<circle cx="${x}" cy="${y}" r="3.2" fill="#ff7b39"/>`; }).join("")}${lbl}</svg>`;
+  };
+  $(".js-beans").innerHTML = MENU.beans.map((b, k) => `
+    <article class="lot">
+      <span class="n">№ ${String(k + 1).padStart(2, "0")}</span>
+      <div><h3>${esc(b.country)}</h3><div class="sub">${esc(b.name)}${b.region !== b.name ? " · " + esc(b.region) : ""}</div></div>
+      <dl class="spec">
+        <dt>Высота</dt><dd>${esc(b.altitude)}</dd>
+        <dt>Обработка</dt><dd>${esc(b.process)}</dd>
+        <dt>Обжарка</dt><dd><span class="rs" aria-hidden="true">${[1, 2, 3].map(i => `<i class="${i <= b.roast ? "on" : ""}"></i>`).join("")}</span>${roastName[b.roast]}</dd>
+      </dl>
+      <div class="notes">${esc(b.notes)}</div>
+      <div class="dial">${dial(b)}</div>
+      <div class="pr"><span>250 г</span><b>${rub(b.price)}</b></div>
+    </article>`).join("");
+
+  /* меню + вкладки */
+  const tabs = $(".tabs"), menu = $(".js-menu");
+  menu.innerHTML = MENU.bar.map((g, i) => `
+    <div class="grp" data-g="${i}" role="tabpanel">
+      <h3>${esc(g.group)} <span>${g.items.length} поз.</span></h3>
+      <ul>${g.items.map(it => `<li><b>${esc(it.name)}</b>${it.note ? `<small>${esc(it.note)}</small>` : ""}<em>${rub(it.price)}</em></li>`).join("")}</ul>
+    </div>`).join("");
+  const names = ["Всё", ...MENU.bar.map(g => g.group)];
+  tabs.innerHTML = names.map((n, i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-t="${i - 1}">${esc(n)}</button>`).join("");
+  tabs.addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    tabs.querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
+    const t = +b.dataset.t;
+    menu.querySelectorAll(".grp").forEach(g => g.hidden = t >= 0 && +g.dataset.g !== t);
+  });
+
+  /* на телефоне схема крупнее: только район маршрута */
+  if (matchMedia("(max-width:620px)").matches) $(".js-map").setAttribute("viewBox", "136 60 470 420");
+
+  /* телефон */
+  $$(".js-phone").forEach(a => a.href = PHONE.href);
+  $$(".js-ptext").forEach(a => a.textContent = PHONE.text);
+
+  /* часы и статус — время Новосибирска (UTC+7) */
+  const nsk = () => new Date(Date.now() + 7 * 3600e3);
+  const dow = (d) => d.getUTCDay() || 7;
+  const forDay = (n) => HOURS.find(h => h.days.includes(n));
+  const now = nsk(), today = dow(now), hr = now.getUTCHours() + now.getUTCMinutes() / 60, t = forDay(today);
+  const pad = (h) => String(h).padStart(2, "0");
+  $(".js-hours").innerHTML = HOURS.map(h => `<div class="${h.days.includes(today) ? "today" : ""}"><span class="lab">${esc(h.label)}</span><b>${pad(h.open)}—${h.close}</b></div>`).join("");
+  const st = $(".js-status");
+  if (t && hr >= t.open && hr < t.close) st.lastElementChild.textContent = `Открыто сейчас · до ${t.close}:00`;
+  else { st.classList.add("closed"); const nx = hr < t.open ? t : forDay(today % 7 + 1); st.lastElementChild.textContent = `Закрыто · откроемся ${nx === t ? "сегодня" : "завтра"} в ${pad(nx.open)}:00`; }
+
+  /* бронь */
+  const f = $(".js-form"), name = $("#name"), phone = $("#phone"), date = $("#date"), time = $("#time");
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const minD = iso(now), maxD = iso(new Date(now.getTime() + 30 * 864e5));
+  date.min = minD; date.max = maxD;
+  $$("[data-book]").forEach(a => a.addEventListener("click", () => setTimeout(() => name.focus({ preventScroll: true }), 450)));
+  phone.addEventListener("input", () => {
+    let d = phone.value.replace(/\D/g, "");
+    if (d[0] === "8") d = "7" + d.slice(1);
+    if (d && d[0] !== "7") d = "7" + d;
+    d = d.slice(0, 11);
+    const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+    phone.value = !d ? "" : "+7" + (p[0] ? ` (${p[0]}` : "") + (p[1] ? `) ${p[1]}` : "") + (p[2] ? `-${p[2]}` : "") + (p[3] ? `-${p[3]}` : "");
+  });
+  date.addEventListener("change", () => {
+    time.innerHTML = '<option value="">Выберите время</option>';
+    if (!date.value) return;
+    const h = forDay(dow(new Date(date.value + "T00:00:00Z"))), isToday = date.value === minD;
+    for (let m = h.open * 60; m <= (h.close - 1) * 60; m += 30) {
+      if (isToday && m < hr * 60 + 30) continue;
+      time.insertAdjacentHTML("beforeend", `<option>${Math.floor(m / 60)}:${m % 60 ? "30" : "00"}</option>`);
+    }
+    if (time.options.length === 1) time.innerHTML = '<option value="">На сегодня мест уже нет</option>';
+    check(date);
+  });
+  const rules = {
+    name: () => name.value.trim().length < 2 ? "Напишите имя — хотя бы две буквы." : /\d/.test(name.value) ? "В имени не должно быть цифр." : "",
+    phone: () => phone.value.replace(/\D/g, "").length !== 11 ? "Нужен номер целиком: +7 и ещё 10 цифр." : "",
+    date: () => !date.value ? "Выберите дату." : (date.value < minD || date.value > maxD) ? "Бронируем на ближайшие 30 дней." : "",
+    time: () => !time.value ? "Выберите время." : ""
+  };
+  const els = [name, phone, date, time];
+  function check(el) { const m = rules[el.name](); el.setAttribute("aria-invalid", m ? "true" : "false"); $("#e-" + el.name).textContent = m; return !m; }
+  els.forEach(el => el.addEventListener("blur", () => el.value && check(el)));
+  f.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const bad = els.filter(el => !check(el));
+    if (bad.length) { bad[0].focus(); return; }
+    const g = +$("#guests").value;
+    const d = new Date(date.value + "T00:00:00Z").toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long", timeZone: "UTC" });
+    $(".js-summary").textContent = `${name.value.trim()}, столик на ${g} ${g === 1 ? "гостя" : "гостей"} — ${d}, ${time.value}. Перезвоним на ${phone.value}.`;
+    f.classList.add("sent"); $(".ok").focus();
+  });
+  $("[data-again]").addEventListener("click", () => { f.reset(); time.innerHTML = '<option value="">Сначала дата</option>'; f.classList.remove("sent"); name.focus(); });
+})();
+</script>
+</body>
+</html>
