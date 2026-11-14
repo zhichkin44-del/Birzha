@@ -1,0 +1,42 @@
+[
+  {
+    "id": "fl-1111111", "channel": "fl", "source": "test/fixtures/fl.synthetic.html (первый заказ ленты)",
+    "url": "https://www.fl.ru/projects/1111111/lending-dlya-kofeyni.html",
+    "title": "Лендинг для кофейни", "text": "Нужен лендинг для кофейни на Tilda",
+    "budget": 8000, "answers": 5, "age_hours": 2, "deadline_days": null,
+    "collected_at": "2026-11-14T10:00:00+07:00",
+    "verdict": "берём", "rule": null, "reason": "R1–R7 пройдены", "flags": []
+  },
+  {
+    "id": "syn-bot-1", "channel": "fl", "source": "синтетический заказ (в ленте 13.11 бота нет, см. SCENARIOS.md P2); в названии нарочно слова про ИИ",
+    "url": "https://example.invalid/syn-bot-1",
+    "title": "Telegram-бот с ИИ для записи клиентов", "text": "Нужен Telegram-бот для записи клиентов, заявки складывать в таблицу",
+    "budget": 7000, "answers": 4, "age_hours": 5, "deadline_days": 7,
+    "collected_at": "2026-11-14T11:00:00+07:00",
+    "verdict": "берём", "rule": null, "reason": "R1–R7 пройдены", "flags": []
+  },
+  {
+    "id": "syn-auto-1", "channel": "fl", "source": "синтетический заказ; бюджет — вилка",
+    "url": "https://example.invalid/syn-auto-1",
+    "title": "Автоматизация выгрузки цен в таблицу", "text": "Нужно каждый день собирать цены с сайта конкурента в таблицу",
+    "budget": { "min": 4000, "max": 6000 }, "answers": 9, "age_hours": 6, "deadline_days": 3,
+    "collected_at": "2026-11-14T11:00:00+07:00",
+    "verdict": "берём", "rule": null, "reason": "R1–R7 пройдены", "flags": []
+  },
+  {
+    "id": "syn-fix-1", "channel": "fl", "source": "синтетический заказ; без бюджета, собран до 10:00 UTC+7",
+    "url": "https://example.invalid/syn-fix-1",
+    "title": "Поправить вёрстку на сайте", "text": "Съехала вёрстка на мобильном, нужно поправить сайт на WordPress",
+    "budget": null, "answers": 2, "age_hours": 1, "deadline_days": null,
+    "collected_at": "2026-11-14T06:00:00+07:00",
+    "verdict": "берём", "rule": null, "reason": "R1–R7 пройдены", "flags": ["нет_бюджета", "отвечать_с_10:00"]
+  },
+  {
+    "id": "fl-2222222", "channel": "fl", "source": "test/fixtures/fl.synthetic.html (второй заказ ленты): вердикт «нет», пакет не собирается",
+    "url": "https://www.fl.ru/projects/2222222/sayt-dlya-otelya.html",
+    "title": "Сайт для отеля", "text": "Сайт для отеля",
+    "budget": null, "answers": 79, "age_hours": 24, "deadline_days": null,
+    "collected_at": "2026-11-14T10:00:00+07:00",
+    "verdict": "нет", "rule": "R4", "reason": "R4: 79 откликов при пороге 30, возраст 24 ч", "flags": []
+  }
+]

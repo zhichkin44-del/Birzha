@@ -1,3 +1,4 @@
-# Сборка витрины пишет LF; на Windows с autocrlf страница иначе выходит CRLF и тест «совпадает с site/index.html» падает (сверка 14.11)
+# Сборка витрины и откликов пишет LF; на Windows с autocrlf файлы иначе выходят CRLF и тесты «совпадает со сборкой» падают (сверки 14.11)
 site/*.html text eol=lf
 site/*.css text eol=lf
+docs/replies/*.md text eol=lf

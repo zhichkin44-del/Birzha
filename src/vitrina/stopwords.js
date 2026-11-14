@@ -2,6 +2,9 @@
 // Ищем по началу слова, без учёта регистра; «ии» — только целым словом.
 export const STOPWORDS = [
   'ии',
+  'ai',
+  'chatgpt',
+  'openai',
   'нейросет',
   'искусственн',
   'gpt',
@@ -12,7 +15,7 @@ export const STOPWORDS = [
   'ace-step',
 ];
 
-const WHOLE = new Set(['ии']);
+const WHOLE = new Set(['ии', 'ai']); // сверка 14.11: «AI» и «ChatGPT» не ловились
 const L = '\\p{L}\\p{N}';
 
 export function findStopwords(text) {

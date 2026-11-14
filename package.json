@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node --test \"test/**/*.test.js\"",
     "check": "node --test \"test/**/*.test.js\"",
-    "radar": "node src/radar/cli.js"
+    "radar": "node src/radar/cli.js",
+    "replies": "node src/replies/build.js"
   }
 }
