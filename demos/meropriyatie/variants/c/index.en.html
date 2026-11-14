@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Block: Cities for People — Urbanism Forum, March 21, 2027</title>
+<meta name="description" content="A one-day urbanism forum on courtyards, transit and public space. March 21, 2027, Foundry Hall 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{
+  --paper:#FAF5EA; --paper2:#F0E8D6; --ink:#1F2A37; --mute:#4F5A68; --line:#E2D9C6;
+  --sky:#D6E7F4; --blue:#2F5DA8; --blue-d:#24497F; --yellow:#F4C54A; --brick:#D9633F; --brick-ink:#B4482A; --green:#2E7D5B;
+  --r:24px; --pad:clamp(20px,4.4vw,56px); --max:1280px;
+  --fd:"Unbounded","Arial Black",system-ui,sans-serif; --fb:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--fb)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--fd);letter-spacing:-.02em;margin:0}
+
+.demo{background:var(--ink);color:#fff;font-size:14px;font-weight:600}
+.demo .wrap{display:flex;align-items:center;gap:10px;min-height:40px}
+.demo svg{flex:none}
+
+.top{background:var(--sky)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:84px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--fd);font-weight:700;font-size:20px}
+.nav{display:flex;gap:4px}
+.nav a{text-decoration:none;font-weight:600;font-size:15px;padding:10px 14px;border-radius:999px}
+.nav a:hover{background:rgba(255,255,255,.7)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);font:800 16px var(--fb);text-decoration:none;cursor:pointer;transition:transform .15s, box-shadow .15s;box-shadow:0 4px 0 var(--ink)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn.ghost{background:#fff}
+
+
+.hero{background:var(--sky);position:relative;overflow:hidden}
+.hero-top{display:grid;grid-template-columns:1.4fr .6fr;gap:40px;align-items:start;padding-top:clamp(20px,3vw,40px)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:6px 16px;font-weight:700;font-size:15px}
+.badge i{width:10px;height:10px;border-radius:50%;background:var(--green)}
+.hero h1{font-size:clamp(60px,11.4vw,156px);font-weight:800;line-height:1.02;letter-spacing:-.05em;margin:26px 0 0}
+.hero .sub{font-family:var(--fd);font-weight:500;font-size:clamp(22px,2.8vw,38px);line-height:1.3;margin:10px 0 0;letter-spacing:-.02em}
+.hero .sub span{background:var(--yellow);padding:.04em .2em;border-radius:.2em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero p.lead{max-width:32em;margin:28px 0 0;font-size:19px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px;align-items:center}
+.date{background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:22px 24px;box-shadow:0 6px 0 var(--ink);margin-top:64px;color:var(--ink)}
+.date .dd{display:flex;align-items:baseline;gap:14px;font-family:var(--fd);font-weight:800}
+.date .dd b{font-size:76px;line-height:.9;letter-spacing:-.05em}
+.date .dd span{font-size:22px;line-height:1.15}
+.date .meta{margin:14px 0 0;padding-top:14px;border-top:2px dashed var(--line);font-weight:600;font-size:16px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.cd div{background:var(--paper);border-radius:14px;padding:10px 4px 8px;text-align:center}
+.cd b{display:block;font-family:var(--fd);font-weight:700;font-size:24px;line-height:1.1}
+.cd small{font-size:13px;color:var(--mute);font-weight:600}
+.cd-l{margin:16px 0 0;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.city{display:block;width:100%;margin-top:clamp(8px,1vw,24px);position:relative}
+.city-d{height:clamp(400px,40vw,900px)}
+.city-m{display:none}
+.date-m{display:none}
+
+
+.facts{background:var(--ink);color:#fff}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding-top:clamp(36px,4vw,56px);padding-bottom:clamp(36px,4vw,56px)}
+.fact{padding:4px 28px;border-left:1px solid rgba(255,255,255,.22)}
+.fact:first-of-type{border-left:0;padding-left:0}
+.fact b{display:block;font-family:var(--fd);font-weight:800;font-size:clamp(40px,4.6vw,64px);letter-spacing:-.04em;line-height:1;color:var(--yellow)}
+.fact span{display:block;margin-top:10px;font-weight:600;font-size:16px;color:#EDE6D6;max-width:11em}
+
+
+section{scroll-margin-top:16px}
+.sec{padding:clamp(88px,10.5vw,160px) 0 0}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 56px;margin-bottom:clamp(36px,5vw,64px)}
+.head h2{font-size:clamp(36px,5vw,68px);font-weight:800;line-height:1.06;letter-spacing:-.04em}
+.head p{margin:0;max-width:28em;color:var(--mute);font-size:18px}
+.eyebrow{display:block;font-family:var(--fb);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:16px}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);font-size:19px;line-height:1.65}
+.about-grid p{margin:0}
+.themes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:clamp(48px,6vw,88px)}
+.theme{border-radius:var(--r);overflow:hidden;border:2px solid var(--ink);background:#fff}
+.theme svg{display:block;width:100%;height:auto}
+.theme div{padding:20px 24px 26px;border-top:2px solid var(--ink)}
+.theme h3{font-size:22px}
+.theme p{margin:8px 0 0;color:var(--mute);font-size:16px}
+
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{min-height:46px;padding:0 20px;border-radius:999px;border:2px solid var(--ink);background:#fff;font:700 15px var(--fb);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.pill i{width:12px;height:12px;border-radius:50%}
+.pill[aria-pressed="true"]{background:var(--ink);color:#fff}
+.prog{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.it{display:grid;grid-template-columns:120px 1fr 270px;gap:28px;align-items:center;padding:28px 12px;border-bottom:1px solid var(--line);transition:opacity .25s, background .2s}
+.it:hover{background:#fff}
+.it .t small{font:700 13px var(--fb);margin-left:3px;letter-spacing:0}
+.it .t{font-family:var(--fd);font-weight:700;font-size:24px;letter-spacing:-.02em}
+.it h3{font-family:var(--fb);font-weight:700;font-size:20px;line-height:1.32;letter-spacing:0}
+.it .who{display:flex;align-items:center;gap:14px;font-weight:700;font-size:15px;line-height:1.3}
+.it .who small{display:block;font-weight:500;color:var(--mute);font-size:14px}
+.tg{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+.tg::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+.tg.d{--c:var(--green)}.tg.tr{--c:var(--blue)}.tg.op{--c:var(--brick)}
+.it.brk{padding:16px 12px;background:var(--paper2);border-bottom:1px solid var(--paper)}
+.it.brk:hover{background:var(--paper2)}
+.it.brk h3{font-weight:600;color:var(--mute);font-size:17px}
+.it.brk .t{font-size:19px;color:var(--mute)}
+.it.dim{opacity:.22}
+.mini{width:46px;height:46px;flex:none;border-radius:50%;background:var(--sky);display:grid;place-items:center;font:700 14px var(--fd);color:var(--ink)}
+
+
+.spk{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,40px)}
+.sp{background:#fff;border-radius:var(--r);border:2px solid var(--ink);overflow:hidden;transition:transform .2s;display:flex;flex-direction:column}
+.sp:hover{transform:translateY(-4px)}
+.sp svg{display:block;width:100%;height:auto;border-bottom:2px solid var(--ink)}
+.sp .txt{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+.sp h3{font-size:22px;line-height:1.2}
+.sp .role{margin:6px 0 20px;color:var(--mute);font-size:16px}
+.sp .talk{margin:auto 0 0;padding-top:16px;border-top:2px dashed var(--line);font-weight:600;font-size:16px;line-height:1.45;min-height:calc(4.35em + 18px);box-sizing:border-box}
+.sp .talk b{font-family:var(--fd);font-weight:700;color:var(--blue);margin-right:8px}
+
+
+.hall{margin:0 0 clamp(24px,3vw,40px);border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;position:relative;background:#fff}
+.hall img{display:block;width:100%;height:auto;aspect-ratio:1400/630;object-fit:cover}
+.hall figcaption{position:absolute;left:14px;bottom:14px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:700;font-size:14px}
+.place{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,3vw,40px);align-items:start}
+.mapbox{background:#fff;border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;margin:0}
+.mapbox svg{display:block;width:100%;height:auto}
+.route{padding:clamp(4px,1vw,12px) 0}
+.route .addr{font-family:var(--fd);font-weight:700;font-size:clamp(24px,2.2vw,30px);line-height:1.2;margin:0;text-wrap:balance}
+.route .sub{margin:8px 0 28px;color:var(--mute);font-size:18px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);color:var(--ink);font:800 16px var(--fb)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chips span{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:10px}
+.chips i{width:10px;height:10px;border-radius:50%;flex:none}
+
+
+.tix{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,3vw,40px)}
+.ticket{background:var(--yellow);border:2px solid var(--ink);border-radius:var(--r);padding:clamp(28px,3.4vw,48px);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.ticket::before,.ticket::after{content:"";position:absolute;width:40px;height:40px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);top:50%;transform:translateY(-50%)}
+.ticket::before{left:-22px}.ticket::after{right:-22px}
+.ticket .k{font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:14px}
+.ticket .price{font-family:var(--fd);font-weight:800;font-size:clamp(56px,6.4vw,88px);letter-spacing:-.05em;line-height:1;margin:14px 0 22px}
+.ticket ul{margin:0 0 30px;padding:20px 0 0;list-style:none;border-top:2px dashed rgba(31,42,55,.4);display:grid;gap:10px;font-weight:600}
+.ticket ul li::before{content:"✓";display:inline-block;width:26px;font-weight:800}
+.ticket .btn{background:var(--ink);color:#fff;align-self:flex-start;min-height:58px;font-size:18px;box-shadow:0 4px 0 #0c1219}
+.ticket .note{margin:18px 0 0;font-size:15px;font-weight:600;max-width:28em}
+.reg{background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:clamp(28px,3.4vw,48px)}
+.reg h3{font-size:clamp(24px,2.4vw,32px)}
+.reg .intro{margin:10px 0 26px;color:var(--mute)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{margin-bottom:16px}
+.f label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+.f input{width:100%;min-height:54px;padding:0 16px;border:2px solid #CFC6B4;border-radius:14px;background:var(--paper);font:500 17px var(--fb);color:var(--ink)}
+.f input:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(47,93,168,.18)}
+.f input[aria-invalid="true"]{border-color:var(--brick-ink);background:#FFF3EE}
+.err{display:block;color:var(--brick-ink);font-size:14px;font-weight:600;margin-top:5px}
+.err:empty{display:none}
+.agree{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;cursor:pointer;margin:4px 0 6px}
+.agree input{width:24px;height:24px;margin:0;accent-color:var(--blue);flex:none}
+.reg .btn{width:100%;margin-top:16px;min-height:58px;font-size:18px;background:var(--blue);color:#fff}
+.ok{display:none;margin-top:18px;border-radius:16px;background:#E3F0E9;padding:16px 18px;font-size:16px}
+.ok.show{display:flex;gap:12px;align-items:flex-start}
+.ok svg{flex:none}
+
+footer{margin-top:clamp(96px,11vw,160px);background:var(--ink);color:#E9E3D6}
+footer svg{display:block;width:100%;height:auto;background:var(--paper)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:28px;padding-bottom:44px;font-size:15px}
+footer a{color:#fff}
+
+.sticky{display:none}
+
+@media (max-width:1040px){
+  .nav{display:none}
+  .hero-top{grid-template-columns:1fr;gap:0}
+  .date{max-width:440px;margin-top:36px}
+  .facts .wrap{grid-template-columns:1fr 1fr;row-gap:32px}
+  .fact:nth-of-type(3){border-left:0;padding-left:0}
+  .it{grid-template-columns:96px 1fr;gap:10px 20px}
+  .it .who{grid-column:2}
+  .spk{grid-template-columns:1fr 1fr}
+  .place,.tix{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .top .btn{display:none}
+  .top .wrap{min-height:68px}
+  .hero-top{padding-top:12px}
+  .hero h1{font-size:clamp(52px,15vw,72px);margin-top:22px}
+  .hero p.lead{font-size:17px;margin-top:22px}
+  .hero .ctas{margin-top:26px}
+  .hero .ctas .btn{flex:1;white-space:nowrap;padding:0 16px}
+  .date{max-width:none;padding:18px;margin-top:32px}
+  .date .dd b{font-size:60px}
+  .date-d{display:none}
+  .date-m{display:block;grid-column:1/-1;margin:0 0 36px;box-shadow:0 6px 0 var(--yellow);border-color:#fff}
+  .city-d{display:none}
+  .city-m{display:block;width:100%;height:auto;margin-top:34px}
+  .facts .wrap{column-gap:0}
+  .fact{padding:0 16px}
+  .facts .wrap{padding-top:36px}
+  .fact:nth-of-type(odd){padding-left:0}
+  .fact b{font-size:44px}
+  .fact span{font-size:15px}
+  .head{margin-bottom:32px}
+  .about-grid{grid-template-columns:1fr;font-size:17px;gap:18px}
+  .themes{grid-template-columns:1fr;gap:18px}
+  .it{grid-template-columns:1fr;gap:8px;padding:22px 4px}
+  .it .who{grid-column:1;margin-top:6px}
+  .it.brk{display:flex;gap:12px;align-items:baseline;padding:14px 12px}
+  .spk{grid-template-columns:1fr;gap:20px}
+  .sp{display:grid;grid-template-columns:148px 1fr;grid-template-rows:auto 1fr auto}
+  .sp svg{border-bottom:0;border-right:2px solid var(--ink);grid-row:1/3;grid-column:1;height:100%}
+  .sp .txt{display:contents}
+  .sp h3{grid-column:2;grid-row:1;align-self:end;padding:16px 16px 0;font-size:19px}
+  .sp .role{grid-column:2;grid-row:2;align-self:start;margin:6px 0 0;padding:0 16px 16px;font-size:16px}
+  .sp .talk{grid-column:1/-1;grid-row:3;margin:0;min-height:0;padding:16px 18px 20px;border-top:2px solid var(--ink);background:var(--paper)}
+  .row2{grid-template-columns:1fr;gap:0}
+  .ticket::before,.ticket::after{display:none}
+  .lbl{display:none}
+  .sticky{display:flex;position:fixed;left:12px;right:12px;bottom:14px;z-index:30;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:4px 4px 4px 18px;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(31,42,55,.2);transition:transform .25s, opacity .25s;transform:translateY(160%);opacity:0;pointer-events:none}
+  .sticky.on{transform:none;opacity:1;pointer-events:auto}
+  .sticky span{font-size:14px;font-weight:600;line-height:1.2;flex:1}
+  .sticky span b{display:block;font-family:var(--fd);font-size:16px}
+  .sticky .btn{min-height:46px;box-shadow:none;padding:0 20px}
+  footer .wrap{padding-bottom:88px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:no-preference){
+  .bus-d{animation:drive 30s linear infinite;animation-delay:-7s}
+  .bike-d{animation:ride 24s linear infinite;animation-delay:-6.3s}
+  .bus-m{animation:drive-m 20s linear infinite;animation-delay:-5s}
+  .bike-m{animation:ride-m 24s linear infinite;animation-delay:-1.8s}
+  @keyframes drive{from{transform:translateX(-300px)}to{transform:translateX(1340px)}}
+  @keyframes ride{from{transform:translateX(1340px)}to{transform:translateX(-160px)}}
+  @keyframes drive-m{from{transform:translateX(-300px)}to{transform:translateX(460px)}}
+  @keyframes ride-m{from{transform:translateX(470px)}to{transform:translateX(-160px)}}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<pattern id="tex" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><rect width="8" height="1.7" fill="#1F2A37" opacity=".06"/></pattern>
+<linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset=".62" stop-color="#1F2A37" stop-opacity="0"/><stop offset="1" stop-color="#1F2A37" stop-opacity=".18"/></linearGradient>
+<pattern id="wCream" width="28" height="34" patternUnits="userSpaceOnUse"><rect x="7" y="9" width="14" height="17" rx="2" fill="#FBF6EC"/></pattern>
+<pattern id="wSky" width="30" height="34" patternUnits="userSpaceOnUse"><rect x="8" y="9" width="14" height="17" rx="2" fill="#D6E7F4"/></pattern>
+<pattern id="wBal" width="36" height="40" patternUnits="userSpaceOnUse"><rect x="7" y="7" width="16" height="20" rx="2" fill="#BFDCF0" stroke="#1F2A37" stroke-width="1.6"/><rect x="3" y="29" width="30" height="5" fill="#1F2A37"/></pattern>
+<pattern id="wRound" width="26" height="30" patternUnits="userSpaceOnUse"><circle cx="13" cy="15" r="6.5" fill="#FBF6EC" opacity=".9"/></pattern>
+<g id="bA"><rect x="0" y="-230" width="190" height="230" fill="#D9633F"/><rect x="0" y="-230" width="190" height="230" fill="url(#wCream)"/><rect x="-6" y="-242" width="202" height="14" rx="3" fill="#B4482A"/><rect x="0" y="-44" width="190" height="44" fill="#B4482A"/><rect x="74" y="-62" width="42" height="62" rx="4" fill="#1F2A37"/><rect x="68" y="-70" width="54" height="9" rx="3" fill="#F4C54A"/><g fill="#F4C54A"><rect x="35" y="-165" width="14" height="17" rx="2"/><rect x="119" y="-131" width="14" height="17" rx="2"/><rect x="147" y="-199" width="14" height="17" rx="2"/></g></g>
+<g id="bB"><rect x="0" y="-300" width="130" height="300" fill="#2F5DA8"/><rect x="0" y="-300" width="130" height="300" fill="url(#wSky)"/><rect x="-5" y="-310" width="140" height="12" rx="3" fill="#24497F"/><rect x="60" y="-336" width="10" height="28" fill="#1F2A37"/><rect x="0" y="-48" width="130" height="48" fill="#24497F"/><rect x="22" y="-42" width="86" height="42" fill="#D6E7F4" stroke="#1F2A37" stroke-width="2"/><path d="M65 -42V0" stroke="#1F2A37" stroke-width="2"/></g>
+<g id="bC"><rect x="0" y="-210" width="170" height="210" fill="#EFE2CC" stroke="#1F2A37" stroke-width="2.4"/><rect x="0" y="-210" width="170" height="210" fill="url(#wBal)"/><rect x="0" y="-46" width="170" height="46" fill="#EFE2CC" stroke="#1F2A37" stroke-width="2.4"/><rect x="14" y="-38" width="58" height="38" fill="#fff" stroke="#1F2A37" stroke-width="2"/><rect x="82" y="-38" width="74" height="38" fill="#F4C54A" stroke="#1F2A37" stroke-width="2"/></g>
+<g id="bD"><rect x="0" y="-140" width="200" height="140" rx="4" fill="#2E7D5B"/><rect x="0" y="-140" width="200" height="140" fill="url(#wRound)"/><rect x="-4" y="-150" width="208" height="12" rx="3" fill="#256A4C"/><rect x="0" y="-48" width="200" height="48" fill="#256A4C"/><path d="M10 -52H110L102 -38H18Z" fill="#F4C54A"/><path d="M110 -52H190L182 -38H118Z" fill="#FBF6EC"/><rect x="16" y="-36" width="86" height="36" fill="#D6E7F4" stroke="#1F2A37" stroke-width="2"/><rect x="118" y="-36" width="66" height="36" fill="#1F2A37"/></g>
+<g id="bE"><rect x="0" y="-240" width="200" height="240" fill="#F0B79B"/><rect x="0" y="-240" width="200" height="240" fill="url(#wCream)"/><rect x="-6" y="-252" width="212" height="14" rx="3" fill="#C9785A"/><rect x="0" y="-50" width="200" height="50" fill="#C9785A"/><rect x="14" y="-40" width="70" height="40" fill="#F4C54A" stroke="#1F2A37" stroke-width="2"/><rect x="96" y="-40" width="86" height="40" fill="#FBF6EC" stroke="#1F2A37" stroke-width="2"/><path d="M8 -46H92L86 -36H14Z" fill="#D9633F"/></g>
+<g id="tree"><rect x="-6" y="-84" width="12" height="84" fill="#1F2A37"/><circle cx="0" cy="-126" r="48" fill="#2E7D5B"/><circle cx="-34" cy="-98" r="30" fill="#2E7D5B"/><circle cx="34" cy="-104" r="32" fill="#2E7D5B"/><circle cx="26" cy="-118" r="22" fill="#256A4C"/><circle cx="-14" cy="-142" r="18" fill="#3E9A72"/><path d="M0 -60L-16 -86M0 -52L16 -78" stroke="#1F2A37" stroke-width="5" stroke-linecap="round"/></g>
+<g id="pp"><circle cy="-48" r="8.5" fill="#1F2A37"/><rect x="-9" y="-39" width="18" height="39" rx="9" fill="currentColor"/></g>
+<g id="stop"><rect x="0" y="-100" width="132" height="11" rx="3" fill="#F4C54A" stroke="#1F2A37" stroke-width="2.5"/><rect x="8" y="-89" width="5" height="89" fill="#1F2A37"/><rect x="119" y="-89" width="5" height="89" fill="#1F2A37"/><rect x="16" y="-84" width="56" height="48" rx="3" fill="#D6E7F4" stroke="#1F2A37" stroke-width="2"/><path d="M24 -70H62M24 -60H50" stroke="#1F2A37" stroke-width="2.4"/><rect x="78" y="-34" width="38" height="6" rx="2" fill="#1F2A37"/><rect x="82" y="-28" width="4" height="28" fill="#1F2A37"/><rect x="108" y="-28" width="4" height="28" fill="#1F2A37"/><rect x="152" y="-118" width="5" height="118" fill="#1F2A37"/><circle cx="154.5" cy="-128" r="16" fill="#fff" stroke="#1F2A37" stroke-width="3"/><text x="154.5" y="-122" text-anchor="middle" font-family="Unbounded,Arial" font-weight="800" font-size="17" fill="#1F2A37">B</text></g>
+<g id="bus"><rect x="0" y="-94" width="236" height="74" rx="16" fill="#F4C54A" stroke="#1F2A37" stroke-width="3"/><g fill="#D6E7F4" stroke="#1F2A37" stroke-width="2"><rect x="16" y="-80" width="36" height="28" rx="4"/><rect x="60" y="-80" width="36" height="28" rx="4"/><rect x="104" y="-80" width="36" height="28" rx="4"/><rect x="148" y="-80" width="36" height="28" rx="4"/><rect x="194" y="-80" width="30" height="58" rx="4"/></g><rect x="2" y="-44" width="190" height="7" fill="#2F5DA8"/><g fill="#1F2A37"><circle cx="54" cy="-15" r="15"/><circle cx="184" cy="-15" r="15"/></g><g fill="#E9E1CF"><circle cx="54" cy="-15" r="5.5"/><circle cx="184" cy="-15" r="5.5"/></g></g>
+<g id="rider"><circle cx="-34" cy="-20" r="19" fill="#fff" fill-opacity=".55" stroke="#1F2A37" stroke-width="4.6"/><circle cx="34" cy="-20" r="19" fill="#fff" fill-opacity=".55" stroke="#1F2A37" stroke-width="4.6"/><circle cx="-34" cy="-20" r="3.4" fill="#1F2A37"/><circle cx="34" cy="-20" r="3.4" fill="#1F2A37"/><path d="M-34 -20L-10 -50H16L34 -20M-10 -50L0 -20L16 -50M0 -20H-34" stroke="#1F2A37" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-17 -55H-3M16 -50L20 -66H31" stroke="#1F2A37" stroke-width="4.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-8 -58L9 -38L2 -23" stroke="#24407A" stroke-width="8.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-10 -58L15 -80" stroke="#D9633F" stroke-width="15" stroke-linecap="round"/><path d="M13 -78L29 -66" stroke="#D9633F" stroke-width="6.4" stroke-linecap="round"/><path d="M-12 -72C-22 -70 -28 -66 -32 -58" stroke="#F4C54A" stroke-width="4.6" fill="none" stroke-linecap="round"/><circle cx="23" cy="-92" r="9.6" fill="#E9B591"/><path d="M12.6 -93a10.4 10.4 0 0 1 20.8-1.8z" fill="#F4C54A" stroke="#1F2A37" stroke-width="2.2"/></g>
+</defs></svg>
+
+<div class="demo" role="note"><div class="wrap">
+  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="#F4C54A"/><path d="M9 4.5v5.5M9 12.6v.9" stroke="#1F2A37" stroke-width="2" stroke-linecap="round"/></svg>
+  Demo concept · fictional data
+</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="10" fill="#2E7D5B"/><rect x="7" y="13" width="8" height="14" rx="2" fill="#F4C54A"/><rect x="17" y="7" width="10" height="20" rx="2" fill="#fff"/><rect x="20" y="10" width="4" height="3" fill="#2E7D5B"/><rect x="20" y="16" width="4" height="3" fill="#2E7D5B"/></svg>
+      Block
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a><a href="#program">Schedule</a><a href="#speakers">Speakers</a><a href="#place">Getting there</a><a href="#tickets">Students</a>
+    </nav>
+    <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Get tickets ↗</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <span class="badge"><i></i>Urbanism forum · one day</span>
+        <h1 id="h1">Block</h1>
+        <p class="sub"><span>cities for people</span></p>
+        <p class="lead">Courtyards, bus stops, sidewalks and pocket parks: everything within five minutes of your front door. Ten talks from people who have already changed it in their own neighborhoods.</p>
+        <div class="ctas">
+          <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Get tickets ↗</a>
+          <a class="btn ghost" href="#program">Schedule</a>
+        </div>
+      </div>
+      <aside class="date date-d" aria-label="Date and countdown">
+        <div class="dd"><b class="num">21</b><span>March<br>2027</span></div>
+        <p class="meta">Sunday, 10 AM–7 PM<br>Foundry Hall 4, 12 Foundry Lane</p>
+        <p class="cd-l">Starts in</p>
+        <div class="cd">
+          <div><b class="num" data-u="d">—</b><small>days</small></div>
+          <div><b class="num" data-u="h">—</b><small>hours</small></div>
+          <div><b class="num" data-u="m">—</b><small>minutes</small></div>
+          <div><b class="num" data-u="s">—</b><small>seconds</small></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <svg class="city city-d" viewBox="0 0 1280 512" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Illustration: a city block with apartment buildings, a courtyard with trees and a playground, a bus stop, a bike lane with a cyclist, and a bus">
+  <circle cx="1100" cy="170" r="70" fill="#F4C54A"/>
+  <g fill="#fff" opacity=".8"><rect x="470" y="86" width="150" height="26" rx="13"/><rect x="510" y="68" width="76" height="30" rx="15"/><rect x="780" y="120" width="120" height="22" rx="11"/><rect x="810" y="104" width="60" height="26" rx="13"/><rect x="120" y="94" width="110" height="22" rx="11"/><rect x="146" y="78" width="56" height="26" rx="13"/></g>
+  <g fill="#B9D3E8"><rect x="0" y="200" width="110" height="200"/><rect x="330" y="150" width="90" height="250"/><rect x="640" y="130" width="100" height="270"/><rect x="990" y="180" width="120" height="220"/><rect x="1210" y="220" width="70" height="180"/></g>
+  <use href="#bA" transform="translate(-24 400)"/>
+  <use href="#bB" transform="translate(172 400)"/>
+  <rect x="318" y="364" width="394" height="36" rx="6" fill="#CFE8D8"/>
+  <use href="#tree" transform="translate(372 398) scale(1.22)"/>
+  
+  <path d="M470 398V334H540V398" fill="none" stroke="#1F2A37" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M490 334V376M520 334V376" stroke="#1F2A37" stroke-width="2.4"/><rect x="482" y="372" width="16" height="5" fill="#D9633F"/><rect x="512" y="366" width="16" height="5" fill="#2F5DA8"/>
+  <path d="M572 398L604 350H614L604 398" fill="#F4C54A" stroke="#1F2A37" stroke-width="3.5" stroke-linejoin="round"/>
+  <rect x="628" y="372" width="54" height="7" rx="2" fill="#1F2A37"/><rect x="633" y="379" width="5" height="19" fill="#1F2A37"/><rect x="672" y="379" width="5" height="19" fill="#1F2A37"/>
+  <use href="#pp" transform="translate(655 372) scale(0.9)" style="color:#D9633F"/><use href="#pp" transform="translate(440 399) scale(0.95)" style="color:#2F5DA8"/><use href="#pp" transform="translate(462 399) scale(0.62)" style="color:#F4C54A"/>
+  <use href="#bC" transform="translate(710 400)"/>
+  <use href="#tree" transform="translate(690 398) scale(1.45)"/>
+  <use href="#bD" transform="translate(878 400)"/>
+  <use href="#bE" transform="translate(1076 400)"/>
+  
+  <rect x="0" y="400" width="1280" height="12" fill="#E9E1CF"/>
+  <rect x="0" y="412" width="1280" height="30" fill="#A9D6BC"/>
+  <path d="M0 427H1280" stroke="#fff" stroke-width="2.4" stroke-dasharray="16 12"/>
+  <rect x="0" y="442" width="1280" height="70" fill="#1F2A37"/>
+  <path d="M0 480H1280" stroke="#F4C54A" stroke-width="4" stroke-dasharray="30 24"/>
+  
+  <use href="#stop" transform="translate(900 400)"/>
+  <use href="#pp" transform="translate(990 400) scale(1)" style="color:#2E7D5B"/>
+  <g class="bike-d"><g transform="translate(0 436) scale(1.5)"><use href="#rider"/></g></g>
+  <g class="bus-d"><g transform="translate(0 506) scale(.98)"><use href="#bus"/></g></g>
+</svg>
+  <svg class="city city-m" viewBox="0 0 420 460" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+  <circle cx="338" cy="104" r="46" fill="#F4C54A"/>
+  <g fill="#fff" opacity=".8"><rect x="30" y="60" width="110" height="22" rx="11"/><rect x="56" y="44" width="56" height="26" rx="13"/><rect x="200" y="30" width="90" height="20" rx="10"/><rect x="224" y="16" width="44" height="22" rx="11"/></g>
+  <g fill="#B9D3E8"><rect x="0" y="150" width="70" height="200" /><rect x="236" y="110" width="70" height="240"/><rect x="360" y="170" width="60" height="180"/></g>
+  <use href="#bA" transform="translate(-70 350)"/>
+  <use href="#bE" transform="translate(262 350)"/>
+  <use href="#bB" transform="translate(120 350)"/>
+  <rect x="0" y="332" width="420" height="18" fill="#CFE8D8"/>
+  <use href="#tree" transform="translate(88 350) scale(1.05)"/>
+  <use href="#stop" transform="translate(244 350) scale(.9)"/>
+  <use href="#pp" transform="translate(302 350) scale(0.9)" style="color:#2E7D5B"/><use href="#pp" transform="translate(106 350) scale(0.85)" style="color:#2F5DA8"/>
+  <rect x="0" y="350" width="420" height="12" fill="#E9E1CF"/>
+  <rect x="0" y="362" width="420" height="30" fill="#A9D6BC"/>
+  <path d="M0 377H420" stroke="#fff" stroke-width="2.4" stroke-dasharray="16 12"/>
+  <rect x="0" y="392" width="420" height="68" fill="#1F2A37"/>
+  <path d="M0 428H420" stroke="#F4C54A" stroke-width="4" stroke-dasharray="30 24"/>
+  <g class="bike-m"><g transform="translate(0 386) scale(1.4)"><use href="#rider"/></g></g>
+  <g class="bus-m"><g transform="translate(0 456) scale(.9)"><use href="#bus"/></g></g>
+</svg>
+</section>
+<div class="facts">
+  <div class="wrap">
+    <aside class="date date-m" aria-label="Date and countdown">
+      <div class="dd"><b class="num">21</b><span>March<br>2027</span></div>
+      <p class="meta">Sunday, 10 AM–7 PM<br>Foundry Hall 4, 12 Foundry Lane</p>
+      <p class="cd-l">Starts in</p>
+      <div class="cd">
+        <div><b class="num" data-u="d">—</b><small>days</small></div>
+        <div><b class="num" data-u="h">—</b><small>hours</small></div>
+        <div><b class="num" data-u="m">—</b><small>minutes</small></div>
+        <div><b class="num" data-u="s">—</b><small>seconds</small></div>
+      </div>
+    </aside>
+    <div class="fact"><b class="num">10</b><span>talks, 25 minutes each</span></div>
+    <div class="fact"><b class="num">6</b><span>practitioner speakers</span></div>
+    <div class="fact"><b class="num">240</b><span>seats in the hall</span></div>
+    <div class="fact"><b class="num">30</b><span>free seats for students</span></div>
+  </div>
+</div>
+
+
+<section class="sec" id="about" aria-labelledby="h-about">
+  <div class="wrap">
+    <div class="head"><h2 id="h-about"><span class="eyebrow">About the forum</span>A city starts<br>at your front door</h2></div>
+    <div class="about-grid">
+      <p>Block is a one-day forum about what you can see from your window: a courtyard where everyone parks on the grass, a bus stop with no shelter, a sidewalk that shrinks to a narrow path every winter. We skip the master plans and glossy renderings. We care about fixes you can ship in a single season and check with numbers.</p>
+      <p>Our speakers are traffic engineers, landscape architects, tenant-association chairs and researchers: people who have already changed something. Each talk runs 25 minutes, with before-and-after data and an honest look at what went wrong, followed by questions from the room. Attendees get slides and recordings within a week.</p>
+    </div>
+    <div class="themes">
+      <article class="theme">
+        <svg viewBox="0 0 360 170" aria-hidden="true">
+          <rect width="360" height="170" fill="#D6E7F4"/>
+          <rect x="20" y="40" width="90" height="130" fill="#D9633F"/><rect x="250" y="30" width="90" height="140" fill="#2F5DA8"/>
+          <g fill="#FBF6EC"><rect x="34" y="56" width="18" height="18" rx="2"/><rect x="70" y="56" width="18" height="18" rx="2"/><rect x="34" y="90" width="18" height="18" rx="2"/><rect x="70" y="90" width="18" height="18" rx="2"/><rect x="264" y="46" width="18" height="18" rx="2"/><rect x="304" y="46" width="18" height="18" rx="2"/><rect x="264" y="82" width="18" height="18" rx="2"/><rect x="304" y="82" width="18" height="18" rx="2"/></g>
+          <rect x="110" y="140" width="140" height="30" fill="#CFE8D8"/>
+          <circle cx="150" cy="104" r="30" fill="#2E7D5B"/><rect x="147" y="120" width="6" height="30" fill="#1F2A37"/>
+          <rect x="182" y="132" width="44" height="6" rx="2" fill="#1F2A37"/><rect x="186" y="138" width="4" height="12" fill="#1F2A37"/><rect x="218" y="138" width="4" height="12" fill="#1F2A37"/>
+          <circle cx="204" cy="112" r="7" fill="#1F2A37"/><rect x="197" y="120" width="14" height="16" rx="7" fill="#F4C54A"/>
+        </svg>
+        <div><h3>Courtyards</h3><p>Parking, play areas, lighting, snow, and how to get the neighbors on board.</p></div>
+      </article>
+      <article class="theme">
+        <svg viewBox="0 0 360 170" aria-hidden="true">
+          <rect width="360" height="170" fill="#D6E7F4"/>
+          <rect x="0" y="120" width="360" height="14" fill="#2E7D5B"/><rect x="0" y="134" width="360" height="36" fill="#1F2A37"/><path d="M0 152h360" stroke="#F4C54A" stroke-width="3" stroke-dasharray="22 16"/>
+          <rect x="40" y="62" width="120" height="10" rx="3" fill="#F4C54A" stroke="#1F2A37" stroke-width="2"/><rect x="46" y="72" width="4" height="48" fill="#1F2A37"/><rect x="150" y="72" width="4" height="48" fill="#1F2A37"/>
+          <rect x="58" y="78" width="44" height="26" rx="3" fill="#fff" stroke="#1F2A37" stroke-width="2"/><path d="M64 88h30M64 96h20" stroke="#1F2A37" stroke-width="2"/>
+          <rect x="108" y="104" width="36" height="5" rx="2" fill="#1F2A37"/>
+          <rect x="200" y="70" width="140" height="62" rx="12" fill="#F4C54A" stroke="#1F2A37" stroke-width="3"/>
+          <g fill="#fff" stroke="#1F2A37" stroke-width="2"><rect x="212" y="80" width="30" height="22" rx="3"/><rect x="250" y="80" width="30" height="22" rx="3"/><rect x="290" y="80" width="38" height="22" rx="3"/></g>
+          <g fill="#1F2A37"><circle cx="232" cy="134" r="11"/><circle cx="310" cy="134" r="11"/></g>
+        </svg>
+        <div><h3>Transit</h3><p>Bus stops, dedicated lanes, bike networks and sidewalk widths.</p></div>
+      </article>
+      <article class="theme">
+        <svg viewBox="0 0 360 170" aria-hidden="true">
+          <rect width="360" height="170" fill="#D6E7F4"/>
+          <rect x="20" y="30" width="320" height="100" fill="#EFE2CC" stroke="#1F2A37" stroke-width="2"/>
+          <g fill="#F4C54A" stroke="#1F2A37" stroke-width="2"><rect x="36" y="80" width="56" height="50"/><rect x="108" y="80" width="56" height="50" fill="#fff"/><rect x="180" y="80" width="56" height="50"/><rect x="252" y="80" width="72" height="50" fill="#fff"/></g>
+          <path d="M30 74h80l-8 10H38z" fill="#D9633F"/><path d="M174 74h80l-8 10h-64z" fill="#2E7D5B"/>
+          <rect x="0" y="130" width="360" height="40" fill="#E9E1CF"/>
+          <g><circle cx="128" cy="134" r="7" fill="#1F2A37"/><rect x="121" y="142" width="14" height="26" rx="7" fill="#2F5DA8"/></g>
+          <g><circle cx="276" cy="130" r="7" fill="#1F2A37"/><rect x="269" y="138" width="14" height="28" rx="7" fill="#D9633F"/></g>
+          <g><circle cx="294" cy="140" r="5" fill="#1F2A37"/><rect x="289" y="146" width="10" height="18" rx="5" fill="#2E7D5B"/></g>
+        </svg>
+        <div><h3>Public space</h3><p>Ground floors, pocket parks, plazas, and how to tell whether they work.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="program" aria-labelledby="h-prog">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="h-prog"><span class="eyebrow">Schedule · March 21</span>10 talks in one day</h2>
+      <div class="pills" role="group" aria-label="Filter by topic">
+        <button class="pill" type="button" aria-pressed="true" data-f="all">All</button>
+        <button class="pill" type="button" aria-pressed="false" data-f="d"><i style="background:var(--green)"></i>Courtyards</button>
+        <button class="pill" type="button" aria-pressed="false" data-f="tr"><i style="background:var(--blue)"></i>Transit</button>
+        <button class="pill" type="button" aria-pressed="false" data-f="op"><i style="background:var(--brick)"></i>Public space</button>
+      </div>
+    </div>
+    <ol class="prog" id="prog">
+      <li class="it brk"><span class="t num">10:00<small>AM</small></span><h3>Registration, coffee, badges</h3></li>
+      <li class="it" data-k="op"><span class="t num">10:30<small>AM</small></span><div><h3>Five minutes from your door: what we really measure when we talk about “quality of place”</h3><span class="tg op">Public space</span></div><span class="who"><span class="mini" aria-hidden="true">VO</span><span>Vera Olson<small>Walkable Studio</small></span></span></li>
+      <li class="it" data-k="d"><span class="t num">11:00<small>AM</small></span><div><h3>A car-free courtyard in one summer: how 212 apartments agreed, and what went wrong</h3><span class="tg d">Courtyards</span></div><span class="who"><span class="mini" aria-hidden="true">TS</span><span>Tim Sanders<small>Tenants’ association, 14 Garden St.</small></span></span></li>
+      <li class="it" data-k="tr"><span class="t num">11:30<small>AM</small></span><div><h3>The bus stop as a place: shelter, bench, arrival board, and the 40 seconds that decide whether you board</h3><span class="tg tr">Transit</span></div><span class="who"><span class="mini" aria-hidden="true">AG</span><span>Anna Gray<small>transit planner</small></span></span></li>
+      <li class="it" data-k="tr"><span class="t num">12:00<small>PM</small></span><div><h3>A bus lane in 90 days: paint, cameras, angry drivers, and the numbers a year later</h3><span class="tg tr">Transit</span></div><span class="who"><span class="mini" aria-hidden="true">OR</span><span>Owen Ramsey<small>traffic engineer</small></span></span></li>
+      <li class="it brk"><span class="t num">12:30<small>PM</small></span><h3>Lunch: the Hall 4 canteen and the cafés on Foundry Lane</h3></li>
+      <li class="it" data-k="op"><span class="t num">1:30<small>PM</small></span><div><h3>Ground floors: why empty storefronts make a street dark and unsafe</h3><span class="tg op">Public space</span></div><span class="who"><span class="mini" aria-hidden="true">MK</span><span>Mira Kunz<small>architect, researcher</small></span></span></li>
+      <li class="it" data-k="d"><span class="t num">2:00<small>PM</small></span><div><h3>The playground that isn’t from a catalog: 12 courtyards, 3 common mistakes, and how to avoid them</h3><span class="tg d">Courtyards</span></div><span class="who"><span class="mini" aria-hidden="true">DL</span><span>Dana Lewis<small>landscape architect</small></span></span></li>
+      <li class="it" data-k="tr"><span class="t num">2:30<small>PM</small></span><div><h3>A bike lane people actually ride: a network, not fragments from park to park</h3><span class="tg tr">Transit</span></div><span class="who"><span class="mini" aria-hidden="true">RB</span><span>Russ Bell<small>Spokes Collective</small></span></span></li>
+      <li class="it brk"><span class="t num">3:00<small>PM</small></span><h3>Break, coffee</h3></li>
+      <li class="it" data-k="tr"><span class="t num">3:30<small>PM</small></span><div><h3>The 7-foot sidewalk: standards nobody ever checked with a tape measure</h3><span class="tg tr">Transit</span></div><span class="who"><span class="mini" aria-hidden="true">GA</span><span>Glenn Axton<small>street designer</small></span></span></li>
+      <li class="it" data-k="d"><span class="t num">4:00<small>PM</small></span><div><h3>The winter courtyard: snow, darkness at 4:30 p.m., and where to push a stroller five months a year</h3><span class="tg d">Courtyards</span></div><span class="who"><span class="mini" aria-hidden="true">PS</span><span>Polly Sherwood<small>environment researcher</small></span></span></li>
+      <li class="it" data-k="op"><span class="t num">4:30<small>PM</small></span><div><h3>How to count people in a plaza: counters, observation, surveys, and where each method lies</h3><span class="tg op">Public space</span></div><span class="who"><span class="mini" aria-hidden="true">IH</span><span>Ian Hastings<small>urban data analyst</small></span></span></li>
+      <li class="it brk"><span class="t num">5:00<small>PM</small></span><h3>Open discussion, “Who’s responsible for the courtyard?”: residents, property managers, the city</h3></li>
+      <li class="it brk"><span class="t num">6:30<small>PM</small></span><h3>Closing, mingling until 7 PM</h3></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="speakers" aria-labelledby="h-spk">
+  <div class="wrap">
+    <div class="head"><h2 id="h-spk"><span class="eyebrow">Speakers</span>People who’ve done it</h2><p>Practitioners, not theorists: each will talk about a project they carried through themselves, with the budget, the timeline and the mistakes.</p></div>
+    <div class="spk">
+      <article class="sp">
+<svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustrated portrait: Vera Olson">
+<rect width="240" height="280" fill="#F4CDB2"/><circle cx="178" cy="78" r="60" fill="#F4C54A"/><path d="M0 232C60 210 150 214 240 236V280H0Z" fill="#E9B896" opacity=".7"/><rect width="240" height="280" fill="url(#tex)"/>
+<path d="M72 128C64 80 94 60 122 60C152 60 178 80 168 128C166 154 174 176 162 192C150 196 144 188 144 178H96C96 188 90 196 78 192C66 176 74 154 72 128Z" fill="#3E2419"/>
+<path d="M10 280C10 240 48 220 98 210H142C192 220 230 240 230 280Z" fill="#24407A"/>
+<path d="M92 206L120 254L148 206Z" fill="#F6EEE0"/>
+<path d="M98 210L112 256L80 280H34C40 250 66 224 98 210ZM142 210L128 256L160 280H206C200 250 174 224 142 210Z" fill="#1A3160"/>
+<path d="M120 254L112 280H128Z" fill="#E4D7C2"/>
+<path d="M103 164H137V204C134 216 126 221 120 221C114 221 106 216 103 204Z" fill="#EDBE9C"/><path d="M103 164H137V188C128 197 112 197 103 188Z" fill="#C9956F" opacity=".7"/>
+
+<ellipse cx="79" cy="139" rx="6.5" ry="10" fill="#F2C9AA"/><ellipse cx="161" cy="139" rx="6.5" ry="10" fill="#F2C9AA"/>
+<ellipse cx="80" cy="140" rx="2.6" ry="5.5" fill="#D6A07C" opacity=".6"/><ellipse cx="160" cy="140" rx="2.6" ry="5.5" fill="#D6A07C" opacity=".6"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C97 181 79 160 79 131C79 104 93 82 120 82Z" fill="#F2C9AA"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C134 168 143 152 143 131C143 108 135 92 120 82Z" fill="#D6A07C" opacity=".5"/>
+<circle cx="97" cy="153" r="8" fill="#E58A7A" opacity=".22"/><circle cx="143" cy="153" r="8" fill="#E58A7A" opacity=".22"/>
+<path d="M95 125Q104 119 113 123M127 123Q136 119 145 125" stroke="#3E2419" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="104" cy="135" rx="4.4" ry="3.1" fill="#241a17"/><ellipse cx="136" cy="135" rx="4.4" ry="3.1" fill="#241a17"/>
+<circle cx="105.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/><circle cx="137.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M120 138C118 147 114 152 115.5 156C118.5 159.5 123.5 159.5 126 156" stroke="#D6A07C" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 167Q114 164 120 166Q126 164 132 167Q126 175 120 175Q114 175 108 167Z" fill="#B5524A"/>
+<path d="M80 128C78 100 96 80 122 80C146 80 162 98 160 124C150 112 134 104 120 92C114 108 98 120 80 128Z" fill="#3E2419"/>
+<path d="M96 96C106 88 122 86 134 90" stroke="#6A4030" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+<g fill="none" stroke="#7A3E22" stroke-width="3.4"><rect x="91" y="124" width="26" height="20" rx="7"/><rect x="123" y="124" width="26" height="20" rx="7"/><path d="M117 131H123"/><path d="M91 130L80 126M149 130L160 126"/></g>
+<g fill="#F4C54A" stroke="#B98A1E" stroke-width="1.2"><circle cx="79" cy="152" r="4"/><circle cx="161" cy="152" r="4"/></g>
+<rect width="240" height="280" fill="url(#vig)"/>
+</svg>
+        <div class="txt"><h3>Vera Olson</h3><p class="role">Urbanist, head of Walkable Studio</p>
+        <p class="talk"><b>10:30 AM</b>What we measure when we say “quality of place”</p></div>
+      </article>
+      <article class="sp">
+<svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustrated portrait: Tim Sanders">
+<rect width="240" height="280" fill="#CDE8D5"/><path d="M26 280V122A94 94 0 0 1 214 122V280Z" fill="#2E7D5B" opacity=".4"/><rect x="150" y="30" width="46" height="46" rx="10" fill="#fff" opacity=".6"/><rect width="240" height="280" fill="url(#tex)"/>
+<path d="M10 280C10 240 48 220 98 210H142C192 220 230 240 230 280Z" fill="#EBB62E"/>
+<path d="M30 258Q120 240 210 258M20 276Q120 258 220 276M50 238Q120 224 190 238" stroke="#B8861A" stroke-width="2.4" fill="none" opacity=".7"/>
+<path d="M120 214V280" stroke="#B8861A" stroke-width="3"/>
+<path d="M92 204C98 230 142 230 148 204L158 214C146 244 94 244 82 214Z" fill="#26417E"/>
+<path d="M103 164H137V204C134 216 126 221 120 221C114 221 106 216 103 204Z" fill="#C98E66"/><path d="M103 164H137V188C128 197 112 197 103 188Z" fill="#A56F4C" opacity=".75"/>
+
+<ellipse cx="79" cy="139" rx="6.5" ry="10" fill="#D9A27B"/><ellipse cx="161" cy="139" rx="6.5" ry="10" fill="#D9A27B"/>
+<ellipse cx="80" cy="140" rx="2.6" ry="5.5" fill="#B57A55" opacity=".6"/><ellipse cx="160" cy="140" rx="2.6" ry="5.5" fill="#B57A55" opacity=".6"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C97 181 79 160 79 131C79 104 93 82 120 82Z" fill="#D9A27B"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C134 168 143 152 143 131C143 108 135 92 120 82Z" fill="#B57A55" opacity=".5"/>
+<circle cx="97" cy="153" r="8" fill="#E58A7A" opacity=".22"/><circle cx="143" cy="153" r="8" fill="#E58A7A" opacity=".22"/>
+<path d="M95 125Q104 119 113 123M127 123Q136 119 145 125" stroke="#1D1A1C" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+<ellipse cx="104" cy="135" rx="4.4" ry="3.1" fill="#241a17"/><ellipse cx="136" cy="135" rx="4.4" ry="3.1" fill="#241a17"/>
+<circle cx="105.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/><circle cx="137.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M120 138C118 147 114 152 115.5 156C118.5 159.5 123.5 159.5 126 156" stroke="#B57A55" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M109 167Q120 171.8 131 167" stroke="#F2D9C8" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M79 140C79 172 98 192 120 192C142 192 161 172 161 140C157 154 149 163 140 166C132 162 108 162 100 166C91 163 83 154 79 140Z" fill="#221E20"/>
+<path d="M104 163C110 155 130 155 136 163C130 167 110 167 104 163Z" fill="#221E20"/>
+<path d="M112 171Q120 175.5 128 171" stroke="#F2D9C8" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<path d="M80 126C76 90 96 72 120 72C146 72 166 90 160 126C157 110 150 100 140 96C128 100 108 100 100 96C90 102 83 112 80 126Z" fill="#221E20"/>
+<path d="M80 128C79 118 82 108 86 102M160 128C161 118 158 108 154 102" stroke="#9AA3AC" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>
+<path d="M96 86C108 80 126 80 140 86" stroke="#4A4448" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<rect width="240" height="280" fill="url(#vig)"/>
+</svg>
+        <div class="txt"><h3>Tim Sanders</h3><p class="role">Chair, tenants’ association, 14 Garden St.</p>
+        <p class="talk"><b>11:00 AM</b>A car-free courtyard in one summer</p></div>
+      </article>
+      <article class="sp">
+<svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustrated portrait: Anna Gray">
+<rect width="240" height="280" fill="#CFE3F3"/><circle cx="52" cy="84" r="42" fill="#fff" opacity=".65"/><circle cx="196" cy="196" r="52" fill="#fff" opacity=".5"/><path d="M0 214H240" stroke="#2F5DA8" stroke-width="3" opacity=".25"/><rect width="240" height="280" fill="url(#tex)"/>
+<g fill="#2B1A15"><circle cx="84" cy="102" r="28"/><circle cx="104" cy="78" r="30"/><circle cx="136" cy="78" r="30"/><circle cx="158" cy="102" r="28"/><circle cx="72" cy="134" r="24"/><circle cx="168" cy="134" r="24"/><circle cx="78" cy="162" r="17"/><circle cx="162" cy="162" r="17"/><circle cx="120" cy="68" r="28"/></g>
+<g fill="#4A3028" opacity=".9"><circle cx="100" cy="64" r="6"/><circle cx="142" cy="66" r="5"/><circle cx="64" cy="124" r="5"/><circle cx="178" cy="120" r="5"/><circle cx="120" cy="52" r="5"/></g>
+<path d="M10 280C10 240 48 220 98 210H142C192 220 230 240 230 280Z" fill="#D9633F"/>
+<path d="M98 210L112 252L82 280H30C36 250 62 224 98 210ZM142 210L128 252L158 280H210C204 250 178 224 142 210Z" fill="#B4482A"/>
+<path d="M92 208C98 238 142 238 148 208L152 216C142 250 98 250 88 216Z" fill="#FBF6EC"/>
+<path d="M103 164H137V204C134 216 126 221 120 221C114 221 106 216 103 204Z" fill="#9A5F3C"/><path d="M103 164H137V188C128 197 112 197 103 188Z" fill="#764527" opacity=".8"/>
+
+<ellipse cx="79" cy="139" rx="6.5" ry="10" fill="#AE6E48"/><ellipse cx="161" cy="139" rx="6.5" ry="10" fill="#AE6E48"/>
+<ellipse cx="80" cy="140" rx="2.6" ry="5.5" fill="#865132" opacity=".6"/><ellipse cx="160" cy="140" rx="2.6" ry="5.5" fill="#865132" opacity=".6"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C97 181 79 160 79 131C79 104 93 82 120 82Z" fill="#AE6E48"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C134 168 143 152 143 131C143 108 135 92 120 82Z" fill="#865132" opacity=".5"/>
+<circle cx="97" cy="153" r="8" fill="#D9704F" opacity=".22"/><circle cx="143" cy="153" r="8" fill="#D9704F" opacity=".22"/>
+<path d="M95 125Q104 119 113 123M127 123Q136 119 145 125" stroke="#241512" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="104" cy="135" rx="4.4" ry="3.1" fill="#1b1210"/><ellipse cx="136" cy="135" rx="4.4" ry="3.1" fill="#1b1210"/>
+<circle cx="105.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/><circle cx="137.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M120 138C118 147 114 152 115.5 156C118.5 159.5 123.5 159.5 126 156" stroke="#865132" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 167Q114 164 120 166Q126 164 132 167Q126 175 120 175Q114 175 108 167Z" fill="#8E3A33"/>
+<g fill="#2B1A15"><path d="M80 126C76 98 94 80 120 80C146 80 164 98 160 126C154 108 146 98 138 94C128 100 112 100 102 94C94 98 86 108 80 126Z"/><circle cx="100" cy="92" r="13"/><circle cx="120" cy="87" r="14"/><circle cx="140" cy="92" r="13"/><circle cx="86" cy="106" r="11"/><circle cx="154" cy="106" r="11"/></g>
+<g fill="none" stroke="#F4C54A" stroke-width="3.4"><circle cx="78" cy="158" r="8"/><circle cx="162" cy="158" r="8"/></g>
+<rect width="240" height="280" fill="url(#vig)"/>
+</svg>
+        <div class="txt"><h3>Anna Gray</h3><p class="role">Transit planner</p>
+        <p class="talk"><b>11:30 AM</b>A bus stop as a place, not a pole with a sign</p></div>
+      </article>
+      <article class="sp">
+<svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustrated portrait: Owen Ramsey">
+<rect width="240" height="280" fill="#F6DE8C"/><path d="M0 176L240 112V152L0 216Z" fill="#1F2A37" opacity=".88"/><path d="M0 196L240 132" stroke="#FBF6EC" stroke-width="3" stroke-dasharray="14 12"/><rect width="240" height="280" fill="url(#tex)"/>
+<path d="M10 280C10 240 48 220 98 210H142C192 220 230 240 230 280Z" fill="#2A3A55"/>
+<path d="M98 210L112 250L84 280H34C40 250 66 224 98 210ZM142 210L128 250L156 280H206C200 250 174 224 142 210Z" fill="#1F2D45"/>
+<path d="M92 206L120 246L148 206L152 220L120 256L88 220Z" fill="#CFE0EE"/>
+<path d="M114 240H126L130 272L120 282L110 272Z" fill="#D9633F"/>
+<path d="M60 262L84 236M180 262L156 236" stroke="#F4C54A" stroke-width="7" stroke-linecap="round"/>
+<path d="M103 164H137V204C134 216 126 221 120 221C114 221 106 216 103 204Z" fill="#E2B290"/><path d="M103 164H137V188C128 197 112 197 103 188Z" fill="#BE8A68" opacity=".75"/>
+
+<ellipse cx="79" cy="139" rx="6.5" ry="10" fill="#EDC3A2"/><ellipse cx="161" cy="139" rx="6.5" ry="10" fill="#EDC3A2"/>
+<ellipse cx="80" cy="140" rx="2.6" ry="5.5" fill="#CC9A78" opacity=".6"/><ellipse cx="160" cy="140" rx="2.6" ry="5.5" fill="#CC9A78" opacity=".6"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C97 181 79 160 79 131C79 104 93 82 120 82Z" fill="#EDC3A2"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C134 168 143 152 143 131C143 108 135 92 120 82Z" fill="#CC9A78" opacity=".5"/>
+<circle cx="97" cy="153" r="8" fill="#E08A78" opacity=".22"/><circle cx="143" cy="153" r="8" fill="#E08A78" opacity=".22"/>
+<path d="M95 124Q104 118 113 122M127 122Q136 118 145 124" stroke="#8A9098" stroke-width="4.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="104" cy="135" rx="4.4" ry="3.1" fill="#241a17"/><ellipse cx="136" cy="135" rx="4.4" ry="3.1" fill="#241a17"/>
+<circle cx="105.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/><circle cx="137.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M120 138C118 147 114 152 115.5 156C118.5 159.5 123.5 159.5 126 156" stroke="#CC9A78" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M109 167Q120 173 131 167" stroke="#A9625A" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M104 160C110 154 130 154 136 160C130 167 110 167 104 160Z" fill="#9EA4AA"/>
+<path d="M112 172Q120 176 128 172" stroke="#A9625A" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+<path d="M80 140C77 122 80 106 90 93C89 109 90 125 88 143ZM160 140C163 122 160 106 150 93C151 109 150 125 152 143Z" fill="#B7BCC2"/>
+<path d="M95 100C104 94 114 92 124 93" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".35"/>
+<path d="M96 108C100 106 104 106 108 108M132 108C136 106 140 106 144 108M104 146C101 152 103 156 108 158M136 146C139 152 137 156 132 158" stroke="#C0906E" stroke-width="2" fill="none" stroke-linecap="round"/>
+<g fill="none" stroke="#1F2A37" stroke-width="3.4"><rect x="91" y="124" width="27" height="20" rx="4"/><rect x="122" y="124" width="27" height="20" rx="4"/><path d="M118 130H122"/><path d="M91 129L80 126M149 129L160 126"/></g>
+<rect width="240" height="280" fill="url(#vig)"/>
+</svg>
+        <div class="txt"><h3>Owen Ramsey</h3><p class="role">Traffic engineer</p>
+        <p class="talk"><b>12:00 PM</b>A bus lane in 90 days, and the numbers a year later</p></div>
+      </article>
+      <article class="sp">
+<svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustrated portrait: Mira Kunz">
+<rect width="240" height="280" fill="#DED6F1"/><g stroke="#1F2A37" stroke-width="1.6" opacity=".16" fill="none"><path d="M40 0V280M100 0V280M160 0V280M220 0V280M0 60H240M0 120H240M0 180H240"/></g><path d="M20 190A100 100 0 0 1 120 90" stroke="#F4C54A" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="152" y="38" width="52" height="68" fill="#FBF6EC" stroke="#1F2A37" stroke-width="2.4"/><path d="M152 72H204M178 38V106" stroke="#1F2A37" stroke-width="2.4"/><rect width="240" height="280" fill="url(#tex)"/>
+<path d="M70 122C62 76 94 56 122 56C152 56 180 76 170 122C170 158 184 190 174 220L148 224L150 152H90L92 224L66 220C56 190 72 158 70 122Z" fill="#9C4527"/>
+<path d="M76 168C80 190 74 204 70 216M164 168C160 190 166 204 170 216" stroke="#7E3319" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M10 280C10 240 48 220 98 210H142C192 220 230 240 230 280Z" fill="#2E6E50"/>
+<path d="M28 270Q120 250 212 270" stroke="#245A41" stroke-width="3" fill="none"/>
+<path d="M103 164H137V204C134 216 126 221 120 221C114 221 106 216 103 204Z" fill="#D9A07A"/><path d="M103 164H137V188C128 197 112 197 103 188Z" fill="#B77F5B" opacity=".75"/>
+<path d="M96 192Q96 186 102 186H138Q144 186 144 192V218C132 226 108 226 96 218Z" fill="#2E6E50"/><path d="M96 192Q96 186 102 186H138Q144 186 144 192V198H96Z" fill="#245A41"/>
+
+<ellipse cx="79" cy="139" rx="6.5" ry="10" fill="#E4B38C"/><ellipse cx="161" cy="139" rx="6.5" ry="10" fill="#E4B38C"/>
+<ellipse cx="80" cy="140" rx="2.6" ry="5.5" fill="#C48D68" opacity=".6"/><ellipse cx="160" cy="140" rx="2.6" ry="5.5" fill="#C48D68" opacity=".6"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C97 181 79 160 79 131C79 104 93 82 120 82Z" fill="#E4B38C"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C134 168 143 152 143 131C143 108 135 92 120 82Z" fill="#C48D68" opacity=".5"/>
+<circle cx="97" cy="153" r="8" fill="#E07A6A" opacity=".22"/><circle cx="143" cy="153" r="8" fill="#E07A6A" opacity=".22"/>
+<path d="M95 125Q104 119 113 123M127 123Q136 119 145 125" stroke="#7E3319" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="104" cy="135" rx="4.4" ry="3.1" fill="#241a17"/><ellipse cx="136" cy="135" rx="4.4" ry="3.1" fill="#241a17"/>
+<circle cx="105.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/><circle cx="137.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M120 138C118 147 114 152 115.5 156C118.5 159.5 123.5 159.5 126 156" stroke="#C48D68" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 167Q114 164 120 166Q126 164 132 167Q126 175 120 175Q114 175 108 167Z" fill="#B5322B"/>
+<g fill="#B8724A" opacity=".75"><circle cx="92" cy="150" r="1.3"/><circle cx="99" cy="154" r="1.3"/><circle cx="106" cy="150" r="1.3"/><circle cx="134" cy="150" r="1.3"/><circle cx="141" cy="154" r="1.3"/><circle cx="148" cy="150" r="1.3"/></g>
+<path d="M78 130C74 92 98 72 124 74C148 76 166 94 162 130C154 106 136 96 122 86C116 104 98 120 78 130Z" fill="#9C4527"/>
+<path d="M90 96C102 86 120 82 134 86" stroke="#C6663E" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<g fill="#D9633F" stroke="#B4482A" stroke-width="1.2"><rect x="74" y="148" width="7" height="16" rx="2"/><rect x="159" y="148" width="7" height="16" rx="2"/></g>
+<rect width="240" height="280" fill="url(#vig)"/>
+</svg>
+        <div class="txt"><h3>Mira Kunz</h3><p class="role">Architect and ground-floor researcher</p>
+        <p class="talk"><b>1:30 PM</b>Why empty storefronts make a street unsafe</p></div>
+      </article>
+      <article class="sp">
+<svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustrated portrait: Dana Lewis">
+<rect width="240" height="280" fill="#F2C2AE"/><path d="M156 20C206 24 226 72 214 124C164 120 140 72 156 20Z" fill="#2E7D5B"/><path d="M20 120C50 96 94 110 100 150C60 160 28 150 20 120Z" fill="#2E7D5B" opacity=".85"/><path d="M160 30C170 60 188 90 208 116" stroke="#CFE8D8" stroke-width="2.4" fill="none"/><rect width="240" height="280" fill="url(#tex)"/>
+<path d="M72 126C64 78 94 60 122 60C152 60 178 78 170 126L176 238L146 240L148 168H92L94 240L64 238Z" fill="#1C1718"/>
+<path d="M10 280C10 240 48 220 98 210H142C192 220 230 240 230 280Z" fill="#4F78AE"/>
+<path d="M98 210L108 240L74 280H28C34 250 62 224 98 210ZM142 210L132 240L166 280H212C206 250 178 224 142 210Z" fill="#3B5F92"/>
+<path d="M92 206L120 246L148 206L152 220L120 256L88 220Z" fill="#FBF6EC"/>
+<path d="M170 210L128 280H152L190 226Z" fill="#E6D3A8"/><path d="M170 210L128 280" stroke="#B9A06A" stroke-width="1.6" opacity=".7"/>
+<path d="M104 238Q112 226 124 232Q116 244 104 238Z" fill="#2E7D5B"/>
+<path d="M103 164H137V204C134 216 126 221 120 221C114 221 106 216 103 204Z" fill="#F0CDB3"/><path d="M103 164H137V188C128 197 112 197 103 188Z" fill="#D4A98A" opacity=".75"/>
+
+<ellipse cx="79" cy="139" rx="6.5" ry="10" fill="#F7DAC4"/><ellipse cx="161" cy="139" rx="6.5" ry="10" fill="#F7DAC4"/>
+<ellipse cx="80" cy="140" rx="2.6" ry="5.5" fill="#DDB496" opacity=".6"/><ellipse cx="160" cy="140" rx="2.6" ry="5.5" fill="#DDB496" opacity=".6"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C97 181 79 160 79 131C79 104 93 82 120 82Z" fill="#F7DAC4"/>
+<path d="M120 82C147 82 161 104 161 131C161 160 143 181 120 181C134 168 143 152 143 131C143 108 135 92 120 82Z" fill="#DDB496" opacity=".5"/>
+<circle cx="97" cy="153" r="8" fill="#EE8F82" opacity=".22"/><circle cx="143" cy="153" r="8" fill="#EE8F82" opacity=".22"/>
+<path d="M95 125Q104 119 113 123M127 123Q136 119 145 125" stroke="#1C1718" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<ellipse cx="104" cy="135" rx="4.4" ry="3.1" fill="#241a17"/><ellipse cx="136" cy="135" rx="4.4" ry="3.1" fill="#241a17"/>
+<circle cx="105.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/><circle cx="137.6" cy="133.9" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M120 138C118 147 114 152 115.5 156C118.5 159.5 123.5 159.5 126 156" stroke="#DDB496" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 167Q114 164 120 166Q126 164 132 167Q126 175 120 175Q114 175 108 167Z" fill="#C4605A"/>
+<path d="M78 128C74 84 98 72 120 72C144 72 166 84 162 128C161 118 160 110 156 106Q120 98 84 106C80 110 79 118 78 128Z" fill="#1C1718"/>
+<path d="M92 90C102 82 118 80 130 82" stroke="#4A3F42" stroke-width="3" fill="none" stroke-linecap="round" opacity=".9"/>
+<circle cx="146" cy="160" r="1.8" fill="#8A5A44"/>
+<rect width="240" height="280" fill="url(#vig)"/>
+</svg>
+        <div class="txt"><h3>Dana Lewis</h3><p class="role">Landscape architect</p>
+        <p class="talk"><b>2:00 PM</b>The playground that isn’t from a catalog: 12 courtyards, 3 mistakes</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="place" aria-labelledby="h-place">
+  <div class="wrap">
+    <div class="head"><h2 id="h-place"><span class="eyebrow">Venue</span>Foundry Hall 4</h2><p>A former foundry floor: a 240-seat hall, coat check, canteen and big windows onto the yard.</p></div>
+    <figure class="hall"><img src="img/hall.webp" width="1400" height="630" alt="Hall with round tables, a warm wooden wall and pendant lamps"><figcaption>Photo: the hall and canteen</figcaption></figure>
+    <div class="place">
+      <figure class="mapbox">
+        <svg viewBox="0 0 640 520" role="img" aria-labelledby="mt" font-family="Manrope,Arial,sans-serif">
+          <title id="mt">Map: from Foundry Station, Exit 2, left along Foundry Lane, diagonally across the park to Smith Street and the gatehouse of Foundry Hall 4, about a third of a mile, 7 minutes</title>
+          <rect width="640" height="520" fill="#FAF5EA"/>
+          <g fill="#EDE3CF"><rect x="0" y="0" width="160" height="150" rx="10"/><rect x="200" y="0" width="200" height="150" rx="10"/><rect x="0" y="190" width="160" height="140" rx="10"/><rect x="440" y="190" width="200" height="140" rx="10"/><rect x="0" y="370" width="160" height="150" rx="10"/><rect x="200" y="370" width="200" height="150" rx="10"/><rect x="440" y="370" width="200" height="150" rx="10"/></g>
+          <rect x="200" y="190" width="200" height="140" rx="10" fill="#CFE8D8"/>
+          <g fill="#2E7D5B"><circle cx="232" cy="222" r="16"/><circle cx="264" cy="208" r="11"/><circle cx="372" cy="306" r="16"/><circle cx="338" cy="312" r="10"/><circle cx="372" cy="214" r="11"/></g>
+          <circle cx="252" cy="270" r="15" fill="#D6E7F4" stroke="#2F5DA8" stroke-width="3"/>
+          <g stroke="#fff" stroke-width="40"><path d="M0 170H640M0 350H640M180 0V520M420 0V520"/></g>
+          <path d="M0 337H640" stroke="#A9D6BC" stroke-width="5"/>
+          <g class="lbl" font-weight="800" fill="#1F2A37"><text x="212" y="176" font-size="19">Smith Street</text>
+          <text x="236" y="362" font-size="19">Foundry Lane</text>
+          <text transform="translate(427 324) rotate(-90)" font-size="17">Pattern Alley</text></g>
+          <path d="M80 408V350H190L412 178H520V120" fill="none" stroke="#1F2A37" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M80 408V350H190L412 178H520V120" fill="none" stroke="#F4C54A" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+          <g font-weight="800" font-size="24" text-anchor="middle" fill="#fff">
+            <circle cx="80" cy="378" r="19" fill="#1F2A37"/><text x="80" y="386.5">1</text>
+            <circle cx="136" cy="350" r="19" fill="#1F2A37"/><text x="136" y="358.5">2</text>
+            <circle cx="300" cy="265" r="19" fill="#1F2A37"/><text x="300" y="273.5">3</text>
+            <circle cx="520" cy="150" r="19" fill="#1F2A37"/><text x="520" y="158.5">4</text>
+          </g>
+          <circle cx="80" cy="446" r="32" fill="#D9633F" stroke="#1F2A37" stroke-width="3"/>
+          <text x="80" y="458" text-anchor="middle" font-family="Unbounded,Arial" font-weight="800" font-size="30" fill="#fff">M</text>
+          <g class="lbl"><rect x="126" y="428" width="262" height="44" rx="22" fill="#1F2A37"/>
+          <text x="146" y="457" font-size="21" font-weight="800" fill="#fff">Foundry Station · Exit 2</text></g>
+          <rect x="450" y="20" width="176" height="100" rx="16" fill="#F4C54A" stroke="#1F2A37" stroke-width="3"/>
+          <text x="468" y="62" font-family="Unbounded,Arial" font-size="26" font-weight="800" fill="#1F2A37">Hall 4</text>
+          <text class="lbl" x="468" y="97" font-size="19" font-weight="700" fill="#1F2A37">courtyard entrance</text>
+          <g class="lbl"><rect x="470" y="400" width="152" height="40" rx="10" fill="#2F5DA8" stroke="#1F2A37" stroke-width="2"/>
+          <text x="546" y="428" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">Tram 7</text>
+          <rect x="458" y="452" width="168" height="58" rx="16" fill="#fff" stroke="#1F2A37" stroke-width="2"/>
+          <text x="474" y="478" font-family="Unbounded,Arial" font-size="19" font-weight="800" fill="#1F2A37">7 min</text>
+          <text x="474" y="500" font-size="17" font-weight="700" fill="#4F5A68">≈ 0.3 mi on foot</text></g>
+        </svg>
+      </figure>
+      <div class="route">
+        <p class="addr">12 Foundry Lane, Building 4</p>
+        <p class="sub">Foundry Station subway: a 7-minute walk</p>
+        <ol class="steps">
+          <li>Ride the last car from downtown and take Exit 2 toward Foundry Lane.</li>
+          <li>Turn left on Foundry Lane and walk two blocks to the park with the fountain.</li>
+          <li>Cut diagonally across the park to the corner of Smith Street and Pattern Alley.</li>
+          <li>Turn right and walk a short block to the gatehouse with the yellow sign. Enter from the courtyard, 2nd floor.</li>
+        </ol>
+        <div class="chips"><span><i style="background:var(--blue)"></i>Tram 7 · Foundry Lane stop</span><span><i style="background:var(--green)"></i>Bike parking for 40</span><span><i style="background:var(--brick)"></i>No on-site parking: take the subway</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="tickets" aria-labelledby="h-tix">
+  <div class="wrap">
+    <div class="head"><h2 id="h-tix"><span class="eyebrow">Attend</span>Tickets and free student seats</h2></div>
+    <div class="tix">
+      <div class="ticket">
+        <span class="k">All-day ticket</span>
+        <p class="price num">$65</p>
+        <ul>
+          <li>All 10 talks and the open discussion</li>
+          <li>Coffee breaks and lunch</li>
+          <li>Slides and recordings within a week</li>
+        </ul>
+        <a class="btn" id="buy" href="https://example.org/tickets" target="_blank" rel="noopener">Get tickets ↗</a>
+        <p class="note">This opens our ticketing partner’s site in a new tab. There’s no payment on this page, and no card details are entered here.</p>
+      </div>
+      <div class="reg">
+        <h3>Free for students</h3>
+        <p class="intro">30 seats for full-time students. Leave your details and we’ll send a confirmation; just show your student ID at the door.</p>
+        <form id="form" novalidate>
+          <div class="f"><label for="n">Full name</label><input id="n" name="name" autocomplete="name" required aria-describedby="n-e"><span class="err" id="n-e"></span></div>
+          <div class="row2">
+            <div class="f"><label for="e">Email</label><input id="e" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="e-e"><span class="err" id="e-e"></span></div>
+            <div class="f"><label for="p">Phone</label><input id="p" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 (555) 010-0000" required aria-describedby="p-e"><span class="err" id="p-e"></span></div>
+          </div>
+          <label class="agree"><input type="checkbox" id="c" required aria-describedby="c-e"><span>I agree to my personal data being used to register me for the forum</span></label>
+          <span class="err" id="c-e"></span>
+          <button class="btn" type="submit">Register</button>
+          <div class="ok" id="ok" role="status">
+            <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#2E7D5B"/><path d="M8 14.5l4 4 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><b>You’re in.</b> Demo only: nothing is actually sent. In the live version, your confirmation would arrive by email and text.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <svg viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 90V52h60V30h50v22h40V10h70v42h30V38h60v52zM340 90V44h80V20h46v24h54V56h40V28h70v62zM640 90V34h64v18h40V8h60v44h46V26h80v64zM930 90V50h50V24h70v26h36V40h60V14h54v76z" fill="#1F2A37"/>
+  </svg>
+  <div class="wrap">
+    <span>Block: Cities for People · March 21, 2027 · 12 Foundry Lane</span>
+    <span>Organizers: <a href="mailto:hello@example.org">hello@example.org</a> · <a href="tel:+15550100000">+1 (555) 010-0000</a></span>
+    <span>Demo concept · fictional data</span>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-label="Quick ticket purchase">
+  <span><b>$65</b>paid via ticket partner</span>
+  <a class="btn" href="https://example.org/tickets" target="_blank" rel="noopener">Get tickets ↗</a>
+</div>
+
+<script>
+(function(){
+  var target = Date.parse('2027-03-21T10:00:00-04:00');
+  var els = {d: [], h: [], m: [], s: []};
+  document.querySelectorAll('.cd [data-u]').forEach(function(b){ els[b.dataset.u].push(b); });
+  var labels = document.querySelectorAll('.cd-l');
+  function set(k, v){ els[k].forEach(function(b){ b.textContent = v; }); }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function tick(){
+    var ms = target - Date.now();
+    if (ms <= 0){ labels.forEach(function(l){ l.textContent = 'The forum is under way or has ended'; }); ['d','h','m','s'].forEach(function(k){ set(k, '0'); }); return; }
+    var s = Math.floor(ms / 1000);
+    set('d', Math.floor(s / 86400));
+    set('h', pad(Math.floor(s % 86400 / 3600)));
+    set('m', pad(Math.floor(s % 3600 / 60)));
+    set('s', pad(s % 60));
+  }
+  tick(); setInterval(tick, 1000);
+
+  var pills = document.querySelectorAll('.pill');
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      pills.forEach(function(x){ x.setAttribute('aria-pressed', x === p); });
+      var f = p.dataset.f;
+      document.querySelectorAll('#prog .it').forEach(function(r){ r.classList.toggle('dim', f !== 'all' && r.dataset.k !== f); });
+    });
+  });
+
+  var form = document.getElementById('form'), phone = document.getElementById('p');
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g, '');
+    if (d[0] === '1') d = d.slice(1);
+    d = d.slice(0, 10);
+    var o = d.length ? '+1 (' + d.slice(0, 3) : '';
+    if (d.length >= 3) o += ')';
+    if (d.length > 3) o += ' ' + d.slice(3, 6);
+    if (d.length > 6) o += '-' + d.slice(6, 10);
+    phone.value = o;
+  });
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var n = document.getElementById('n'), e = document.getElementById('e'), c = document.getElementById('c');
+    var ok = true, first = null;
+    function chk(input, id, msg){
+      document.getElementById(id).textContent = msg;
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (msg){ ok = false; first = first || input; }
+    }
+    chk(n, 'n-e', n.value.trim().length < 2 ? 'Please add your name so we can find you on the door list' : '');
+    chk(e, 'e-e', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim()) ? '' : 'Use an address like name@example.com');
+    chk(phone, 'p-e', phone.value.replace(/\D/g, '').length === 11 ? '' : 'Enter a 10-digit US number, e.g. +1 (555) 010-0000');
+    chk(c, 'c-e', c.checked ? '' : 'We can’t register you without your consent');
+    document.getElementById('ok').classList.toggle('show', ok);
+    if (first) first.focus();
+    if (ok) form.querySelector('button').textContent = 'Request received';
+  });
+
+  var sticky = document.getElementById('sticky');
+  var heroEl = document.querySelector('.hero'), tixEl = document.querySelector('.ticket'), footEl = document.querySelector('footer');
+  var timer;
+  function upd(){
+    var vh = window.innerHeight;
+    var pastHero = heroEl.getBoundingClientRect().bottom < 0;
+    var t = tixEl.getBoundingClientRect(), f = footEl.getBoundingClientRect();
+    var onTix = t.top < vh && t.bottom > 0, onFoot = f.top < vh;
+    var want = window.scrollY > 0 && pastHero && !onTix && !onFoot;
+    clearTimeout(timer);
+    if (!want) sticky.classList.remove('on');
+    else if (!sticky.classList.contains('on')) timer = setTimeout(function(){ sticky.classList.add('on'); }, 600);
+  }
+  window.addEventListener('scroll', upd, {passive: true}); window.addEventListener('resize', upd); upd();
+})();
+</script>
+</body>
+</html>

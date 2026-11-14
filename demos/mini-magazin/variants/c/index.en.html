@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hearthwick Candle Co. — hand-poured candles</title>
+<meta name="description" content="Hearthwick Candle Co.: small-batch soy candles in glass, beeswax tapers and pillars, marbled orb candles and a bath gift set. Demo concept.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf7f0; --cream:#f3eadb; --cream2:#ebdfcb; --arch:#e7d8c0;
+  --ink:#2a1f19; --muted:#5b4837; --line:#dccdb6;
+  --accent:#9a4a1f; --accent-d:#7a3814; --ok:#41603a; --err:#a3341c;
+  --serif:"Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --sans:"Manrope", "Segoe UI", Arial, sans-serif;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* demo banner */
+.demo{background:var(--ink);color:#f6ead6;text-align:center;font-size:14px;padding:9px 16px;letter-spacing:.02em}
+.demo b{color:#f2c27b;font-weight:600}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:rgba(251,247,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;height:76px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 27px/1 var(--serif);letter-spacing:.01em;white-space:nowrap}
+.logo svg{width:26px;height:34px}
+nav.main{display:flex;gap:6px;margin-left:auto}
+nav.main a{text-decoration:none;padding:12px 14px;border-radius:999px;font-weight:500;color:var(--muted)}
+nav.main a:hover{color:var(--ink);background:var(--cream)}
+.cartbtn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px;border-radius:999px;background:var(--ink);color:#fbf3e6;text-decoration:none;font-weight:600}
+.cartbtn .n{min-width:24px;height:24px;border-radius:12px;background:#f2c27b;color:var(--ink);display:inline-grid;place-items:center;font-size:13px;padding:0 6px}
+.cartbtn svg{width:20px;height:20px}
+
+/* common */
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.05;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:0;background:var(--accent);color:#fff8ee;font-weight:600;text-decoration:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{background:var(--accent-d)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.btn.wide{width:100%}
+/* prices and numbers: Manrope, so that 1 reads as a one */
+.price,.num-s{font-family:var(--sans);font-weight:700;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;letter-spacing:-.01em}
+
+/* hero */
+.hero{padding:28px 0 8px}
+.hpanel{position:relative;display:grid;grid-template-columns:.92fr 1.08fr;border-radius:34px;overflow:hidden;min-height:640px;background:linear-gradient(100deg,#f7ebd6 0%,#f3e1c4 55%,#eecb9b 100%);box-shadow:0 30px 70px -40px rgba(120,60,20,.45)}
+.hcopy{position:relative;z-index:2;padding:64px 0 56px 56px;align-self:center}
+.hero h1{font-size:clamp(42px,4.9vw,70px);letter-spacing:-.01em;margin:18px 0 22px}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.hero p.lead{font-size:18px;color:#4a392b;max-width:22em;margin:0 0 30px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero .mini-facts{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+.hero .mini-facts div{font-size:14px;color:#4a392b;line-height:1.35}
+.hero .mini-facts b{display:block;font:800 22px/1.1 var(--sans);color:var(--ink);letter-spacing:-.02em}
+.hart{position:absolute;right:0;top:0;bottom:0;width:62%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
+.hart svg{width:100%;height:100%}
+.hart img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.about .shot{margin:26px 0 0;border-radius:var(--r);overflow:hidden}
+.about .shot img{display:block;width:100%;height:auto;max-height:440px;object-fit:cover;object-position:50% 30%}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line);margin-top:8px}
+.facts div{padding:24px 24px 24px 0}
+.facts div+div{padding-left:24px;border-left:1px solid var(--line)}
+.facts b{display:block;font:800 20px/1.25 var(--sans);letter-spacing:-.01em;margin-bottom:4px}
+.facts span{color:var(--muted);font-size:15px}
+
+/* catalog */
+.catalog{padding:56px 0 24px}
+.cat-head{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.cat-head h2{font-size:clamp(40px,4.4vw,58px)}
+.cat-head p{margin:8px 0 0;color:var(--muted)}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid #cdbba0;background:transparent;cursor:pointer;font-weight:500;color:var(--ink)}
+.chip sup{font-size:12px;color:var(--muted);margin-left:3px}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fbf3e6}
+.chip[aria-pressed="true"] sup{color:#ecd7b4}
+.sort{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.sort select{min-height:44px;padding:0 40px 0 16px;border-radius:999px;border:1.5px solid #cdbba0;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232a1f19' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 16px center;appearance:none;cursor:pointer;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 24px}
+.card{position:relative;display:flex;flex-direction:column}
+.card .pic{position:relative;display:block;background:var(--cream);border-radius:var(--r);aspect-ratio:5/6;overflow:hidden;text-decoration:none;box-shadow:0 18px 40px -28px rgba(90,45,15,.55)}
+.card .pic svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.card:hover .pic svg{transform:scale(1.035)}
+.card .tag{position:absolute;top:14px;left:14px;z-index:2;background:var(--bg);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;color:var(--accent)}
+.card .meta{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:16px 4px 0}
+.card .kind{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.card h3{font-size:28px;margin:4px 0 4px}
+.card h3 a{text-decoration:none}
+.card h3 a::after{content:"";position:absolute;inset:0;z-index:1}
+.card .sub{color:var(--muted);font-size:15px;line-height:1.45}
+.card .buy{display:flex;flex-direction:column;align-items:flex-end;gap:10px;position:relative;z-index:3}
+.card .buy .price{font-size:19px}
+.qadd{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.qadd:hover{background:var(--ink);color:var(--bg)}
+.qadd svg{width:18px;height:18px}
+.promo{grid-column:span 2;display:grid;grid-template-columns:1fr 1.05fr;gap:0;align-items:stretch;background:var(--ink);color:#f4e8d5;border-radius:var(--r);overflow:hidden}
+.promo>div:first-child{padding:40px 24px 40px 40px;align-self:center}
+.promo h3{font:800 clamp(28px,2.7vw,38px)/1.1 var(--sans);letter-spacing:-.02em;color:#fff6e8;margin:12px 0 14px}
+.promo p{color:#e0d1ba;margin:0 0 24px}
+.promo .eyebrow{color:#f2c27b}
+.promo .btn{background:#f2c27b;color:var(--ink)}
+.promo .btn:hover{background:#ffd697}
+.promo-art{position:relative;min-height:340px}
+.promo-art svg{position:absolute;inset:0;width:100%;height:100%}
+.empty-filter{padding:40px;text-align:center;color:var(--muted)}
+
+/* about */
+.about{padding:72px 0}
+.about .wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:start}
+.about h2{font-size:clamp(38px,4vw,54px);margin:14px 0 18px}
+.about p{color:var(--muted);font-size:17px;margin:0 0 14px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--cream);border-radius:var(--r);padding:24px 22px 26px}
+.step .num{font:italic 500 40px/1 var(--serif);color:var(--accent)}
+.step h3{font-size:26px;margin:14px 0 8px}
+.step p{font-size:15px;margin:0}
+.ship{padding:0 0 80px}
+.ship .box{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;background:var(--ink);color:#f4e8d5;border-radius:24px;overflow:hidden}
+.ship .box>div{padding:34px 32px}
+.ship .box>div+div{border-left:1px solid rgba(244,232,213,.14)}
+.ship h3{font-size:30px;color:#fff6e8;margin-bottom:10px}
+.ship p{margin:0;color:#e0d1ba;font-size:16px}
+.ship .eyebrow{color:#f2c27b}
+
+footer{border-top:1px solid var(--line);padding:40px 0 48px;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+footer a{min-height:44px;display:inline-flex;align-items:center}
+
+/* product card */
+.crumbs{padding:26px 0 0;font-size:15px;color:var(--muted)}
+.crumbs a{color:var(--muted);text-decoration:none;display:inline-flex;min-height:44px;align-items:center}
+.crumbs a:hover{color:var(--ink)}
+.product{display:grid;grid-template-columns:1.06fr 1fr;gap:56px;padding:8px 0 56px;align-items:start}
+.gallery{display:grid;gap:14px}
+.gmain{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:5/6;background:var(--cream);box-shadow:0 30px 60px -38px rgba(90,45,15,.6)}
+.gmain svg,.gth svg{position:absolute;inset:0;width:100%;height:100%}
+.gthumbs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gth{position:relative;padding:0;border:0;border-radius:22px;overflow:hidden;aspect-ratio:1/.82;cursor:pointer;background:var(--cream);transition:transform .25s,box-shadow .25s}
+.gth:hover{transform:translateY(-3px);box-shadow:0 18px 30px -20px rgba(90,45,15,.7)}
+.vcap{position:absolute;left:12px;bottom:12px;z-index:2;background:rgba(251,247,240,.94);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;color:var(--ink);line-height:1.5}
+.p-info h1{font-size:clamp(42px,4.6vw,64px);margin:10px 0 8px}
+.p-info .sub{color:var(--muted);font-size:17px}
+.p-info .price{font-size:34px;margin:18px 0 18px;display:block;font-weight:800}
+.p-info .desc{font-size:17px;margin:0 0 26px;max-width:34em}
+fieldset{border:0;padding:0;margin:0 0 24px;min-width:0}
+legend{font-weight:700;margin-bottom:12px;padding:0}
+.aromas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aroma{position:relative}
+.aroma input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.aroma span{display:block;border:1.5px solid #cdbba0;border-radius:14px;padding:12px 16px;min-height:64px;transition:.2s;background:var(--bg)}
+.aroma b{display:block;font-weight:700}
+.aroma small{display:block;color:var(--muted);font-size:14px;line-height:1.35}
+.aroma input:checked+span{border-color:var(--ink);background:var(--cream);box-shadow:inset 0 0 0 1px var(--ink)}
+.aroma input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.buyrow{display:flex;gap:12px;align-items:stretch;margin-bottom:12px}
+.stepper{display:inline-flex;align-items:center;border:1.5px solid #cdbba0;border-radius:999px;height:52px;background:var(--bg)}
+.stepper button{width:48px;height:100%;border:0;background:none;cursor:pointer;font-size:22px;border-radius:999px}
+.stepper button:hover{background:var(--cream)}
+.stepper output,.stepper .v{min-width:30px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.buyrow .btn{flex:1}
+.added{min-height:28px;color:var(--ok);font-weight:600}
+.added a{color:var(--ok)}
+.specs{margin:22px 0 0;border-top:1px solid var(--line)}
+.specs div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.specs dt{color:var(--muted)}
+.specs dd{margin:0}
+.care{padding:16px 0 56px}
+.care h2,.related h2{font-size:clamp(34px,3.6vw,46px);margin-bottom:22px}
+.carecols{display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:16px}
+.carecols>div{background:var(--cream);border-radius:22px;padding:28px 28px 30px}
+.carecols h3{font-size:28px;margin-bottom:12px}
+.carecols p{margin:0 0 12px;color:#3f3025}
+.carecols ol,.carecols ul{margin:0;padding:0 0 0 20px;color:#3f3025}
+.carecols li{margin:0 0 8px}
+.carecols .pills{display:flex;flex-wrap:wrap;gap:8px;padding:0;list-style:none;margin:14px 0 0}
+.carecols .pills li{margin:0;background:var(--bg);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:600;color:var(--accent-d)}
+.related{padding:8px 0 72px}
+
+/* cart */
+.wrap.page{padding-top:36px;padding-bottom:80px}
+.page h1{font-size:clamp(44px,5vw,66px);margin-bottom:28px}
+.cartgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start}
+.lines{border-top:1px solid var(--line)}
+.line{display:grid;grid-template-columns:112px 1fr auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.line .th{position:relative;width:112px;height:120px;background:var(--cream);border-radius:16px;overflow:hidden}
+.line .th svg{position:absolute;inset:0;width:100%;height:100%}
+.line h3{font-size:26px}
+.line h3 a{text-decoration:none}
+.line .ar{color:var(--muted);font-size:15px}
+.line .ctl{display:flex;align-items:center;gap:14px;margin-top:10px;flex-wrap:wrap}
+.line .stepper{height:46px}
+.line .stepper button{width:44px}
+.line .sum{text-align:right;align-self:start;padding-top:4px}
+.line .sum .price{font-size:19px;display:block}
+.line .each{color:var(--muted);font-size:14px}
+.del{border:0;background:none;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px;padding:0 4px}
+.del:hover{color:var(--err)}
+.summary{background:var(--cream);border-radius:22px;padding:28px;position:sticky;top:96px}
+.summary h2{font-size:34px;margin-bottom:16px}
+.row{display:flex;justify-content:space-between;gap:16px;padding:8px 0}
+.row.disc{color:var(--ok);font-weight:700}
+.row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:16px;font-size:20px;font-weight:700}
+.row.total .price{font-size:30px;line-height:1;font-weight:800}
+.progress{margin:14px 0 6px;font-size:15px;color:var(--muted)}
+.bar{height:6px;border-radius:3px;background:var(--cream2);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.note{font-size:15px;color:var(--muted);margin:14px 0 18px}
+.emptycart{text-align:center;padding:24px 0 20px;max-width:520px;margin:0 auto}
+.emptycart .ea{position:relative;width:260px;height:300px;margin:0 auto 18px;border-radius:130px 130px 24px 24px;overflow:hidden;box-shadow:0 26px 50px -32px rgba(90,45,15,.6)}
+.emptycart .ea svg{position:absolute;inset:0;width:100%;height:100%}
+.emptycart h1{margin-bottom:12px}
+.emptycart p{color:var(--muted);font-size:17px;margin:0 0 26px}
+
+/* checkout */
+.form{display:grid;gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:6px}
+.field label i{color:var(--accent);font-style:normal}
+.field input,.field textarea{width:100%;min-height:52px;border:1.5px solid #cdbba0;border-radius:14px;background:#fffdf9;padding:12px 16px;font-size:17px;transition:border-color .2s}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:0;border-color:var(--ink);box-shadow:0 0 0 3px rgba(154,74,31,.22)}
+.field .hint{font-size:14px;color:var(--muted);margin-top:5px}
+.field .er{font-size:15px;color:var(--err);margin-top:5px;font-weight:600}
+.field.bad input,.field.bad textarea{border-color:var(--err);background:#fff6f2}
+.deliv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.deliv label{position:relative;display:block;cursor:pointer}
+.deliv input{position:absolute;opacity:0;inset:0}
+.deliv span{display:block;border:1.5px solid #cdbba0;border-radius:16px;padding:16px 18px 16px 50px;background:#fffdf9;min-height:88px;position:relative}
+.deliv span::before{content:"";position:absolute;left:18px;top:19px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--muted);background:#fff}
+.deliv input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--cream)}
+.deliv input:checked+span::before{border:6px solid var(--accent)}
+.deliv input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.deliv b{display:block}
+.deliv small{color:var(--muted);font-size:14px;display:block;line-height:1.4}
+.demo-note{background:#fff4dd;border:1px dashed #c99644;border-radius:14px;padding:14px 16px;font-size:15px}
+.mini{display:grid;gap:12px;margin-bottom:12px}
+.mini>div{display:grid;grid-template-columns:76px 1fr auto;gap:14px;align-items:center;font-size:15px}
+.mini .th{position:relative;width:76px;height:80px;background:var(--cream2);border-radius:12px;overflow:hidden}
+.mini .th svg{position:absolute;inset:0;width:100%;height:100%}
+.mini .ar2{color:var(--muted)}
+.done{text-align:center;max-width:620px;margin:0 auto;padding:30px 0 20px}
+.done .da{position:relative;width:240px;height:280px;margin:0 auto 14px;border-radius:120px 120px 22px 22px;overflow:hidden;box-shadow:0 26px 50px -32px rgba(90,45,15,.6)}
+.done .da svg{position:absolute;inset:0;width:100%;height:100%}
+.done .num{font:800 22px var(--sans);color:var(--accent);letter-spacing:-.01em;margin-bottom:6px}
+.done p{color:var(--muted);font-size:17px}
+.done .demo-note{text-align:left;margin:24px 0}
+
+/* toast */
+.toast{visibility:hidden;position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--ink);color:#fbf3e6;padding:12px 14px 12px 20px;border-radius:999px;display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(42,31,25,.25);transition:transform .35s;z-index:50;max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+.toast a{color:#f2c27b;font-weight:600;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
+
+/* flame */
+.fl-body{transform-box:fill-box;transform-origin:50% 100%;animation:flick 3.2s ease-in-out infinite}
+.fl-glow{animation:glow 3.2s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:scale(1,1) skewX(0)}30%{transform:scale(.97,1.04) skewX(1.5deg)}60%{transform:scale(1.02,.97) skewX(-1deg)}}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.84}}
+@media (prefers-reduced-motion:reduce){.fl-body,.fl-glow{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+
+/* responsive */
+@media (max-width:1024px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .about .wrap{grid-template-columns:1fr;gap:32px}
+  .about .shot{grid-column:auto!important}
+  .product{grid-template-columns:1fr 1fr;gap:32px}
+  .carecols{grid-template-columns:1fr 1fr}
+  .carecols>div:first-child{grid-column:span 2}
+  .hpanel{grid-template-columns:1fr}
+  .hcopy{padding:40px 40px 48px;max-width:none}
+}
+@media (max-width:820px){
+  .wrap{padding:0 20px}
+  nav.main{display:none}
+  .top .wrap{height:64px;justify-content:space-between}
+  .hero{padding:16px 0 0}
+  .hpanel{border-radius:26px;min-height:0;display:flex;flex-direction:column}
+  .hart{position:relative;width:100%;height:410px;order:-1;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 72%,transparent 100%)}
+  .hcopy{padding:0 24px 32px;margin-top:-18px}
+  .facts{grid-template-columns:1fr}
+  .facts div,.facts div+div{padding:16px 0;border-left:0}
+  .facts div+div{border-top:1px solid var(--line)}
+  .steps{grid-template-columns:1fr}
+  .ship .box{grid-template-columns:1fr}
+  .ship .box>div+div{border-left:0;border-top:1px solid rgba(244,232,213,.14)}
+  .product{grid-template-columns:1fr}
+  .cartgrid{grid-template-columns:1fr}
+  .summary{position:static}
+  .carecols{grid-template-columns:1fr}
+  .carecols>div:first-child{grid-column:auto}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .logo{font-size:24px}
+  .cartbtn{padding:0 14px}
+  .cartbtn .lbl{display:none}
+  .hero .mini-facts{gap:18px;margin-top:26px}
+  .hero p.lead{font-size:17px}
+  .catalog{padding-top:40px}
+  .tools{flex-direction:column;align-items:stretch}
+  .sort{width:100%}
+  .chip{padding:0 15px}
+  .sort select{flex:1;min-width:0;width:100%}
+  .grid{grid-template-columns:1fr 1fr;gap:22px 12px}
+  .card .pic{border-radius:14px}
+  .card .tag{top:8px;left:8px;font-size:12px;padding:2px 9px}
+  .card .meta{flex-direction:column;padding:10px 2px 0;gap:8px}
+  .card .kind{font-size:12px;letter-spacing:.08em}
+  .card h3{font-size:24px;margin:2px 0}
+  .card .sub{display:none}
+  .card .buy{flex-direction:row;align-items:center;justify-content:space-between;width:100%}
+  .card .buy .price{font-size:17px}
+  .promo{grid-template-columns:1fr}
+  .promo>div:first-child{padding:28px 22px 8px}
+  .promo-art{min-height:300px;order:2}
+  .aromas{grid-template-columns:1fr}
+  .deliv{grid-template-columns:1fr}
+  .specs div{grid-template-columns:1fr;gap:2px}
+  .gmain{border-radius:22px}
+  .line{grid-template-columns:92px 1fr;gap:14px}
+  .line .th{width:92px;height:100px}
+  .line .sum{grid-column:2;text-align:left;padding:0;display:flex;gap:10px;align-items:baseline}
+  .line h3{font-size:24px}
+  .summary{padding:22px 20px}
+  .ship .box>div{padding:26px 22px}
+  .toast{border-radius:18px;bottom:12px}
+  .mini>div{grid-template-columns:72px 1fr auto}
+  .mini .th{width:72px;height:76px}
+}
+</style>
+</head>
+<body>
+<div class="demo" role="note"><b>Demo concept</b> · fictional data</div>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#/" aria-label="Hearthwick Candle Co. — home">
+      <svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 1C16 8 22 12 22 20a9 9 0 0 1-18 0C4 14 9 11 13 1Z" fill="#c9762f"/><path d="M13 12c2 4 4 6 4 9a4 4 0 0 1-8 0c0-3 2-5 4-9Z" fill="#f6d27f"/></svg>
+      Hearthwick
+    </a>
+    <nav class="main" aria-label="Sections">
+      <a href="#/catalog">Shop</a><a href="#/about">Our story</a><a href="#/delivery">Shipping</a>
+    </nav>
+    <a class="cartbtn" href="#/cart" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="lbl">Cart</span><span class="n" id="badge">0</span></a>
+  </div>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer>
+  <div class="wrap">
+    <div>© 2026 Hearthwick Candle Co. · small-batch candle workshop · fictional data</div>
+    <div><a href="tel:+15550100000">+1 (555) 010-0000</a> · <a href="mailto:hello@example.com">hello@example.com</a></div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== candle illustrations (custom SVG: volume, light, textures) ===== */
+let UID = 0, DK = false, FL = {x:200,y:240};
+const f1 = n => Math.round(n*10)/10;
+function rng(seed){ let a=seed>>>0; return ()=>{ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function shade(hex, a){ // a<0 darker, a>0 lighter
+  const n = parseInt(hex.slice(1),16); let r=n>>16, g=n>>8&255, b=n&255;
+  const t = a<0?0:255, k=Math.abs(a);
+  r=Math.round(r+(t-r)*k); g=Math.round(g+(t-g)*k); b=Math.round(b+(t-b)*k);
+  return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1);
+}
+function commonDefs(u){
+  return `<linearGradient id="fl${u}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff6d2"/><stop offset=".3" stop-color="#ffd877"/><stop offset=".72" stop-color="#ff9d3f"/><stop offset="1" stop-color="#ee6a2a" stop-opacity=".85"/></linearGradient>
+  <radialGradient id="gl${u}"><stop offset="0" stop-color="#ffd48a" stop-opacity=".85"/><stop offset=".22" stop-color="#ffbe6b" stop-opacity=".42"/><stop offset=".55" stop-color="#ffa550" stop-opacity=".13"/><stop offset="1" stop-color="#ffa550" stop-opacity="0"/></radialGradient>
+  <radialGradient id="g2${u}"><stop offset="0" stop-color="#fff2c8" stop-opacity=".95"/><stop offset=".5" stop-color="#ffd58a" stop-opacity=".3"/><stop offset="1" stop-color="#ffd58a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="sh${u}"><stop offset="0" stop-color="#2a1608" stop-opacity=".55"/><stop offset=".55" stop-color="#2a1608" stop-opacity=".2"/><stop offset="1" stop-color="#2a1608" stop-opacity="0"/></radialGradient>
+  <radialGradient id="pl${u}"><stop offset="0" stop-color="#ffd089" stop-opacity="${DK?.55:.7}"/><stop offset=".6" stop-color="#ffc276" stop-opacity=".22"/><stop offset="1" stop-color="#ffc276" stop-opacity="0"/></radialGradient>
+  <filter id="nz${u}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .22  0 0 0 0 .13  0 0 0 0 .06  0 0 0 1.5 -.55"/></filter>
+  <filter id="bl${u}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <pattern id="hx${u}" width="10.39" height="18" patternUnits="userSpaceOnUse"><path d="M5.2 0 10.39 3 10.39 9 5.2 12 0 9 0 3Z M5.2 12V18" fill="none" stroke="#6b3f0c" stroke-width="1"/><path d="M5.2 .9 9.6 3.5 9.6 8.6 5.2 11.1 .8 8.6 .8 3.5Z" fill="none" stroke="#fff3c9" stroke-opacity=".55" stroke-width=".7"/></pattern>`;
+}
+function glow(x,y,s,u){
+  FL={x,y};
+  const bm=DK?'mix-blend-mode:screen':'';
+  return `<g class="fl-glow" style="${bm}"><circle cx="${x}" cy="${y}" r="${230*s}" fill="url(#gl${u})"/><circle cx="${x}" cy="${y}" r="${62*s}" fill="url(#g2${u})"/></g>`;
+}
+function flame(x,y,s,u){
+  const t=y-62*s, p=f1;
+  return `<g class="fl-body"><path d="M${p(x)} ${p(t)} C${p(x+5*s)} ${p(t+20*s)} ${p(x+15*s)} ${p(y-26*s)} ${p(x+13*s)} ${p(y-11*s)} C${p(x+12*s)} ${p(y-2*s)} ${p(x+5*s)} ${p(y+3*s)} ${p(x)} ${p(y+3*s)} C${p(x-5*s)} ${p(y+3*s)} ${p(x-12*s)} ${p(y-2*s)} ${p(x-13*s)} ${p(y-11*s)} C${p(x-15*s)} ${p(y-26*s)} ${p(x-5*s)} ${p(t+20*s)} ${p(x)} ${p(t)}Z" fill="url(#fl${u})"/>
+  <path d="M${p(x)} ${p(y-30*s)} C${p(x+3*s)} ${p(y-20*s)} ${p(x+7*s)} ${p(y-12*s)} ${p(x+6*s)} ${p(y-6*s)} C${p(x+5*s)} ${p(y-1*s)} ${p(x+2*s)} ${p(y+1*s)} ${p(x)} ${p(y+1*s)} C${p(x-2*s)} ${p(y+1*s)} ${p(x-5*s)} ${p(y-1*s)} ${p(x-6*s)} ${p(y-6*s)} C${p(x-7*s)} ${p(y-12*s)} ${p(x-3*s)} ${p(y-20*s)} ${p(x)} ${p(y-30*s)}Z" fill="#fffdf2"/>
+  <ellipse cx="${p(x)}" cy="${p(y-1*s)}" rx="${p(3.2*s)}" ry="${p(4.5*s)}" fill="#4f6fd0" opacity=".45"/></g>`;
+}
+function wick(x,y0,y1,s,lit=true){
+  return `<path d="M${x} ${y0} Q${x+2*s} ${(y0+y1)/2} ${x+1*s} ${y1}" stroke="#241811" stroke-width="${2.6*s}" fill="none" stroke-linecap="round"/>`+(lit?`<circle cx="${x+1*s}" cy="${y1}" r="${1.8*s}" fill="#ff8a3d"/>`:'');
+}
+function grain(u,clipId,op=.5){ return `<rect x="0" y="0" width="400" height="480" clip-path="url(#${clipId})" filter="url(#nz${u})" opacity="${op}"/>`; }
+function labelLines(t){ const i=t.indexOf(' '); return i<0?[t,'']:[t.slice(0,i),t.slice(i+1)]; }
+
+/* ---------- scene: niche wall, tabletop, light ---------- */
+function surface(u,T){
+  const y0=372, [c1,c2]=T.sc, R=rng(T.seed||7); let s='';
+  s+=`<defs><linearGradient id="sf${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient><clipPath id="sc${u}"><rect x="0" y="${y0}" width="400" height="${480-y0}"/></clipPath>
+  <linearGradient id="sg${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></linearGradient>
+  <linearGradient id="ed${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e0f05" stop-opacity=".34"/><stop offset="1" stop-color="#1e0f05" stop-opacity="0"/></linearGradient>
+  <pattern id="wv${u}" width="3.5" height="3.5" patternUnits="userSpaceOnUse"><path d="M0 .4H3.5M.4 0V3.5" stroke="#3a2412" stroke-opacity=".12" stroke-width=".8"/></pattern></defs>`;
+  s+=`<rect x="0" y="${y0}" width="400" height="${480-y0}" fill="url(#sf${u})"/>`;
+  if(T.surf==='marble'){
+    for(let i=0;i<6;i++){ const xa=R()*400-40, ya=y0+R()*100; const d=`M${f1(xa)} ${f1(ya)} C${f1(xa+60+R()*60)} ${f1(ya-20+R()*50)} ${f1(xa+130+R()*60)} ${f1(ya+30-R()*60)} ${f1(xa+240+R()*80)} ${f1(ya+R()*70)}`;
+      s+=`<g clip-path="url(#sc${u})" fill="none" stroke="${T.vein||'#7b8186'}" stroke-linecap="round"><path d="${d}" stroke-width="${4+R()*5}" opacity=".1" filter="url(#bl${u})"/><path d="${d}" stroke-width="${.7+R()*.9}" opacity="${.22+R()*.2}"/></g>`; }
+    s+=`<rect x="0" y="${y0}" width="400" height="${480-y0}" fill="url(#sg${u})"/>`;
+  } else if(T.surf==='wood'){
+    const dark=T.woodDark;
+    for(let i=0;i<17;i++){ const y=y0+4+i*6.6, a=(R()-.5)*5, b=(R()-.5)*5; s+=`<path clip-path="url(#sc${u})" d="M-10 ${f1(y)} Q100 ${f1(y+a)} 200 ${f1(y)} T410 ${f1(y+b)}" fill="none" stroke="${shade(c2,-.4)}" stroke-opacity="${(.1+R()*.2).toFixed(2)}" stroke-width="${(.6+R()*1.4).toFixed(1)}"/>`; }
+    [412,450].forEach((y,i)=>{ s+=`<path d="M0 ${y} H400" stroke="${shade(c2,-.55)}" stroke-opacity=".45" stroke-width="1.4"/><path d="M0 ${y+1.6} H400" stroke="#fff" stroke-opacity="${dark?.06:.22}" stroke-width="1"/>`; });
+    s+=`<g clip-path="url(#sc${u})" fill="none" stroke="${shade(c2,-.45)}" stroke-opacity=".35"><ellipse cx="318" cy="438" rx="22" ry="7"/><ellipse cx="318" cy="438" rx="13" ry="4"/><ellipse cx="318" cy="438" rx="5" ry="1.8"/></g>`;
+    s+=`<rect x="0" y="${y0}" width="400" height="${480-y0}" fill="url(#sg${u})" opacity="${dark?.35:1}"/>`;
+  } else if(T.surf==='linen'){
+    s+=`<rect x="0" y="${y0}" width="400" height="${480-y0}" fill="url(#wv${u})"/>`;
+    for(let i=0;i<3;i++){ const x=R()*340; s+=`<path clip-path="url(#sc${u})" d="M${f1(x)} ${y0} C${f1(x+30)} ${y0+40} ${f1(x-10)} ${y0+80} ${f1(x+40)} 480 L${f1(x+90)} 480 C${f1(x+50)} ${y0+80} ${f1(x+90)} ${y0+40} ${f1(x+60)} ${y0}Z" fill="${shade(c2,-.3)}" opacity=".16" filter="url(#bl${u})"/><path clip-path="url(#sc${u})" d="M${f1(x+70)} ${y0} C${f1(x+98)} ${y0+40} ${f1(x+60)} ${y0+80} ${f1(x+110)} 480" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="3" filter="url(#bl${u})"/>`; }
+  } else { // plaster
+    s+=`<rect x="0" y="${y0}" width="400" height="${480-y0}" fill="url(#sg${u})" opacity=".6"/>`;
+  }
+  s+=`<rect x="0" y="${y0}" width="400" height="${480-y0}" filter="url(#nz${u})" opacity=".35"/>`;
+  s+=`<rect x="0" y="${y0}" width="400" height="22" fill="url(#ed${u})"/><path d="M0 ${y0+.8}H400" stroke="#fff" stroke-opacity="${DK?.12:.5}" stroke-width="1.4"/>`;
+  return s;
+}
+function scene(u,T,fl){
+  const [w1,w2]=T.wall, [n1,n2]=T.niche, dk=!!T.dk;
+  const arch=(x0,x1,top,bot)=>{ const r=(x1-x0)/2; return `M${x0} ${bot}V${top+r}A${r} ${r} 0 0 1 ${x1} ${top+r}V${bot}Z`; };
+  let s=`<defs><linearGradient id="wl${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${w1}"/><stop offset="1" stop-color="${w2}"/></linearGradient>
+  <linearGradient id="nc${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${n1}"/><stop offset="1" stop-color="${n2}"/></linearGradient>
+  <radialGradient id="sp${u}" cx="${fl.x}" cy="${fl.y}" r="210" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${dk?'#ffb560':'#fff4d8'}" stop-opacity="${dk?.5:.7}"/><stop offset="1" stop-color="${dk?'#ffb560':'#fff4d8'}" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vg${u}" cx=".5" cy=".5" r=".72"><stop offset=".5" stop-color="#2a1608" stop-opacity="0"/><stop offset="1" stop-color="#2a1608" stop-opacity="${dk?.5:.2}"/></radialGradient>
+  <clipPath id="ni${u}"><path d="${arch(60,340,56,372)}"/></clipPath>
+  <linearGradient id="rc${u}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a1608" stop-opacity=".26"/><stop offset=".18" stop-color="#2a1608" stop-opacity="0"/><stop offset=".85" stop-color="#2a1608" stop-opacity="0"/><stop offset="1" stop-color="#2a1608" stop-opacity=".1"/></linearGradient></defs>`;
+  s+=`<rect width="400" height="480" fill="url(#wl${u})"/><rect width="400" height="480" filter="url(#nz${u})" opacity=".16"/>`;
+  s+=`<path d="${arch(48,352,34,372)}" fill="${dk?'#140a05':'#5e3a1c'}" fill-opacity="${dk?.45:.3}"/>`;
+  s+=`<path d="${arch(60,340,56,372)}" fill="url(#nc${u})"/>`;
+  s+=`<g clip-path="url(#ni${u})"><rect x="60" y="56" width="280" height="316" fill="url(#sp${u})"/><rect x="60" y="56" width="280" height="316" fill="url(#rc${u})"/><path d="M60 56 H340" stroke="${shade(n1,-.3)}" stroke-width="0"/><rect x="60" y="56" width="280" height="316" filter="url(#nz${u})" opacity=".25"/></g>`;
+  s+=`<path d="${arch(60,340,56,372)}" fill="none" stroke="${dk?'#140a05':'#6b4524'}" stroke-opacity=".3" stroke-width="2"/>`;
+  s+=surface(u,T);
+  return {bg:s, fg:`<rect width="400" height="480" fill="url(#vg${u})" pointer-events="none"/>`};
+}
+
+/* ---------- objects ---------- */
+function labelSVG(o,u,cx,ly,lw,lh,name,aroma){
+  const st=o.label||'arch', paper=o.paper||'#f6eee1', ink=o.ink||'#3b2a1f', acc=o.acc||'#8f5f37';
+  const k=3.4, lx=cx-lw/2, rx=cx+lw/2, B=Math.round;
+  const shp=(ins=0)=>`M${lx+ins} ${ly+ins}Q${cx} ${ly+ins+k*2} ${rx-ins} ${ly+ins}V${ly+lh-ins}Q${cx} ${ly+lh-ins+k*2} ${lx+ins} ${ly+lh-ins}Z`;
+  const ser='Cormorant Garamond,Georgia,serif', snt='Manrope,Arial,sans-serif';
+  const AR=(aroma||'').toUpperCase();
+  let s='';
+  if(st==='band'){ // kraft band around the whole jar
+    const bx0=cx-o.bw/2+1, bx1=cx+o.bw/2-1, bh=lh;
+    const sh=`M${bx0} ${ly}Q${cx} ${ly+k*2} ${bx1} ${ly}V${ly+bh}Q${cx} ${ly+bh+k*2} ${bx0} ${ly+bh}Z`;
+    s+=`<path d="${sh}" fill="${paper}"/><path d="${sh}" fill="url(#ls${u})"/><path d="${sh}" filter="url(#nz${u})" opacity=".2"/>`;
+    s+=`<path d="M${bx0+6} ${ly+5}Q${cx} ${ly+5+k*2} ${bx1-6} ${ly+5}" stroke="${acc}" stroke-width=".9" stroke-dasharray="2 2.4" fill="none"/><path d="M${bx0+6} ${ly+bh-5}Q${cx} ${ly+bh-5+k*2} ${bx1-6} ${ly+bh-5}" stroke="${acc}" stroke-width=".9" stroke-dasharray="2 2.4" fill="none"/>`;
+    s+=`<text x="${cx}" y="${ly+bh*.52+k+4}" text-anchor="middle" font-family="${snt}" font-weight="800" font-size="15" letter-spacing="5" fill="${ink}">${name.toUpperCase()}</text>`;
+    s+=`<text x="${cx}" y="${ly+bh-10+k}" text-anchor="middle" font-family="${snt}" font-weight="600" font-size="6.2" letter-spacing="1.3" fill="${acc}">${AR}</text>`;
+    return s;
+  }
+  if(st==='moon'){
+    s+=`<path d="${shp()}" fill="${paper}"/><path d="${shp()}" fill="url(#ls${u})"/><path d="${shp()}" filter="url(#nz${u})" opacity=".1"/><path d="${shp(4.5)}" fill="none" stroke="${acc}" stroke-width=".9"/>`;
+    const my=ly+lh*.34+k;
+    s+=`<path d="M${cx+9} ${my-11}A12 12 0 1 0 ${cx+9} ${my+11}A9.5 9.5 0 1 1 ${cx+9} ${my-11}Z" fill="${acc}"/><g fill="${acc}"><path d="M${cx-20} ${my-6}l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/><path d="M${cx+22} ${my+6}l.9 2.2 2.2.9-2.2.9-.9 2.2-.9-2.2-2.2-.9 2.2-.9z"/></g>`;
+    s+=`<text x="${cx}" y="${ly+lh*.69+k}" text-anchor="middle" font-family="${ser}" font-style="italic" font-weight="600" font-size="20" fill="${acc}">${name}</text>`;
+    s+=`<text x="${cx}" y="${ly+lh-11+k}" text-anchor="middle" font-family="${snt}" font-weight="600" font-size="6" letter-spacing="1.1" fill="${acc}">${AR}</text>`;
+    return s;
+  }
+  if(st==='stamp'){
+    const ry=lh/2, cy=ly+lh/2+k*.6;
+    s+=`<ellipse cx="${cx}" cy="${cy}" rx="${lw/2}" ry="${ry}" fill="${paper}"/><ellipse cx="${cx}" cy="${cy}" rx="${lw/2}" ry="${ry}" fill="url(#ls${u})"/><ellipse cx="${cx}" cy="${cy}" rx="${lw/2-5}" ry="${ry-5}" fill="none" stroke="${acc}" stroke-width=".9"/><ellipse cx="${cx}" cy="${cy}" rx="${lw/2-8}" ry="${ry-8}" fill="none" stroke="${acc}" stroke-width=".5"/>`;
+    const sy=cy-ry*.1; // pine sprig
+    s+=`<g stroke="${ink}" stroke-linecap="round" fill="none"><path d="M${cx} ${sy+16}V${sy-20}" stroke-width="1.2"/>${[...Array(7)].map((_,i)=>{const y=sy-16+i*5.2,l=11-Math.abs(i-3)*1.1;return `<path d="M${cx} ${y}l${-l} ${-5}M${cx} ${y}l${l} ${-5}" stroke-width="1.1"/>`}).join('')}</g>`;
+    s+=`<text x="${cx}" y="${cy+ry*.52}" text-anchor="middle" font-family="${ser}" font-style="italic" font-weight="600" font-size="19" fill="${ink}">${name}</text>`;
+    s+=`<text x="${cx}" y="${cy+ry*.8}" text-anchor="middle" font-family="${snt}" font-weight="600" font-size="5.6" letter-spacing="1" fill="${acc}">${AR}</text>`;
+    return s;
+  }
+  // arch
+  s+=`<path d="${shp()}" fill="${paper}"/><path d="${shp()}" fill="url(#ls${u})"/><path d="${shp()}" filter="url(#nz${u})" opacity=".12"/><path d="${shp(4.5)}" fill="none" stroke="${acc}" stroke-opacity=".7" stroke-width=".9"/>`;
+  s+=`<text x="${cx}" y="${ly+16+k}" text-anchor="middle" font-family="${snt}" font-weight="700" font-size="5.6" letter-spacing="1.8" fill="${acc}">HEARTHWICK</text>`;
+  const ay=ly+lh*.3+k;
+  s+=`<path d="M${cx-9} ${ay+14}V${ay+3}A9 9 0 0 1 ${cx+9} ${ay+3}V${ay+14}Z" fill="none" stroke="${ink}" stroke-width="1.1"/><path d="M${cx-4.6} ${ay+14}A4.6 4.6 0 0 1 ${cx+4.6} ${ay+14}Z" fill="${acc}"/><path d="M${cx} ${ay+2}v3M${cx-5} ${ay+4}l2 2M${cx+5} ${ay+4}l-2 2" stroke="${acc}" stroke-width="1"/>`;
+  s+=`<text x="${cx}" y="${ly+lh*.72+k}" text-anchor="middle" font-family="${ser}" font-style="italic" font-weight="600" font-size="22" fill="${ink}">${name}</text>`;
+  s+=`<text x="${cx}" y="${ly+lh-10+k}" text-anchor="middle" font-family="${snt}" font-weight="600" font-size="5.8" letter-spacing="1" fill="${acc}">${AR}</text>`;
+  return s;
+}
+
+function artJar(o,u,aroma,name){
+  const cx=200, bw=o.w||176, h=o.h||222, B=424, top=B-h, x0=cx-bw/2, x1=cx+bw/2, ry=bw*.095, r=18, waxTop=top+h*.22;
+  const g=o.glass, wax=o.wax||'#f4e7d0', lit=o.lit!==false;
+  const wk=o.wicks===2?[cx-bw*.2,cx+bw*.2]:[cx];
+  const body=`M${x0} ${top}V${B-r}Q${x0} ${B} ${x0+r} ${B}H${x1-r}Q${x1} ${B} ${x1} ${B-r}V${top}A${bw/2} ${ry} 0 0 1 ${x0} ${top}Z`;
+  const gA=o.gA||.45;
+  let s=`<defs>${commonDefs(u)}
+  <linearGradient id="gf${u}" x1="0" x2="1"><stop offset="0" stop-color="${shade(g,-.25)}" stop-opacity=".95"/><stop offset=".12" stop-color="${g}" stop-opacity="${gA}"/><stop offset=".5" stop-color="${g}" stop-opacity="${gA*.45}"/><stop offset=".86" stop-color="${g}" stop-opacity="${gA}"/><stop offset="1" stop-color="${shade(g,-.3)}" stop-opacity=".97"/></linearGradient>
+  <linearGradient id="gv${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${g}" stop-opacity="0"/><stop offset=".8" stop-color="${g}" stop-opacity=".05"/><stop offset="1" stop-color="${shade(g,-.35)}" stop-opacity=".6"/></linearGradient>
+  <linearGradient id="wx${u}" x1="0" x2="1"><stop offset="0" stop-color="${shade(wax,-.22)}"/><stop offset=".4" stop-color="${wax}"/><stop offset=".65" stop-color="${shade(wax,.06)}"/><stop offset="1" stop-color="${shade(wax,-.3)}"/></linearGradient>
+  <linearGradient id="wq${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98f" stop-opacity=".55"/><stop offset=".45" stop-color="#ffd98f" stop-opacity=".08"/><stop offset="1" stop-color="#3a2010" stop-opacity=".2"/></linearGradient>
+  <radialGradient id="wp${u}"><stop offset="0" stop-color="#fff2c9" stop-opacity=".95"/><stop offset=".55" stop-color="#ffdca0" stop-opacity=".55"/><stop offset="1" stop-color="${wax}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="hl${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".6" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="ls${u}" x1="0" x2="1"><stop offset="0" stop-color="#2a1608" stop-opacity=".34"/><stop offset=".25" stop-color="#2a1608" stop-opacity="0"/><stop offset=".72" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#2a1608" stop-opacity=".4"/></linearGradient>
+  <linearGradient id="wd${u}" x1="0" x2="1"><stop offset="0" stop-color="#8c5f37"/><stop offset=".45" stop-color="#d5ab7b"/><stop offset="1" stop-color="#7f552f"/></linearGradient>
+  <radialGradient id="iw${u}" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd186" stop-opacity=".85"/><stop offset="1" stop-color="#ffd186" stop-opacity="0"/></radialGradient>
+  <clipPath id="cb${u}"><path d="${body}"/></clipPath>
+  <clipPath id="cw${u}"><path d="M${x0+5} ${waxTop}V${B-r}Q${x0+5} ${B-8} ${x0+r+4} ${B-8}H${x1-r-4}Q${x1-5} ${B-8} ${x1-5} ${B-r}V${waxTop}Z"/></clipPath>
+  </defs>`;
+  // light on the table, colored glass caustic, contact shadow
+  s+=`<ellipse cx="${cx}" cy="${B+4}" rx="${bw*1.15}" ry="${ry+24}" fill="url(#pl${u})"/>`;
+  s+=`<ellipse cx="${cx+bw*.52}" cy="${B+7}" rx="${bw*.4}" ry="${ry+2}" fill="${shade(g,.3)}" opacity="${DK?.3:.4}" filter="url(#bl${u})"/>`;
+  s+=`<ellipse cx="${cx+6}" cy="${B+3}" rx="${bw*.72}" ry="${ry+8}" fill="url(#sh${u})"/>`;
+  if(o.lid){
+    s+=`<g transform="rotate(-9 ${x1+6} ${B})"><ellipse cx="${x1+9}" cy="${B-bw*.5}" rx="${bw*.17}" ry="${bw*.5}" fill="#6d4727"/><ellipse cx="${x1+3}" cy="${B-bw*.5}" rx="${bw*.16}" ry="${bw*.49}" fill="url(#wd${u})"/><ellipse cx="${x1+3}" cy="${B-bw*.5}" rx="${bw*.1}" ry="${bw*.34}" fill="none" stroke="#a87c50" stroke-width="1.2" opacity=".6"/><ellipse cx="${x1+3}" cy="${B-bw*.5}" rx="${bw*.04}" ry="${bw*.15}" fill="none" stroke="#a87c50" stroke-width="1" opacity=".5"/></g>`;
+  }
+  if(lit) wk.forEach(x=>s+=glow(x,waxTop-30,1,u));
+  s+=`<ellipse cx="${cx}" cy="${top}" rx="${bw/2}" ry="${ry}" fill="${g}" fill-opacity=".2"/>`;
+  s+=`<path d="M${x0+5} ${waxTop}V${B-r}Q${x0+5} ${B-8} ${x0+r+4} ${B-8}H${x1-r-4}Q${x1-5} ${B-8} ${x1-5} ${B-r}V${waxTop}Z" fill="url(#wx${u})"/>`;
+  s+=`<g clip-path="url(#cw${u})"><rect x="${x0}" y="${waxTop}" width="${bw}" height="${h}" fill="url(#wq${u})"/>${grain(u,'cw'+u,.45)}</g>`;
+  s+=`<ellipse cx="${cx}" cy="${waxTop}" rx="${bw/2-5}" ry="${ry*.92}" fill="${shade(wax,.3)}"/>`;
+  if(lit) s+=`<ellipse cx="${cx}" cy="${waxTop+1}" rx="${bw*.36}" ry="${ry*.62}" fill="url(#wp${u})"/>`;
+  wk.forEach(x=>{ s+=wick(x,waxTop,waxTop-16,1,lit); if(lit) s+=flame(x,waxTop-14,1,u); });
+  // glass
+  s+=`<path d="${body}" fill="url(#gf${u})"/><path d="${body}" fill="url(#gv${u})"/>`;
+  if(lit) wk.forEach(x=>s+=`<g clip-path="url(#cb${u})"><ellipse cx="${x}" cy="${waxTop+12}" rx="${bw*.4}" ry="34" fill="url(#iw${u})" style="${DK?'mix-blend-mode:screen':''}"/></g>`);
+  s+=`<path d="M${x0+5} ${B-18}Q${cx} ${B-6} ${x1-5} ${B-18}" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.6"/><path d="M${x0} ${B-r}Q${x0} ${B} ${x0+r} ${B}H${x1-r}Q${x1} ${B} ${x1} ${B-r}" fill="none" stroke="${shade(g,-.45)}" stroke-opacity=".55" stroke-width="1.6"/>`;
+  if(aroma!==false&&name){
+    const lw=o.label==='band'?bw:Math.min(bw*.62,150), lh=o.label==='band'?38:Math.min(h*.44,102), ly=top+h*(o.label==='band'?.45:.4);
+    o.bw=bw; s+=labelSVG(o,u,cx,ly,lw,lh,name,aroma);
+    if(o.vol&&o.label!=='band') s+=`<text x="${cx}" y="${ly+lh+14}" text-anchor="middle" font-family="Manrope,Arial,sans-serif" font-weight="600" font-size="6" letter-spacing="1.2" fill="#fff" fill-opacity=".72">${o.vol}</text>`;
+  }
+  // highlights: window + narrow strip
+  s+=`<rect x="${x0+bw*.085}" y="${top+ry+10}" width="${bw*.06}" height="${h*.5}" rx="${bw*.03}" fill="url(#hl${u})"/><rect x="${x0+bw*.085}" y="${top+ry+h*.5+16}" width="${bw*.06}" height="${h*.12}" rx="${bw*.03}" fill="url(#hl${u})" opacity=".7"/>`;
+  s+=`<rect x="${x1-bw*.12}" y="${top+ry+16}" width="${bw*.022}" height="${h*.55}" rx="2" fill="url(#hl${u})" opacity=".55"/>`;
+  s+=`<ellipse cx="${cx}" cy="${top}" rx="${bw/2}" ry="${ry}" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2.4"/><ellipse cx="${cx}" cy="${top}" rx="${bw/2}" ry="${ry}" fill="none" stroke="${shade(g,-.2)}" stroke-opacity=".7" stroke-width="1"/><path d="M${x0+bw*.12} ${top+ry*.84}A${bw*.4} ${ry*.8} 0 0 0 ${cx+bw*.1} ${top+ry}" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>`;
+  return s;
+}
+
+function holder(x,y,hgt,u,w=40){ // brass candlestick; y is the base
+  const top=y-hgt, c=`url(#br${u})`;
+  let s=`<ellipse cx="${x}" cy="${y-2}" rx="${w*.9}" ry="9" fill="#6a4a16"/><path d="M${x-w*.9} ${y-3}Q${x} ${y-14} ${x+w*.9} ${y-3}L${x+w*.7} ${y-12}Q${x} ${y-22} ${x-w*.7} ${y-12}Z" fill="${c}"/>`;
+  s+=`<path d="M${x-6} ${y-16}C${x-6} ${y-30} ${x-13} ${y-34} ${x-13} ${y-44}C${x-13} ${y-52} ${x-5} ${y-54} ${x-5} ${top+22}H${x+5}C${x+5} ${y-54} ${x+13} ${y-52} ${x+13} ${y-44}C${x+13} ${y-34} ${x+6} ${y-30} ${x+6} ${y-16}Z" fill="${c}"/>`;
+  s+=`<ellipse cx="${x}" cy="${y-38}" rx="12" ry="3.4" fill="${c}"/><ellipse cx="${x}" cy="${y-38}" rx="12" ry="3.4" fill="none" stroke="#fff3b8" stroke-opacity=".5" stroke-width=".8"/>`;
+  s+=`<path d="M${x-14} ${top+20}Q${x} ${top+27} ${x+14} ${top+20}L${x+11} ${top+8}H${x-11}Z" fill="${c}"/><ellipse cx="${x}" cy="${top+8}" rx="11" ry="3.4" fill="#e9c872"/><ellipse cx="${x}" cy="${top+9}" rx="7" ry="2" fill="#5c3e12"/>`;
+  s+=`<path d="M${x-3} ${y-48}V${y-22}" stroke="#fff6c8" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/>`;
+  return s;
+}
+function artTapers(o,u){
+  const c=o.color||'#d8a046', B=424;
+  let s=`<defs>${commonDefs(u)}<linearGradient id="br${u}" x1="0" x2="1"><stop offset="0" stop-color="#6b4a14"/><stop offset=".3" stop-color="#d9b04a"/><stop offset=".45" stop-color="#fff0ad"/><stop offset=".7" stop-color="#b78a2e"/><stop offset="1" stop-color="#5e3f10"/></linearGradient>
+  <linearGradient id="tb${u}" x1="0" x2="1"><stop offset="0" stop-color="${shade(c,-.42)}"/><stop offset=".3" stop-color="${shade(c,.2)}"/><stop offset=".55" stop-color="${c}"/><stop offset="1" stop-color="${shade(c,-.5)}"/></linearGradient>
+  <linearGradient id="tv${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a0" stop-opacity=".5"/><stop offset=".5" stop-color="#ffe3a0" stop-opacity="0"/></linearGradient></defs>`;
+  s+=`<ellipse cx="200" cy="${B+6}" rx="190" ry="46" fill="url(#pl${u})"/><ellipse cx="210" cy="${B+4}" rx="130" ry="13" fill="url(#sh${u})"/>`;
+  const taper=(x,topY,bot,lit)=>{ const w=26, x0=x-w/2;
+    let r=`<rect x="${x0}" y="${topY}" width="${w}" height="${bot-topY}" fill="url(#tb${u})"/><rect x="${x0}" y="${topY}" width="${w}" height="${bot-topY}" fill="url(#hx${u})" opacity=".28"/><rect x="${x0}" y="${topY}" width="${w}" height="${bot-topY}" fill="url(#tv${u})"/>`;
+    r+=`<path d="M${x0+w*.76} ${topY+4}V${bot}" stroke="${shade(c,-.55)}" stroke-opacity=".3" stroke-width="1.2"/><path d="M${x0+4} ${topY+8}V${bot-8}" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>`;
+    r+=`<ellipse cx="${x}" cy="${topY}" rx="${w/2}" ry="4.6" fill="${shade(c,.3)}"/>`;
+    if(lit) r+=`<ellipse cx="${x}" cy="${topY+.5}" rx="6" ry="2.2" fill="#fff0c0"/>`;
+    r+=`<path d="M${x0+3} ${topY+3}C${x0+3} ${topY+22} ${x0+5} ${topY+30} ${x0+5.5} ${topY+34}" stroke="${shade(c,.25)}" stroke-width="4" stroke-linecap="round" fill="none" opacity=".8"/>`;
+    r+=wick(x,topY,topY-15,1,lit); if(lit) r+=flame(x,topY-13,1,u); return r; };
+  s+=glow(148,98,1.1,u);
+  s+=holder(144,B,70,u,40)+holder(256,B-4,52,u,36);
+  s+=taper(144,118,B-70+14,true)+taper(256,172,B-4-52+14,false);
+  return s;
+}
+
+function artPillar(o,u,name){
+  const cx=200, bw=o.w||150, h=o.h||200, base=o.base||'none', lift=base==='dish'?14:base==='slice'?16:0, B=424-lift, top=B-h, x0=cx-bw/2, x1=cx+bw/2, ry=bw*.13;
+  const c=o.color||'#d9a24a';
+  let s=`<defs>${commonDefs(u)}<linearGradient id="pb${u}" x1="0" x2="1"><stop offset="0" stop-color="${shade(c,-.4)}"/><stop offset=".22" stop-color="${shade(c,-.08)}"/><stop offset=".45" stop-color="${shade(c,.24)}"/><stop offset=".75" stop-color="${shade(c,-.1)}"/><stop offset="1" stop-color="${shade(c,-.5)}"/></linearGradient>
+  <linearGradient id="pv${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset=".35" stop-color="#ffe2a0" stop-opacity=".06"/><stop offset="1" stop-color="#2a1608" stop-opacity=".25"/></linearGradient>
+  <radialGradient id="pp${u}"><stop offset="0" stop-color="#fff0c0" stop-opacity=".95"/><stop offset=".6" stop-color="${shade(c,.35)}" stop-opacity=".6"/><stop offset="1" stop-color="${shade(c,.1)}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="ce${u}" x1="0" x2="1"><stop offset="0" stop-color="#5e2f1d"/><stop offset=".35" stop-color="#b66a47"/><stop offset=".5" stop-color="#d98c65"/><stop offset="1" stop-color="#4c2517"/></linearGradient>
+  <radialGradient id="wr${u}"><stop offset="0" stop-color="#e6c08e"/><stop offset=".8" stop-color="#c9985f"/><stop offset="1" stop-color="#b3814d"/></radialGradient>
+  <clipPath id="pc${u}"><path d="M${x0} ${top}V${B}A${bw/2} ${ry} 0 0 0 ${x1} ${B}V${top}Z"/></clipPath></defs>`;
+  s+=`<ellipse cx="${cx}" cy="${424+4}" rx="${bw*1.5}" ry="40" fill="url(#pl${u})"/>`;
+  if(base==='dish'){
+    s+=`<ellipse cx="${cx+8}" cy="426" rx="${bw*.98}" ry="19" fill="url(#sh${u})"/><path d="M${cx-bw*.9} 412Q${cx} 452 ${cx+bw*.9} 412L${cx+bw*.74} 428Q${cx} 446 ${cx-bw*.74} 428Z" fill="url(#ce${u})"/><ellipse cx="${cx}" cy="412" rx="${bw*.9}" ry="17" fill="#c9805b"/><ellipse cx="${cx}" cy="412" rx="${bw*.9}" ry="17" fill="none" stroke="#ffd9bd" stroke-opacity=".55" stroke-width="1.4"/><ellipse cx="${cx}" cy="413" rx="${bw*.64}" ry="11" fill="#a9603f"/><path d="M${cx-bw*.7} 417Q${cx-bw*.3} 424 ${cx} 424" stroke="#fff" stroke-opacity=".35" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  } else if(base==='slice'){
+    s+=`<ellipse cx="${cx+8}" cy="428" rx="${bw*1.05}" ry="19" fill="url(#sh${u})"/><path d="M${cx-bw*.98} 410V420A${bw*.98} 19 0 0 0 ${cx+bw*.98} 420V410Z" fill="#6f4727"/><ellipse cx="${cx}" cy="410" rx="${bw*.98}" ry="19" fill="url(#wr${u})"/>`;
+    for(let i=1;i<=6;i++) s+=`<ellipse cx="${cx+i*.6}" cy="${410+i*.4}" rx="${bw*.98*(1-i*.14)}" ry="${19*(1-i*.14)}" fill="none" stroke="#8e5f33" stroke-opacity="${(.5-i*.05).toFixed(2)}" stroke-width="1"/>`;
+    s+=`<ellipse cx="${cx}" cy="410" rx="${bw*.98}" ry="19" fill="none" stroke="#5e3a1d" stroke-width="2"/><path d="M${cx-bw*.6} 400Q${cx-bw*.2} 394 ${cx+bw*.1} 396" stroke="#fff" stroke-opacity=".35" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  } else {
+    s+=`<ellipse cx="${cx+6}" cy="${B+4}" rx="${bw*.85}" ry="${ry+10}" fill="url(#sh${u})"/>`;
+  }
+  s+=glow(cx,top-24,1,u);
+  const bodyP=`M${x0} ${top}V${B}A${bw/2} ${ry} 0 0 0 ${x1} ${B}V${top}Z`;
+  s+=`<path d="${bodyP}" fill="url(#pb${u})"/>`;
+  s+=`<g clip-path="url(#pc${u})">`;
+  if(o.hex) s+=`<path d="${bodyP}" fill="url(#hx${u})" opacity=".75"/>`;
+  else s+=`<g opacity=".16" stroke="${shade(c,-.55)}" stroke-width="1.2" fill="none"><path d="M${x0+bw*.2} ${top+40} q6 30 0 70"/><path d="M${x0+bw*.7} ${top+70} q-5 30 2 60"/><path d="M${x0+bw*.45} ${top+120} q4 20 0 40"/></g>`;
+  s+=`<path d="${bodyP}" fill="url(#pv${u})"/>`+grain(u,'pc'+u,.5)+`</g>`;
+  [[-.32,46],[.05,76],[.3,34]].forEach(([k,L])=>{ const x=cx+k*bw, yy=top+ry*Math.sqrt(1-(2*k)**2)-3;
+    s+=`<path d="M${x-7} ${yy} C${x-7} ${yy+L*.6} ${x-6} ${yy+L} ${x} ${yy+L} C${x+6} ${yy+L} ${x+7} ${yy+L*.6} ${x+7} ${yy}Z" fill="${shade(c,.14)}"/><path d="M${x+2} ${yy+4}V${yy+L*.7}" stroke="${shade(c,-.3)}" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/><path d="M${x-3.4} ${yy+4}V${yy+L*.7}" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-linecap="round"/><circle cx="${x}" cy="${yy+L}" r="1.5" fill="#fff" opacity=".3"/>`; });
+  s+=`<ellipse cx="${cx}" cy="${top}" rx="${bw/2}" ry="${ry}" fill="${shade(c,.32)}"/><ellipse cx="${cx}" cy="${top+3}" rx="${bw/2-9}" ry="${ry-5}" fill="${shade(c,.08)}"/><ellipse cx="${cx}" cy="${top+3}" rx="${bw*.34}" ry="${ry*.62}" fill="url(#pp${u})"/><ellipse cx="${cx-bw*.14}" cy="${top+1}" rx="${bw*.07}" ry="${ry*.14}" fill="#fff" opacity=".7"/>`;
+  s+=wick(cx,top+3,top-13,1)+flame(cx,top-11,1,u);
+  s+=`<rect x="${x0+bw*.16}" y="${top+ry+8}" width="6" height="${h-ry-34}" rx="3" fill="#fff" opacity=".28"/>`;
+  return s;
+}
+
+function artBalls(o,u){
+  const balls=o.balls;
+  let s=`<defs>${commonDefs(u)}<linearGradient id="tr${u}" x1="0" x2="1"><stop offset="0" stop-color="#b78a5a"/><stop offset=".5" stop-color="#e2bf8d"/><stop offset="1" stop-color="#a97b4a"/></linearGradient><linearGradient id="pl2${u}" x1="0" x2="1"><stop offset="0" stop-color="#cfc9bf"/><stop offset=".4" stop-color="#f7f4ee"/><stop offset=".6" stop-color="#ffffff"/><stop offset="1" stop-color="#b3ada2"/></linearGradient>`;
+  balls.forEach((b,i)=>{ s+=`<radialGradient id="bg${u}_${i}" cx=".34" cy=".28" r=".85"><stop offset="0" stop-color="${shade(b.c,.5)}"/><stop offset=".42" stop-color="${b.c}"/><stop offset=".85" stop-color="${shade(b.c,-.38)}"/><stop offset="1" stop-color="${shade(b.c,-.5)}"/></radialGradient><radialGradient id="br${u}_${i}" cx=".5" cy="-.05" r=".85"><stop offset="0" stop-color="#ffd694" stop-opacity=".55"/><stop offset=".6" stop-color="#ffd694" stop-opacity="0"/></radialGradient><clipPath id="bc${u}_${i}"><circle cx="${b.x}" cy="${b.y}" r="${b.r}"/></clipPath>`; });
+  s+=`</defs>`;
+  s+=`<ellipse cx="200" cy="${430}" rx="${o.plinth?150:200}" ry="46" fill="url(#pl${u})"/>`;
+  if(o.tray){ s+=`<ellipse cx="206" cy="436" rx="178" ry="34" fill="url(#sh${u})"/><path d="M24 412A176 34 0 0 0 376 412V422A176 34 0 0 1 24 422Z" fill="#8e6236"/><ellipse cx="200" cy="412" rx="176" ry="34" fill="url(#tr${u})"/><ellipse cx="200" cy="414" rx="156" ry="28" fill="#c79d68"/><ellipse cx="200" cy="414" rx="156" ry="28" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/>`;
+    for(let i=0;i<9;i++) s+=`<path d="M${60+i*3} ${404+i*3.2}Q200 ${400+i*3.4} ${340-i*3} ${404+i*3.2}" fill="none" stroke="#8e6236" stroke-opacity=".18"/>`; }
+  if(o.plinth){ const pw=96, y0=390; s+=`<ellipse cx="206" cy="426" rx="${pw*1.1}" ry="18" fill="url(#sh${u})"/><path d="M${200-pw} ${y0}V420A${pw} 18 0 0 0 ${200+pw} 420V${y0}Z" fill="url(#pl2${u})"/><path d="M${200-pw+18} ${y0+6}C${200-pw+40} ${y0+20} ${200-pw+20} 420 ${200-pw+50} 436" stroke="#8a857c" stroke-opacity=".4" fill="none"/><ellipse cx="200" cy="${y0}" rx="${pw}" ry="18" fill="#f4f1ea"/><ellipse cx="200" cy="${y0+1}" rx="${pw-12}" ry="12" fill="#e4dfd5"/>`; }
+  balls.forEach(b=>{ if(!o.plinth&&!o.tray) s+=`<ellipse cx="${b.x+6}" cy="${b.y+b.r-1}" rx="${b.r*1.15}" ry="${b.r*.2}" fill="url(#sh${u})"/>`; else s+=`<ellipse cx="${b.x+4}" cy="${b.y+b.r-2}" rx="${b.r*.95}" ry="${b.r*.14}" fill="url(#sh${u})"/>`; });
+  balls.forEach(b=>{ if(b.lit) s+=glow(b.x,b.y-b.r-26*(b.r/70),b.r/70,u); });
+  balls.forEach((b,i)=>{
+    s+=`<circle cx="${b.x}" cy="${b.y}" r="${b.r}" fill="url(#bg${u}_${i})"/>`;
+    s+=`<g clip-path="url(#bc${u}_${i})">`;
+    if(b.marble) s+=`<g fill="none" stroke-linecap="round"><path d="M${b.x-b.r} ${b.y-20} C${b.x-40} ${b.y-70} ${b.x+10} ${b.y+10} ${b.x+b.r} ${b.y-40}" stroke="#6f6a63" stroke-width="7" opacity=".14" filter="url(#bl${u})"/><path d="M${b.x-b.r} ${b.y-20} C${b.x-40} ${b.y-70} ${b.x+10} ${b.y+10} ${b.x+b.r} ${b.y-40}" stroke="#7a736b" stroke-width="2" opacity=".6"/><path d="M${b.x-b.r} ${b.y+34} C${b.x-30} ${b.y+10} ${b.x+20} ${b.y+76} ${b.x+b.r} ${b.y+20}" stroke="#8c847a" stroke-width="1.5" opacity=".55"/><path d="M${b.x-34} ${b.y-b.r} C${b.x-10} ${b.y-30} ${b.x-56} ${b.y+20} ${b.x-22} ${b.y+b.r}" stroke="#6b645c" stroke-width="1.1" opacity=".5"/><path d="M${b.x+40} ${b.y-b.r} C${b.x+28} ${b.y-20} ${b.x+64} ${b.y+30} ${b.x+30} ${b.y+b.r}" stroke="#a49b8f" stroke-width="3.5" opacity=".28" filter="url(#bl${u})"/><path d="M${b.x-10} ${b.y-60} l14 26 -9 18 20 24" stroke="#5f5951" stroke-width="1" opacity=".45"/></g>`;
+    s+=`<circle cx="${b.x}" cy="${b.y}" r="${b.r}" fill="url(#br${u}_${i})"/>`+grain(u,`bc${u}_${i}`,.4)+`</g>`;
+    s+=`<ellipse cx="${b.x-b.r*.4}" cy="${b.y-b.r*.44}" rx="${b.r*.17}" ry="${b.r*.09}" transform="rotate(-35 ${b.x-b.r*.4} ${b.y-b.r*.44})" fill="#fff" opacity=".42" filter="url(#bl${u})"/>`;
+    const ty=b.y-b.r+b.r*.06; s+=`<ellipse cx="${b.x}" cy="${ty}" rx="${b.r*.22}" ry="${b.r*.06}" fill="${shade(b.c,-.25)}"/>`;
+    s+=wick(b.x,ty,ty-13*(b.r/70),b.r/70,b.lit); if(b.lit) s+=flame(b.x,ty-12*(b.r/70),b.r/70,u);
+  });
+  return s;
+}
+
+function artSet(o,u,aroma,name){
+  let s=`<defs>${commonDefs(u)}<linearGradient id="kr${u}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d9ac7b"/><stop offset="1" stop-color="#b17f50"/></linearGradient><linearGradient id="ln${u}" x1="0" x2="1"><stop offset="0" stop-color="#d4c9b6"/><stop offset=".5" stop-color="#f4eee1"/><stop offset="1" stop-color="#c4b8a3"/></linearGradient><clipPath id="kc${u}"><rect x="68" y="300" width="262" height="140"/></clipPath></defs>`;
+  s+=`<ellipse cx="200" cy="440" rx="215" ry="50" fill="url(#pl${u})"/><ellipse cx="208" cy="444" rx="196" ry="22" fill="url(#sh${u})"/>`;
+  s+=`<g transform="rotate(-8 330 440)"><rect x="96" y="214" width="250" height="150" rx="4" fill="#9f7143"/><rect x="104" y="222" width="234" height="134" rx="3" fill="#bd8d5d"/><path d="M110 240H330M110 262H330M110 286H330" stroke="#8c6238" stroke-opacity=".35"/></g>`;
+  s+=`<path d="M68 300 L98 272 H358 L330 300Z" fill="#84592f"/>`;
+  s+=`<g stroke="#667250" stroke-width="2" fill="none" stroke-linecap="round"><path d="M110 300 Q112 220 118 150"/><path d="M122 300 Q128 230 140 168"/><path d="M100 300 Q96 240 92 178"/></g>`;
+  [[118,150],[140,168],[92,178]].forEach(([x,y])=>{ for(let i=0;i<8;i++){ s+=`<ellipse cx="${x+(i%2?3:-3)}" cy="${y+i*7}" rx="4" ry="5.6" fill="${i%3?'#8574a8':'#a99cc8'}" transform="rotate(${i%2?14:-14} ${x} ${y+i*7})"/><ellipse cx="${x+(i%2?1.5:-4.5)}" cy="${y+i*7-2}" rx="1.2" ry="2" fill="#fff" opacity=".35"/>`; } });
+  s+=`<g transform="translate(112 96) scale(.425)">${artJar({glass:'#cdd6d1',gA:.32,wax:'#efe4f0',w:176,h:180,vol:'4 OZ',label:'arch'},u+'j',aroma,'Quiet Evening')}</g>`;
+  s+=`<path d="M252 300 C246 250 256 222 270 214 C266 204 272 196 280 200 C288 190 300 196 296 206 C312 214 324 246 318 300Z" fill="url(#ln${u})"/><path d="M266 216 Q284 222 300 210" stroke="#7d5f3c" stroke-width="2.5" fill="none"/><path d="M262 260 Q268 280 266 298 M300 240 Q306 266 304 298" stroke="#b0a28b" stroke-width="1.2" fill="none"/>`;
+  s+=`<rect x="296" y="262" width="34" height="38" rx="2" fill="#7d3b22"/><rect x="299" y="265" width="28" height="32" fill="#efe1c7"/><g stroke="#c9a46e" stroke-width="2"><path d="M304 262 V236 M310 262 V232 M316 262 V238"/></g><g fill="#7a2d1a"><circle cx="304" cy="236" r="2.6"/><circle cx="310" cy="232" r="2.6"/><circle cx="316" cy="238" r="2.6"/></g>`;
+  s+=`<path d="M330 300 L358 272 V412 L330 440Z" fill="#9a6d41"/><rect x="68" y="300" width="262" height="140" fill="url(#kr${u})"/>`;
+  s+=`<g clip-path="url(#kc${u})" fill="none" stroke="#7d5a3a">${[...Array(9)].map((_,i)=>`<path d="M68 ${310+i*14.5}Q200 ${308+i*14.5+(i%2?3:-3)} 330 ${311+i*14.5}" stroke-opacity="${.12+(i%3)*.06}"/>`).join('')}</g><rect x="68" y="300" width="262" height="140" filter="url(#nz${u})" opacity=".35"/>`;
+  s+=`<path d="M150 300 V440 M156 300 V440" stroke="#6f4d2e" stroke-width="1.6" opacity=".5"/><path d="M68 300H330" stroke="#fff" stroke-opacity=".4" stroke-width="1.5"/><path d="M68 440H330" stroke="#5e3f22" stroke-opacity=".4" stroke-width="2"/>`;
+  s+=`<path d="M60 326 Q200 340 340 326" stroke="#6b5a3a" stroke-width="2.4" fill="none" opacity=".7"/>`;
+  s+=`<rect x="176" y="346" width="128" height="72" rx="3" fill="#f6eee1"/><rect x="181" y="351" width="118" height="62" rx="2" fill="none" stroke="#9a7650" stroke-opacity=".7"/><text x="240" y="368" text-anchor="middle" font-family="Manrope,Arial,sans-serif" font-size="7" letter-spacing="1.8" fill="#8a5f3a" font-weight="700">HEARTHWICK</text><text x="240" y="395" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-style="italic" font-weight="600" font-size="21" fill="#3b2a1f">Quiet Evening</text><text x="240" y="408" text-anchor="middle" font-family="Manrope,Arial,sans-serif" font-size="5.6" letter-spacing="1.1" fill="#8a5f3a" font-weight="600">BATH SET</text>`;
+  return s;
+}
+
+function objectFor(p,aroma,u){
+  const a=p.art, nm=p.name;
+  if(a.k==='jar') return artJar({...a},u,aroma,nm);
+  if(a.k==='pillar') return artPillar(a,u,nm);
+  if(a.k==='tapers') return artTapers(a,u);
+  if(a.k==='balls') return artBalls(a,u);
+  if(a.k==='set') return artSet(a,u,aroma,nm);
+  return '';
+}
+function art(p,aroma,cls='',o={}){
+  const u='a'+(++UID), T=p.theme; DK=!!T.dk; FL={x:200,y:240};
+  const obj=objectFor(p,aroma===undefined?p.aromas[0].n:aroma,u);
+  const sc=scene(u,T,FL); DK=false;
+  const lab=o.hide?'aria-hidden="true"':`role="img" aria-label="Illustration: ${p.name}"`;
+  return `<svg class="${cls}" viewBox="${o.vb||'0 0 400 480'}" preserveAspectRatio="xMidYMid slice" ${lab}>${sc.bg}${obj}${sc.fg}</svg>`;
+}
+/* cart thumbnail: larger subject */
+const thumb=(p,aroma)=>art(p,aroma,'',{vb:'50 100 300 330',hide:true});
+
+/* interior: shelf, books, vase, arch poster, lights */
+function interiorArt(p,aroma){
+  const u='i'+(++UID), W=p.room||{};
+  DK=true; FL={x:200,y:240};
+  const sc=.64, obj=`<g transform="translate(${f1(214-200*sc)} ${f1(344-424*sc)}) scale(${sc})">${objectFor(p,aroma,u+'o')}</g>`;
+  const fl={x:214+(FL.x-200)*sc,y:344+(FL.y-424)*sc}; DK=false;
+  const w1=W.w1||'#33292a', w2=W.w2||'#4a3a33';
+  const R=rng(11);
+  let s=`<defs><linearGradient id="rw${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${w1}"/><stop offset="1" stop-color="${w2}"/></linearGradient>
+  <radialGradient id="rg${u}" cx="${fl.x}" cy="${fl.y}" r="230" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffc474" stop-opacity=".7"/><stop offset=".4" stop-color="#ff9f50" stop-opacity=".25"/><stop offset="1" stop-color="#ff9f50" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sw${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79660"/><stop offset="1" stop-color="#8a5c33"/></linearGradient>
+  <linearGradient id="ss${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b0e07" stop-opacity=".55"/><stop offset="1" stop-color="#1b0e07" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vg${u}" cx=".5" cy=".5" r=".75"><stop offset=".45" stop-color="#140a05" stop-opacity="0"/><stop offset="1" stop-color="#140a05" stop-opacity=".6"/></radialGradient>
+  <filter id="bk${u}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="nz${u}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="9"/><feColorMatrix values="0 0 0 0 .6  0 0 0 0 .45  0 0 0 0 .3  0 0 0 1.4 -.55"/></filter></defs>`;
+  s+=`<rect width="400" height="480" fill="url(#rw${u})"/><rect width="400" height="480" filter="url(#nz${u})" opacity=".25"/>`;
+  // bokeh lights
+  for(let i=0;i<9;i++){ s+=`<circle cx="${f1(220+R()*180)}" cy="${f1(20+R()*130)}" r="${f1(7+R()*11)}" fill="#ffc77a" opacity="${(.16+R()*.2).toFixed(2)}" filter="url(#bk${u})"/>`; }
+  // arch poster
+  s+=`<g><path d="M28 188V92A46 46 0 0 1 120 92V188Z" fill="#c9a36e"/><path d="M34 182V92A40 40 0 0 1 114 92V182Z" fill="#efe2cc"/><path d="M44 182V96A30 30 0 0 1 104 96V182Z" fill="#c9805a"/><path d="M54 182V100A20 20 0 0 1 94 100V182Z" fill="#a7b39a"/><circle cx="74" cy="132" r="13" fill="#f3d9a4"/><path d="M34 182V160Q74 142 114 160V182Z" fill="#6d5037" opacity=".55"/></g>`;
+  // shelf
+  s+=`<rect x="0" y="344" width="400" height="22" fill="url(#sw${u})"/><rect x="0" y="366" width="400" height="9" fill="#5e3d21"/><rect x="0" y="375" width="400" height="80" fill="url(#ss${u})"/>`;
+  for(let i=0;i<5;i++) s+=`<path d="M0 ${349+i*4}H400" stroke="#6b4527" stroke-opacity=".25"/>`;
+  s+=`<path d="M0 344.8H400" stroke="#ffe6bd" stroke-opacity=".5" stroke-width="1.3"/>`;
+  // books on the left
+  const bk=[['#6e3b2d',22,'#e9d7b6'],['#43584a',18,'#e9d7b6'],['#b78b4c',16,'#3a2a1c']]; let by=344;
+  bk.forEach(([c,h,t],i)=>{ by-=h; const x=26+i*4; s+=`<rect x="${x}" y="${by}" width="118" height="${h}" rx="2" fill="${c}"/><rect x="${x}" y="${by}" width="118" height="${h}" fill="url(#sw${u})" opacity=".12"/><path d="M${x+12} ${by+4}V${by+h-4}M${x+16} ${by+4}V${by+h-4}" stroke="${t}" stroke-opacity=".7"/><path d="M${x+2} ${by+1}H${x+116}" stroke="#fff" stroke-opacity=".2"/>`; });
+  // vase of dried flowers on the right
+  s+=`<path d="M336 344C326 330 328 306 340 296 350 306 358 330 352 344Z" fill="#d8c8ad"/><path d="M336 344C326 330 328 306 340 296" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/><path d="M340 296 340 292" stroke="#d8c8ad" stroke-width="7"/>`;
+  [[-26,-98],[-8,-118],[10,-110],[28,-92],[2,-76]].forEach(([dx,dy],i)=>{ const x0=340,y0=294,x1=340+dx,y1=294+dy; s+=`<path d="M${x0} ${y0}Q${x0+dx*.3} ${y0+dy*.6} ${x1} ${y1}" stroke="#8d7a4a" stroke-width="1.6" fill="none"/>`; for(let k=0;k<6;k++){ s+=`<ellipse cx="${f1(x1-dx*.02*k)}" cy="${f1(y1+k*5)}" rx="2.8" ry="5.5" fill="${i%2?'#c9ac6c':'#b5934f'}" transform="rotate(${(dx*.7)} ${x1} ${y1+k*5})"/>`; } });
+  s+=`<g style="mix-blend-mode:screen"><rect width="400" height="480" fill="url(#rg${u})"/></g>`;
+  s+=obj;
+  s+=`<rect width="400" height="480" fill="url(#vg${u})"/>`;
+  return `<svg viewBox="0 0 400 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${s}</svg>`;
+}
+function emptyArt(){
+  const u='e'+(++UID), T={wall:['#e8d9c0','#f1e6d1'],niche:['#f7eddb','#eadcc0'],surf:'plaster',sc:['#e0cfb1','#c9b693'],seed:3};
+  DK=false; FL={x:200,y:290};
+  const obj=artJar({glass:'#c5d0ca',gA:.3,wax:'#f4e7d0',w:170,h:200,lit:false,vol:''},u,false,'');
+  const smoke=`<path d="M201 245 C186 215 216 200 200 170 C188 146 212 132 202 100" stroke="#8d7f70" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5" filter="url(#bl${u})"/><path d="M201 245 C186 215 216 200 200 170 C188 146 212 132 202 100" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round" opacity=".5"/>`;
+  const sc=scene(u,T,FL);
+  return `<svg viewBox="0 0 400 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sc.bg}${obj}${smoke}${sc.fg}</svg>`;
+}
+
+/* ---------- hero: arch, drapery, travertine plinths, light ---------- */
+function heroArt(vb){
+  const u='h'+(++UID); DK=false;
+  const place=(p,aroma,x,Bm,s)=>`<g transform="translate(${f1(x-200*s)} ${f1(Bm-424*s)}) scale(${s})">${objectFor(p,aroma,u+p.id)}</g>`;
+  const block=(x0,x1,top,bot,id)=>{ const d=16;
+    let r=`<rect x="${x0}" y="${top}" width="${x1-x0}" height="${bot-top}" fill="url(#tv${u})"/><rect x="${x0}" y="${top}" width="${x1-x0}" height="${bot-top}" filter="url(#nz${u})" opacity=".4"/>`;
+    const R=rng(x0+top); for(let i=0;i<14;i++){ const y=top+10+R()*(bot-top-16), x=x0+6+R()*(x1-x0-30); r+=`<path d="M${f1(x)} ${f1(y)}h${f1(8+R()*26)}" stroke="#8f6c3f" stroke-opacity="${(.12+R()*.2).toFixed(2)}" stroke-width="${(1+R()*1.4).toFixed(1)}" stroke-linecap="round"/>`; }
+    r+=`<path d="M${x1} ${top}L${x1+d} ${top-d*.75}V${bot-d*.75}L${x1} ${bot}Z" fill="#b99765"/><path d="M${x0} ${top}L${x0+d} ${top-d*.75}H${x1+d}L${x1} ${top}Z" fill="#f6e8cc"/><path d="M${x0} ${top+1}H${x1}" stroke="#fff" stroke-opacity=".6"/>`;
+    r+=`<ellipse cx="${(x0+x1)/2+8}" cy="${bot+4}" rx="${(x1-x0)*.7}" ry="11" fill="url(#sh${u})"/>`; return r; };
+  // order: plinths back to front
+  const Y=540;
+  let s=`<defs>${commonDefs(u)}
+  <linearGradient id="hb${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3a56f"/><stop offset="1" stop-color="#cf8a58"/></linearGradient>
+  <linearGradient id="an${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9ca"/><stop offset="1" stop-color="#f1cf9f"/></linearGradient>
+  <radialGradient id="bm${u}" cx="300" cy="330" r="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff0c8" stop-opacity=".9"/><stop offset=".5" stop-color="#ffd9a0" stop-opacity=".3"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="tv${u}" x1="0" x2="1"><stop offset="0" stop-color="#e2c796"/><stop offset=".5" stop-color="#f1dfbd"/><stop offset="1" stop-color="#d2b37e"/></linearGradient>
+  <linearGradient id="dr${u}" x1="0" y1="0" x2="26" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat"><stop offset="0" stop-color="#c8a773"/><stop offset=".35" stop-color="#f4e5c6"/><stop offset=".65" stop-color="#e3caa0"/><stop offset="1" stop-color="#c8a773"/></linearGradient>
+  <linearGradient id="dv${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset="1" stop-color="#4a2a10" stop-opacity=".42"/></linearGradient>
+  <linearGradient id="fr${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ead2a8"/><stop offset="1" stop-color="#c79d68"/></linearGradient>
+  <linearGradient id="bs${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="ls${u}" x1="0" x2="1"><stop offset="0" stop-color="#2a1608" stop-opacity=".34"/><stop offset=".25" stop-color="#2a1608" stop-opacity="0"/><stop offset="1" stop-color="#2a1608" stop-opacity=".4"/></linearGradient>
+  <clipPath id="ac${u}"><path d="M96 ${Y}V250A204 204 0 0 1 504 250V${Y}Z"/></clipPath></defs>`;
+  s+=`<rect x="-60" width="720" height="640" fill="url(#hb${u})"/><rect x="-60" width="720" height="640" filter="url(#nz${u})" opacity=".2"/>`;
+  s+=`<path d="M84 ${Y}V250A216 216 0 0 1 516 250V${Y}Z" fill="#b9764a"/><path d="M96 ${Y}V250A204 204 0 0 1 504 250V${Y}Z" fill="url(#an${u})"/>`;
+  s+=`<g clip-path="url(#ac${u})"><path d="M96 ${Y}V250A204 204 0 0 1 504 250V${Y}Z" fill="none" stroke="#7a3e1c" stroke-opacity=".25" stroke-width="26"/><rect x="96" y="46" width="408" height="520" filter="url(#nz${u})" opacity=".25"/><rect x="-60" width="720" height="640" fill="url(#bm${u})"/></g>`;
+  // light rays
+  s+=`<path d="M-20 0H150L470 600H260Z" fill="#fff6dc" opacity=".13"/><path d="M130 0H200L430 600H370Z" fill="#fff6dc" opacity=".08"/>`;
+  // floor
+  s+=`<rect x="-60" y="${Y}" width="720" height="${640-Y}" fill="url(#fr${u})"/><rect x="-60" y="${Y}" width="720" height="${640-Y}" filter="url(#nz${u})" opacity=".35"/><rect x="-60" y="${Y}" width="720" height="${640-Y}" fill="url(#bs${u})"/><path d="M-60 ${Y+.8}H660" stroke="#fff" stroke-opacity=".6" stroke-width="1.5"/><rect x="0" y="${Y}" width="600" height="26" fill="#3a1d08" opacity=".18"/>`;
+  // drapery left and right
+  s+=`<path d="M660 0H548C528 110 566 230 540 360S556 520 530 ${Y+30}V640H660Z" fill="url(#dr${u})"/><path d="M660 0H548C528 110 566 230 540 360S556 520 530 ${Y+30}V640H660Z" fill="url(#dv${u})"/>`;
+  s+=`<path d="M-60 0H62C44 120 82 250 56 380S70 520 48 ${Y+30}V640H-60Z" fill="url(#dr${u})"/><path d="M-60 0H62C44 120 82 250 56 380S70 520 48 ${Y+30}V640H-60Z" fill="url(#dv${u})"/>`;
+  // plinths
+  const vecher=byId('vecher'), sum=byId('sumerki'), para=byId('para'), shary=byId('shary'), mr=byId('mramor');
+  s+=block(236,366,300,Y-4,1);
+  s+=place(vecher,'Pine & Resin',301,300-7,.74);
+  s+=block(86,206,408,Y-4,2);
+  s+=place(para,undefined,146,408-7,.52);
+  s+=block(396,516,428,Y-4,3);
+  s+=place(sum,'Fig & Tea',456,428-7,.56);
+  s+=place(shary,"Vanilla",250,Y+50,.5);
+  s+=place(mr,"Vanilla",575,Y+46,.4);
+  DK=false;
+  return `<svg viewBox="${vb||'-50 0 700 640'}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration: workshop candles on stone plinths in front of an arch — amber glass, smoked glass, beeswax, orbs">${s}<rect width="600" height="640" fill="none"/></svg>`;
+}
+
+/* ===== data ===== */
+const JAR=[{n:'Pine & Resin',t:'fir needle, cedar, a drop of resin'},{n:'Fig & Tea',t:'ripe fig, black tea, blackcurrant leaf'},{n:'Tobacco & Vanilla',t:'dried tobacco leaf, vanilla, tonka bean'},{n:'Linen & Bergamot',t:'bergamot, fresh laundry, white musk'}];
+const WAX=[{n:'Natural',t:'unscented, with a faint scent of honey'}];
+const BALL=[{n:'Unscented',t:'just light and color'},{n:'Vanilla',t:'vanilla and warm cream'},{n:'Lavender',t:'lavender and dried herbs'}];
+const SET=[{n:'Lavender & Milk',t:'lavender, warm milk, honey'},{n:'Eucalyptus & Mint',t:'eucalyptus, peppermint, cedar'}];
+const P=[
+ {id:'vecher',type:'glass',name:"Evening",sub:"soy wax · amber glass",price:28,tag:"Bestseller",vol:"8 oz · 11.5 oz with jar",burn:"about 45 hours",comp:"soy wax, cotton wick, phthalate-free fragrance oil (8%), amber glass",desc:"Our most-loved candle. Amber glass tints the light and warms a room by a shade or two. It burns evenly and cleanly as long as you trim the wick to 1/4 inch before every burn.",aromas:JAR,
+  theme:{wall:['#efcfa4','#f6e2c2'],niche:['#f9ead2','#f1d9b2'],surf:'wood',sc:['#b9854f','#8a5a31'],seed:5},zoom:'105 250 190 156',
+  art:{k:'jar',glass:'#a8611d',gA:.55,wax:'#f4e7d0',w:176,h:222,vol:'8 OZ',label:'arch'}},
+ {id:'utro',type:'glass',name:"Morning",sub:"soy wax · clear glass, ash wood lid",price:18,vol:"4 oz · 7.4 oz with jar",burn:"about 28 hours",comp:"soy wax, cotton wick, fragrance oil (8%), clear glass, ash wood lid",desc:"A small jar with a wooden lid: easy to pack for a trip or keep by the bathtub. Once the candle is finished, wash the jar with hot water and keep it for odds and ends.",aromas:JAR,
+  theme:{wall:['#d4dcdc','#e6ebe9'],niche:['#f1f4f2','#dfe7e4'],surf:'marble',sc:['#f4f0ea','#ddd6cb'],seed:12},zoom:'95 285 210 172',room:{w1:'#2c3335',w2:'#3f4a49'},
+  art:{k:'jar',glass:'#b9c7c1',gA:.3,wax:'#f6ecdc',w:150,h:176,lid:true,vol:'4 OZ',label:'band',paper:'#d9b98c'}},
+ {id:'dacha',type:'glass',name:"Cabin",sub:"soy wax · green glass, two wicks",price:42,vol:"11 oz · 18.3 oz with jar",burn:"about 60 hours",comp:"soy wax, two cotton wicks, fragrance oil (9%), green glass",desc:"A wide jar with two wicks for a big living room or a porch. The scent fills the space faster than a single-wick candle, usually within twenty minutes.",aromas:JAR,
+  theme:{wall:['#cfd6bb','#e3e7d0'],niche:['#f0f2df','#dde3c4'],surf:'linen',sc:['#eadfc6','#cdbd98'],seed:3},zoom:'90 270 220 180',room:{w1:'#2a3226',w2:'#3c4936'},
+  art:{k:'jar',glass:'#4f6b45',gA:.55,wax:'#f1e8d6',w:236,h:196,wicks:2,vol:'11 OZ',label:'stamp',paper:'#eef0dc',ink:'#33422d',acc:'#5d7a50'}},
+ {id:'sumerki',type:'glass',name:"Dusk",sub:"soy wax · smoked glass, wooden wick",price:32,tag:"Crackles",vol:"8 oz · 11.5 oz with jar",burn:"about 45 hours",comp:"soy wax, cherry wood wick, fragrance oil (8%), smoked glass",desc:"Smoked glass nearly hides the wax, so in the dark all you see is the flame. The wooden wick crackles softly like a wood stove. Perfect for reading or a movie night.",aromas:JAR,
+  theme:{dk:true,wall:['#2a211e','#43342b'],niche:['#4f3d31','#3a2b23'],surf:'wood',woodDark:true,sc:['#3b2d25','#211812'],seed:9},zoom:'105 250 190 156',
+  art:{k:'jar',glass:'#4a413b',gA:.72,wax:'#efe2cc',w:176,h:222,vol:'8 OZ',label:'moon',paper:'#1c1715',ink:'#e0bb73',acc:'#e0bb73'}},
+ {id:'para',type:'wax',name:"Beeswax Pair",sub:"beeswax · two 9 in tapers",price:18,vol:"2 tapers · 9 in · 1.6 oz each",burn:"about 6 hours each",comp:"100% beeswax, cotton wick",desc:"Rolled by hand from sheets of beeswax, so you can still see the honeycomb pattern. No added fragrance: while burning they smell faintly of honey, and only just. They fit standard candlestick holders.",aromas:WAX,
+  theme:{wall:['#e8c98c','#f3deaa'],niche:['#f8e8c0','#edd299'],surf:'linen',sc:['#f0e1bf','#d3bb8a'],seed:21},zoom:'85 40 150 123',room:{w1:'#35271d',w2:'#4f3a27'},
+  art:{k:'tapers',color:'#d8a046'}},
+ {id:'stolbik',type:'wax',name:"Pillar",sub:"beeswax · 2.75 × 4 in",price:24,vol:"2.75 × 4 in · 12 oz",burn:"about 40 hours",comp:"beeswax, cotton wick",desc:"A poured pillar of solid beeswax. It burns slowly, hardly drips, and the little drips that do form look lovely. Set it on a saucer: this candle has no glass.",aromas:WAX,
+  theme:{wall:['#d89e7e','#e8bda1'],niche:['#f1cfb6','#e3af90'],surf:'plaster',sc:['#cf9577','#a8694c'],seed:4},zoom:'110 120 180 148',room:{w1:'#3a2620',w2:'#553629'},
+  art:{k:'pillar',color:'#d39a3e',w:150,h:200,base:'dish'}},
+ {id:'soty',type:'wax',name:"Honeycomb",sub:"pale beeswax · honeycomb relief",price:16,vol:"2.5 × 3 in · 6.7 oz",burn:"about 25 hours",comp:"filtered pale beeswax, cotton wick",desc:"A small poured candle with a honeycomb relief. The wax is filtered and pale, a creamy shade rather than yellow. Lovely paired with the Pillar.",aromas:WAX,
+  theme:{wall:['#efe3cc','#f7eddb'],niche:['#fcf5e8','#f2e4c9'],surf:'plaster',sc:['#e7dac0','#cdbb98'],seed:2},zoom:'120 150 160 131',
+  art:{k:'pillar',color:'#e8c57c',w:132,h:168,hex:true,base:'slice'}},
+ {id:'shary',type:'ball',name:"Orb Trio",sub:"sage, clay and cream · 2.4 in",price:24,vol:"3 orbs · 2.4 in · 3.3 oz each",burn:"about 10 hours each",comp:"soy wax with a little beeswax, cotton wick, mineral pigments",desc:"Three orb candles in calm colors: sage, clay and cream. Group them on a tray or scatter them around the room. They hold their shape right to the last hour.",aromas:BALL,
+  theme:{wall:['#e1b9ab','#efd0c4'],niche:['#f7ded4','#ecc4b5'],surf:'linen',sc:['#edd8cc','#d3b4a6'],seed:6},zoom:'105 190 190 156',room:{w1:'#35262a',w2:'#4d363a'},
+  art:{k:'balls',tray:true,balls:[{x:200,y:352,r:62,c:'#c98c6b',lit:true},{x:124,y:374,r:56,c:'#a7b39a'},{x:278,y:376,r:54,c:'#efe3cd'}]}},
+ {id:'mramor',type:'ball',name:"Marble Orb",sub:"hand-marbled veining · 3.5 in",price:18,tag:"New",vol:"3.5 in · 11.6 oz",burn:"about 22 hours",comp:"soy and beeswax, cotton wick, mineral pigments",desc:"A large orb with veining. We pour the pigment into the cooling wax by hand, so every pattern is different: no two are ever the same.",aromas:BALL,
+  theme:{wall:['#b7bfc3','#d4d9da'],niche:['#e4e8e8','#cdd4d6'],surf:'marble',sc:['#ebeae6','#c8c5bf'],vein:'#5f666b',seed:17},zoom:'100 120 200 164',room:{w1:'#2a2f33',w2:'#3d444a'},
+  art:{k:'balls',plinth:true,balls:[{x:200,y:292,r:98,c:'#e9e2d8',lit:true,marble:true}]}},
+ {id:'vanna',type:'set',name:"Quiet Evening",sub:"bath set · candle, salt, matches",price:54,tag:"Gift pick",vol:"box 8.5 × 5.5 × 3.5 in · 2 lb",burn:"candle: about 28 hours",comp:"candle: soy wax, cotton wick; salt: sea salt, dried lavender, essential oil",desc:"Everything for a quiet bath in one box: a 4 oz candle, sea salt with dried lavender (10 oz) and a box of long matches. The box is kraft cardboard and looks great as a gift without any wrapping.",aromas:SET,
+  theme:{wall:['#ddcdb3','#ecdfca'],niche:['#f4ebdb','#e4d6bc'],surf:'wood',sc:['#cba577','#a57d4f'],seed:8},zoom:'90 150 260 213',
+  art:{k:'set'}},
+];
+const POP=['vecher','shary','vanna','utro','stolbik','dacha','para','mramor','sumerki','soty'];
+const TYPES={glass:'Glass jars',wax:'Beeswax',ball:'Orbs',set:'Gift sets'};
+const KIND={glass:'Soy in glass',wax:'Beeswax',ball:'Orb candle',set:'Gift set'};
+const WITH={vecher:['soty','shary','vanna'],utro:['para','mramor','vanna'],dacha:['stolbik','shary','soty'],sumerki:['stolbik','mramor','para'],para:['vecher','stolbik','soty'],stolbik:['soty','utro','shary'],soty:['stolbik','vecher','para'],shary:['vecher','soty','vanna'],mramor:['sumerki','utro','stolbik'],vanna:['vecher','para','shary']};
+const CARE={
+ glass:{ol:['On the first burn, let the candle melt all the way to the edges (2–3 hours) so it never tunnels.','Trim the wick to 1/4 inch before every burn.','Never burn it more than 4 hours at a time: let the jar cool between burns.'],ul:['Never leave a burning candle unattended.','Place it on a flat, heat-safe surface, away from drafts and curtains.',"When 1/2 inch of wax is left, blow it out and don't relight it."],pills:['paraffin-free','cotton wick','reusable jar']},
+ wax:{ol:['Set it on a saucer or in a candlestick holder: this candle has no glass.','Trim the wick to 1/4 inch before lighting.','On the first burn, let it go for 1–2 hours so the rim melts evenly.'],ul:['Never leave a burning candle unattended.','Keep it out of drafts: the flame stays steady and clean.','To lift wax from fabric, press it with a warm iron through a paper towel.'],pills:['100% beeswax','unscented','the honey scent is the wax itself']},
+ ball:{ol:['Set it on a saucer or tray so the orb sits steady.','Trim the wick to 1/4 inch before every burn.','An orb burns from the top down: a little “cup” forms first, then the shape slowly settles.'],ul:['Never leave a burning candle unattended.','If the orb stops sitting level, blow it out and let it cool.',"The pigments are mineral and won't stain fabric, but a saucer is still a good idea."],pills:['handmade','mineral pigments','holds its shape to the last hour']},
+ set:{ol:['Light the candle on a dry ledge or shelf, at least 18 inches from the water.','Salt: two or three handfuls in a warm bath, with water no hotter than 100 °F.','Trim the wick to 1/4 inch, just like all our jars.'],ul:['Never leave a burning candle unattended.','Keep the matches dry, in the box from the set.','Rinse the tub after your soak: salt and oils leave a film.'],pills:['kraft box','gift-ready, no wrapping needed','10 oz of salt']},
+};
+const byId=id=>P.find(p=>p.id===id);
+const rub=n=>'$'+n.toLocaleString('en-US');
+
+/* ===== cart ===== */
+const KEY='tf-c-cart', LAST='tf-c-last';
+let cart=[]; try{cart=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){cart=[]}
+cart=cart.filter(l=>byId(l.id));
+function save(){ try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){} badge(); }
+function badge(){ document.getElementById('badge').textContent=cart.reduce((s,l)=>s+l.qty,0); }
+function add(id,aroma,qty){ const l=cart.find(x=>x.id===id&&x.aroma===aroma); if(l) l.qty=Math.min(20,l.qty+qty); else cart.push({id,aroma,qty}); save(); }
+function totals(){ const sub=cart.reduce((s,l)=>s+byId(l.id).price*l.qty,0); const disc=sub>=60?Math.round(sub*.1):0; return {sub,disc,total:sub-disc,count:cart.reduce((s,l)=>s+l.qty,0)}; }
+const plural=(n,a,b)=>n+' '+(n===1?a:b);
+
+let tt; function toast(html){ const t=document.getElementById('toast'); t.innerHTML=html; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),3600); }
+
+/* ===== screens ===== */
+const app=document.getElementById('app');
+let st={type:'all',sort:'pop'}, gv=0;
+const plus='<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="1.8"/></svg>';
+
+function cardHTML(p){
+  return `<article class="card"><a class="pic" href="#/p/${p.id}" tabindex="-1" aria-hidden="true">${p.tag?`<span class="tag">${p.tag}</span>`:''}${art(p,undefined,'',{hide:true})}</a>
+  <div class="meta"><div><div class="kind">${KIND[p.type]}</div><h3><a href="#/p/${p.id}">${p.name}</a></h3><div class="sub">${p.sub}</div></div>
+  <div class="buy"><span class="price">${rub(p.price)}</span><button class="qadd" data-qadd="${p.id}" aria-label="Add “${p.name}” to cart">${plus}</button></div></div></article>`;
+}
+function list(){
+  let a=P.filter(p=>st.type==='all'||p.type===st.type);
+  if(st.sort==='asc') a=[...a].sort((x,y)=>x.price-y.price);
+  else if(st.sort==='desc') a=[...a].sort((x,y)=>y.price-x.price);
+  else a=[...a].sort((x,y)=>POP.indexOf(x.id)-POP.indexOf(y.id));
+  return a;
+}
+function gridHTML(){ const a=list(); return a.length?a.map(cardHTML).join('')+(st.type==='all'?promoHTML():''):'<p class="empty-filter">Nothing here yet.</p>'; }
+function promoHTML(){ return `<aside class="promo"><div><div class="eyebrow">Discount applied automatically</div><h3>10% off orders over $60</h3><p>For example, Evening, Orb Trio and the Beeswax Pair come to $70, or $63 with the discount. There is nothing to enter: the discount shows up in your cart as its own line.</p><a class="btn" href="#/cart">Open cart</a></div><div class="promo-art">${heroArt('0 50 680 560')}</div></aside>`; }
+function chipsHTML(){
+  const cnt=t=>t==='all'?P.length:P.filter(p=>p.type===t).length;
+  return [['all','All'],...Object.entries(TYPES)].map(([k,v])=>`<button class="chip" data-type="${k}" aria-pressed="${st.type===k}">${v}<sup>${cnt(k)}</sup></button>`).join('');
+}
+function viewCatalog(){
+  return `<section class="hero"><div class="wrap"><div class="hpanel">
+    <div class="hcopy"><div class="eyebrow">Small-batch candle workshop</div>
+    <h1>Candles we <em>pour ourselves</em></h1>
+    <p class="lead">Soy and beeswax, cotton wicks, and jars that make a handy pencil holder once the candle is gone. Poured on Fridays, shipped across the US.</p>
+    <div class="ctas"><a class="btn" href="#/catalog">Shop candles</a><a class="btn ghost" href="#/p/vanna">Gift set</a></div>
+    <div class="mini-facts"><div><b>30</b>candles per batch</div><div><b>2 weeks</b>curing after pouring</div><div><b>0%</b>paraffin, ever</div></div></div>
+    <div class="hart"><img src="../../img/hero.webp" width="1100" height="1461" alt="Handmade candles in ceramic cups with wooden wicks on a cutting board, with twine and scissors beside them" fetchpriority="high"></div>
+  </div></div>
+  <div class="wrap"><div class="facts"><div><b>10 candles in the shop</b><span>glass jars, beeswax, orbs and a bath set</span></div><div><b>10% off orders over $60</b><span>applied automatically, shown in your cart</span></div><div><b>UPS and USPS</b><span>shipped 1–2 days after we confirm your order</span></div></div></div></section>
+  <section class="catalog" id="catalog" aria-labelledby="cat-h"><div class="wrap">
+    <div class="cat-head"><div><h2 id="cat-h">Shop</h2><p>Pick a type, then choose how to sort.</p></div></div>
+    <div class="tools"><div class="chips" role="group" aria-label="Candle type" id="chips">${chipsHTML()}</div>
+    <label class="sort">Sort by <select id="sort"><option value="pop">most popular</option><option value="asc">price: low to high</option><option value="desc">price: high to low</option></select></label></div>
+    <div class="grid" id="grid" aria-live="polite">${gridHTML()}</div>
+  </div></section>
+  <section class="about" id="about"><div class="wrap">
+    <div><div class="eyebrow">Our story</div><h2>Two pairs of hands and one stovetop</h2><p>Hearthwick is a tiny workshop: we pour, cure and pack everything ourselves. From every batch of thirty we burn one candle all the way down to check that the wax melts evenly.</p><p>If a candle ever smokes or tunnels, write to us and we'll replace it.</p><figure class="shot"><img src="../../img/workshop.webp" width="900" height="1352" alt="A candle in a ceramic cup with a wooden wick on a board, with a linen pouch and scissors"></figure></div>
+    <div class="steps"><div class="step"><div class="num">I</div><h3>Wax</h3><p>Soy for candles in glass, beeswax for pillars and tapers. No paraffin.</p></div><div class="step"><div class="num">II</div><h3>Wick</h3><p>Cotton or cherry wood. We match the thickness to every jar.</p></div><div class="step"><div class="num">III</div><h3>Curing</h3><p>After pouring, each candle rests for two weeks so the scent lasts longer.</p></div></div>
+  </div></section>
+  <section class="ship" id="delivery"><div class="wrap"><div class="box">
+    <div><div class="eyebrow">Shipping</div><h3>UPS Ground</h3><p>To your door, 2–5 business days. The rate is set by UPS and we'll confirm it when we call.</p></div>
+    <div><div class="eyebrow">Shipping</div><h3>USPS Priority</h3><p>To any address, 3–7 business days. Candles travel in corrugated boxes with paper fill.</p></div>
+    <div><div class="eyebrow">Payment</div><h3>After a call</h3><p>There is no online payment: we'll call to confirm your order and shipping, then send an invoice.</p></div>
+  </div></div></section>`;
+}
+function galleryHTML(p,aroma){
+  const v=[{n:'Overview',svg:art(p,aroma,'',{hide:true})},{n:'In a room',svg:interiorArt(p,aroma)},{n:'Close-up',svg:art(p,aroma,'',{vb:p.zoom,hide:true})}];
+  const rest=[0,1,2].filter(i=>i!==gv);
+  return `<div class="gmain" role="img" aria-label="${p.name}: ${v[gv].n}">${v[gv].svg}<span class="vcap">${v[gv].n}</span></div>
+  <div class="gthumbs">${rest.map(i=>`<button type="button" class="gth" data-view="${i}" aria-label="Show view: ${v[i].n}">${v[i].svg}<span class="vcap">${v[i].n}</span></button>`).join('')}</div>`;
+}
+function curAroma(){ const c=document.querySelector('#pform [name=aroma]:checked'); return c?c.value:undefined; }
+function viewProduct(id){
+  const p=byId(id); if(!p) return viewCatalog();
+  gv=0; const rel=WITH[p.id].map(byId); const C=CARE[p.type];
+  return `<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#/catalog">Shop</a> / ${TYPES[p.type]}</nav>
+  <section class="product">
+    <div class="gallery" id="gal">${galleryHTML(p,p.aromas[0].n)}</div>
+    <div class="p-info"><div class="eyebrow">${KIND[p.type]}</div><h1>${p.name}</h1><div class="sub">${p.sub}</div>
+      <span class="price" id="pprice">${rub(p.price)}</span>
+      <p class="desc">${p.desc}</p>
+      <form id="pform" novalidate>
+        <fieldset><legend>${p.aromas.length>1?'Scent':'Scent — one option'}</legend><div class="aromas">
+        ${p.aromas.map((a,i)=>`<label class="aroma"><input type="radio" name="aroma" value="${a.n}" ${i?'':'checked'}><span><b>${a.n}</b><small>${a.t}</small></span></label>`).join('')}
+        </div></fieldset>
+        <div class="buyrow"><div class="stepper" role="group" aria-label="Quantity"><button type="button" data-pq="-1" aria-label="Less">−</button><output id="pq" aria-live="polite">1</output><button type="button" data-pq="1" aria-label="More">+</button></div>
+        <button class="btn" type="submit" id="addbtn">Add to cart · ${rub(p.price)}</button></div>
+        <div class="added" id="added" role="status" aria-live="polite"></div>
+      </form>
+      <dl class="specs"><div><dt>Size and weight</dt><dd>${p.vol}</dd></div><div><dt>Burn time</dt><dd>${p.burn}</dd></div><div><dt>How we make it</dt><dd>Batches of 30: poured on Fridays, then cured for two weeks.</dd></div><div><dt>Shipping</dt><dd>UPS or USPS, packed within 1–2 days.</dd></div></dl>
+    </div>
+  </section></div>
+  <section class="care"><div class="wrap"><h2>Ingredients and care</h2><div class="carecols">
+    <div><h3>Ingredients</h3><p>${p.comp[0].toUpperCase()+p.comp.slice(1)}.</p><ul class="pills">${C.pills.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div><h3>How to burn</h3><ol>${C.ol.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+    <div><h3>Safety</h3><ul>${C.ul.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  </div></div></section>
+  <section class="related"><div class="wrap"><h2>Often bought together</h2><div class="grid">${rel.map(cardHTML).join('')}</div></div></section>`;
+}
+function summaryHTML(btn){
+  const t=totals(); const left=60-t.sub;
+  return `<h2>Order summary</h2>
+  <div class="row"><span>${plural(t.count,'item','items')}</span><span class="price">${rub(t.sub)}</span></div>
+  ${t.disc?`<div class="row disc"><span>10% discount</span><span class="price">−${rub(t.disc)}</span></div>`:`<div class="progress">Spend <b>${rub(left)}</b> more to get 10% off<div class="bar"><i style="width:${Math.min(100,t.sub/.6)}%"></i></div></div>`}
+  <div class="row"><span>Shipping</span><span>confirmed on our call</span></div>
+  <div class="row total"><span>Total due</span><span class="price">${rub(t.total)}</span></div>
+  ${btn||''}`;
+}
+function viewCart(){
+  if(!cart.length) return `<div class="wrap page"><div class="emptycart"><div class="ea">${emptyArt()}</div><h1>Your cart is empty</h1><p>Take a look at the shop: candles in glass, beeswax, orbs and a bath set.</p><a class="btn" href="#/catalog">Browse the shop</a></div></div>`;
+  return `<div class="wrap page"><h1>Cart</h1><div class="cartgrid">
+   <div class="lines">${cart.map((l,i)=>{const p=byId(l.id); return `<div class="line"><a class="th" href="#/p/${p.id}" tabindex="-1" aria-hidden="true">${thumb(p,l.aroma)}</a>
+    <div><h3><a href="#/p/${p.id}">${p.name}</a></h3><div class="ar">${KIND[p.type]} · ${l.aroma}</div>
+     <div class="ctl"><div class="stepper" role="group" aria-label="Quantity: ${p.name}"><button type="button" data-dec="${i}" aria-label="Less">−</button><span class="v">${l.qty}</span><button type="button" data-inc="${i}" aria-label="More">+</button></div><button class="del" data-del="${i}">Remove</button></div></div>
+    <div class="sum"><span class="price">${rub(p.price*l.qty)}</span>${l.qty>1?`<span class="each">${rub(p.price)} each</span>`:''}</div></div>`;}).join('')}</div>
+   <aside class="summary" aria-live="polite">${summaryHTML('<a class="btn wide" href="#/checkout">Check out</a><p class="note">There is no online payment: after you order we will call to confirm shipping.</p>')}</aside>
+  </div></div>`;
+}
+function viewCheckout(){
+  if(!cart.length) return viewCart();
+  return `<div class="wrap page"><nav class="crumbs" aria-label="Breadcrumb"><a href="#/cart">← Back to cart</a></nav><h1>Checkout</h1><div class="cartgrid">
+  <form class="form" id="order" novalidate>
+   <div class="field" id="f-name"><label for="name">Name <i>*</i></label><input id="name" name="name" autocomplete="name" placeholder="What should we call you?"><div class="er" aria-live="polite"></div></div>
+   <div class="field" id="f-phone"><label for="phone">Phone <i>*</i></label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 (555) 010-0000"><div class="hint">We will call to confirm your order.</div><div class="er" aria-live="polite"></div></div>
+   <fieldset id="f-deliv"><legend>Shipping <i style="color:var(--accent);font-style:normal">*</i></legend><div class="deliv">
+    <label><input type="radio" name="deliv" value="UPS Ground"><span><b>UPS Ground</b><small>to your door, 2–5 business days</small></span></label>
+    <label><input type="radio" name="deliv" value="USPS Priority"><span><b>USPS Priority</b><small>to any address, 3–7 business days</small></span></label></div><div class="field"><div class="er" aria-live="polite"></div></div></fieldset>
+   <div class="field" id="f-addr"><label for="addr">Address <i>*</i></label><textarea id="addr" name="addr" autocomplete="street-address" placeholder="Street, apt, city, state, ZIP"></textarea><div class="er" aria-live="polite"></div></div>
+   <div class="field"><label for="comm">Order notes</label><textarea id="comm" name="comm" placeholder="For example: gift wrap, no card"></textarea></div>
+   <div class="demo-note">Demo: nothing is actually sent. In the live version the order goes to the owner by email and text message, and the customer gets a confirmation email with an order number.</div>
+   <button class="btn wide" type="submit">Place order · ${rub(totals().total)}</button>
+  </form>
+  <aside class="summary"><div class="mini">${cart.map(l=>{const p=byId(l.id);return `<div><span class="th">${thumb(p,l.aroma)}</span><span>${p.name} × ${l.qty}<br><span class="ar2">${l.aroma}</span></span><span class="price">${rub(p.price*l.qty)}</span></div>`}).join('')}</div>${summaryHTML()}</aside>
+  </div></div>`;
+}
+function viewDone(){
+  let o=null; try{o=JSON.parse(localStorage.getItem(LAST))}catch(e){}
+  if(!o) return viewCart();
+  return `<div class="wrap page"><div class="done">
+   <div class="da">${art(byId('vecher'),'Pine & Resin','',{hide:true})}</div>
+   <div class="num">Order #${o.num}</div><h1>Thank you, your order is in</h1>
+   <p>${o.name}, we will call you at <span style="white-space:nowrap">${o.phone}</span> within the day to confirm your order and the shipping cost (${o.deliv}). Order total: ${rub(o.total)}${o.disc?`, after your ${rub(o.disc)} discount`:''}.</p>
+   <div class="demo-note">Demo: nothing is actually sent. In the live version the order goes to the owner by email and text message, and you get a confirmation email with order number ${o.num}.</div>
+   <a class="btn" href="#/catalog">Back to the shop</a></div></div>`;
+}
+
+/* ===== routes ===== */
+function render(){
+  const h=location.hash.replace(/^#\/?/,''); const [r,arg]=h.split('/');
+  let html, scrollTo=null, title='Hearthwick Candle Co. — hand-poured candles';
+  if(r==='p'){ html=viewProduct(arg); const p=byId(arg); if(p) title=p.name+' — Hearthwick'; }
+  else if(r==='cart'){ html=viewCart(); title='Cart — Hearthwick'; }
+  else if(r==='checkout'){ html=viewCheckout(); title='Checkout — Hearthwick'; }
+  else if(r==='done'){ html=viewDone(); title='Order received — Hearthwick'; }
+  else { html=viewCatalog(); if(['catalog','about','delivery'].includes(r)) scrollTo=r; }
+  app.innerHTML=html; document.title=title;
+  if(r!=='p'&&r!=='cart'&&r!=='checkout'&&r!=='done'){ const s=document.getElementById('sort'); if(s) s.value=st.sort; }
+  if(scrollTo){ requestAnimationFrame(()=>document.getElementById(scrollTo).scrollIntoView()); }
+  else { window.scrollTo(0,0); if(r) app.focus({preventScroll:true}); }
+  if(r==='checkout') bindForm();
+  badge();
+}
+window.addEventListener('hashchange',render);
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button'); if(!t) return;
+  if(t.dataset.type){ st.type=t.dataset.type; document.getElementById('chips').innerHTML=chipsHTML(); document.getElementById('grid').innerHTML=gridHTML(); document.querySelector(`[data-type="${st.type}"]`).focus(); }
+  else if(t.dataset.view){ const old=gv; gv=+t.dataset.view; const p=byId(location.hash.split('/')[2]); document.getElementById('gal').innerHTML=galleryHTML(p,curAroma()); const nb=document.querySelector(`.gth[data-view="${old}"]`); if(nb) nb.focus(); }
+  else if(t.dataset.qadd){ const p=byId(t.dataset.qadd); add(p.id,p.aromas[0].n,1); toast(`“${p.name}” · ${p.aromas[0].n} — added to cart <a href="#/cart">View</a>`); }
+  else if(t.dataset.pq){ const o=document.getElementById('pq'); o.textContent=Math.max(1,Math.min(20,+o.textContent+ +t.dataset.pq)); updBtn(); }
+  else if(t.dataset.inc||t.dataset.dec||t.dataset.del){
+    const i=+(t.dataset.inc||t.dataset.dec||t.dataset.del);
+    if(t.dataset.inc) cart[i].qty=Math.min(20,cart[i].qty+1);
+    else if(t.dataset.dec){ if(cart[i].qty>1) cart[i].qty--; else cart.splice(i,1); }
+    else { const p=byId(cart[i].id); cart.splice(i,1); toast(`“${p.name}” removed from cart`); }
+    save(); const y=window.scrollY; app.innerHTML=viewCart(); window.scrollTo(0,y);
+    const again=document.querySelector(`[data-${t.dataset.inc?'inc':t.dataset.dec?'dec':'del'}="${i}"]`); if(again) again.focus();
+  }
+});
+function updBtn(){ const p=byId(location.hash.split('/')[2]); const q=+document.getElementById('pq').textContent; document.getElementById('addbtn').textContent=`Add to cart · ${rub(p.price*q)}`; }
+document.addEventListener('change',e=>{
+  if(e.target.id==='sort'){ st.sort=e.target.value; document.getElementById('grid').innerHTML=gridHTML(); }
+  if(e.target.name==='aroma'){ const p=byId(location.hash.split('/')[2]); document.getElementById('gal').innerHTML=galleryHTML(p,e.target.value); }
+});
+document.addEventListener('submit',e=>{
+  if(e.target.id!=='pform') return; e.preventDefault();
+  const p=byId(location.hash.split('/')[2]); const a=e.target.aroma.value; const q=+document.getElementById('pq').textContent;
+  add(p.id,a,q); document.getElementById('added').innerHTML=`Added: ${p.name}, ${a}, qty ${q}. <a href="#/cart">Go to cart →</a>`;
+});
+
+/* ===== order form ===== */
+function fmtPhone(v){
+  let d=v.replace(/\D/g,''); if(d[0]==='1') d=d.slice(1); d=d.slice(0,10);
+  let s='+1'; if(d.length) s+=' ('+d.slice(0,3); if(d.length>=3) s+=')'; if(d.length>3) s+=' '+d.slice(3,6); if(d.length>6) s+='-'+d.slice(6,10);
+  return {s,d};
+}
+function bindForm(){
+  const f=document.getElementById('order'), ph=f.phone;
+  ph.addEventListener('focus',()=>{ if(!ph.value) ph.value='+1 ('; });
+  ph.addEventListener('input',()=>{ ph.value=fmtPhone(ph.value).s; });
+  ph.addEventListener('blur',()=>{ if(fmtPhone(ph.value).d.length===0) ph.value=''; check('phone'); });
+  f.name.addEventListener('blur',()=>check('name')); f.addr.addEventListener('blur',()=>check('addr'));
+  f.addEventListener('change',e=>{ if(e.target.name==='deliv') check('deliv'); });
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const ok=['name','phone','deliv','addr'].map(check); const bad=['name','phone','deliv','addr'][ok.indexOf(false)];
+    if(bad){ (bad==='deliv'?f.querySelector('[name=deliv]'):f[bad]).focus(); return; }
+    const t=totals(); const num=String(Math.floor(1000+Math.random()*9000));
+    try{ localStorage.setItem(LAST,JSON.stringify({num,name:f.name.value.trim(),phone:f.phone.value,deliv:f.deliv.value,total:t.total,disc:t.disc})); }catch(err){}
+    cart=[]; save(); location.hash='#/done';
+  });
+}
+function check(k){
+  const f=document.getElementById('order'); let msg='';
+  if(k==='name'&&f.name.value.trim().length<2) msg='Please enter your name (at least two letters).';
+  if(k==='phone'&&fmtPhone(f.phone.value).d.length!==10) msg='Enter 10 digits after +1.';
+  if(k==='addr'&&f.addr.value.trim().length<8) msg='Add your street address, city and ZIP code.';
+  if(k==='deliv'&&!f.querySelector('[name=deliv]:checked')) msg='Choose UPS Ground or USPS Priority.';
+  const box=k==='deliv'?document.getElementById('f-deliv'):document.getElementById('f-'+k);
+  box.querySelector('.er').textContent=msg; box.classList.toggle('bad',!!msg);
+  const inp=k==='deliv'?null:f[k]; if(inp){ inp.setAttribute('aria-invalid',!!msg); }
+  return !msg;
+}
+render();
+</script>
+</body>
+</html>
