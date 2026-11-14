@@ -8,8 +8,16 @@ export class BlockedError extends Error {
   }
 }
 
-export const USER_AGENT = 'BirzhaRadar/0.1 (личный радар заказов; без входа; контакт: владелец проекта)';
-const CAPTCHA = /captcha|капч|проверка безопасности|доступ ограничен|checking your browser/i;
+export const USER_AGENT = 'BirzhaRadar/0.1 (personal order radar; no login; one page, 10 s pause)';
+const CAPTCHA = /captcha|капч|не робот|проверка безопасности|доступ ограничен|checking your browser/i;
+// Капчу ищем только в видимом тексте: у обычной страницы FL.ru в <head> есть meta «recaptcha-site-key» (14.11 — ложная «защита»).
+export const visibleStart = (html) =>
+  html
+    .replace(/<head[\s>][\s\S]*?<\/head>/i, ' ')
+    .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ') // noscript оставляем: без JS radar видит именно его
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .slice(0, 5000);
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -95,6 +103,6 @@ export async function fetchPage(url, { fetchImpl = fetch, pauseMs = 10_000, slee
   if (res.status === 403 || res.status === 429) throw new BlockedError(res.status);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const html = await res.text();
-  if (CAPTCHA.test(html.slice(0, 5000))) throw new BlockedError(res.status, 'капча');
+  if (CAPTCHA.test(visibleStart(html))) throw new BlockedError(res.status, 'капча');
   return html;
 }

@@ -144,10 +144,12 @@ test('cli: --file без пути → понятная ошибка, код 2', 
   assert.match(r.stderr + r.stdout, /--file.*путь/);
 });
 
-test('cli: --live при режиме «руками» отказывает без сети', () => {
-  assert.notEqual(CHANNELS.fl.mode, 'auto', 'правила FL не найдены → режим «руками»');
-  const r = spawnSync(process.execPath, ['src/radar/cli.js', '--live'], { encoding: 'utf8' });
-  assert.equal(r.status, 2);
-  assert.match(r.stderr + r.stdout, /руками/);
-  assert.deepEqual(autoChannels(), []);
+test('авто — только канал с прочитанными правилами (записаны пункты), остальные «руками»', () => {
+  for (const [id, c] of Object.entries(CHANNELS)) {
+    if (c.mode === 'auto') {
+      assert.match(c.rules ?? '', /п\. \d/, `${id}: авто без пунктов правил`);
+      assert.ok(c.pause_sec >= 10, `${id}: пауза меньше 10 с`);
+    }
+  }
+  assert.deepEqual(autoChannels(), ['fl']);
 });

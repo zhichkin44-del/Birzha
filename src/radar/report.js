@@ -12,7 +12,8 @@ export function statusLine(report, manual = []) {
   const parts = [`собрано ${report.collected} заказов из ${Object.values(report.channels).filter((c) => c.status === 'ok').length} каналов`];
   const layout = Object.entries(report.channels).filter(([, c]) => c.flag === 'вёрстка_изменилась').map(([id]) => id);
   const quiet = report.silent.filter((id) => !layout.includes(id));
-  if (quiet.length) parts.push(`молчат: ${quiet.join(', ')}`);
+  const why = (id) => (report.channels[id]?.reason ?? '').replace(/^канал молчит: /, '');
+  if (quiet.length) parts.push(`молчат: ${quiet.map((id) => (why(id) ? `${id} (${why(id)})` : id)).join(', ')}`);
   if (layout.length) parts.push(`вёрстка изменилась, проверь руками: ${layout.join(', ')}`);
   if (manual.length) parts.push(`руками: ${manual.join(', ')}`);
   return parts.join('; ');
