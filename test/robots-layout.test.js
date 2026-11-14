@@ -144,12 +144,15 @@ test('cli: --file без пути → понятная ошибка, код 2', 
   assert.match(r.stderr + r.stdout, /--file.*путь/);
 });
 
-test('авто — только канал с прочитанными правилами (записаны пункты), остальные «руками»', () => {
+test('авто — канал с прочитанными правилами (пункты) либо с явным решением владельца (дата + слово), остальные «руками»', () => {
   for (const [id, c] of Object.entries(CHANNELS)) {
     if (c.mode === 'auto') {
-      assert.match(c.rules ?? '', /п\. \d/, `${id}: авто без пунктов правил`);
+      const rulesRead = /п\. \d/.test(c.rules ?? '');
+      const ownerSaid = /\d{2}\.\d{2}\.\d{4}.*«.+»/.test(c.owner_decision ?? '');
+      assert.ok(rulesRead || ownerSaid, `${id}: авто без прочитанных правил и без решения владельца`);
+      assert.ok(c.rules, `${id}: нет поля rules`);
       assert.ok(c.pause_sec >= 10, `${id}: пауза меньше 10 с`);
     }
   }
-  assert.deepEqual(autoChannels(), ['fl']);
+  assert.deepEqual(autoChannels(), ['fl', 'kwork']);
 });

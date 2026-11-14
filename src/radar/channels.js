@@ -5,7 +5,7 @@ export const CHANNELS = {
   frru: { name: 'Freelance.ru', mode: 'manual', feed: 'https://freelance.ru/projects/', why: 'п. 5.10 правил запрещает роботов' },
   weblancer: { name: 'Weblancer', mode: 'manual', feed: null, why: 'правила не прочитаны, HTTP 403' },
   'tg-tilda': { name: 'Telegram @tilda_profi', mode: 'manual', feed: null, why: 'Telegram запрещает скрейпинг; новый адрес канала не записан' },
-  kwork: { name: 'Kwork', mode: 'manual', feed: 'https://kwork.ru/projects', why: 'EN-условия запрещают роботов; список без рендера пуст' },
+  kwork: { name: 'Kwork', mode: 'auto', feed: 'https://kwork.ru/projects?c=11', pause_sec: 10, owner_decision: '14.11.2026, Саша: «всё равно на их правила, запускай Kwork, так же аккуратно»', why: 'решение владельца 14.11: условия запрещают роботов, берём на его риск; robots.txt /projects открыт (закрыты только ?page=, /search, /login); 1 страница категории «Разработка и IT» (c=11) без page, пауза 10 с, без входа, личные данные не храним', rules: 'условия Kwork запрещают роботов — риск владельца; читаем 1 страницу без page, пауза 10 с, без входа и cookie; имена и профили заказчиков не берём и не храним; при капче/403/429 — «руками»' },
   profi: { name: 'Профи.ру', mode: 'manual', feed: null, why: 'в условиях запрещён парсинг' },
   habr: { name: 'Хабр Фриланс', mode: 'closed', feed: null, why: 'закрыт 28.02.2025' },
 };

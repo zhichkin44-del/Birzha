@@ -1,11 +1,12 @@
-// Запуск радара: node src/radar/cli.js --file <сохранённая-страница.html>   (без сети)
-//                node src/radar/cli.js --live                                (живой сбор FL.ru, только по «да» Саши)
+// Запуск радара: node src/radar/cli.js --file <сохранённая-страница.html>   (без сети, только FL.ru)
+//                node src/radar/cli.js --live                                (живой сбор всех авто-каналов: FL.ru, Kwork)
 // Результат: data/orders/<день>.jsonl, data/state.json, data/morning-<день>.txt
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { CHANNELS, manualNames } from './channels.js';
 import { fetchPage } from './fetch.js';
 import { parseFlChecked } from './parsers/fl.js';
+import { parseKworkChecked } from './parsers/kwork.js';
 import { runChannels } from './run.js';
 import { saveRecords, loadState, saveState } from './store.js';
 import { renderMorning } from './report.js';
@@ -14,7 +15,7 @@ const args = process.argv.slice(2);
 const live = args.includes('--live');
 const fileIdx = args.indexOf('--file');
 if (!live && fileIdx < 0) {
-  console.log('Нужен --file <страница.html> (без сети) или --live (живой сбор FL.ru, правила площадки не прочитаны — только по «да» Саши).');
+  console.log('Нужен --file <страница.html> (без сети, FL.ru) или --live (живой сбор авто-каналов: FL.ru, Kwork).');
   process.exit(2);
 }
 
@@ -30,12 +31,14 @@ if (live && CHANNELS.fl.mode !== 'auto') {
 
 const DATA = join(process.cwd(), 'data');
 const now = new Date().toISOString();
-const loadFl = async () => {
-  const html = live ? await fetchPage(CHANNELS.fl.feed, { pauseMs: CHANNELS.fl.pause_sec * 1000 }) : readFileSync(filePath, 'utf8');
-  return parseFlChecked(html, now);
+const PARSERS = { fl: parseFlChecked, kwork: parseKworkChecked };
+const loader = (id) => async () => {
+  const html = live ? await fetchPage(CHANNELS[id].feed, { pauseMs: CHANNELS[id].pause_sec * 1000 }) : readFileSync(filePath, 'utf8');
+  return PARSERS[id](html, now);
 };
+const ids = live ? Object.keys(PARSERS).filter((id) => CHANNELS[id].mode === 'auto') : ['fl'];
 
-const out = await runChannels([{ id: 'fl', load: loadFl }], { now, state: loadState(DATA) });
+const out = await runChannels(ids.map((id) => ({ id, load: loader(id) })), { now, state: loadState(DATA) });
 const day = now.slice(0, 10);
 saveRecords(DATA, day, out.records);
 saveState(DATA, out.state);
