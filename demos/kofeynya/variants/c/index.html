@@ -140,9 +140,7 @@ section{padding:112px 0}
 .pass.wide.flip .pic{order:2}
 .pass.tall{grid-template-rows:170px 1fr}
 .pic{position:relative; min-height:170px; overflow:hidden; background:var(--soft)}
-.pic svg{position:absolute; inset:0; width:100%; height:100%; display:block; max-width:none}
-.pic .v-p{display:none}
-@media (min-width:1081px){.pass.wide .v-l{display:none}.pass.wide .v-p{display:block}}
+.pic img{position:absolute; inset:0; width:100%; height:100%; display:block; max-width:none; object-fit:cover}
 .pbody{padding:26px 28px 24px; display:flex; flex-direction:column}
 .pass .no{display:flex; justify-content:space-between; color:var(--ink2); font:500 12.5px var(--mono); letter-spacing:.14em; text-transform:uppercase}
 .pass h3{font-size:40px; margin:14px 0 4px}
@@ -593,71 +591,14 @@ footer{border-top:1px solid var(--ink); padding:40px 0 48px; font-size:16px; col
   const rub = (n) => n.toLocaleString("ru-RU").replace(/\s/g, " ") + " ₽";
   const roastName = ["", "светлая", "средняя", "тёмная"];
 
-  /* ---- картинки паспортов: натюрморт «зерно + то, что в чашке» (свои SVG) ---- */
-  let uid = 0;
-  const SH = 'style="filter:drop-shadow(4px 7px 4px rgba(34,16,6,.34))"';
-  const INK = "#2a1c13";
-  const ROAST = [null, ["#e0b070", "#b87a43", "#7a4624"], ["#b07040", "#7c4627", "#4a2412"], ["#6e4026", "#3f2112", "#1e0e06"]];
-  const bean = (cx, cy, r, rot, lv) => {
-    const c = ROAST[lv], id = "bg" + (++uid), rx = r * .72;
-    const specks = [[-.3, -.5], [.25, -.3], [-.38, .1], [.32, .25], [-.1, .55], [.05, .05], [.4, -.6], [-.45, .5]]
-      .map(([a, b]) => `<ellipse cx="${(a * rx).toFixed(1)}" cy="${(b * r).toFixed(1)}" rx="${(r * .035).toFixed(1)}" ry="${(r * .02).toFixed(1)}" fill="#1b0d05" opacity="${lv === 1 ? .28 : .35}"/>`).join("");
-    const wr = [-.55, -.25, .3, .6].map(t => `<path d="M${(-rx * .9).toFixed(1)} ${(t * r).toFixed(1)}q${(rx * .35).toFixed(1)} ${(-r * .08).toFixed(1)} ${(rx * .55).toFixed(1)} 0" fill="none" stroke="#1b0d05" stroke-opacity=".16" stroke-width="${(r * .03).toFixed(1)}" stroke-linecap="round"/>`).join("");
-    return `<g ${SH} transform="translate(${cx} ${cy}) rotate(${rot})"><defs><radialGradient id="${id}" cx=".34" cy=".28" r=".95"><stop offset="0" stop-color="${c[0]}"/><stop offset=".5" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></radialGradient></defs>
-      <ellipse rx="${rx.toFixed(1)}" ry="${r}" fill="url(#${id})" stroke="${INK}" stroke-width="2.4"/>${wr}${specks}
-      <path d="M${(rx * .12).toFixed(1)} ${(-r * .96).toFixed(1)}C${(-rx * .8).toFixed(1)} ${(-r * .38).toFixed(1)} ${(rx * .8).toFixed(1)} ${(r * .3).toFixed(1)} ${(-rx * .12).toFixed(1)} ${(r * .96).toFixed(1)}" fill="none" stroke="#150a04" stroke-width="${(r * .09).toFixed(1)}" stroke-linecap="round"/>
-      <path d="M${(rx * .2).toFixed(1)} ${(-r * .9).toFixed(1)}C${(-rx * .62).toFixed(1)} ${(-r * .34).toFixed(1)} ${(rx * .9).toFixed(1)} ${(r * .3).toFixed(1)} ${(-rx * .05).toFixed(1)} ${(r * .9).toFixed(1)}" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="${(r * .03).toFixed(1)}" stroke-linecap="round"/>
-      <ellipse cx="${(-rx * .5).toFixed(1)}" cy="${(-r * .45).toFixed(1)}" rx="${(rx * .15).toFixed(1)}" ry="${(r * .3).toFixed(1)}" fill="#fff" opacity=".34" transform="rotate(18 ${(-rx * .5).toFixed(1)} ${(-r * .45).toFixed(1)})"/></g>`;
+  /* ---- фото паспортов (Unsplash, см. img/SOURCES.md) ---- */
+  const PHOTO = {
+    "Эфиопия": ["../../img/ethiopia.webp", 800, 1200, "Ветка кофейного дерева с красными и зелёными ягодами", "50% 40%"],
+    "Кения": ["../../img/kenya.webp", 900, 600, "Спелые и зелёные кофейные ягоды на ветке в листве", "50% 45%"],
+    "Колумбия": ["../../img/colombia.webp", 900, 600, "Обжаренные зёрна в мешке из мешковины на тёмном фоне", "50% 55%"],
+    "Бразилия": ["../../img/brazil.webp", 800, 1200, "Бариста держит два холдера: с целыми зёрнами и с молотым кофе", "50% 50%"]
   };
-  const jasmine = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">
-    <path d="M0 0C14-14 34-14 42 0C34 14 14 14 0 0Z" fill="#5f7d3b" stroke="${INK}" stroke-width="1.8" transform="rotate(35)"/><path d="M0 0C14-14 34-14 42 0C34 14 14 14 0 0Z" fill="#6f8f45" stroke="${INK}" stroke-width="1.8" transform="rotate(150)"/>
-    ${[0, 1, 2, 3, 4].map(i => `<ellipse cy="-14" rx="8.5" ry="15" transform="rotate(${i * 72})" fill="#fffaf0" stroke="${INK}" stroke-width="1.8"/><path d="M0 -6V-24" stroke="#d9c9a8" stroke-width="1" transform="rotate(${i * 72})"/>`).join("")}
-    <circle r="5.5" fill="#f2c14e" stroke="${INK}" stroke-width="1.5"/></g>`;
-  const citrus = (x, y, r, rind, pith, flesh, vs) => {
-    const seg = Array.from({ length: 10 }, (_, i) => `<path d="M0 0V${-r * .76}" stroke="${pith}" stroke-width="${(r * .05).toFixed(1)}" transform="rotate(${i * 36})"/>`).join("");
-    const ves = Array.from({ length: 30 }, (_, i) => { const a = i * 2.4, d = r * (.2 + (i % 4) * .13); return `<ellipse cx="${(Math.cos(a) * d).toFixed(1)}" cy="${(Math.sin(a) * d).toFixed(1)}" rx="${(r * .045).toFixed(1)}" ry="${(r * .07).toFixed(1)}" fill="${vs}" opacity=".7" transform="rotate(${(a * 57).toFixed(0)} ${(Math.cos(a) * d).toFixed(1)} ${(Math.sin(a) * d).toFixed(1)})"/>`; }).join("");
-    return `<g ${SH} transform="translate(${x} ${y})"><circle r="${r}" fill="${rind}" stroke="${INK}" stroke-width="2.4"/><circle r="${(r * .88).toFixed(1)}" fill="${pith}"/><circle r="${(r * .78).toFixed(1)}" fill="${flesh}"/>${ves}${seg}<circle r="${(r * .07).toFixed(1)}" fill="${pith}"/><path d="M${-r * .6} ${-r * .3}A${r * .68} ${r * .68} 0 0 1 ${-r * .2} ${-r * .66}" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="${(r * .06).toFixed(1)}" stroke-linecap="round"/></g>`;
-  };
-  const zest = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M-30 6C-16-26 24-24 28-2C32 22 0 30-4 12C-8-4 14-6 16 6" fill="none" stroke="${INK}" stroke-width="12" stroke-linecap="round"/><path d="M-30 6C-16-26 24-24 28-2C32 22 0 30-4 12C-8-4 14-6 16 6" fill="none" stroke="#efca3a" stroke-width="7" stroke-linecap="round"/><path d="M-24-4C-14-18 6-20 18-14" fill="none" stroke="#fff6c8" stroke-width="2" stroke-linecap="round" opacity=".8"/></g>`;
-  const berry = (x, y, r) => `<g transform="translate(${x} ${y})"><circle r="${r}" fill="url(#bb)" stroke="${INK}" stroke-width="2"/><ellipse cx="${-r * .35}" cy="${-r * .4}" rx="${r * .24}" ry="${r * .15}" fill="#fff" opacity=".5" transform="rotate(-35 ${-r * .35} ${-r * .4})"/><path d="M${r * .25} ${r * .45}l${r * .1}-${r * .2}l${r * .12} ${r * .18}l${r * .2}-${r * .08}l-${r * .12} ${r * .2}l${r * .08} ${r * .22}l-${r * .2}-${r * .1}l-${r * .18} ${r * .14}l.02-${r * .22}z" fill="#150d22" opacity=".85"/></g>`;
-  const cube = (x, y, s) => `<g ${SH} transform="translate(${x} ${y}) scale(${s})"><path d="M0 -18L18 -8V12L0 22L-18 12V-8Z" fill="#d99a48" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M0 -18L18 -8L0 2L-18 -8Z" fill="#f4cf8a" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M0 2V22L-18 12V-8Z" fill="#b8762c" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><g fill="#fff" opacity=".7"><circle cx="-4" cy="-8" r="1.5"/><circle cx="6" cy="-6" r="1.2"/><circle cx="-8" cy="8" r="1.2"/><circle cx="8" cy="8" r="1.4"/></g></g>`;
-  const apple = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0-34C20-50 54-34 50 6C46 40 20 54 0 46C-20 54-46 40-50 6C-54-34-20-50 0-34Z" fill="url(#ap)" stroke="${INK}" stroke-width="2.6"/><path d="M-30-20C-34-6-32 10-24 24" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="5" stroke-linecap="round"/><path d="M28-24C36-10 36 4 32 16" fill="none" stroke="#7a1410" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/><ellipse cy="-30" rx="12" ry="5" fill="#8a1c14" stroke="${INK}" stroke-width="1.6"/><path d="M0-30C2-42 6-50 10-56" fill="none" stroke="#4a2c14" stroke-width="4.5" stroke-linecap="round"/><path d="M6-46C18-60 34-56 38-48C28-40 14-40 6-46Z" fill="#5f7d3b" stroke="${INK}" stroke-width="1.8"/></g>`;
-  const caramel = (x, y, s) => `<g ${SH} transform="translate(${x} ${y}) scale(${s})"><path d="M-44-6C-50-36-8-48 18-38C50-32 58 0 42 22C28 44-14 50-34 32C-46 22-44 6-44-6Z" fill="url(#cm)" stroke="${INK}" stroke-width="2.4"/><path d="M-30-20C-20-34 0-36 14-30" fill="none" stroke="#fff4d0" stroke-width="4" stroke-linecap="round" opacity=".85"/><ellipse cx="22" cy="14" rx="9" ry="4" fill="#fff4d0" opacity=".4" transform="rotate(-20 22 14)"/></g>`;
-  const nib = (x, y, rot) => `<path ${SH} transform="translate(${x} ${y}) rotate(${rot})" d="M-8-5L4-9L10 0L3 8L-9 5Z" fill="#4a2412" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/>`;
-  const hazel = (x, y, s, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0-30C22-30 30-8 26 12C22 30 10 34 0 34C-10 34-22 30-26 12C-30-8-22-30 0-30Z" fill="url(#hz)" stroke="${INK}" stroke-width="2.6"/><path d="M-12-22C-14-6-12 14-6 28M2-28C4-8 4 14 2 32M14-22C18-6 18 12 12 26" fill="none" stroke="#6b4320" stroke-opacity=".5" stroke-width="1.6"/><path d="M-20 14C-10 22 10 22 20 14C22 24 12 36 0 36C-12 36-22 24-20 14Z" fill="#ecc98f" stroke="${INK}" stroke-width="2"/><path d="M-16-14C-18-2-16 6-14 12" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/></g>`;
-  const choc = (x, y, rot, s) => { const q = (i, j, tone) => `<g transform="translate(${i * 37} ${j * 37})"><rect width="34" height="34" rx="4" fill="${tone}" stroke="${INK}" stroke-width="2.2"/><rect x="5" y="5" width="24" height="24" rx="2" fill="#000" opacity=".16"/><path d="M3 31V3H31" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2.4" stroke-linecap="round"/></g>`; return `<g ${SH} transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">${q(0, 0, "#5e3320")}${q(1, 0, "#6a3a24")}${q(0, 1, "#6a3a24")}</g>`; };
-  const raisin = (x, y, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot})"><ellipse rx="16" ry="10.5" fill="#4e2c3c" stroke="${INK}" stroke-width="2"/><path d="M-10-2q5 3 10 0t10 2M-9 4q5 2 9 0t9 1" fill="none" stroke="#20101a" stroke-width="1.2" opacity=".7"/><ellipse cx="-6" cy="-4" rx="5" ry="2" fill="#fff" opacity=".3"/></g>`;
-  const plant = (x, y, rot) => `<g ${SH} transform="translate(${x} ${y}) rotate(${rot})"><path d="M0 0C14-16 34-16 44 0C34 16 14 16 0 0Z" fill="#5f7d3b" stroke="${INK}" stroke-width="1.8"/><path d="M2 0H36" stroke="#2f4a1f" stroke-width="1.4" opacity=".7"/></g>`;
-
-  const DEFS = `<defs>
-    <filter id="gr" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .2 0 0 0 0 .1 0 0 0 0 .05 0 0 0 .55 0"/></filter>
-    <radialGradient id="bb" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#7a6a96"/><stop offset=".5" stop-color="#2d2142"/><stop offset="1" stop-color="#150d22"/></radialGradient>
-    <radialGradient id="ap" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#e8573f"/><stop offset=".6" stop-color="#b3261e"/><stop offset="1" stop-color="#7a1410"/></radialGradient>
-    <radialGradient id="cm" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#f0b24a"/><stop offset=".6" stop-color="#c8741f"/><stop offset="1" stop-color="#8a4412"/></radialGradient>
-    <radialGradient id="hz" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#e2b066"/><stop offset=".7" stop-color="#a96f33"/><stop offset="1" stop-color="#7a4a20"/></radialGradient>
-    <radialGradient id="gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffaf0" stop-opacity=".75"/><stop offset="1" stop-color="#fffaf0" stop-opacity="0"/></radialGradient></defs>`;
-  const scene = (m, bg, body) => {
-    const [W, H] = m === "l" ? [400, 190] : [330, 600];
-    const rings = m === "l" ? `<circle cx="205" cy="95" r="120" fill="url(#gl)"/>` : `<circle cx="165" cy="300" r="260" fill="url(#gl)"/>`;
-    const planks = m === "l" ? "" : `<g stroke="#2a1c13" stroke-opacity=".06" stroke-width="2"><path d="M0 150H330M0 300H330M0 450H330"/></g>`;
-    return `<svg class="v-${m}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${DEFS}<rect width="${W}" height="${H}" fill="${bg}"/>${rings}${planks}${body}<rect width="${W}" height="${H}" filter="url(#gr)" opacity=".38" style="mix-blend-mode:multiply"/></svg>`;
-  };
-  const COMP = {
-    "Эфиопия": (m) => scene(m, "#d7cf9c", m === "l"
-      ? citrus(86, 98, 44, "#b9bd4a", "#f1efc2", "#e4e07f", "#fff9c8") + jasmine(322, 56, 1, 10) + jasmine(338, 140, .8, 40) + zest(262, 158, .8, -20) + bean(206, 96, 58, -24, 1) + bean(140, 168, 20, 40, 1)
-      : citrus(88, 400, 56, "#b9bd4a", "#f1efc2", "#e4e07f", "#fff9c8") + jasmine(246, 96, 1.25, 10) + jasmine(84, 120, 1, 40) + jasmine(270, 330, 1.05, -30) + zest(236, 480, 1.2, -20) + bean(166, 230, 88, -24, 1) + bean(100, 540, 30, 40, 1) + bean(214, 560, 24, -60, 1)),
-    "Кения": (m) => scene(m, "#cdbdcb", m === "l"
-      ? citrus(290, 98, 58, "#e79a46", "#fbe6cf", "#ee7f6f", "#ffd1c4") + cube(70, 150, .9) + cube(104, 168, .7) + bean(172, 98, 56, 20, 1) + berry(52, 62, 17) + berry(80, 44, 15) + berry(76, 78, 16) + plant(26, 112, 150)
-      : citrus(170, 420, 82, "#e79a46", "#fbe6cf", "#ee7f6f", "#ffd1c4") + cube(70, 560, 1.1) + cube(112, 576, .8) + bean(160, 190, 84, 20, 1) + berry(240, 80, 22) + berry(280, 108, 19) + berry(262, 52, 20) + berry(226, 118, 21) + plant(180, 40, 200)),
-    "Колумбия": (m) => scene(m, "#e6bf9d", m === "l"
-      ? apple(84, 100, 1.1, -20) + caramel(318, 108, 1) + bean(204, 96, 58, -12, 2) + nib(150, 170, 20) + nib(262, 170, -30) + nib(172, 36, 70)
-      : apple(110, 130, 1.5, -20) + caramel(210, 460, 1.4) + bean(180, 290, 86, -12, 2) + nib(60, 470, 20) + nib(270, 330, -30) + nib(80, 560, 70) + nib(290, 80, 10)),
-    "Бразилия": (m) => scene(m, "#d8c2a0", m === "l"
-      ? hazel(78, 96, 1, 12) + hazel(110, 156, .7, -30) + choc(290, 34, 10, .98) + raisin(300, 170, 20) + raisin(340, 150, -30) + bean(196, 96, 60, 14, 3)
-      : hazel(90, 120, 1.5, 12) + hazel(236, 548, 1.1, -30) + choc(168, 420, 8, 1.4) + raisin(70, 560, 20) + raisin(260, 76, -30) + bean(170, 250, 88, 14, 3))
-  };
-  const ART_GENERIC = (m) => scene(m, "#dccaa4", m === "l" ? bean(200, 96, 58, 20, 2) + bean(110, 130, 26, -30, 2) + bean(300, 70, 24, 60, 2) : bean(165, 300, 88, 20, 2) + bean(80, 150, 34, -30, 2) + bean(250, 470, 30, 60, 2));
-  const art = (country, k) => ["l", "p"].map(m => (COMP[country] || ART_GENERIC)(m).replace(/id="(\w+)"/g, (s, i) => `id="${i}_${k}${m}"`).replace(/url\(#(\w+)\)/g, (s, i) => `url(#${i}_${k}${m})`)).join("");
+  const art = (country, k) => { const [src, w, h, alt, pos] = PHOTO[country]; return `<img src="${src}" width="${w}" height="${h}" alt="${alt}" style="object-position:${pos}"${k ? ' loading="lazy"' : ''}>`; };
   const beanSvg = `<svg viewBox="-11 -15 22 30" aria-hidden="true"><ellipse rx="9.5" ry="13.5" fill="#fcf8ef" stroke="#2a1c13" stroke-width="2"/><path d="M1 -11C-5 -4 5 3 -1 11" fill="none" stroke="#2a1c13" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 
   /* ---- паспорт зерна: четыре разные композиции ---- */

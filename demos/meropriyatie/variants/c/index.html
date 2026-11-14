@@ -123,6 +123,9 @@ section{scroll-margin-top:16px}
 .sp .talk b{font-family:var(--fd);font-weight:700;color:var(--blue);margin-right:8px}
 
 /* место */
+.hall{margin:0 0 clamp(24px,3vw,40px);border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;position:relative;background:#fff}
+.hall img{display:block;width:100%;height:auto;aspect-ratio:1400/630;object-fit:cover}
+.hall figcaption{position:absolute;left:14px;bottom:14px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:700;font-size:14px}
 .place{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,3vw,40px);align-items:start}
 .mapbox{background:#fff;border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;margin:0}
 .mapbox svg{display:block;width:100%;height:auto}
@@ -643,6 +646,7 @@ footer a{color:#fff}
 <section class="sec" id="place" aria-labelledby="h-place">
   <div class="wrap">
     <div class="head"><h2 id="h-place"><span class="eyebrow">Место</span>Цех № 4</h2><p>Бывший литейный цех: зал на 240 мест, гардероб, столовая и большие окна во двор.</p></div>
+    <figure class="hall"><img src="img/hall.webp" width="1400" height="630" alt="Зал с круглыми столами и тёплой деревянной стеной, подвесные светильники"><figcaption>Фото: зал и столовая</figcaption></figure>
     <div class="place">
       <figure class="mapbox">
         <svg viewBox="0 0 640 520" role="img" aria-labelledby="mt" font-family="Manrope,Arial,sans-serif">

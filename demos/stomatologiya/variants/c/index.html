@@ -66,7 +66,9 @@ header{border-bottom:1px solid var(--line)}
 .hf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}
 .hform .small{text-align:left;font-size:13px;line-height:1.45}
 .arch{position:relative;margin-bottom:30px}
-.arch svg{width:100%;height:auto}
+.arch img{display:block;width:100%;aspect-ratio:460/600;object-fit:cover;object-position:50% 50%;border-radius:50% 50% 4px 4px/34% 34% 4px 4px}
+.manifest .cab{margin:30px 0 0;border-radius:6px;overflow:hidden}
+.manifest .cab img{display:block;width:100%;height:auto;aspect-ratio:1100/495;object-fit:cover}
 .arch-cap{position:absolute;left:-28px;width:300px;bottom:-30px;background:var(--paper);padding:12px 16px;font-size:14px;line-height:1.45;color:var(--muted);border-radius:4px;box-shadow:0 14px 30px -16px rgba(46,43,39,.6);border-left:3px solid var(--bronze)}
 .arch-cap b{display:block;font-size:15px;font-weight:800;color:var(--ink);margin-bottom:2px}
 .hero-meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;margin-top:44px;border-top:1px solid var(--line);padding-top:22px}
@@ -373,89 +375,7 @@ footer.site{background:var(--graph);color:#C4B9A9;font-size:14px;padding:40px 0 
         </form>
       </div>
 
-      <div class="arch" aria-hidden="true">
-        <svg viewBox="0 0 460 600">
-          <defs>
-            <clipPath id="h-ac"><path d="M30 600V230C30 112 120 22 230 22s200 90 200 208v370z"/></clipPath>
-            <clipPath id="h-win"><path d="M70 345V185A70 70 0 0 1 210 185V345Z"/></clipPath>
-            <linearGradient id="h-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCC8A6"/><stop offset="1" stop-color="#BFA27B"/></linearGradient>
-            <linearGradient id="h-night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E1C1A"/><stop offset=".6" stop-color="#3C3128"/><stop offset="1" stop-color="#96704C"/></linearGradient>
-            <linearGradient id="h-flr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8F6842"/><stop offset="1" stop-color="#5B3F27"/></linearGradient>
-            <radialGradient id="h-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE3A8" stop-opacity=".85"/><stop offset=".4" stop-color="#FFD592" stop-opacity=".3"/><stop offset="1" stop-color="#FFD592" stop-opacity="0"/></radialGradient>
-            <linearGradient id="h-cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9BC" stop-opacity=".5"/><stop offset="1" stop-color="#FFE9BC" stop-opacity="0"/></linearGradient>
-            <radialGradient id="h-mg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F3DFC0" stop-opacity=".28"/><stop offset="1" stop-color="#F3DFC0" stop-opacity="0"/></radialGradient>
-            <path id="h-leaf" d="M0 0C11-9 11-26 0-40C-11-26-11-9 0 0Z"/>
-          </defs>
-          <path d="M14 600V230C14 102 112 6 230 6s216 96 216 224v370" fill="none" stroke="#C9A57A" stroke-width="1.5"/>
-          <g clip-path="url(#h-ac)">
-            <!-- стена и панели -->
-            <rect width="460" height="600" fill="url(#h-wall)"/>
-            <rect x="30" y="378" width="400" height="56" fill="#B39569"/>
-            <rect x="30" y="373" width="400" height="6" fill="#EBDDC4"/>
-            <g fill="none" stroke="#9C7F58" stroke-width="1"><rect x="46" y="388" width="68" height="36"/><rect x="126" y="388" width="68" height="36"/><rect x="206" y="388" width="68" height="36"/><rect x="286" y="388" width="68" height="36"/><rect x="366" y="388" width="60" height="36"/></g>
-
-            <!-- окно-арка -->
-            <path d="M70 345V185A70 70 0 0 1 210 185V345Z" fill="url(#h-night)"/>
-            <g clip-path="url(#h-win)">
-              <circle cx="172" cy="170" r="56" fill="url(#h-mg)"/>
-              <path d="M172 148a22 22 0 1 0 14 38 18 18 0 1 1-14-38Z" fill="#F3E3C7"/>
-              <g fill="#F3E3C7"><circle cx="96" cy="150" r="1.8"/><circle cx="120" cy="128" r="1.4"/><circle cx="102" cy="206" r="1.4"/><circle cx="196" cy="214" r="1.6"/><circle cx="140" cy="200" r="1.2"/><circle cx="82" cy="180" r="1.2"/></g>
-              <path d="M126 134l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#F3E3C7" opacity=".85"/>
-              <path d="M70 345V306h14v-12h12v18h12v-24l5-9 5 9v24h14v-14h12v14h6v-48h3v-8l-3-7-3 7v8h3v48h8v-18h14v26h8v28z" fill="#2B2421" opacity=".92"/>
-              <g fill="#FFD592"><rect x="90" y="318" width="3" height="4"/><rect x="115" y="322" width="3" height="4"/><rect x="154" y="320" width="3" height="4"/><rect x="190" y="326" width="3" height="4"/><rect x="78" y="332" width="3" height="4"/><rect x="170" y="334" width="3" height="4"/></g>
-            </g>
-            <g fill="none" stroke="#2E2B27"><path d="M70 345V185A70 70 0 0 1 210 185V345Z" stroke-width="7"/><path d="M140 115V345M70 250H210M72 185H208" stroke-width="3"/></g>
-            <rect x="58" y="345" width="164" height="11" fill="#EFE2CB"/><rect x="58" y="356" width="164" height="7" fill="#2E2B27" opacity=".12"/>
-            <!-- шторы -->
-            <path d="M44 100h38c-5 80 3 170-8 272H48z" fill="#F1E6D3"/>
-            <path d="M236 100h-38c5 80-3 170 8 272h26z" fill="#F1E6D3"/>
-            <g fill="none" stroke="#D3C2A6" stroke-width="1.5"><path d="M56 104c-3 90 2 170-2 266M66 104c-2 90 2 170-1 266"/><path d="M224 104c3 90-2 170 2 266M214 104c2 90-2 170 1 266"/></g>
-            <path d="M38 99H242" stroke="#8A5D33" stroke-width="3.500" stroke-linecap="round"/><circle cx="38" cy="99" r="5" fill="#C9A57A"/><circle cx="242" cy="99" r="5" fill="#C9A57A"/>
-
-            <!-- пол -->
-            <path d="M30 434H430V600H30Z" fill="url(#h-flr)"/>
-            <rect x="30" y="430" width="400" height="7" fill="#EBDDC4"/>
-            <path d="M30 458H430M30 486H430M30 522H430M120 437V458M300 437V458M210 458V486M380 458V486M90 486V522M250 486V522M410 486V522M170 522V560M340 522V560M60 560V600M230 560V600M400 560V600M30 560H430" stroke="#2E1C0E" stroke-width="1.200" opacity=".3" fill="none"/>
-            <ellipse cx="318" cy="520" rx="122" ry="25" fill="#EBDDC4"/>
-            <ellipse cx="318" cy="520" rx="104" ry="19" fill="none" stroke="#8A5D33" stroke-width="1" stroke-dasharray="3 4"/>
-
-            <!-- свет лампы -->
-            <circle cx="296" cy="228" r="130" fill="url(#h-glow)"/>
-
-            <!-- кресло -->
-            <g transform="translate(-12 22)">
-              <ellipse cx="322" cy="494" rx="84" ry="8" fill="#1F1A15" opacity=".35"/>
-              <ellipse cx="322" cy="490" rx="66" ry="10" fill="#2E2B27"/><ellipse cx="322" cy="486" rx="40" ry="6" fill="#5A5148"/>
-              <path d="M312 488L316 440H330L334 488Z" fill="#5A5148"/><path d="M319 484L322 442" stroke="#C9BEAE" stroke-width="1.500"/>
-              <path d="M248 418C226 420 206 428 194 438C189 443 194 450 202 449L254 438Z" fill="#3A3631"/>
-              <path d="M246 412C246 398 262 394 282 397L352 408C366 410 370 424 358 430L262 438C250 438 246 426 246 412Z" fill="#3A3631"/>
-              <path d="M258 402L350 414" stroke="#C9A57A" stroke-width="1.200" stroke-dasharray="3 4" opacity=".8"/>
-              <g transform="translate(360 420) rotate(24)"><rect x="-24" y="-112" width="48" height="120" rx="24" fill="#3A3631"/><path d="M0 -98V-10" stroke="#C9A57A" stroke-width="1.300" stroke-dasharray="3 4" opacity=".8"/><path d="M-19 -90V-20" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".12"/><rect x="-17" y="-140" width="34" height="34" rx="14" fill="#8A5D33"/><path d="M-9 -128h18" stroke="#E2BC8E" stroke-width="2" stroke-linecap="round"/></g>
-              <path d="M268 386H336" stroke="#8A5D33" stroke-width="9" stroke-linecap="round"/><path d="M300 388V400" stroke="#2E2B27" stroke-width="6" stroke-linecap="round"/>
-            </g>
-
-            <!-- подвесная лампа -->
-            <path d="M296 40V176" stroke="#2E2B27" stroke-width="1.600"/>
-            <path d="M258 219H334L420 492H172Z" fill="url(#h-cone)"/>
-            <path d="M258 214C258 188 276 176 296 176S334 188 334 214Z" fill="#8A5D33"/>
-            <path d="M268 206C268 193 279 185 291 182" fill="none" stroke="#E2BC8E" stroke-width="3" stroke-linecap="round"/>
-            <rect x="254" y="212" width="84" height="7" rx="3.500" fill="#C9A57A"/>
-            <ellipse cx="296" cy="222" rx="22" ry="6" fill="#FFF0CC"/>
-
-            <!-- растение -->
-            <g transform="translate(92 462)">
-              <g fill="none" stroke="#4A5639" stroke-width="2.600" stroke-linecap="round"><path d="M0 0C-6-40-22-70-34-98"/><path d="M0 0C2-50 0-92 6-130"/><path d="M0 0C10-36 30-62 46-86"/></g>
-              <g>
-                <use href="#h-leaf" fill="#5E6B4A" transform="translate(-14 -52) rotate(-72)"/><use href="#h-leaf" fill="#77855E" transform="translate(-24 -74) rotate(-52) scale(1.1)"/><use href="#h-leaf" fill="#4A5639" transform="translate(-20 -84) rotate(34)"/><use href="#h-leaf" fill="#6A7853" transform="translate(-34 -98) rotate(-24) scale(1.2)"/>
-                <use href="#h-leaf" fill="#4A5639" transform="translate(1 -50) rotate(-70) scale(.9)"/><use href="#h-leaf" fill="#77855E" transform="translate(2 -62) rotate(64) scale(.95)"/><use href="#h-leaf" fill="#5E6B4A" transform="translate(4 -92) rotate(-58)"/><use href="#h-leaf" fill="#6A7853" transform="translate(4 -100) rotate(52)"/><use href="#h-leaf" fill="#77855E" transform="translate(6 -130) rotate(4) scale(1.25)"/>
-                <use href="#h-leaf" fill="#4A5639" transform="translate(14 -30) rotate(70)"/><use href="#h-leaf" fill="#6A7853" transform="translate(28 -52) rotate(66) scale(.95)"/><use href="#h-leaf" fill="#5E6B4A" transform="translate(38 -70) rotate(46)"/><use href="#h-leaf" fill="#77855E" transform="translate(46 -86) rotate(22) scale(1.15)"/>
-              </g>
-              <path d="M-30 0H30L24 54H-24Z" fill="#A9683B"/><path d="M-27 18H27" stroke="#C98A58" stroke-width="3"/>
-              <rect x="-35" y="-6" width="70" height="13" rx="3" fill="#8E5530"/>
-            </g>
-          </g>
-          <path d="M30 600V230C30 112 120 22 230 22s200 90 200 208v370" fill="none" stroke="#2E2B27" stroke-width="3"/>
-        </svg>
+      <div class="arch"><img src="img/hero.webp" width="720" height="933" alt="Светлый процедурный кабинет: стоматологическое кресло, деревянный пол, белая мебель" fetchpriority="high">
         <div class="arch-cap"><b>Первый визит — разговор</b>Осмотр, снимок и план с ценой. Лечить или нет — решаете вы.</div>
       </div>
     </div>
@@ -527,7 +447,7 @@ footer.site{background:var(--graph);color:#C4B9A9;font-size:14px;padding:40px 0 
   <div class="wrap">
     <div>
       <span class="kicker">Почему «кабинет», а не клиника</span>
-      <blockquote style="margin-top:22px">«Мы принимаем столько пациентов, сколько можем выслушать. <span>Остальное — следствие.</span>»</blockquote>
+      <blockquote style="margin-top:22px">«Мы принимаем столько пациентов, сколько можем выслушать. <span>Остальное — следствие.</span>»</blockquote><figure class="cab"><img src="img/cabinet.webp" width="1100" height="495" alt="Зона ожидания: чёрные стулья у светлой стены и оливковое дерево" loading="lazy"></figure>
     </div>
     <div class="pillars">
       <div><b>Час на первый приём</b><span>Осмотр, снимок, план и ответы на вопросы — без спешки.</span></div>

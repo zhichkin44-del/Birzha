@@ -68,6 +68,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.05;margin:0}
 .hero .mini-facts b{display:block;font:800 22px/1.1 var(--sans);color:var(--ink);letter-spacing:-.02em}
 .hart{position:absolute;right:0;top:0;bottom:0;width:62%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
 .hart svg{width:100%;height:100%}
+.hart img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.about .shot{margin:26px 0 0;border-radius:var(--r);overflow:hidden}
+.about .shot img{display:block;width:100%;height:auto;max-height:440px;object-fit:cover;object-position:50% 30%}
 .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line);margin-top:8px}
 .facts div{padding:24px 24px 24px 0}
 .facts div+div{padding-left:24px;border-left:1px solid var(--line)}
@@ -271,6 +274,7 @@ legend{font-weight:700;margin-bottom:12px;padding:0}
 @media (max-width:1024px){
   .grid{grid-template-columns:repeat(2,1fr)}
   .about .wrap{grid-template-columns:1fr;gap:32px}
+  .about .shot{grid-column:auto!important}
   .product{grid-template-columns:1fr 1fr;gap:32px}
   .carecols{grid-template-columns:1fr 1fr}
   .carecols>div:first-child{grid-column:span 2}
@@ -841,7 +845,7 @@ function viewCatalog(){
     <p class="lead">Соевый и пчелиный воск, хлопковые фитили, стекло, которое потом станет стаканом для кисточек. Заливаем по пятницам и отправляем по всей России.</p>
     <div class="ctas"><a class="btn" href="#/catalog">Выбрать свечу</a><a class="btn ghost" href="#/p/vanna">Набор в подарок</a></div>
     <div class="mini-facts"><div><b>30 шт.</b>в одной партии</div><div><b>2 недели</b>созревают после заливки</div><div><b>0 %</b>парафина в составе</div></div></div>
-    <div class="hart">${heroArt()}</div>
+    <div class="hart"><img src="../../img/hero.webp" width="1100" height="1461" alt="Свечи ручной работы в керамических стаканах с деревянными фитилями на разделочной доске, рядом бечёвка и ножницы" fetchpriority="high"></div>
   </div></div>
   <div class="wrap"><div class="facts"><div><b>10 свечей в каталоге</b><span>в стекле, из пчелиного воска, шары и набор для ванной</span></div><div><b>Скидка 10 % от 3 000 ₽</b><span>считается сама, видно в корзине</span></div><div><b>СДЭК и Почта России</b><span>отправляем за 1–2 дня после звонка</span></div></div></div></section>
   <section class="catalog" id="catalog" aria-labelledby="cat-h"><div class="wrap">
@@ -851,7 +855,7 @@ function viewCatalog(){
     <div class="grid" id="grid" aria-live="polite">${gridHTML()}</div>
   </div></section>
   <section class="about" id="about"><div class="wrap">
-    <div><div class="eyebrow">О мастерской</div><h2>Две пары рук и одна плита</h2><p>«Тёплый фитиль» — маленькая мастерская: льём, сушим и упаковываем сами. Каждую партию проверяем — одну свечу из тридцати сжигаем до конца и смотрим, ровно ли идёт воск.</p><p>Если свеча начала коптить или тоннелить, напишите: заменим.</p></div>
+    <div><div class="eyebrow">О мастерской</div><h2>Две пары рук и одна плита</h2><p>«Тёплый фитиль» — маленькая мастерская: льём, сушим и упаковываем сами. Каждую партию проверяем — одну свечу из тридцати сжигаем до конца и смотрим, ровно ли идёт воск.</p><p>Если свеча начала коптить или тоннелить, напишите: заменим.</p><figure class="shot"><img src="../../img/workshop.webp" width="900" height="1352" alt="Свеча в керамическом стакане с деревянным фитилем на доске, мешочек из ткани и ножницы"></figure></div>
     <div class="steps"><div class="step"><div class="num">I</div><h3>Воск</h3><p>Соевый — для свечей в стекле, пчелиный — для столбиков и вощины. Без парафина.</p></div><div class="step"><div class="num">II</div><h3>Фитиль</h3><p>Хлопковый или деревянный из вишни. Подбираем толщину под каждую банку.</p></div><div class="step"><div class="num">III</div><h3>Созревание</h3><p>После заливки свеча стоит две недели: так аромат держится дольше.</p></div></div>
   </div></section>
   <section class="ship" id="delivery"><div class="wrap"><div class="box">
