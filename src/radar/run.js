@@ -1,5 +1,5 @@
 // Один запуск: по каналам → дубли → правила → записи + отчёт. Один сбой канала не останавливает остальные.
-import { BlockedError } from './fetch.js';
+import { BlockedError, RobotsClosedError, LayoutChangedError } from './fetch.js';
 import { mergeOrders } from './dedupe.js';
 import { evaluate } from './rules.js';
 
@@ -37,7 +37,12 @@ export async function runChannels(channels, { now = new Date().toISOString(), st
       orders.push(...got);
       report.channels[ch.id] = { status: 'ok', flag: null, reason: `собрано ${got.length}`, count: got.length };
     } catch (e) {
-      if (e instanceof BlockedError) {
+      if (e instanceof RobotsClosedError) {
+        silent('robots.txt закрывает путь, канал «руками»');
+      } else if (e instanceof LayoutChangedError) {
+        report.channels[ch.id] = { status: 'layout', flag: 'вёрстка_изменилась', reason: 'вёрстка изменилась, проверь руками: страница пришла, заказов 0, признаков пустого списка нет', count: 0 };
+        report.silent.push(ch.id);
+      } else if (e instanceof BlockedError) {
         st.blocked_streak += 1;
         if (st.blocked_streak >= 2) st.blocked_until = new Date(nowMs + DAY_MS).toISOString();
         silent(`защита (HTTP ${e.status}), канал «руками» на этот запуск`);

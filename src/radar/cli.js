@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { CHANNELS, manualNames } from './channels.js';
 import { fetchPage } from './fetch.js';
-import { parseFl } from './parsers/fl.js';
+import { parseFlChecked } from './parsers/fl.js';
 import { runChannels } from './run.js';
 import { saveRecords, loadState, saveState } from './store.js';
 import { renderMorning } from './report.js';
@@ -18,11 +18,21 @@ if (!live && fileIdx < 0) {
   process.exit(2);
 }
 
+const filePath = args[fileIdx + 1];
+if (!live && (!filePath || filePath.startsWith('--'))) {
+  console.error('После --file нужен путь к сохранённой странице: --file <страница.html>.');
+  process.exit(2);
+}
+if (live && CHANNELS.fl.mode !== 'auto') {
+  console.error(`FL.ru сейчас «руками»: ${CHANNELS.fl.why}. Живой сбор не запущен.`);
+  process.exit(2);
+}
+
 const DATA = join(process.cwd(), 'data');
 const now = new Date().toISOString();
 const loadFl = async () => {
-  const html = live ? await fetchPage(CHANNELS.fl.feed, { pauseMs: CHANNELS.fl.pause_sec * 1000 }) : readFileSync(args[fileIdx + 1], 'utf8');
-  return parseFl(html, now);
+  const html = live ? await fetchPage(CHANNELS.fl.feed, { pauseMs: CHANNELS.fl.pause_sec * 1000 }) : readFileSync(filePath, 'utf8');
+  return parseFlChecked(html, now);
 };
 
 const out = await runChannels([{ id: 'fl', load: loadFl }], { now, state: loadState(DATA) });

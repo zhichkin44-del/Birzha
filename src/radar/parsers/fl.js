@@ -1,5 +1,7 @@
 // Страница ленты FL.ru → заказы в общем виде (DATA §2). Вёрстка настоящей страницы НЕ проверена:
 // парсер написан по синтетической странице (test/fixtures/fl.synthetic.html). Нашёл 0 заказов — раннер скажет «молчит: вёрстка».
+import { LayoutChangedError } from '../fetch.js';
+
 const BASE = 'https://www.fl.ru';
 const LINK = /<a[^>]+href="(\/projects\/(\d+)\/[^"]*)"[^>]*>([\s\S]*?)<\/a>/g;
 
@@ -14,6 +16,17 @@ export function ageHours(chunk) {
   if (unit.startsWith('мин')) return n / 60;
   if (unit.startsWith('час')) return n;
   return n * 24;
+}
+
+// Признаки честно пустого списка (по синтетической странице; настоящие фразы FL.ru не проверены).
+const EMPTY = /ничего не найдено|проектов не найдено|нет проектов|заказов не найдено/i;
+export const looksEmptyFl = (html) => EMPTY.test(html);
+
+/** parseFl + проверка: 200, заказов 0 и нет признака пустого списка → LayoutChangedError. */
+export function parseFlChecked(html, nowIso) {
+  const orders = parseFl(html, nowIso);
+  if (!orders.length && !looksEmptyFl(html)) throw new LayoutChangedError();
+  return orders;
 }
 
 export function parseFl(html, nowIso) {

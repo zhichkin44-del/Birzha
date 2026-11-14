@@ -1,0 +1,4 @@
+# Синтетический robots.txt по описанию в PLAN.md: /projects/ открыт, /api/ и */rss/* закрыты
+User-agent: *
+Disallow: /api/
+Disallow: /*/rss/

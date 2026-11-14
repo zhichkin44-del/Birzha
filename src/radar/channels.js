@@ -1,7 +1,7 @@
 // Каналы и режимы (PLAN §3; решил директор 14.11: где правила запрещают роботов — руками).
 // Источники правил — PLAN §3, «Правила площадок — источники».
 export const CHANNELS = {
-  fl: { name: 'FL.ru', mode: 'auto', feed: 'https://www.fl.ru/projects/', pause_sec: 10, why: 'robots.txt /projects/ не закрыт; PDF правил не прочитан — живой запуск только с --live' },
+  fl: { name: 'FL.ru', mode: 'manual', feed: 'https://www.fl.ru/projects/', pause_sec: 10, why: 'правила FL.ru не найдены и не прочитаны (14.11) — до чтения «руками»; robots.txt /projects/ не закрыт' },
   frru: { name: 'Freelance.ru', mode: 'manual', feed: 'https://freelance.ru/projects/', why: 'п. 5.10 правил запрещает роботов' },
   weblancer: { name: 'Weblancer', mode: 'manual', feed: null, why: 'правила не прочитаны, HTTP 403' },
   'tg-tilda': { name: 'Telegram @tilda_profi', mode: 'manual', feed: null, why: 'Telegram запрещает скрейпинг; новый адрес канала не записан' },
