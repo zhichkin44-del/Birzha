@@ -104,6 +104,7 @@ export async function fetchPage(url, { fetchImpl = fetch, pauseMs = 10_000, slee
   if (res.status === 403 || res.status === 429) throw new BlockedError(res.status);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const html = await res.text();
-  if (CAPTCHA.test(visibleStart(html))) throw new BlockedError(res.status, 'капча');
+  // JSON-ответ API (Freelancer.com): слово «captcha» в тексте проекта — не защита страницы
+  if (!/^\s*[{[]/.test(html) && CAPTCHA.test(visibleStart(html))) throw new BlockedError(res.status, 'капча');
   return html;
 }

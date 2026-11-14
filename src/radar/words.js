@@ -7,12 +7,14 @@ export const VACANCY = [
   // 14.11, источники вне FL/Kwork: Telegram-ленты вакансий и «найм под видом заказа». Голое «штат» убрано: «штат Иллинойс» не вакансия
   'ищем в команду', 'ищем сотрудник', 'о вакансии', 'менеджер по', 'руководител', 'маркетолог', 'доход на ',
   // 14.11 вечер, живой прогон Freelance.ru: «подработка на удалёнке» под видом заказа
+  // 14.11, английские источники (Freelancer.com, PeoplePerHour): вакансии под видом заказа
+  'salary', 'we are hiring', 'full time position', 'full-time position', 'in-house', 'sales closer', 'commission only', 'part-time position', 'long-term position', 'ongoing role',
   'без опыта', 'опыт не обязателен', 'на удалёнку', 'на удаленку', 'требуется #модератор', 'выплата:', 'гражданств', 'помощник по', 'помощника по', 'помощник для', 'помощника для', 'заполнения анкет', 'заполнение анкет', 'новое направление', 'чат-менеджер', 'чат менеджер', 'обработк заяв', 'обработке заяв',
 ];
 
 // R1: отзывы и тестирование — не разработка.
-export const REVIEW = ['отзыв'];
-export const TESTING = ['тестирован'];
+export const REVIEW = ['отзыв', 'fake review', 'write reviews', 'review writing', 'review exchange', 'sample review', 'product review'];
+export const TESTING = ['тестирован', 'beta tester', 'qa tester', 'app tester', 'user testing'];
 
 // R2: не наша линейка (проверяется раньше, чем «наша»)
 export const MANUAL_FILL = ['заполнение товарн', 'заполнение карточ', 'наполнение карточ', 'товарных карт', 'карточек товар'];
@@ -25,6 +27,8 @@ export const OUT_OF_LINE = [
   // 14.11, Weblancer / Freelance.ru / Telegram: «дизайн», «сайт» в описании не делают заказ нашим (контент, реклама, видео, игры)
   'таргетолог', 'директолог', 'рилс', 'монтажер', 'монтажёр', 'инфлюенс', 'иллюстрац', 'сет-дизайн', // копирайтинг и брендбук — в COPYWRITING / PRINT_DESIGN ниже (слитый R2 из PR #15)
   'дизайнер пост', 'дизайнер сторис', 'дизайнер превью', 'дизайнер презентац', 'unity', 'unreal',
+  // 14.11, английские источники: реклама, соцсети, ассистенты, фото/видеосъёмка, ввод данных — не наша линейка
+  'pcb layout', 'firmware', 'microcontroller', 'proposal writing', 'grant writing', 'flutter', 'mobile app', 'ios app', 'android app', 'google ads', 'facebook ads', 'meta ads', 'tiktok ads', 'ppc', 'social media manag', 'performance marketing', 'backlink', 'link building', 'virtual assistant', 'data entry', 'videographer', 'photographer', 'photo shoot', 'cold email', 'lead generation', 'appointment setter', 'cold call', 'influencer', 'shopify theme', 'amazon listing', 'game develop', 'blockchain', 'smart contract', 'crypto', 'nft', 'solidity',
 ];
 
 // R2 (ужесточение 14.11 по живому прогону: «берём» прошли дизайн логотипа, копирайтер, каталог А4 для печати, игровой бот с обходом капчи).
@@ -32,20 +36,25 @@ export const OUT_OF_LINE = [
 export const PRINT_DESIGN = [
   'логотип', 'лого ', 'айдентик', 'фирменн стил', 'фирменный стил', 'брендбук', 'полиграф', 'для печати', 'в печать', 'на печать',
   'а4', 'a4', 'формате а4', 'формате a4', 'буклет', 'листовк', 'визитк', 'флаер', 'упаковк', 'этикетк',
+  'logo design', 'logo ', 'brochure', 'flyer', 'business card', 'packaging', 'brand identity', 'branding', 'poster', 'infographic', 'illustration', 'label design',
 ];
 // Копирайтинг: пишут тексты, не сайты. Тоже только без BUILD_WORDS.
 export const COPYWRITING = [
   'копирайт', 'рерайт', 'написание текст', 'написать текст', 'написание стат', 'написать стат',
   'тексты для сайт', 'текст для сайт', 'текстов для сайт', 'текстов сайт', 'тексты сайт', 'текста для сайт', 'контент-план',
+  'website copy', 'seo article', 'seo content', 'blog writing', 'content writer', 'ghostwrit', 'proofread', 'translat', 'transcri',
 ];
 // Слова настоящей разработки: если они есть, заказ не «чистый дизайн/копирайт» (сайт + логотип остаётся «берём»).
 // «сайт», «верстк», «дизайн», «разработ» сюда не входят: «текстов сайта», «верстка каталога», «разработка логотипа» — не разработка.
 export const BUILD_WORDS = [
   'создание сайт', 'создать сайт', 'разработка сайт', 'разработать сайт', 'сделать сайт', 'нужен сайт', 'нужен лендинг', 'лендинг',
   'landing', 'tilda', 'тильд', 'wordpress', 'интернет-магазин', 'сайт-визитк', 'сайт визитк', 'бот', 'парсер', 'парсинг', 'автоматизац', 'интеграци', 'crm',
+  'website', 'web site', 'web app', 'webapp', 'landing page', 'shopify', 'woocommerce', 'telegram bot', 'discord bot', 'whatsapp bot', 'chatbot', 'scraper', 'scraping', 'crawler', 'automation', 'automate', 'integration', 'dashboard', 'frontend', 'front-end', 'react', 'next.js', 'html',
 ];
 // Игровые боты и обход капчи: капчу не обходим (CLAUDE.md), игры — не наша линейка.
 export const GAME_OR_CAPTCHA = [
+  // 14.11, английские источники: азартные игры и обход капчи
+  'casino', 'sportsbook', 'betting', 'gambling', 'captcha bypass', 'bypass captcha', 'solve captcha', 'solving captcha', 'bypass recaptcha', 'bypass cloudflare', 'bypass protection', 'bot detection', 'roblox', 'minecraft',
   'black russia', 'blackrussia', 'блэк раша', 'блек раша', 'игровой бот', 'игровых бот', 'игрового бот', 'бот для игр', 'бота для игр',
   'бот в игр', 'бота в игр', 'бот для игры', 'бота для игры', 'minecraft', 'майнкрафт', 'roblox', 'роблокс',
   'cloudflare', 'обход защит', 'обхода защит', 'обход капч', 'обойти капч', 'обхода капч', 'обходом капч', 'обходить капч', 'антикапч', 'anticaptcha', 'anti-captcha', 'решение капч', 'решения капч', 'разгадыван',
@@ -55,6 +64,8 @@ export const GAME_OR_CAPTCHA = [
 export const IN_LINE = [
   'сайт', 'лендинг', 'landing', 'верстк', 'вёрстк', 'tilda', 'тильд', 'wordpress', 'интернет-магазин',
   'бот', 'автоматизац', 'парсер', 'парсинг', 'интеграци', 'ui', 'ux', 'интерфейс', 'crm',
+  // 14.11, английские источники
+  'website', 'web site', 'web app', 'telegram bot', 'discord bot', 'whatsapp bot', 'chatbot', 'chat bot', 'scraper', 'scraping', 'automation', 'web design', 'figma',
   // 14.11: голые «дизайн» и «макет» пропускали логотипы, каталоги А4, обложки YouTube («Макет готов. А как он будет выглядеть в печати?»).
   // Теперь дизайн — наш, только когда это сайт, лендинг, интерфейс, приложение или веб.
   'веб-дизайн', 'веб дизайн', 'вебдизайн', 'дизайн сайт', 'дизайн лендинг', 'дизайн интерфейс', 'дизайн приложен', 'дизайн мобильн', 'дизайн-макет сайт', 'макет сайт', 'макет лендинг', 'макет интерфейс',
@@ -64,10 +75,11 @@ export const IN_LINE = [
 export const SECRETS = [
   'доступ к кабинет', 'доступ в кабинет', 'доступ к аккаунт', 'доступ к личному кабинет',
   'логин и пароль', 'пароль от', 'передам пароль', 'токен', 'api-ключ', 'api ключ', 'секретн',
+  'your password', 'login credentials', 'login details', 'share your login', 'access to my account', 'access to my admin', 'use my account',
 ];
 
 // R7: требуют подтверждённого диплома / стажа
-export const CREDENTIALS = ['диплом', 'стаж', 'опыт от', 'опыт работы от', 'подтвержденный опыт', 'подтверждённый опыт'];
+export const CREDENTIALS = ['диплом', 'стаж', 'опыт от', 'опыт работы от', 'подтвержденный опыт', 'подтверждённый опыт', 'bachelor', 'degree required', 'degree in', 'certification required'];
 
 // флаг «уточнить»
 export const CLARIFY = ['кабинет'];
@@ -92,9 +104,10 @@ export const FIRST_EXTRA_IN = [
   'видео', 'ролик', 'монтаж', 'озвуч', 'субтитр', 'reels', 'shorts', 'рилс',
   'копирайт', 'текст', 'стать', 'рерайт', 'контент',
   'нейросет', 'chatgpt', 'gpt', 'ии-', 'ии ', 'ai-', 'ai ', 'ассистент', 'n8n', 'make.com', 'zapier', 'скрипт', 'чат-бот', 'чатбот', 'mini app',
+  'video editing', 'video edit', 'video production', 'youtube video', 'voiceover', 'voice-over', 'dubbing', 'subtitle', 'copywriting', 'blog post', 'ai assistant', 'ai agent', 'python script',
 ];
 
 // Слежка за людьми и распознавание лиц — не берём ни в одном профиле (директор 14.11: «поиск людей по фото в соцсетях — это слежка»).
-export const SURVEILLANCE = ['слежк', 'деанон', 'пробив', 'поиск людей по фото', 'поиск по фото', 'поиска на ии по фото', 'по фото через соц', 'распознаван', 'по лицу', 'по лицам', 'найти человека по',
+export const SURVEILLANCE = ['stalk', 'doxx', 'face recognition', 'facial recognition', 'nsfw', 'porn', 'onlyfans', 'adult content', 'слежк', 'деанон', 'пробив', 'поиск людей по фото', 'поиск по фото', 'поиска на ии по фото', 'по фото через соц', 'распознаван', 'по лицу', 'по лицам', 'найти человека по',
   // 18+ и чужие песни: не берём (риск содержания и прав), решение — по приказу директора 14.11
   '18+', 'эротик', 'интим', 'слова песни', 'текст песни', 'текста песни'];

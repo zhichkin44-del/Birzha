@@ -7,8 +7,12 @@ import { parseWeblancerChecked } from './weblancer.js';
 import { parseFreelanceRuChecked } from './freelanceru.js';
 import { parseTelegramChecked } from './telegram.js';
 import { parsePchelChecked } from './pchel.js';
+import { parseFreelancerChecked } from './freelancer.js';
+import { parsePphChecked } from './pph.js';
 
 export const PARSERS = {
+  flcom: parseFreelancerChecked,
+  pph: parsePphChecked,
   fl: parseFlChecked,
   kwork: parseKworkChecked,
   fh: parseFreelancehuntChecked,

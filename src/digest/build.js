@@ -7,6 +7,8 @@ import { findStopwords } from '../vitrina/stopwords.js';
 import { findWord } from '../radar/words.js';
 import { budgetValue, BUDGET_MIN } from '../radar/rules.js';
 import { TEMPLATES, PITCH, HOURS_LINE, money } from '../replies/templates.ru.js';
+import { EN_SPEC, HOURS_LINE_EN, casesForEn, usd } from '../replies/templates.en.js';
+import { CHANNELS } from '../radar/channels.js';
 
 export const TOP_N = 10;
 export const TAIL_N = 10; // «хвост» за топом: отклик по шаблону, перечитать и подправить
@@ -40,18 +42,18 @@ const EXTRA = {
 // Слова по видам, от узкого к широкому (при равенстве очков побеждает узкий). Название весит втрое больше описания:
 // 14.11 «заказчик»-скептик поймал, что слово «видео» в описании сайта делало из правки сайта монтаж ролика.
 const KIND_WORDS = [
-  ['dub', ['озвуч', 'переклад', 'перевод']],
-  ['video', ['видео', 'монтаж', 'ролик', 'reels', 'shorts', 'рилс', 'субтитр']],
-  ['image', ['фотосесси', 'фотосесс', 'изображен', 'картинк', 'аватар', 'генерац']],
-  ['parser', ['парсер', 'парсинг', 'спарсить', 'выгрузк']],
-  ['bot', ['бот', 'чат-бот', 'чатбот', 'mini app', 'мини-приложен']],
-  ['ai', ['нейросет', 'chatgpt', 'gpt', 'ии-', 'ии ', 'ai-', 'ai ', 'ассистент']],
-  ['automation', ['автоматизац', 'n8n', 'интеграци', 'crm', 'zapier', 'make.com', 'скрипт']],
-  ['fix', ['правк', 'поправ', 'исправ', 'доработ', 'допил', 'починить', 'переделат', 'переделк', 'редизайн']],
-  ['landing', ['лендинг', 'landing', 'tilda', 'тильд']],
-  ['site', ['сайт', 'верстк', 'вёрстк', 'wordpress', 'интернет-магазин']],
-  ['text', ['текст', 'стать', 'копирайт', 'рерайт', 'контент']],
-  ['design', ['дизайн', 'ui', 'ux', 'интерфейс', 'макет']],
+  ['dub', ['озвуч', 'переклад', 'перевод', 'dubbing', 'voiceover', 'voice-over', 'voice over', 'narration']],
+  ['video', ['видео', 'монтаж', 'ролик', 'reels', 'shorts', 'рилс', 'субтитр', 'video', 'youtube', 'subtitle', 'caption', 'editing', 'edit my']],
+  ['image', ['фотосесси', 'фотосесс', 'изображен', 'картинк', 'аватар', 'генерац', 'midjourney', 'image generation', 'generate images', 'product images']],
+  ['parser', ['парсер', 'парсинг', 'спарсить', 'выгрузк', 'scraper', 'scraping', 'scrape', 'crawler', 'data extraction']],
+  ['bot', ['бот', 'чат-бот', 'чатбот', 'mini app', 'мини-приложен', 'chat bot', 'telegram bot', 'discord bot', 'whatsapp bot', 'trading bot', 'bot ', 'bots', 'bot,', 'bot.']],
+  ['ai', ['нейросет', 'chatgpt', 'gpt', 'ии-', 'ии ', 'ai-', 'ai ', 'ассистент', 'llm', 'ai agent', 'assistant', 'rag ']],
+  ['automation', ['автоматизац', 'n8n', 'интеграци', 'crm', 'zapier', 'make.com', 'скрипт', 'automat', 'workflow', 'integrat', 'script', 'api ']],
+  ['fix', ['правк', 'поправ', 'исправ', 'доработ', 'допил', 'починить', 'переделат', 'переделк', 'редизайн', 'fix my', 'fix the', 'bugfix', 'bug fix', 'debug', 'troubleshoot', 'revamp', 'redesign']],
+  ['landing', ['лендинг', 'landing', 'tilda', 'тильд', 'landing page']],
+  ['site', ['сайт', 'верстк', 'вёрстк', 'wordpress', 'интернет-магазин', 'website', 'web site', 'web app', 'shopify', 'woocommerce', 'e-commerce', 'ecommerce', 'frontend', 'front-end', 'react']],
+  ['text', ['текст', 'стать', 'копирайт', 'рерайт', 'контент', 'copywrit', 'article', 'blog post', 'content writ', 'rewrit']],
+  ['design', ['дизайн', 'ui', 'ux', 'интерфейс', 'макет', 'figma', 'mockup', 'wireframe', 'web design']],
 ];
 
 /** Вид заказа для отклика: очки = 3 × слова в названии + слова в описании (не больше 2). */
@@ -71,10 +73,52 @@ export function detectDigestKind(o) {
   return best?.kind ?? 'site';
 }
 
+/** Английский заказ: канал помечен lang:'en' или в тексте латиницы втрое больше кириллицы. */
+export function isEnglishOrder(o) {
+  const ch = (o.channels ?? [o.channel])[0];
+  if (CHANNELS[ch]?.lang === 'en') return true;
+  const t = `${o.title ?? ''} ${o.text ?? ''}`;
+  const lat = (t.match(/[a-z]/gi) ?? []).length;
+  const cyr = (t.match(/[а-яё]/gi) ?? []).length;
+  return lat > 0 && lat > cyr * 3;
+}
+
 const KIND_LABEL = { dub: 'перевод и озвучка видео', image: 'изображения по описанию', bot: 'бот', parser: 'парсер', automation: 'автоматизация', ai: 'помощник на материалах', video: 'видео/монтаж', text: 'тексты', landing: 'лендинг', site: 'сайт', fix: 'правка сайта', design: 'интерфейс' };
 
 // Бот не про заявки и запись (поиск по фото, игры, парсинг в бота и т. п.): шаблон «клиент отвечает на вопросы, заявка приходит вам» был бы мимо задачи
 const BOT_GENERIC = { what: 'бота', how: 'Сделаю бота под вашу задачу (в Telegram, если нет другой платформы): вы описываете сценарий, я собираю рабочую версию, показываю её на ваших данных и дорабатываю по замечаниям.', need: 'описание сценария и примеры сообщений', price: 5000, days: 4, question: 'Что бот должен делать по шагам и откуда брать данные?' };
+
+function specEn(kind, order) {
+  if (kind === 'bot' && !/request|booking|book |client|customer|order|payment|menu|catalog|lead/i.test(`${order.title ?? ''} ${order.text ?? ''}`)) return EN_SPEC.botGeneric;
+  return EN_SPEC[kind];
+}
+
+/** Отклик по-английски: та же логика цены и скидки, что в русском, цена в валюте заказчика. */
+function buildReplyEn(order, kind, { firstClient }) {
+  const sp = specEn(kind, order);
+  const budget = budgetValue(order.budget);
+  if (budget !== null && budget < BUDGET_MIN) throw new Error(`${order.id}: бюджет ${money(budget)} ниже порога ${money(BUDGET_MIN)}`);
+  let price = budget ?? sp.price;
+  let discount = null;
+  if (firstClient) {
+    const d = roundTo100(price * (1 - DISCOUNT / 100));
+    if (d >= BUDGET_MIN) { price = d; discount = DISCOUNT; }
+  }
+  const title = String(order.title ?? '').replace(/\s+/g, ' ').trim().replace(/[.!…]+$/, '');
+  const quote = title && title.length <= TITLE_MAX && !findStopwords(title).length ? ` ("${title}")` : '';
+  const cs = casesForEn(kind);
+  const caseLine = cs.length ? `Similar work: ${cs[0].pitch}${cs[0].link ? ` ${cs[0].link}` : ' No public link yet, screenshots on request.'}` : null;
+  const raw = order.budget_raw ? String(order.budget_raw).match(/^(\d+)\s+([A-Z]{3})$/) : null;
+  // Цена в валюте заказа, круглая: до 10 при сумме до 1000, до 50 выше (6953 INR → 6950). Скидка уже в цене — в тексте не пишем (14.11).
+  const conv = raw && budget ? (Number(raw[1]) * price) / budget : null;
+  const shown = conv !== null ? `${conv < 1000 ? Math.round(conv / 10) * 10 : Math.round(conv / 50) * 50} ${raw[2]}` : usd(price);
+  const priceLine = budget !== null
+    ? `Price: ${shown}, about ${sp.days} days after I get ${sp.need}.`
+    : `Rough price from ${usd(price)}, about ${sp.days} days; the exact figure after your answer. I need ${sp.need}.`;
+  const lines = [`Hello! You need ${sp.what}${quote}.`, sp.how, caseLine, priceLine, `Question: ${sp.question}`, HOURS_LINE_EN].filter(Boolean);
+  const text = lines.join('\n');
+  return { kind, lang: 'en', price, discount, days: sp.days, text, lines: lines.length, cases: cs, problems: validateReply(text, price, budget) };
+}
 
 function spec(kind, order = {}) {
   if (kind === 'bot' && !/заявк|запис|клиент|заказ|оплат|меню|каталог/i.test(`${order.title ?? ''} ${order.text ?? ''}`)) return BOT_GENERIC;
@@ -97,6 +141,7 @@ export function casesFor(kind) {
 /** Отклик от первого лица Саши, 4–6 строк. Бросает ошибку, если заказ ниже порога или нет оснований для цены. */
 export function buildReply(order, { firstClient = true } = {}) {
   const kind = detectDigestKind(order);
+  if (isEnglishOrder(order)) return buildReplyEn(order, kind, { firstClient });
   const sp = spec(kind, order);
   const budget = budgetValue(order.budget);
   if (budget !== null && budget < BUDGET_MIN) throw new Error(`${order.id}: бюджет ${money(budget)} ниже порога ${money(BUDGET_MIN)}`);
@@ -134,6 +179,8 @@ export function validateReply(text, price, budget) {
   if (text.length > REPLY_CHARS_MAX) p.push(`текст ${text.length} знаков, предел ${REPLY_CHARS_MAX}`);
   if (price < BUDGET_MIN) p.push(`цена ${money(price)} ниже порога`);
   if (budget !== null && budget !== undefined && price > budget) p.push(`цена ${money(price)} выше бюджета ${money(budget)}`);
+  if (/скидк|discount/i.test(text)) p.push('про скидку в тексте не пишем — она уже в цене');
+  if (/UTC+7|UTC+7|UTC\+7/i.test(text)) p.push('часы — во времени заказчика, не UTC+7');
   return p;
 }
 
@@ -151,7 +198,7 @@ export function score(r) {
   if (typeof r.budget === 'number') s += 2;
   if (typeof r.answers === 'number') s += r.answers <= 10 ? 2 : r.answers <= 30 ? 1 : 0;
   if (['bot', 'parser', 'automation', 'landing', 'site'].includes(detectDigestKind(r))) s += 1;
-  if (r.channel === 'kwork' || r.channel === 'fl' || r.channel === 'frru' || r.channel === 'weblancer' || r.channel === 'fh' || r.channel === 'pchel') s += 1; // площадки с откликом по кнопке
+  if (r.channel === 'kwork' || r.channel === 'fl' || r.channel === 'frru' || r.channel === 'weblancer' || r.channel === 'fh' || r.channel === 'pchel' || r.channel === 'flcom' || r.channel === 'pph') s += 1; // площадки с откликом по кнопке
   if ((r.flags ?? []).includes('возможный_дубль')) s -= 1;
   if (detectDigestKind(r) === 'image') s -= 3; // нет честного кейса по изображениям; фото живого человека — только с согласия
   return s;
@@ -245,8 +292,8 @@ export function renderDigest(records, { date, report = null, manual = [], now = 
   return out.join('\n');
 }
 
-export function writeDigest(text, { dir = join('docs', 'orders'), date } = {}) {
-  const file = join(dir, `${date}.md`);
+export function writeDigest(text, { dir = join('docs', 'orders'), date, suffix = '' } = {}) {
+  const file = join(dir, `${date}${suffix ? `-${suffix}` : ''}.md`);
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, text);
   return file;

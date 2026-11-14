@@ -1,0 +1,148 @@
+{
+ "status": "success",
+ "result": {
+  "projects": [
+   {
+    "id": 2000001,
+    "seo_url": "web/build-a-website-for-a-bakery-2000001",
+    "title": "Build a website for a bakery",
+    "description": "Need a website with menu and contact form.",
+    "type": "fixed",
+    "language": "en",
+    "currency": {
+     "code": "USD",
+     "exchange_rate": 1
+    },
+    "budget": {
+     "minimum": 10,
+     "maximum": 250
+    },
+    "time_submitted": 1795000000,
+    "bid_stats": {
+     "bid_count": 4
+    },
+    "jobs": [
+     {
+      "name": "PHP"
+     },
+     {
+      "name": "HTML"
+     }
+    ]
+   },
+   {
+    "id": 2000002,
+    "seo_url": "web/fix-my-site-2000002",
+    "title": "Fix my site",
+    "description": "Hourly help",
+    "type": "hourly",
+    "language": "en",
+    "currency": {
+     "code": "USD",
+     "exchange_rate": 1
+    },
+    "budget": {
+     "minimum": 10,
+     "maximum": 30
+    },
+    "time_submitted": 1795000000,
+    "bid_stats": {
+     "bid_count": 4
+    },
+    "jobs": [
+     {
+      "name": "PHP"
+     },
+     {
+      "name": "HTML"
+     }
+    ]
+   },
+   {
+    "id": 2000003,
+    "seo_url": "web/sitio-web-2000003",
+    "title": "Sitio web",
+    "description": "Necesito sitio",
+    "type": "fixed",
+    "language": "es",
+    "currency": {
+     "code": "USD",
+     "exchange_rate": 1
+    },
+    "budget": {
+     "minimum": 10,
+     "maximum": 100
+    },
+    "time_submitted": 1795000000,
+    "bid_stats": {
+     "bid_count": 4
+    },
+    "jobs": [
+     {
+      "name": "PHP"
+     },
+     {
+      "name": "HTML"
+     }
+    ]
+   },
+   {
+    "id": 2000004,
+    "seo_url": "web/hidden-2000004",
+    "title": "Hidden",
+    "description": "x",
+    "type": "fixed",
+    "language": "en",
+    "currency": {
+     "code": "USD",
+     "exchange_rate": 1
+    },
+    "budget": {
+     "minimum": 10,
+     "maximum": 100
+    },
+    "time_submitted": 1795000000,
+    "bid_stats": {
+     "bid_count": 4
+    },
+    "jobs": [
+     {
+      "name": "PHP"
+     },
+     {
+      "name": "HTML"
+     }
+    ],
+    "nonpublic": true
+   },
+   {
+    "id": 2000005,
+    "seo_url": "web/euro-scraper-2000005",
+    "title": "Euro scraper",
+    "description": "Scrape product data into a spreadsheet",
+    "type": "fixed",
+    "language": "en",
+    "currency": {
+     "code": "EUR",
+     "exchange_rate": 1.1
+    },
+    "budget": {
+     "minimum": 10,
+     "maximum": 100
+    },
+    "time_submitted": 1795000000,
+    "bid_stats": {
+     "bid_count": 4
+    },
+    "jobs": [
+     {
+      "name": "PHP"
+     },
+     {
+      "name": "HTML"
+     }
+    ]
+   }
+  ]
+ }
+}

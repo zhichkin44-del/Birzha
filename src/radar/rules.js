@@ -35,6 +35,10 @@ const no = (rule, reason) => ({ verdict: 'нет', rule, reason: `${rule}: ${rea
 export function evaluate(order, opts = {}) {
   const first = opts.profile === 'first';
   const text = `${order.title ?? ''} ${order.text ?? ''}`;
+  // английские описания длинные и упоминают всё подряд (website, video, ui): вид работы смотрим по заголовку, меткам и началу описания
+  const lat = (text.match(/[a-z]/gi) ?? []).length;
+  const cyr = (text.match(/[а-яё]/gi) ?? []).length;
+  const focus = lat > cyr * 3 ? `${order.title ?? ''} ${String(order.text ?? '').slice(0, 300)}` : text;
 
   // R1: заказ на работу, не вакансия / отзыв / тестирование
   if (findWord(text, VACANCY)) return no('R1', 'вакансия (оклад, штат), а не заказ');
@@ -50,13 +54,13 @@ export function evaluate(order, opts = {}) {
   if (spy) return no('R2', `«${spy}» — слежка за людьми и распознавание лиц не берём`);
   const game = findWord(text, GAME_OR_CAPTCHA);
   if (game) return no('R2', `«${game}» — игровые боты и обход капчи не берём`);
-  if (!findWord(text, BUILD_WORDS)) {
+  if (!findWord(focus, BUILD_WORDS)) {
     const print = findWord(text, PRINT_DESIGN);
     if (print) return no('R2', `«${print}» — чистый дизайн и полиграфия, не наша линейка`);
     const copy = first ? null : findWord(text, COPYWRITING);
     if (copy) return no('R2', `«${copy}» — копирайтинг, не наша линейка`);
   }
-  if (!findWord(text, first ? [...IN_LINE, ...FIRST_EXTRA_IN] : IN_LINE)) return no('R2', 'вид работы не из линейки (сайт, лендинг, бот, автоматизация, парсер, UI-дизайн)');
+  if (!findWord(focus, first ? [...IN_LINE, ...FIRST_EXTRA_IN] : IN_LINE)) return no('R2', 'вид работы не из линейки (сайт, лендинг, бот, автоматизация, парсер, UI-дизайн)');
 
   // R3: бюджет ≥ порога или не указан
   const budget = budgetValue(order.budget);

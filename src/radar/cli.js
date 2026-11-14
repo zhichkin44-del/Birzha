@@ -10,7 +10,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { CHANNELS, manualNames, manualLinks } from './channels.js';
 import { evaluate } from './rules.js';
-import { renderDigest, writeDigest } from '../digest/build.js';
+import { renderDigest, writeDigest, isEnglishOrder } from '../digest/build.js';
 import { existsSync } from 'node:fs';
 import { fetchPage } from './fetch.js';
 import { PARSERS } from './parsers/index.js';
@@ -91,15 +91,17 @@ if (digest) {
   // дайджест строится по всем записям дня (в том числе прошлых прогонов, если канал сейчас пропущен по интервалу), вердикты — профиль «первый заказ»
   // возраст пересчитываем на момент дайджеста: запись прошлого прогона хранит возраст на момент сбора
   const reage = (r) => (r.posted_at ? { ...r, age_hours: Math.max(0, Math.round(((Date.parse(now) - Date.parse(r.posted_at)) / 3600_000) * 100) / 100) } : r);
-  const dayRecords = loadDay(DATA, day).map(reage).map((r) => ({ ...r, ...evaluate(r, { profile: 'first' }) }));
+  // --lang en: отдельный дайджест только по английским заказам (docs/orders/<день>-en.md), русский не затирается
+  const langEn = args.includes('--lang') && args[args.indexOf('--lang') + 1] === 'en';
+  const dayRecords = loadDay(DATA, day).map(reage).map((r) => ({ ...r, ...evaluate(r, { profile: 'first' }) })).filter((r) => !langEn || isEnglishOrder(r));
   const blocked = Object.entries(out.report.channels)
     .filter(([id, c]) => c.status === 'silent' && /защит|403|капч/i.test(c.reason))
     .map(([id]) => ({ id, name: CHANNELS[id].name, link: CHANNELS[id].feeds?.[0] ?? CHANNELS[id].feed, note: `защита при чтении (${out.report.channels[id].reason}) — открой сам` }));
   const manual = [...manualLinks().filter((m) => m.link), ...blocked.filter((b) => !manualLinks().some((m) => m.id === b.id))];
   // отклики под конкретные заказы (написаны вручную по тексту заказа): docs/orders/<день>.replies.json → { replies: [{url, text, case_title, case_link, price_rub, budget_rub}] }
-  const repliesFile = join(process.cwd(), 'docs', 'orders', `${day}.replies.json`);
+  const repliesFile = join(process.cwd(), 'docs', 'orders', `${day}${langEn ? '-en' : ''}.replies.json`);
   const custom = existsSync(repliesFile) ? Object.fromEntries(JSON.parse(readFileSync(repliesFile, 'utf8')).replies.map((r) => [r.url, r])) : {};
   const md = renderDigest(dayRecords, { date: day, report: out.report, manual, now, custom });
-  const file = writeDigest(md, { dir: join(process.cwd(), 'docs', 'orders'), date: day });
+  const file = writeDigest(md, { dir: join(process.cwd(), 'docs', 'orders'), date: day, suffix: langEn ? 'en' : '' });
   console.log(`Дайджест: ${file}`);
 }
