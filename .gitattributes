@@ -1,0 +1,3 @@
+# Сборка витрины пишет LF; на Windows с autocrlf страница иначе выходит CRLF и тест «совпадает с site/index.html» падает (сверка 14.11)
+site/*.html text eol=lf
+site/*.css text eol=lf
