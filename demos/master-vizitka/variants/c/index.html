@@ -62,7 +62,7 @@ nav.menu a:hover{color:var(--ink)}
 .facts div{font-size:15px;color:var(--ink-2)}
 .facts strong{display:block;font:500 26px/1.1 var(--serif);color:var(--ink);margin-bottom:4px;white-space:nowrap}
 .arch{position:relative;aspect-ratio:4/5;border-radius:999px 999px 28px 28px;overflow:hidden;background:linear-gradient(170deg,#F6D9CB,#EDBFAE);box-shadow:0 40px 80px -40px rgba(147,70,58,.45)}
-.arch>svg{position:absolute;inset:0;width:100%;height:100%}
+.arch>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .hero-art{position:relative;max-width:470px;justify-self:end;width:100%}
 .badge{position:absolute;left:48px;top:64px;width:132px;height:132px;border-radius:50%;background:var(--rose-d);color:#FFF6EF;display:grid;place-items:center;text-align:center;font:500 23px/1.02 var(--serif);box-shadow:0 14px 34px -10px rgba(59,42,38,.5);transform:rotate(-8deg);border:3px solid var(--cream)}
 .badge small{display:block;font:700 13px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#FBE3D6;margin-top:7px}
@@ -102,7 +102,7 @@ section{padding:96px 0}
 .work button{all:unset;display:block;width:100%;cursor:zoom-in;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 18px 40px -28px rgba(59,42,38,.55);transition:transform .35s,box-shadow .35s;aspect-ratio:var(--r,4/5)}
 .work button:hover{transform:translateY(-3px);box-shadow:0 24px 44px -26px rgba(59,42,38,.6)}
 .work button:focus-visible{outline:2px solid var(--rose-d);outline-offset:4px}
-.work svg{position:absolute;inset:0;width:100%;height:100%}
+.work img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
 .work.big button{aspect-ratio:auto;flex:1;min-height:0}
 .work.wide button{aspect-ratio:4/3}
 .work figcaption{display:flex;flex-direction:column;gap:2px;padding:12px 2px 0;height:70px;flex:none}
@@ -121,7 +121,8 @@ section{padding:96px 0}
 dialog{border:0;padding:0;border-radius:24px;max-width:min(860px,94vw);width:100%;background:var(--cream);color:var(--ink)}
 dialog::backdrop{background:rgba(59,42,38,.6);backdrop-filter:blur(4px)}
 .lb{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
-.lb .pic svg{width:100%;height:100%;min-height:100%}
+.lb .pic{position:relative;min-height:420px;background:var(--cream)}
+.lb .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
 .lb .txt{padding:40px 36px;display:flex;flex-direction:column;gap:14px;justify-content:center}
 .lb h3{font-size:40px}
 .lb p{color:var(--ink-2);margin:0}
@@ -266,6 +267,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .kicker{font-size:14px}
   .gal-foot{margin-top:36px}
   .lb{grid-template-columns:1fr}
+  .lb .pic{min-height:0;aspect-ratio:4/5}
   .lb .txt{padding:24px 22px 28px}
   .lb h3{font-size:32px}
   dialog{max-height:92vh;overflow:auto}
@@ -328,7 +330,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       </div>
     </div>
     <div class="hero-art">
-      <div class="arch" id="heroHand"></div>
+      <div class="arch"><img src="../../img/hero.webp" width="1050" height="1400" alt="Нюдовый розовый маникюр на руке, лежащей на светлой ткани" fetchpriority="high"></div>
       <div class="badge"><div>Запись<br>на неделю<small>вперёд</small></div></div>
     </div>
   </div>
@@ -375,7 +377,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap">
     <div class="head">
       <div><div class="kicker">Портфолио</div><h2 id="h-rab">Мои <em>работы</em></h2></div>
-      <p>Двенадцать покрытий, которые просят чаще всего: от молочного нюда до кошачьего глаза. Нажмите на работу, чтобы рассмотреть ближе.</p>
+      <p>Двенадцать работ, которые просят чаще всего: от молочного нюда до чёрного глянца с «черепахой». Нажмите на работу, чтобы рассмотреть ближе.</p>
     </div>
     <div class="gal" id="gal"></div>
     <p class="gal-foot">Свой референс можно прислать в Telegram — скажу, получится ли и сколько это займёт.</p>
@@ -756,34 +758,33 @@ function portrait(){const S=mk(500);
  return out(S,"Иллюстрация: портрет мастера Ники Светловой")}
 
 const WORKS=[
- {name:"Молочный нюд",tag:"Нюд · овал",draw:sc1,desc:"Плотный молочный оттенок с одним мерцающим ногтем. Подходит к офису и к свадьбе подруги.",time:"2 ч · маникюр + покрытие + дизайн 1 ногтя"},
- {name:"Белый френч",tag:"Френч · квадрат",draw:sc2,desc:"Тонкая белая улыбка на розовой базе. Линию веду кистью, без трафаретов. Любимый вариант невест.",time:"2 ч 15 мин"},
- {name:"Бордо и хром",tag:"Зеркало · стилетто",draw:sc3,desc:"Глубокий винный цвет и зеркальная втирка на всех ногтях. Блик меняется при каждом движении кисти.",time:"2 ч 30 мин"},
- {name:"Розовое омбре",tag:"Градиент · миндаль",draw:sc4,desc:"Мягкий переход от прозрачно-розового к ягодному у края. Хорошо скрывает отросшую кутикулу.",time:"2 ч 20 мин"},
- {name:"Кошачий глаз",tag:"Магнит · миндаль",draw:sc5,desc:"Магнитный гель-лак цвета изумруд: полоса света «гуляет» при повороте руки.",time:"2 ч"},
- {name:"Лунный терракот",tag:"Лунки · матовый",draw:sc6,desc:"Тёплый терракотовый с кремовой лункой у основания и матовым топом. Отрастание почти не видно.",time:"2 ч 15 мин"},
- {name:"Мини-арт",tag:"Контур · квадрат",draw:sc7,desc:"Тонкие чёрные линии на нюдовой базе: профиль, сердце, волны. Рисунок подбираем под вас и рисуем в одну линию.",time:"2 ч 40 мин"},
- {name:"Ветка оливы",tag:"Роспись · овал",draw:sc8,desc:"Тонкая роспись кистью по молочной базе. Лёгкий рисунок, который не надоест за месяц.",time:"2 ч 30 мин"},
- {name:"Мрамор",tag:"Дизайн · квадрат",draw:sc9,desc:"Белый мрамор с серыми прожилками и золотой нитью. Рисунок на каждом ногте свой, как у настоящего камня.",time:"2 ч 30 мин"},
- {name:"Шампань",tag:"Глиттер · кофин",draw:sc10,desc:"Мелкий золотистый глиттер на всех ногтях. Праздничный, но не кричащий.",time:"2 ч 10 мин"},
- {name:"Френч-пастель",tag:"V-френч · овал",draw:sc11,desc:"Уголок-френч, на каждом пальце свой пастельный цвет. Летняя классика.",time:"2 ч 20 мин"},
- {name:"Красное сердце",tag:"Гель-лак · кофин",draw:sc12,desc:"Чистый красный и одно маленькое сердце на безымянном. Для тех, кто любит красный, но хочет деталь.",time:"2 ч 10 мин"}
+ {name:"Молочный нюд",tag:"Нюд · овал",img:"nude",w:877,h:1400,alt:"Рука с нюдовым розовым маникюром на пушистом светлом пледе",pos:"50% 55%",desc:"Спокойный розово-бежевый тон, плотное глянцевое покрытие. Подходит к офису и к свадьбе подруги.",time:"2 ч · маникюр + покрытие"},
+ {name:"Белый френч",tag:"Френч · квадрат",img:"french",w:933,h:1400,alt:"Рука с белым френчем и золотым кольцом на тёмно-синем фоне",pos:"50% 45%",desc:"Тонкая белая улыбка на розовой базе. Линию веду кистью, без трафаретов. Любимый вариант невест.",time:"2 ч 15 мин"},
+ {name:"Бордо",tag:"Глубокий цвет · овал",img:"bordo",w:933,h:1400,alt:"Руки с бордовым маникюром на светлом столе",pos:"50% 70%",desc:"Глубокий винный цвет в два слоя, без блёсток. Хорошо смотрится осенью и зимой.",time:"2 ч 10 мин"},
+ {name:"Розовый с золотом",tag:"Стразы · миндаль",img:"pink-gold",w:933,h:1400,alt:"Рука с розовым перламутровым маникюром и золотыми деталями рядом с веткой эвкалипта",pos:"50% 55%",desc:"Перламутровая розовая база и мелкие золотые детали на нескольких ногтях. Нарядно, но не вызывающе.",time:"2 ч 30 мин"},
+ {name:"Красный с надписью",tag:"Гель-лак · миндаль",img:"red-heart",w:1400,h:933,alt:"Красный маникюр с белой надписью на ногтях, у основания розовый френч",pos:"50% 40%",desc:"Яркий красный и тонкая надпись на ногтях. Для тех, кто любит красный, но хочет деталь.",time:"2 ч 10 мин"},
+ {name:"Мокко-металлик",tag:"Хром · миндаль",img:"mocha-metal",w:933,h:1400,alt:"Рука с хромированным кофейным маникюром на фоне оранжевых цветов",pos:"50% 50%",desc:"Тёплый кофейный оттенок с металлическим блеском. Блик меняется при каждом движении кисти.",time:"2 ч 20 мин"},
+ {name:"Сиреневый глиттер",tag:"Глиттер · квадрат",img:"lilac-glitter",w:1400,h:1400,alt:"Рука с сиренево-серым маникюром, белым и серебристым глиттером на вязаной ткани",pos:"50% 50%",desc:"Спокойные сиреневые тона, один белый ноготь и один с серебристым глиттером.",time:"2 ч 20 мин"},
+ {name:"Нежные точки",tag:"Мини-арт · овал",img:"dots",w:933,h:1400,alt:"Рука с бежевым маникюром и мелкими точками на ногтях на фоне вязаного свитера",pos:"50% 45%",desc:"Нюдовая база и крошечные тёмные точки. Лёгкий рисунок, который не надоест за месяц.",time:"2 ч 20 мин"},
+ {name:"Синий и золото",tag:"Дизайн · миндаль",img:"navy-gold",w:1120,h:1400,alt:"Две руки с тёмно-синим маникюром, золотыми и белыми акцентами",pos:"50% 40%",desc:"Глубокий синий, золотая фольга и белые мраморные ногти. Рисунок на каждом ногте свой.",time:"2 ч 40 мин"},
+ {name:"Шампань",tag:"Металлик · миндаль",img:"champagne",w:933,h:1400,alt:"Рука с золотисто-шампанским маникюром формы миндаль",pos:"50% 40%",desc:"Золотистая шампань с мягким блеском на всех ногтях. Праздничный, но не кричащий.",time:"2 ч 10 мин"},
+ {name:"Черепаховый",tag:"Дизайн · овал",img:"tortoise",w:933,h:1400,alt:"Рука с чёрным маникюром и рисунком под черепаховый панцирь",pos:"50% 55%",desc:"Чёрный глянец и принт «черепаха» на трёх ногтях. Выглядит дорого и подходит к любому образу.",time:"2 ч 40 мин"},
+ {name:"Красная классика",tag:"Гель-лак · квадрат",img:"red-classic",w:933,h:1400,alt:"Руки с красным маникюром на столе мастера",pos:"50% 55%",desc:"Чистый красный гель-лак без украшений. Ровное покрытие и аккуратная кутикула.",time:"2 ч"}
 ];
 
 /* галерея: крупные и мелкие работы в единой сетке */
 const gal=document.getElementById("gal");
-const ORDER=[[8,"big g1"],[0,"g2"],[3,"g3"],[2,"g4"],[9,"g5"],[5,"g6"],[10,"g7"],[7,"g8"],[11,"g9"],[6,"big g10"],[1,"wide g11"],[4,"wide g12"]];
+const ORDER=[[8,"big g1"],[0,"g2"],[3,"g3"],[2,"g4"],[9,"g5"],[5,"g6"],[6,"g7"],[7,"g8"],[11,"g9"],[10,"big g10"],[1,"wide g11"],[4,"wide g12"]];
 ORDER.forEach(([k,c])=>{const w=WORKS[k],f=document.createElement("figure");f.className="work "+c;
- f.innerHTML=`<button type="button" aria-label="Открыть работу: ${w.name}">${w.draw()}</button><figcaption><b>${w.name}</b><span>${w.tag}</span></figcaption>`;
+ f.innerHTML=`<button type="button" aria-label="Открыть работу: ${w.name}"><img src="../../img/${w.img}.webp" width="${w.w}" height="${w.h}" alt="${w.alt}" loading="lazy" style="--pos:${w.pos}"></button><figcaption><b>${w.name}</b><span>${w.tag}</span></figcaption>`;
  f.querySelector("button").addEventListener("click",()=>openLb(k));gal.appendChild(f)});
 /* первый экран и портрет */
-document.getElementById("heroHand").innerHTML=heroScene();
 document.getElementById("portrait").innerHTML=portrait();
 
 /* лайтбокс */
 const lb=document.getElementById("lb");let lastBtn=null;
 function openLb(k){const w=WORKS[k];lastBtn=document.activeElement;
- document.getElementById("lbPic").innerHTML=w.draw();
+ document.getElementById("lbPic").innerHTML=`<img src="../../img/${w.img}.webp" width="${w.w}" height="${w.h}" alt="${w.alt}" style="--pos:${w.pos}">`;
  document.getElementById("lbNum").textContent=`Работа № ${String(k+1).padStart(2,"0")} · ${w.tag}`;
  document.getElementById("lbTitle").textContent=w.name;
  document.getElementById("lbDesc").textContent=w.desc;
