@@ -1,7 +1,7 @@
 // Правила «берём / нет» R1–R7 (PLAN §2). Чистая функция: заказ → {verdict, rule, reason, flags}.
 // Без сети и файлов. Первое нарушенное правило определяет «нет».
 import {
-  VACANCY, REVIEW, TESTING, MANUAL_FILL, OUT_OF_LINE, IN_LINE, PRINT_DESIGN, COPYWRITING, BUILD_WORDS, GAME_OR_CAPTCHA, SECRETS, CREDENTIALS, CLARIFY, findWord,
+  VACANCY, REVIEW, TESTING, MANUAL_FILL, OUT_OF_LINE, IN_LINE, PRINT_DESIGN, COPYWRITING, BUILD_WORDS, GAME_OR_CAPTCHA, SECRETS, CREDENTIALS, CLARIFY, FIRST_ALLOWED_OUT, FIRST_EXTRA_IN, SURVEILLANCE, findWord,
 } from './words.js';
 
 export const BUDGET_MIN = 3000; // решение Саши 13.11: от 3 000 ₽ включительно
@@ -31,7 +31,9 @@ export function utc7Hour(iso) {
 
 const no = (rule, reason) => ({ verdict: 'нет', rule, reason: `${rule}: ${reason}`, flags: [] });
 
-export function evaluate(order) {
+/** @param {object} order @param {{profile?: 'default'|'first'}} [opts] «first» — профиль «первый заказ»: видео, тексты, нейросети тоже наши. */
+export function evaluate(order, opts = {}) {
+  const first = opts.profile === 'first';
   const text = `${order.title ?? ''} ${order.text ?? ''}`;
 
   // R1: заказ на работу, не вакансия / отзыв / тестирование
@@ -41,18 +43,20 @@ export function evaluate(order) {
 
   // R2: вид работы в линейке
   if (findWord(text, MANUAL_FILL)) return no('R2', 'ручное наполнение карточек, не наша линейка');
-  const out = findWord(text, OUT_OF_LINE);
+  const out = findWord(text, first ? OUT_OF_LINE.filter((w) => !FIRST_ALLOWED_OUT.includes(w)) : OUT_OF_LINE);
   if (out) return no('R2', `«${out}» — не наша линейка`);
   // ужесточение 14.11: игровые боты и обход капчи — всегда «нет»; чистый дизайн/полиграфия и копирайтинг — «нет», если нет слов разработки
+  const spy = findWord(text, SURVEILLANCE);
+  if (spy) return no('R2', `«${spy}» — слежка за людьми и распознавание лиц не берём`);
   const game = findWord(text, GAME_OR_CAPTCHA);
   if (game) return no('R2', `«${game}» — игровые боты и обход капчи не берём`);
   if (!findWord(text, BUILD_WORDS)) {
     const print = findWord(text, PRINT_DESIGN);
     if (print) return no('R2', `«${print}» — чистый дизайн и полиграфия, не наша линейка`);
-    const copy = findWord(text, COPYWRITING);
+    const copy = first ? null : findWord(text, COPYWRITING);
     if (copy) return no('R2', `«${copy}» — копирайтинг, не наша линейка`);
   }
-  if (!findWord(text, IN_LINE)) return no('R2', 'вид работы не из линейки (сайт, лендинг, бот, автоматизация, парсер, UI-дизайн)');
+  if (!findWord(text, first ? [...IN_LINE, ...FIRST_EXTRA_IN] : IN_LINE)) return no('R2', 'вид работы не из линейки (сайт, лендинг, бот, автоматизация, парсер, UI-дизайн)');
 
   // R3: бюджет ≥ порога или не указан
   const budget = budgetValue(order.budget);

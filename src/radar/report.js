@@ -14,6 +14,8 @@ export function statusLine(report, manual = []) {
   const quiet = report.silent.filter((id) => !layout.includes(id));
   const why = (id) => (report.channels[id]?.reason ?? '').replace(/^канал молчит: /, '');
   if (quiet.length) parts.push(`молчат: ${quiet.map((id) => (why(id) ? `${id} (${why(id)})` : id)).join(', ')}`);
+  if (report.skipped?.length) parts.push(`не читали (интервал): ${report.skipped.join(', ')}`);
+  if (report.partial?.length) parts.push(`частично: ${report.partial.map((id) => `${id} (${report.channels[id].reason.split('; ')[1]})`).join(', ')}`);
   if (layout.length) parts.push(`вёрстка изменилась, проверь руками: ${layout.join(', ')}`);
   if (manual.length) parts.push(`руками: ${manual.join(', ')}`);
   return parts.join('; ');
@@ -27,7 +29,7 @@ export function renderMorning(records, report, { manual = [] } = {}) {
   if (!take.length) lines.push('Сегодня подходящих заказов нет.');
   for (const r of take) {
     const flags = (r.flags ?? []).map((f) => FLAG_TEXT[f] ?? f);
-    const budget = typeof r.budget === 'number' ? `${r.budget} ₽` : 'бюджет не указан';
+    const budget = typeof r.budget === 'number' ? (r.budget_raw && !/RUB$/.test(r.budget_raw) ? `${r.budget_raw} (≈${r.budget} ₽)` : `${r.budget} ₽`) : 'бюджет не указан';
     lines.push(
       `- [${r.channels.join('+')}] ${r.title} · ${budget} · откликов: ${r.answers ?? '—'} · ${age(r)}` +
         (flags.length ? ` · ${flags.join(', ')}` : '') +

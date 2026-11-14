@@ -1,0 +1,46 @@
+// Страница списка Pchel.net (/jobs/) → заказы в общем виде (DATA §2), формат как у parsers/fl.js.
+// Вёрстка сверена с настоящей страницей https://pchel.net/jobs/ 14.11.2026 (50 карточек, по убыванию номера проекта).
+// Карточка = <div class="project-block project-block2">: номер — input[name=project_id], заголовок — .project-title > a[href="/jobs/<раздел>/<слаг>-<id>/"],
+// цена — .price («$33» или «По договоренности»), описание — .project-text p, раздел — .project-tags, заявки — span.p-user[title="99 заявок"].
+// Даты на странице нет (только «Срочный проект» у всех) — возраст неизвестен. Нашёл 0 карточек и нет признака пустого списка → LayoutChangedError.
+import { LayoutChangedError } from '../fetch.js';
+import { textOf, scrubPersonal, moneyOf, EMPTY_RE } from './common.js';
+
+const BASE = 'https://pchel.net';
+
+export function parsePchel(html, nowIso) {
+  const out = [];
+  const seen = new Set();
+  for (const card of html.split('<div class="project-block project-block2">').slice(1)) {
+    const link = card.match(/<div class="project-title">[\s\S]*?<a href="(\/jobs\/[^"]*?-(\d+)\/)"[^>]*>([\s\S]*?)<\/a>/);
+    if (!link || seen.has(link[2])) continue;
+    const title = scrubPersonal(textOf(link[3]));
+    if (!title) continue;
+    seen.add(link[2]);
+    const money = moneyOf((card.match(/<div class="price">([\s\S]*?)<\/div>/) ?? [])[1]);
+    const body = scrubPersonal(textOf((card.match(/<div class="project-text">([\s\S]*?)<\/div>/) ?? [])[1]));
+    const cat = textOf((card.match(/<div class="project-tags[^"]*">([\s\S]*?)<\/div>/) ?? [])[1]).replace(/^Категория:\s*/, '').replace(/\s+,/g, ',');
+    const answers = card.match(/title="(\d+)\s+заяв/i);
+    out.push({
+      id: `pchel-${link[2]}`,
+      channel: 'pchel',
+      url: BASE + link[1],
+      title,
+      text: (cat ? `${cat}. ` : '') + (body || title),
+      budget: money.rub,
+      budget_raw: money.raw,
+      answers: answers ? Number(answers[1]) : null,
+      age_hours: null,
+      posted_at: null,
+      deadline_days: null,
+      collected_at: nowIso,
+    });
+  }
+  return out;
+}
+
+export function parsePchelChecked(html, nowIso) {
+  const orders = parsePchel(html, nowIso);
+  if (!orders.length && !EMPTY_RE.test(html)) throw new LayoutChangedError();
+  return orders;
+}

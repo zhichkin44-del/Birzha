@@ -69,7 +69,7 @@
         { "label": "Результат", "value": "144 поста с 29.10 по 02.11; сейчас канал на паузе", "wide": true },
         { "label": "Код", "value": "закрыт" }
       ],
-      "link": { "url": "https://zhichkin44-del.github.io/projects/studio-news/", "label": "Описание проекта", "checked": false },
+      "link": { "url": "https://zhichkin44-del.github.io/projects/studio-news/", "label": "Описание проекта", "checked": true },
       "shots": ["Снимок 1: готовый пост в канале", "Снимок 2: список источников радара"],
       "sources": [
         "studio-site/src/data/stats.json:18-23 (news.posts 144, from 2026-10-29, to 2026-11-02, active false)",
@@ -89,7 +89,7 @@
         { "label": "Стек", "value": "Google Cloud TTS, ffmpeg, HyperFrames", "wide": true },
         { "label": "Код", "value": "закрыт" }
       ],
-      "link": { "url": "https://zhichkin44-del.github.io/projects/video-studio/", "label": "Описание проекта", "checked": false },
+      "link": { "url": "https://zhichkin44-del.github.io/projects/video-studio/", "label": "Описание проекта", "checked": true },
       "shots": ["Снимок 1: кадр из готового ролика", "Снимок 2: страница канала Paradox Science"],
       "sources": [
         "Video-Studio/README.md:3-9 (конвейер, стек, Paradox Science «активен»)",
@@ -111,7 +111,7 @@
       ],
       "stack": "React 18, TypeScript, Vite, Tailwind; Node.js, Express, Socket.IO, PostgreSQL, Redis; Docker Compose.",
       "limits": "Пределы: переписка не со сквозным шифрованием; уведомления на телефоне работают только по HTTPS (нужен домен); внешнего аудита безопасности нет. Цифры доставки — из симуляции, не из работы живой команды.",
-      "link": { "url": "https://zhichkin44-del.github.io/projects/zokul/", "label": "Описание проекта", "checked": false },
+      "link": { "url": "https://zhichkin44-del.github.io/projects/zokul/", "label": "Описание проекта", "checked": true },
       "shots": ["Снимок 1: чат с карточкой помощника и кнопками", "Снимок 2: список комнат на телефоне", "Снимок 3: тёмная тема"],
       "sources": [
         "Zokul/README.md:43-45 (возможности), 77-78 (128 и 33 теста; 25 человек, 5 инструментов, 3312/3312, 20/20 атак), 83 (пределы), 100-103 (стек)",

@@ -7,12 +7,13 @@ const DAY_MS = 24 * 3600_000;
 
 /**
  * @param {{id: string, load: () => Promise<object[]>}[]} channels
- * @param {{now?: string, state?: object}} opts  state: { [id]: {last_ok, blocked_streak, blocked_until} }
+ * @param {{now?: string, state?: object, profile?: string, minIntervalMin?: number, force?: boolean}} opts  state: { [id]: {last_ok, last_attempt, blocked_streak, blocked_until} }
+ * minIntervalMin — не читать канал чаще (приказ 14.11: не чаще раза в 2 ч); force — игнорировать интервал.
  */
-export async function runChannels(channels, { now = new Date().toISOString(), state = {} } = {}) {
+export async function runChannels(channels, { now = new Date().toISOString(), state = {}, profile, minIntervalMin = 0, force = false } = {}) {
   const nowMs = Date.parse(now);
   const newState = JSON.parse(JSON.stringify(state));
-  const report = { channels: {}, collected: 0, silent: [] };
+  const report = { channels: {}, collected: 0, silent: [], skipped: [] };
   const orders = [];
 
   for (const ch of channels) {
@@ -25,6 +26,13 @@ export async function runChannels(channels, { now = new Date().toISOString(), st
       silent(`стоит сутки до ${st.blocked_until}, канал «руками»`);
       continue;
     }
+    if (!force && minIntervalMin > 0 && st.last_attempt && nowMs - Date.parse(st.last_attempt) < minIntervalMin * 60_000) {
+      const ago = Math.round((nowMs - Date.parse(st.last_attempt)) / 60_000);
+      report.channels[ch.id] = { status: 'skipped', flag: null, reason: `читали ${ago} мин назад, интервал ${minIntervalMin} мин`, count: 0 };
+      report.skipped.push(ch.id);
+      continue;
+    }
+    st.last_attempt = now;
     try {
       const got = await ch.load();
       if (!got.length) {
@@ -35,7 +43,9 @@ export async function runChannels(channels, { now = new Date().toISOString(), st
       st.blocked_streak = 0;
       st.blocked_until = null;
       orders.push(...got);
-      report.channels[ch.id] = { status: 'ok', flag: null, reason: `собрано ${got.length}`, count: got.length };
+      const warnings = got.warnings ?? []; // часть страниц канала не открылась — причина в отчёте, не молчком
+      report.channels[ch.id] = { status: 'ok', flag: null, reason: `собрано ${got.length}${warnings.length ? `; не открылись страницы: ${warnings.join(', ')}` : ''}`, count: got.length };
+      if (warnings.length) (report.partial ??= []).push(ch.id);
     } catch (e) {
       if (e instanceof RobotsClosedError) {
         silent('robots.txt закрывает путь, канал «руками»');
@@ -53,7 +63,7 @@ export async function runChannels(channels, { now = new Date().toISOString(), st
   }
 
   const merged = mergeOrders(orders);
-  const records = merged.map((r) => ({ ...r, ...evaluate(r) }));
+  const records = merged.map((r) => ({ ...r, ...evaluate(r, { profile }) }));
   report.collected = records.length;
   report.merged_duplicates = orders.length - merged.length;
   return { records, report, state: newState };

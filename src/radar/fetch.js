@@ -96,8 +96,9 @@ async function checkRobots(url, { fetchImpl, pauseMs, sleepImpl, robotsCache }) 
 }
 
 /** @param {string} url @param {{fetchImpl?: Function, pauseMs?: number, sleepImpl?: Function, robotsCache?: Map}} opts */
-export async function fetchPage(url, { fetchImpl = fetch, pauseMs = 10_000, sleepImpl = sleep, robotsCache = runRobotsCache } = {}) {
-  await checkRobots(url, { fetchImpl, pauseMs, sleepImpl, robotsCache });
+export async function fetchPage(url, { fetchImpl = fetch, pauseMs = 10_000, sleepImpl = sleep, robotsCache = runRobotsCache, respectRobots = true } = {}) {
+  // respectRobots:false — приказ Саши 14.11 («правила площадок не считываем»); защиту (капча, challenge, 403) по-прежнему не обходим
+  if (respectRobots) await checkRobots(url, { fetchImpl, pauseMs, sleepImpl, robotsCache });
   await sleepImpl(pauseMs);
   const res = await fetchImpl(url, { headers: { 'user-agent': USER_AGENT }, credentials: 'omit', redirect: 'follow' });
   if (res.status === 403 || res.status === 429) throw new BlockedError(res.status);
