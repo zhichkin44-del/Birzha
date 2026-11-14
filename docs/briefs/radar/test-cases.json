@@ -16,6 +16,7 @@
   },
   {
     "id": "S04-tilda-sayt-5-stranits-kabinet",
+    "note": "«Кабинет» здесь — функция сайта (личный кабинет), доступа к чужому кабинету никто не просит → R5 не срабатывает, только флаг «уточнить» (PLAN §2)",
     "input": {"channel": "tg-tilda", "title": "сайт из 5 страниц с кабинетом", "text": "Нужен сайт из 5 страниц с кабинетом на Tilda", "budget": 40000, "answers": null, "age_hours": null, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
     "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["уточнить"]}
   },
@@ -56,6 +57,24 @@
     "expect": {"verdict": "нет", "rule": "R2", "reason_contains": "R2: ручное наполнение"}
   },
   {
+    "id": "S11-parser-dostup-k-kabinetu",
+    "note": "СИНТЕТИЧЕСКИЙ (в ленте не встретился): вид работы наш (парсер), но просят доступ к чужому кабинету — R5",
+    "input": {"channel": "fl", "title": "Парсер цен конкурентов для Ozon", "text": "Нужен парсер цен конкурентов. Дам доступ к кабинету продавца, логин и пароль передам в личку", "budget": 9000, "answers": 6, "age_hours": null, "deadline_days": 5, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R5", "reason_contains": "R5: чужой кабинет"}
+  },
+  {
+    "id": "S12-lending-srok-14-dnej",
+    "note": "СИНТЕТИЧЕСКИЙ: срок больше 7 дней — R6",
+    "input": {"channel": "fl", "title": "Лендинг для студии танцев", "text": "Нужен лендинг для студии танцев, срок две недели", "budget": 12000, "answers": 7, "age_hours": null, "deadline_days": 14, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R6", "reason_contains": "R6: срок 14"}
+  },
+  {
+    "id": "S13-sayt-trebuetsya-diplom",
+    "note": "СИНТЕТИЧЕСКИЙ: нужен подтверждённый диплом и стаж — R7",
+    "input": {"channel": "fl", "title": "Сайт для клиники", "text": "Нужен сайт для клиники. Исполнитель с дипломом программиста и стажем от 5 лет", "budget": 30000, "answers": 4, "age_hours": null, "deadline_days": 7, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "нет", "rule": "R7", "reason_contains": "R7: диплом"}
+  },
+  {
     "id": "E01-byudzhet-rovno-3000",
     "note": "ГРАНИЦА, синтетический: порог включительно (решение Саши 13.11: «от 3 000 ₽»)",
     "input": {"channel": "fl", "title": "Лендинг для студии йоги", "text": "Нужен лендинг для студии йоги, форма заявки", "budget": 3000, "answers": 10, "age_hours": null, "deadline_days": 5, "collected_at": "2026-11-13T12:00:00+07:00"},
@@ -71,6 +90,12 @@
     "id": "E03-bez-byudzheta",
     "note": "КРАЙ, синтетический: бюджет не указан (null) и «договорная» — оба «берём» с флагом, вердикт не «нет»",
     "input": {"channel": "frru", "title": "Telegram-бот для записи клиентов", "text": "Нужен бот для записи клиентов в салон", "budget": null, "answers": 8, "age_hours": 2, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
+    "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["нет_бюджета"]}
+  },
+  {
+    "id": "E03b-dogovornaya",
+    "note": "КРАЙ, синтетический: бюджет «договорная» (строка, как на площадках) — то же, что null: берём с флагом нет_бюджета",
+    "input": {"channel": "frru", "title": "Telegram-бот для записи клиентов", "text": "Нужен бот для записи клиентов в салон", "budget": "договорная", "answers": 8, "age_hours": 2, "deadline_days": null, "collected_at": "2026-11-13T12:00:00+07:00"},
     "expect": {"verdict": "берём", "rule": null, "reason_contains": "R1–R7 пройдены", "flags": ["нет_бюджета"]}
   },
   {

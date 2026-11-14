@@ -1,0 +1,11 @@
+{
+  "name": "birzha",
+  "private": true,
+  "type": "module",
+  "description": "Биржа: радар заказов (без внешних пакетов)",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "check": "node --test \"test/**/*.test.js\"",
+    "radar": "node src/radar/cli.js"
+  }
+}
