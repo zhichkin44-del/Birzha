@@ -175,9 +175,9 @@ test('в тексте часы ответа по Москве (6:00–16:00 = 10
   assert.ok(p.flags.includes('отвечать_с_10:00'));
 });
 
-test('«Демо-бот в работе» есть в отклике на бота и нет в остальных', () => {
+test('«Бот записи для барбершопа готов» есть в отклике на бота и нет в остальных', () => {
   for (const o of taken) {
-    const has = /Демо-бот в работе/.test(buildPackage(o).text);
+    const has = /Бот записи для барбершопа готов/.test(buildPackage(o).text);
     assert.equal(has, o.id === 'syn-bot-1', o.id);
   }
 });

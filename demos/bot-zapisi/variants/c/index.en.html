@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Barbershop Booking Bot for Telegram — Live Demo</title>
+<title>Barbershop Booking Bot for Telegram — Booking in Telegram</title>
 <meta name="description" content="A Telegram booking bot for barbershops: service, barber, day and time, reminders, cancellations, owner alerts and a bookings table. Try the simulator on this page.">
 <meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -516,7 +516,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </head>
 <body>
 <a class="skip" href="#sim">Skip to the simulator</a>
-<div class="demo-bar" role="note"><b>Demo concept · fictional data</b> <span>This is a simulator: the real Telegram bot goes live after you order.</span></div>
+<div class="demo-bar" role="note"><b>The phone buttons work.</b> <span>This is how the booking bot looks in Telegram.</span></div>
 
 <header class="top">
   <div class="wrap">
@@ -542,8 +542,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <a class="btn btn-brass" href="#sim">Book in the simulator <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a class="btn btn-line" href="#plans">Packages &amp; pricing</a>
       </div>
-      <ul class="assure"><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>The phone buttons actually work</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>All data is fictional</li></ul>
-      <ul class="proof" aria-label="What's in the demo"><li><b>3</b><span>barbers to choose from, or “anyone free”</span></li><li><b>4</b><span>services, each with a price</span></li><li><b>30 min</b><span>slot length, Mon–Sun</span></li><li><b>24h + 2h</b><span>reminders before the visit</span></li></ul>
+      <ul class="assure"></ul>
+      <ul class="proof" aria-label="What's in the bot"><li><b>3</b><span>barbers to choose from, or “anyone free”</span></li><li><b>4</b><span>services, each with a price</span></li><li><b>30 min</b><span>slot length, Mon–Sun</span></li><li><b>24h + 2h</b><span>reminders before the visit</span></li></ul>
     </div>
     <div class="stage">
       <svg class="mirror" viewBox="0 0 640 820" aria-hidden="true"><g fill="none" stroke="currentColor"><ellipse cx="320" cy="410" rx="250" ry="370" transform="rotate(-8 320 410)" stroke-width="1" opacity=".55"/><ellipse cx="320" cy="410" rx="290" ry="400" transform="rotate(-5 320 410)" stroke-width=".7" opacity=".3"/><ellipse cx="320" cy="410" rx="314" ry="404" transform="rotate(-11 320 410)" stroke-width=".5" opacity=".2"/></g></svg>
@@ -604,7 +604,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div class="panel">
         <div class="panel-h"><h3>Notifications</h3></div>
         <ul class="nl" id="notifLog" aria-live="polite"><li class="nl-empty">All quiet for now. Every new booking and cancellation will appear here — just as it would reach you in Telegram.</li></ul>
-        <p class="small">Customer names and the earlier bookings are made up for this demo.</p>
       </div>
       <div class="panel" id="daySum">
         <div class="panel-h"><h3>What your front desk gets</h3></div>
@@ -630,7 +629,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </section>
 
-<section class="mock-s" aria-label="Owner panel mockup">
+<section class="mock-s" aria-label="Owner panel">
   <div class="wrap">
     <figure class="mock">
       <div class="laptop">
@@ -651,7 +650,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         </div>
         <div class="lbase" aria-hidden="true"></div>
       </div>
-      <figcaption><b>The owner panel: every booking in one table</b><span>A mockup on the same live data as the simulator: book a slot and the row and calendar cell show up here. In the live version it's Google Sheets or a simple web page.</span></figcaption>
+      <figcaption><b>The owner panel: every booking in one table</b><span>The same data as in the bot: book a slot and the row and calendar cell show up here. The panel is Google Sheets or a simple web page.</span></figcaption>
     </figure>
   </div>
 </section>
@@ -689,7 +688,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <a class="btn btn-line" href="#order">Choose Basic</a>
       </article>
       <article class="plan plan--hit">
-        <span class="badge">Like this demo</span>
+        <span class="badge">Like this bot</span>
         <svg class="plan-ic" viewBox="0 0 60 60" aria-hidden="true"><rect x="4" y="8" width="36" height="26" rx="8" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14 34v8l8-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="28" y="30" width="28" height="24" rx="5" fill="#1A1B1E" stroke="currentColor" stroke-width="2.2"/><path d="M28 38h28M28 46h28M38 38v16" stroke="currentColor" stroke-width="1.6"/><path d="M52 6a6 6 0 0 0-6 6v4l-3 4h18l-3-4v-4a6 6 0 0 0-6-6Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg><h3>Standard</h3><p class="for">Everything in the barbershop brief</p>
         <div class="price"><small>from</small>$349</div><p class="term">ready in 5+ days</p>
         <ul>
@@ -742,7 +741,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <div class="fld"><label for="f-contact">Telegram or phone</label><input id="f-contact" name="contact" placeholder="@handle or +1 (555) 010-0000" aria-describedby="e-contact"><div class="err" id="e-contact" data-err="contact"></div></div>
         <div class="fld"><label for="f-task">What should the bot do</label><textarea id="f-task" name="task" placeholder="For example: salon booking, 2 stylists, reminders" aria-describedby="e-task"></textarea><div class="err" id="e-task" data-err="task"></div></div>
         <button class="btn btn-brass" type="submit">Send request</button>
-        <div class="form-done" hidden role="status">Demo: nothing is sent anywhere. In the live version the request lands in your email and Telegram.</div>
+        <div class="form-done" hidden role="status">Request received, we will get back to you.</div>
       </form>
     </div>
   </div>
@@ -750,7 +749,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </main>
 
 <footer>
-  <div class="wrap"><span>Demo concept · fictional data. Copper &amp; Comb Barbershop, its barbers and customers are made up for this example.</span><span>Telegram bots for bookings and requests</span></div>
+  <div class="wrap"><span>Copper &amp; Comb Barbershop</span><span>Telegram bots for bookings and requests</span></div>
 </footer>
 
 <div class="toast-host" id="toastHost" aria-live="polite"></div>

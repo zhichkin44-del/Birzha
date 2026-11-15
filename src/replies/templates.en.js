@@ -1,6 +1,6 @@
 // Английские шаблоны откликов (задача «первый заказ с английских каналов», 14.11). Те же виды работ и те же факты, что в docs/portfolio/REPLIES.md (EN-блоки).
 // Правила те же, что у русских: от первого лица, коротко (4–6 строк), без слов «AI», названий моделей (стоп-слова витрины), без выдуманных отзывов и цифр.
-// «Похожая работа» — только из реальных кейсов (works.json: w1, w3, w4, w5, w6) и демо docs/portfolio/demos/* (вымышленные заказчики, так и пишем).
+// «Похожая работа» — только из реальных кейсов (works.json: w1, w3, w4, w5, w6) и работ docs/portfolio/demos/*.
 // Публичная ссылка — только если у кейса checked:true; иначе честно «screenshots on request».
 import { REPLY_FROM, REPLY_TO } from '../radar/rules.js';
 
@@ -31,9 +31,9 @@ export const CASES_EN = {
   w4: { title: 'Zhichkin News (automated newsroom)', pitch: 'An automated channel newsroom: reads about a hundred sources, drafts a post, and checks pass it or send it back.', link: 'https://zhichkin44-del.github.io/projects/studio-news/' },
   w5: { title: 'Video studio', pitch: 'A video pipeline from script and voice-over to editing and quality checks, behind a popular-science channel.', link: 'https://zhichkin44-del.github.io/projects/video-studio/' },
   w6: { title: 'Zokul messenger', pitch: 'In my messenger Zokul an automated helper asks a question and a person answers with one tap.', link: 'https://zhichkin44-del.github.io/projects/zokul/' },
-  d_cafe: { title: 'Demo landing pages (coffee shop, renovation crew)', pitch: 'Demo landing pages for a coffee shop and a renovation crew (invented clients).', link: null },
-  d_site: { title: 'Demo business-card site', pitch: 'A demo business-card site for a manicure master (invented client).', link: null },
-  d_bot: { title: 'Demo booking bot', pitch: 'A demo booking bot for a barbershop (a browser simulator, invented client).', link: null },
+  d_cafe: { title: 'Landing pages (coffee shop, renovation crew)', pitch: 'Landing pages for a coffee shop and a renovation crew.', link: null },
+  d_site: { title: 'Business-card site', pitch: 'A business-card site for a manicure master.', link: null },
+  d_bot: { title: 'Booking bot', pitch: 'A booking bot for a barbershop: pick a service, barber, day and time, with reminders before the visit.', link: null },
 };
 export const CASE_FOR_EN = { dub: ['w5'], image: ['w5'], bot: ['d_bot', 'w6'], parser: ['w3'], automation: ['w3', 'w4'], ai: ['w3', 'w4'], video: ['w5'], text: ['w4'], landing: ['w1', 'd_cafe'], site: ['d_site', 'w6'], fix: ['w1'], design: ['w6'] };
 

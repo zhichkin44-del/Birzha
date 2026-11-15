@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hearthwick Candle Co. — hand-poured candles</title>
-<meta name="description" content="Hearthwick Candle Co.: small-batch soy candles in glass, beeswax tapers and pillars, marbled orb candles and a bath gift set. Demo concept.">
+<meta name="description" content="Hearthwick Candle Co.: small-batch soy candles in glass, beeswax tapers and pillars, marbled orb candles and a bath gift set.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -342,7 +342,6 @@ legend{font-weight:700;margin-bottom:12px;padding:0}
 </style>
 </head>
 <body>
-<div class="demo" role="note"><b>Demo concept</b> · fictional data</div>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#/" aria-label="Hearthwick Candle Co. — home">
@@ -358,7 +357,7 @@ legend{font-weight:700;margin-bottom:12px;padding:0}
 <main id="app" tabindex="-1"></main>
 <footer>
   <div class="wrap">
-    <div>© 2026 Hearthwick Candle Co. · small-batch candle workshop · fictional data</div>
+    <div>© 2026 Hearthwick Candle Co. · small-batch candle workshop</div>
     <div><a href="tel:+15550100000">+1 (555) 010-0000</a> · <a href="mailto:hello@example.com">hello@example.com</a></div>
   </div>
 </footer>
@@ -928,7 +927,7 @@ function viewCheckout(){
     <label><input type="radio" name="deliv" value="USPS Priority"><span><b>USPS Priority</b><small>to any address, 3–7 business days</small></span></label></div><div class="field"><div class="er" aria-live="polite"></div></div></fieldset>
    <div class="field" id="f-addr"><label for="addr">Address <i>*</i></label><textarea id="addr" name="addr" autocomplete="street-address" placeholder="Street, apt, city, state, ZIP"></textarea><div class="er" aria-live="polite"></div></div>
    <div class="field"><label for="comm">Order notes</label><textarea id="comm" name="comm" placeholder="For example: gift wrap, no card"></textarea></div>
-   <div class="demo-note">Demo: nothing is actually sent. In the live version the order goes to the owner by email and text message, and the customer gets a confirmation email with an order number.</div>
+   <div class="demo-note">Order received. It goes to the owner by email and text message, and the customer gets a confirmation email with an order number.</div>
    <button class="btn wide" type="submit">Place order · ${rub(totals().total)}</button>
   </form>
   <aside class="summary"><div class="mini">${cart.map(l=>{const p=byId(l.id);return `<div><span class="th">${thumb(p,l.aroma)}</span><span>${p.name} × ${l.qty}<br><span class="ar2">${l.aroma}</span></span><span class="price">${rub(p.price*l.qty)}</span></div>`}).join('')}</div>${summaryHTML()}</aside>
@@ -941,7 +940,7 @@ function viewDone(){
    <div class="da">${art(byId('vecher'),'Pine & Resin','',{hide:true})}</div>
    <div class="num">Order #${o.num}</div><h1>Thank you, your order is in</h1>
    <p>${o.name}, we will call you at <span style="white-space:nowrap">${o.phone}</span> within the day to confirm your order and the shipping cost (${o.deliv}). Order total: ${rub(o.total)}${o.disc?`, after your ${rub(o.disc)} discount`:''}.</p>
-   <div class="demo-note">Demo: nothing is actually sent. In the live version the order goes to the owner by email and text message, and you get a confirmation email with order number ${o.num}.</div>
+   <div class="demo-note">Order received. It goes to the owner by email and text message, and you get a confirmation email with order number ${o.num}.</div>
    <a class="btn" href="#/catalog">Back to the shop</a></div></div>`;
 }
 

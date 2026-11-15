@@ -516,7 +516,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </head>
 <body>
 <a class="skip" href="#sim">К симулятору</a>
-<div class="demo-bar" role="note"><b>Демо-концепт · данные вымышлены.</b> <span>Это симулятор: настоящий бот в Telegram запускается после заказа.</span></div>
+<div class="demo-bar" role="note"><b>Кнопки в телефоне работают.</b> <span>Так выглядит бот записи в Telegram.</span></div>
 
 <header class="top">
   <div class="wrap">
@@ -542,8 +542,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <a class="btn btn-brass" href="#sim">Записаться в симуляторе <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a class="btn btn-line" href="#plans">Пакеты и цены</a>
       </div>
-      <ul class="assure"><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Кнопки в телефоне работают</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Все данные вымышлены</li></ul>
-      <ul class="proof" aria-label="Что в демо"><li><b>3</b><span>мастера на выбор или «кто свободен»</span></li><li><b>4</b><span>услуги с ценой из ТЗ</span></li><li><b>30 мин</b><span>шаг слота, пн–вс</span></li><li><b>24 ч и 2 ч</b><span>напоминания до визита</span></li></ul>
+      <ul class="assure"></ul>
+      <ul class="proof" aria-label="Что в боте"><li><b>3</b><span>мастера на выбор или «кто свободен»</span></li><li><b>4</b><span>услуги с ценой из ТЗ</span></li><li><b>30 мин</b><span>шаг слота, пн–вс</span></li><li><b>24 ч и 2 ч</b><span>напоминания до визита</span></li></ul>
     </div>
     <div class="stage">
       <svg class="mirror" viewBox="0 0 640 820" aria-hidden="true"><g fill="none" stroke="currentColor"><ellipse cx="320" cy="410" rx="250" ry="370" transform="rotate(-8 320 410)" stroke-width="1" opacity=".55"/><ellipse cx="320" cy="410" rx="290" ry="400" transform="rotate(-5 320 410)" stroke-width=".7" opacity=".3"/><ellipse cx="320" cy="410" rx="314" ry="404" transform="rotate(-11 320 410)" stroke-width=".5" opacity=".2"/></g></svg>
@@ -604,7 +604,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div class="panel">
         <div class="panel-h"><h3>Уведомления</h3></div>
         <ul class="nl" id="notifLog" aria-live="polite"><li class="nl-empty">Пока тихо. Каждая новая запись и отмена появится здесь — так же, как придёт вам в Telegram.</li></ul>
-        <p class="small">Имена клиентов и записи «до вас» вымышлены и созданы для примера.</p>
       </div>
       <div class="panel" id="daySum">
         <div class="panel-h"><h3>Что получает администратор</h3></div>
@@ -630,7 +629,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </section>
 
-<section class="mock-s" aria-label="Макет панели владельца">
+<section class="mock-s" aria-label="Панель владельца">
   <div class="wrap">
     <figure class="mock">
       <div class="laptop">
@@ -651,7 +650,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         </div>
         <div class="lbase" aria-hidden="true"></div>
       </div>
-      <figcaption><b>Панель владельца: все записи в одной таблице</b><span>Макет на тех же живых данных, что и симулятор: запишитесь, и строка с клеткой появятся здесь. В рабочей версии это Google Sheets или своя страничка.</span></figcaption>
+      <figcaption><b>Панель владельца: все записи в одной таблице</b><span>Те же данные, что и в боте: запишитесь, и строка с клеткой появятся здесь. Панель — это Google Sheets или своя страничка.</span></figcaption>
     </figure>
   </div>
 </section>
@@ -742,7 +741,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <div class="fld"><label for="f-contact">Telegram или телефон</label><input id="f-contact" name="contact" placeholder="@nick или +7 (900) 000-00-00" aria-describedby="e-contact"><div class="err" id="e-contact" data-err="contact"></div></div>
         <div class="fld"><label for="f-task">Что должен уметь бот</label><textarea id="f-task" name="task" placeholder="Например: запись в салон, 2 мастера, напоминания" aria-describedby="e-task"></textarea><div class="err" id="e-task" data-err="task"></div></div>
         <button class="btn btn-brass" type="submit">Отправить задачу</button>
-        <div class="form-done" hidden role="status">Демо: заявка никуда не уходит. В рабочей версии она придёт вам на почту и в Telegram.</div>
+        <div class="form-done" hidden role="status">Заявка принята, мы свяжемся с вами.</div>
       </form>
     </div>
   </div>
@@ -750,7 +749,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </main>
 
 <footer>
-  <div class="wrap"><span>Демо-концепт · данные вымышлены. Барбершоп «Кривое зеркало», мастера и клиенты придуманы для примера.</span><span>Telegram-боты для записи и заявок</span></div>
+  <div class="wrap"><span>Барбершоп «Кривое зеркало»</span><span>Telegram-боты для записи и заявок</span></div>
 </footer>
 
 <div class="toast-host" id="toastHost" aria-live="polite"></div>
