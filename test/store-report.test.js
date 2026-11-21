@@ -13,7 +13,7 @@ const rec = (over = {}) => ({
   url: 'https://www.fl.ru/projects/1/', verdict: 'берём', rule: null, reason: 'R1–R7 пройдены', flags: [], ...over,
 });
 
-test('store: запись в файл дня JSONL; повторный сбор того же id не плодит запись, правка заменяет', () => {
+test('store: a record goes into the day\'s JSONL file; collecting the same id again does not duplicate it; an edit replaces it', () => {
   const dir = mkdtempSync(join(tmpdir(), 'birzha-'));
   saveRecords(dir, '2026-11-14', [rec(), rec({ id: 'fl-2' })]);
   saveRecords(dir, '2026-11-14', [rec({ budget: 9000 })]);
@@ -24,14 +24,14 @@ test('store: запись в файл дня JSONL; повторный сбор 
   assert.equal(readFileSync(join(dir, 'orders', '2026-11-14.jsonl'), 'utf8').trim().split('\n').length, 2);
 });
 
-test('store: state.json — чтение пустого и запись', () => {
+test('store: state.json — reading an empty file and writing', () => {
   const dir = mkdtempSync(join(tmpdir(), 'birzha-'));
   assert.deepEqual(loadState(dir), {});
   saveState(dir, { fl: { last_ok: 'x' } });
   assert.equal(loadState(dir).fl.last_ok, 'x');
 });
 
-test('report: в списке только «берём», «нет» не показываем; строка состояния с молчащими и ручными каналами', () => {
+test('report: the list shows only "take it", not "no"; the status line lists silent and manual channels', () => {
   const records = [rec(), rec({ id: 'fl-2', title: 'Сайт для отеля', verdict: 'нет', rule: 'R4', reason: 'R4: 79 откликов' })];
   const text = renderMorning(records, {
     channels: { fl: { status: 'ok', count: 2 }, frru: { status: 'silent', flag: 'канал_молчит', reason: 'канал молчит: защита' } },
@@ -44,19 +44,19 @@ test('report: в списке только «берём», «нет» не по�
   assert.doesNotMatch(text, /Сайт для отеля/);
 });
 
-test('report: «заказов нет» и «канал молчит» — разные фразы', () => {
+test('report: "заказов нет" (no orders) and "канал молчит" (channel silent) are different phrases', () => {
   const none = renderMorning([], { channels: { fl: { status: 'ok', count: 3 } }, collected: 0, silent: [] }, { manual: [] });
   assert.match(none, /подходящих заказов нет/);
   assert.doesNotMatch(none, /молчат/);
 });
 
-test('report: флаг «отвечать с 10:00» виден в строке', () => {
+test('report: the flag "отвечать с 10:00" is visible in the line', () => {
   const text = renderMorning([rec({ flags: ['отвечать_с_10:00', 'нет_бюджета'] })], { channels: {}, collected: 1, silent: [] }, { manual: [] });
   assert.match(text, /отвечать с 10:00/);
   assert.match(text, /нет бюджета/);
 });
 
-test('run: канал, заблокированный два запуска подряд, стоит сутки и не опрашивается', async () => {
+test('run: a channel blocked two runs in a row stays out for a day and is not polled', async () => {
   let calls = 0;
   const ch = [{ id: 'fl', load: async () => { calls++; throw new BlockedError(403); } }];
   const t1 = '2026-11-14T09:00:00+07:00';
@@ -68,7 +68,7 @@ test('run: канал, заблокированный два запуска по
   assert.match(r3.report.channels.fl.reason, /стоит сутки/);
 });
 
-test('run: страница отдана, заказов 0 → «молчит: вёрстка»', async () => {
+test('run: page served, 0 orders → "silent: layout"', async () => {
   const r = await runChannels([{ id: 'fl', load: async () => [] }]);
   assert.match(r.report.channels.fl.reason, /вёрстка/);
 });

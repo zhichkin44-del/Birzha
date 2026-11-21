@@ -1,4 +1,4 @@
-# Сборка витрины и откликов пишет LF; на Windows с autocrlf файлы иначе выходят CRLF и тесты «совпадает со сборкой» падают (сверки 14.11)
+# The showcase and reply builds write LF; on Windows with autocrlf the files would otherwise come out CRLF and the "matches the build" tests fail (checked 14.11)
 site/*.html text eol=lf
 site/*.css text eol=lf
 docs/replies/*.md text eol=lf

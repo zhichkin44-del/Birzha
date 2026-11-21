@@ -1,21 +1,21 @@
-// Страница списка Freelancehunt → заказы в общем виде (DATA §2), формат как у parsers/fl.js.
-// Вёрстка сверена с настоящими страницами 14.11.2026: /projects и /projects/skill/{razrabotka-botov/180,
-// veb-programmirovanie/99, sozdanie-sayta-pod-klyuch/96}.html — на странице 5–15 карточек.
-// Карточка = <article class="widget project-card …">: заголовок — a.project-link (внутри h2), бюджет — .project-stat.budget
-// («16 000 UAH» или «Не указан»), ставки — .project-stat «N ставок», текст — p.project-description, дата — span.project-date
-// («13 ноября» без времени ИЛИ «10:13» — сегодня). Часовой пояс сайта не проверен: считаем Киев, UTC+2 (зима).
-// Нашёл 0 карточек и нет признака пустого списка → LayoutChangedError.
+// Freelancehunt listing page → orders in the common shape (DATA §2), same format as parsers/fl.js.
+// Layout checked against real pages on 14.11.2026: /projects and /projects/skill/{razrabotka-botov/180,
+// veb-programmirovanie/99, sozdanie-sayta-pod-klyuch/96}.html — 5–15 cards per page.
+// Card = <article class="widget project-card …">: title — a.project-link (inside h2), budget — .project-stat.budget
+// ("16 000 UAH" or "Не указан" (not stated)), bids — .project-stat "N ставок" (N bids), text — p.project-description, date — span.project-date
+// ("13 ноября" (13 November) without time, OR "10:13" — today). The site's time zone is not verified: Kyiv, UTC+2 (winter) is assumed.
+// Found 0 cards and no empty-list marker → LayoutChangedError.
 import { LayoutChangedError } from '../fetch.js';
 import { textOf, scrubPersonal, moneyOf, ageFrom, MONTH_NUM, EMPTY_RE } from './common.js';
 
 const TZ_H = 2;
 const CARD = '<article class="widget project-card';
 
-/** «13 ноября» / «10:13» → мс момента публикации (верхняя граница возраста: для «13 ноября» берём начало суток). */
+/** "13 ноября" / "10:13" → ms of the publication moment (upper bound of the age: for "13 ноября" the start of the day is used). */
 export function postedMs(label, nowIso) {
   const now = Date.parse(nowIso);
   const t = String(label ?? '').trim();
-  const local = new Date(now + TZ_H * 3600_000); // «настенное» время сайта в полях UTC
+  const local = new Date(now + TZ_H * 3600_000); // the site's "wall-clock" time held in UTC fields
   let m = t.match(/^(\d{1,2}):(\d{2})$/);
   if (m) {
     let ms = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate(), +m[1], +m[2]) - TZ_H * 3600_000;
@@ -55,7 +55,7 @@ export function parseFreelancehunt(html, nowIso) {
       title: scrubPersonal(title),
       text: body || title,
       budget: money.rub,
-      budget_raw: money.raw, // исходная валюта (грн) — для Саши; в правила идёт пересчёт по ориентиру
+      budget_raw: money.raw, // original currency (UAH) — for Sasha; the rules get the reference conversion
       answers: bids ? Number(bids[1]) : null,
       age_hours: ageFrom(ms, nowIso),
       posted_at: Number.isFinite(ms) ? new Date(ms).toISOString() : null,

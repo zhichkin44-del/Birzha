@@ -2,7 +2,7 @@
   "name": "birzha",
   "private": true,
   "type": "module",
-  "description": "Биржа: радар заказов (без внешних пакетов)",
+  "description": "Birzha: order radar (no external packages)",
   "scripts": {
     "test": "node --test \"test/**/*.test.js\"",
     "check": "node --test \"test/**/*.test.js\"",

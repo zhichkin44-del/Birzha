@@ -1,4 +1,4 @@
-// Сборка витрины: src/vitrina/works.json → site/index.html.  Запуск: node src/vitrina/build.js
+// Builds the showcase: src/vitrina/works.json → site/index.html.  Run: node src/vitrina/build.js
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
@@ -80,5 +80,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const out = new URL('../../site/index.html', import.meta.url);
   mkdirSync(new URL('../../site/', import.meta.url), { recursive: true });
   writeFileSync(out, render(data));
-  console.log(`site/index.html: ${data.works.length} работ`);
+  console.log(`site/index.html: ${data.works.length} works`);
 }

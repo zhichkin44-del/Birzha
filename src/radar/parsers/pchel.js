@@ -1,8 +1,8 @@
-// Страница списка Pchel.net (/jobs/) → заказы в общем виде (DATA §2), формат как у parsers/fl.js.
-// Вёрстка сверена с настоящей страницей https://pchel.net/jobs/ 14.11.2026 (50 карточек, по убыванию номера проекта).
-// Карточка = <div class="project-block project-block2">: номер — input[name=project_id], заголовок — .project-title > a[href="/jobs/<раздел>/<слаг>-<id>/"],
-// цена — .price («$33» или «По договоренности»), описание — .project-text p, раздел — .project-tags, заявки — span.p-user[title="99 заявок"].
-// Даты на странице нет (только «Срочный проект» у всех) — возраст неизвестен. Нашёл 0 карточек и нет признака пустого списка → LayoutChangedError.
+// Pchel.net listing page (/jobs/) → orders in the common shape (DATA §2), same format as parsers/fl.js.
+// Layout checked against the real page https://pchel.net/jobs/ on 14.11.2026 (50 cards, by descending project number).
+// Card = <div class="project-block project-block2">: number — input[name=project_id], title — .project-title > a[href="/jobs/<section>/<slug>-<id>/"],
+// price — .price ("$33" or "По договоренности" (negotiable)), description — .project-text p, section — .project-tags, bids — span.p-user[title="99 заявок"].
+// The page has no date (only "Срочный проект" (urgent project) on all) — age is unknown. Found 0 cards and no empty-list marker → LayoutChangedError.
 import { LayoutChangedError } from '../fetch.js';
 import { textOf, scrubPersonal, moneyOf, EMPTY_RE } from './common.js';
 

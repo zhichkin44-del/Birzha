@@ -17,11 +17,11 @@ const DATE = '2026-11-14';
 
 const mk = (over = {}) => ({ ...taken[1], ...over });
 
-test('фикстура не врёт: вердикт каждого заказа совпадает с тем, что даёт радар', () => {
+test('the fixture does not lie: each order\'s verdict matches what the radar gives', () => {
   for (const o of orders) assert.equal(evaluate(o).verdict, o.verdict, o.id);
 });
 
-test('на каждый заказ «берём» собирается пакет: текст, цена, срок, 1–2 работы, вопросы', () => {
+test('every "take it" order gets a package: text, price, term, 1–2 works, questions', () => {
   assert.ok(taken.length >= 4);
   for (const o of taken) {
     const p = buildPackage(o);
@@ -35,14 +35,14 @@ test('на каждый заказ «берём» собирается паке�
   }
 });
 
-test('заказ с вердиктом «нет» пакета не получает; buildAll его пропускает и называет', () => {
-  assert.throws(() => buildPackage(orders.find((o) => o.verdict === 'нет')), /берём/);
+test('an order with verdict «нет» gets no package; buildAll skips it and names it', () => {
+  assert.throws(() => buildPackage(orders.find((o) => o.verdict === 'нет')), /take it/);
   const r = buildAll(orders);
   assert.equal(r.packages.length, taken.length);
   assert.deepEqual(r.skipped.map((s) => s.id), ['fl-2222222']);
 });
 
-test('в тексте отклика нет стоп-слов, даже если заказчик сам написал «с ИИ»', () => {
+test('the reply text has no stop-words, even if the client wrote "с ИИ" (with AI) themselves', () => {
   const bot = taken.find((o) => o.id === 'syn-bot-1');
   assert.ok(findStopwords(bot.title).length > 0, 'фикстура должна содержать стоп-слово');
   for (const o of taken) {
@@ -53,7 +53,7 @@ test('в тексте отклика нет стоп-слов, даже если
   }
 });
 
-test('в тексте нет названия школы, фигурных пропусков, «лучший» и обещаний результата', () => {
+test('the text has no school name, template gaps, "лучший" (best) or promises of results', () => {
   for (const o of taken) {
     const t = buildPackage(o).text;
     assert.doesNotMatch(t, /study\s*on/i, o.id);
@@ -62,7 +62,7 @@ test('в тексте нет названия школы, фигурных пр�
   }
 });
 
-test('цена не ниже 3 000 ₽ и не выше бюджета заказа (число, вилка — верхняя граница)', () => {
+test('price is not below 3 000 ₽ and not above the order budget (a number; a range — upper bound)', () => {
   for (const o of taken) {
     const p = buildPackage(o);
     assert.ok(p.price >= 3000, `${o.id}: ${p.price}`);
@@ -73,23 +73,23 @@ test('цена не ниже 3 000 ₽ и не выше бюджета зака�
   assert.equal(buildPackage(mk({ budget: 3000 })).price, 3000, 'бюджет ровно на пороге');
 });
 
-test('цена по бюджету: бюджет 3 500 ₽ → не больше 3 500 ₽ и не меньше 3 000 ₽, даже со скидкой', () => {
+test('price by budget: budget 3 500 ₽ → not more than 3 500 ₽ and not less than 3 000 ₽, even with a discount', () => {
   const p = buildPackage(mk({ budget: 3500 }), { firstClient: true });
   assert.ok(p.price >= 3000 && p.price <= 3500, String(p.price));
 });
 
-test('заказ с бюджетом ниже 3 000 ₽ пакет не получает (радар такой не пропускает)', () => {
+test('an order with a budget below 3 000 ₽ gets no package (the radar does not pass such orders)', () => {
   assert.throws(() => buildPackage(mk({ budget: 2999 })), /3 ?000/);
 });
 
-test('без бюджета цена — ориентир шаблона, помечена, ≥ 3 000 ₽', () => {
+test('without a budget the price is the template reference, marked, ≥ 3 000 ₽', () => {
   const fix = taken.find((o) => o.id === 'syn-fix-1');
   const p = buildPackage(fix);
   assert.ok(p.price >= 3000);
   assert.match(p.price_note, /бюджет не указан/);
 });
 
-test('скидка 30 % только при флаге «первый клиент»: без флага цены по бюджету и слова «скидка» нет', () => {
+test('the 30 % discount only with the "first client" flag: without the flag there is no budget price and no word "скидка"', () => {
   const o = taken[0];
   const plain = buildPackage(o);
   assert.equal(plain.price, 8000);
@@ -98,18 +98,18 @@ test('скидка 30 % только при флаге «первый клиен
   const first = buildPackage(o, { firstClient: true });
   assert.equal(first.price, 5600);
   assert.equal(first.discount, 30);
-  assert.doesNotMatch(first.text, /скидк/i, 'скидка уже в цене, в тексте не пишем');
+  assert.doesNotMatch(first.text, /скидк/i, 'the discount is already in the price; not mentioned in the text');
   assert.match(first.text, /5 600 ₽/);
 });
 
-test('скидка, которая увела бы цену ниже 3 000 ₽, не применяется и в тексте её нет', () => {
+test('a discount that would take the price below 3 000 ₽ is not applied and not mentioned in the text', () => {
   const p = buildPackage(mk({ budget: 4000 }), { firstClient: true });
   assert.equal(p.price, 4000, '4 000 × 0,7 = 2 800 < 3 000: цена остаётся по бюджету');
   assert.equal(p.discount, null);
   assert.doesNotMatch(p.text, /скидк/i);
 });
 
-test('длина отклика — до 900 знаков, у любого заказа и с любой комбинацией скидки', () => {
+test('reply length up to 900 characters, for any order and any discount combination', () => {
   for (const o of taken) {
     for (const firstClient of [false, true]) {
       const p = buildPackage(o, { firstClient });
@@ -118,18 +118,18 @@ test('длина отклика — до 900 знаков, у любого за�
   }
 });
 
-test('очень длинное название заказа не раздувает отклик сверх 900 знаков', () => {
+test('a very long order title does not inflate the reply beyond 900 characters', () => {
   const p = buildPackage(mk({ title: `Telegram-бот ${'для записи клиентов '.repeat(30)}` }), { firstClient: true });
   assert.ok(p.text.length <= 900, String(p.text.length));
   assert.deepEqual(p.problems, []);
 });
 
-test('первая фраза называет то, что просит заказчик (слово из его названия)', () => {
+test('the first sentence names what the client asks for (a word from their title)', () => {
   const p = buildPackage(taken[0]);
   assert.match(p.text.split('\n')[0], /кофейн/i);
 });
 
-test('отклик назван в первом лице, без жаргона вроде «MVP», «API», «воркфлоу»', () => {
+test('the reply is in the first person, without jargon such as "MVP", "API", "воркфлоу" (workflow)', () => {
   for (const o of taken) {
     const t = buildPackage(o).text;
     assert.match(t, /(Сделаю|Посмотрю|Сначала покажу)/, o.id);
@@ -137,7 +137,7 @@ test('отклик назван в первом лице, без жаргона 
   }
 });
 
-test('четыре шаблона: лендинг, бот, автоматизация, правка сайта; тип определяется по тексту заказа', () => {
+test('four templates: landing, bot, automation, site fix; the type is determined by the order text', () => {
   assert.deepEqual(TEMPLATES.map((t) => t.kind).sort(), ['automation', 'bot', 'fix', 'landing']);
   const kind = (title, text = '') => detectKind({ title, text });
   assert.equal(kind('Лендинг для кофейни'), 'landing');
@@ -152,7 +152,7 @@ test('четыре шаблона: лендинг, бот, автоматиза�
   assert.equal(kind('Лендинг с формой в CRM'), 'landing');
 });
 
-test('работы берутся по тегу заказа и есть в витрине: лендинг → Лендинг, бот → Веб-приложение + Автоматизация', () => {
+test('works are taken by the order tag and exist in the showcase: landing → Лендинг, bot → Веб-приложение + Автоматизация', () => {
   const ids = new Set(works.map((w) => w.id));
   const byOrder = Object.fromEntries(taken.map((o) => [o.id, buildPackage(o).works.map((w) => w.id)]));
   for (const list of Object.values(byOrder)) for (const id of list) assert.ok(ids.has(id), id);
@@ -162,27 +162,27 @@ test('работы берутся по тегу заказа и есть в ви
   assert.deepEqual(byOrder['syn-fix-1'], ['w1']);
 });
 
-test('срок: из заказа, если он назван; иначе по шаблону; он есть в тексте числом «дн.»', () => {
+test('term: from the order if named, otherwise from the template; it appears in the text as a number with "дн."', () => {
   assert.equal(buildPackage(taken.find((o) => o.id === 'syn-auto-1')).term_days, 3);
   const p = buildPackage(taken[0]);
   assert.match(p.text, new RegExp(`${p.term_days} дн\\.`));
 });
 
-test('в тексте часы ответа по Москве (6:00–16:00 = 10–20 UTC+7); флаг «отвечать с 10:00» попадает в пакет', () => {
+test('the text has reply hours in Moscow time (6:00–16:00 = 10–20 UTC+7); the flag "отвечать с 10:00" gets into the package', () => {
   const p = buildPackage(taken.find((o) => o.id === 'syn-fix-1'));
   assert.match(p.text, /с 6:00 до 16:00 по Москве/);
   assert.doesNotMatch(p.text, /UTC+7/);
   assert.ok(p.flags.includes('отвечать_с_10:00'));
 });
 
-test('«Бот записи для барбершопа готов» есть в отклике на бота и нет в остальных', () => {
+test('"Бот записи для барбершопа готов" is in the bot reply and not in the others', () => {
   for (const o of taken) {
     const has = /Бот записи для барбершопа готов/.test(buildPackage(o).text);
     assert.equal(has, o.id === 'syn-bot-1', o.id);
   }
 });
 
-test('validatePackage ловит стоп-слово, цену ниже порога и длину свыше 900', () => {
+test('validatePackage catches a stop-word, a price below the threshold and a length over 900', () => {
   const base = buildPackage(taken[0]);
   assert.ok(validatePackage({ ...base, text: `${base.text} Делаю с ИИ.` }, taken[0]).some((s) => /стоп/.test(s)));
   assert.ok(validatePackage({ ...base, price: 2900 }, taken[0]).some((s) => /3 ?000/.test(s)));
@@ -191,7 +191,7 @@ test('validatePackage ловит стоп-слово, цену ниже поро
   assert.ok(validatePackage({ ...base, text: `${base.text} {имя}` }, taken[0]).some((s) => /пропуск/.test(s)));
 });
 
-test('связка с радаром: заказ из страницы FL → правила → пакет (лендинг, 8 000 ₽)', () => {
+test('radar link: order from an FL page → rules → package (landing, 8 000 ₽)', () => {
   const html = readFileSync(new URL('./fixtures/fl.synthetic.html', import.meta.url), 'utf8');
   const parsed = parseFl(html, '2026-11-14T10:00:00+07:00').map((o) => ({ ...o, ...evaluate(o) }));
   const ready = parsed.filter((o) => o.verdict === 'берём');
@@ -201,7 +201,7 @@ test('связка с радаром: заказ из страницы FL → п
   assert.equal(p.kind, 'landing');
 });
 
-test('markdown: у каждого пакета заказ, ссылка, цена, текст, работы, вопросы; сказано, что отправляет Саша', () => {
+test('markdown: each package has the order, link, price, text, works and questions; it says Sasha sends it', () => {
   const md = renderMarkdown(buildAll(orders), { date: DATE });
   assert.match(md, /^# Пакеты откликов · 2026-11-14/);
   assert.match(md, /Отправляет Саша/);
@@ -214,7 +214,7 @@ test('markdown: у каждого пакета заказ, ссылка, цен�
   assert.match(md, /Работы из витрины/);
 });
 
-test('writeReplies кладёт файл docs/replies/<дата>.md в указанную папку', () => {
+test('writeReplies puts the file docs/replies/<date>.md into the given folder', () => {
   const dir = mkdtempSync(join(tmpdir(), 'birzha-replies-'));
   const file = writeReplies(orders, { dir, date: DATE });
   assert.equal(file, join(dir, `${DATE}.md`));
@@ -222,7 +222,7 @@ test('writeReplies кладёт файл docs/replies/<дата>.md в указ�
   assert.match(readFileSync(file, 'utf8'), /Пакеты откликов/);
 });
 
-test('docs/replies/example.md совпадает с тем, что собирается из фикстуры сейчас (не устарел)', () => {
+test('docs/replies/example.md matches what is built from the fixture now (not stale)', () => {
   const expected = renderMarkdown(buildAll(orders, { firstClient: true }), { date: DATE, firstClient: true });
   const actual = readFileSync(new URL('../docs/replies/example.md', import.meta.url), 'utf8');
   assert.equal(actual, expected);

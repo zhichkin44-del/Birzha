@@ -1,6 +1,6 @@
-// «Секретарь заказов» (приказ Саши 14.11 вечер, режим «первый заказ»): записи радара за день → топ-10 заказов + готовый отклик на каждый.
-// Ничего не отправляет и никуда не входит: результат — файл docs/orders/<день>.md, который Саша читает и отправляет сам.
-// Фильтр — по смыслу «сделаем за 1–5 дней» (профиль «first» в rules.js). Цены без бюджета — ориентиры из templates.ru.js, Саша их не подтверждал.
+// "Order Secretary" (Sasha's order 14.11 evening, "first order" mode): the day's radar records → top 10 orders + a ready reply for each.
+// It sends nothing and logs in nowhere: the result is the file docs/orders/<day>.md, which Sasha reads and sends himself.
+// Filter by meaning "we can deliver in 1–5 days" (the "first" profile in rules.js). Prices without a budget are reference prices from templates.ru.js, not confirmed by Sasha.
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { findStopwords } from '../vitrina/stopwords.js';
@@ -11,23 +11,23 @@ import { EN_SPEC, HOURS_LINE_EN, casesForEn, usd } from '../replies/templates.en
 import { CHANNELS } from '../radar/channels.js';
 
 export const TOP_N = 10;
-export const TAIL_N = 10; // «хвост» за топом: отклик по шаблону, перечитать и подправить
+export const TAIL_N = 10; // "tail" past the top: a template reply, to re-read and fix
 export const REPLY_LINES_MIN = 4;
 export const REPLY_LINES_MAX = 6;
 export const REPLY_CHARS_MAX = 900;
-export const DISCOUNT = 30; // решение Саши 13.11: первым клиентам 30 %
+export const DISCOUNT = 30; // Sasha's decision 13.11: 30 % for first clients
 
 const WORKS = JSON.parse(readFileSync(new URL('../vitrina/works.json', import.meta.url), 'utf8')).works;
 const workById = (id) => WORKS.find((w) => w.id === id);
 const byKind = (k) => TEMPLATES.find((t) => t.kind === k);
 
-// Кейс-портфолио для разных видов заказа (works.json; ссылки «Описание проекта» не проверены по сети — checked:false). Нет ссылки — без неё.
+// Case portfolio for different order types (works.json; "project description" links are not checked over the network — checked:false). No link → no link.
 const PITCH_MORE = {
   w5: 'Видеостудия: конвейер роликов от сценария и озвучки до монтажа и проверки качества — так делается научно-популярный канал.',
 };
 const CASE_FOR = { dub: ['w5'], image: ['w5'], bot: ['w6', 'w3'], parser: ['w3'], automation: ['w3', 'w4'], ai: ['w3', 'w4'], video: ['w5'], text: ['w4'], landing: ['w1'], site: ['w6'], fix: ['w1'], design: ['w6'] };
 
-// Виды, которых нет в templates.ru.js (там bot, fix, landing, automation).
+// Kinds that are not in templates.ru.js (it has bot, fix, landing, automation).
 const EXTRA = {
   parser: { what: 'парсер', how: 'Соберу парсер: достанет нужные данные с сайта и сложит их в таблицу или файл; сначала покажу результат на небольшой части.', need: 'ссылку на сайт и пример нужных полей', price: 4000, days: 3, question: 'Какие именно поля нужны и как часто обновлять данные?' },
   site: { what: 'сайт', how: 'Сделаю сайт: структура, адаптивный вид для телефона и компьютера, форма заявок, запуск на вашем хостинге.', need: 'тексты и логотип', price: 8000, days: 5, question: 'Есть ли у вас готовый макет или тексты, или собираем с нуля?' },
@@ -39,8 +39,8 @@ const EXTRA = {
   design: { what: 'дизайн интерфейса', how: 'Нарисую экраны для телефона и компьютера и соберу кликабельный макет; первый экран пришлю на согласование.', need: 'пожелания и примеры, которые нравятся', price: 5000, days: 3, question: 'Есть ли фирменные цвета и примеры, на которые ориентироваться?' },
 };
 
-// Слова по видам, от узкого к широкому (при равенстве очков побеждает узкий). Название весит втрое больше описания:
-// 14.11 «заказчик»-скептик поймал, что слово «видео» в описании сайта делало из правки сайта монтаж ролика.
+// Words per kind, from narrow to broad (on a tie the narrow kind wins). A title weighs three times as much as a description:
+// On 14.11 a skeptical "client" reviewer caught that the word "видео" (video) in a site description turned a site fix into a video edit.
 const KIND_WORDS = [
   ['dub', ['озвуч', 'переклад', 'перевод', 'dubbing', 'voiceover', 'voice-over', 'voice over', 'narration']],
   ['video', ['видео', 'монтаж', 'ролик', 'reels', 'shorts', 'рилс', 'субтитр', 'video', 'youtube', 'subtitle', 'caption', 'editing', 'edit my']],
@@ -56,7 +56,7 @@ const KIND_WORDS = [
   ['design', ['дизайн', 'ui', 'ux', 'интерфейс', 'макет', 'figma', 'mockup', 'wireframe', 'web design']],
 ];
 
-/** Вид заказа для отклика: очки = 3 × слова в названии + слова в описании (не больше 2). */
+/** Order kind for the reply: points = 3 × words in the title + words in the description (at most 2). */
 export function detectDigestKind(o) {
   const title = String(o.title ?? '');
   const body = String(o.text ?? '');
@@ -64,16 +64,16 @@ export function detectDigestKind(o) {
   for (const [kind, words] of KIND_WORDS) {
     const inTitle = words.filter((w) => findWord(title, [w])).length;
     const inBody = Math.min(2, words.filter((w) => !findWord(title, [w]) && findWord(body, [w])).length);
-    // «сайт», «лендинг», «дизайн» в названии — рамка заказа («тексты для сайта», «правка сайта»), конкретный вид их перебивает
+    // "сайт" (site), "лендинг" (landing), "дизайн" (design) in a title frame the order ("texts for a site", "site fix"); a specific kind overrides them
     const base = ['site', 'landing', 'design'].includes(kind) ? 2.5 : 3;
-    const sc = inTitle ? base : inBody; // слова описания работают, только если в названии вида нет совсем
+    const sc = inTitle ? base : inBody; // description words count only if the title has no kind at all
     if (sc > 0 && (!best || sc > best.sc)) best = { kind, sc };
   }
-  // «Бот на ИИ» — это бот: общий вид «ai» не перебивает бота, если в названии есть «бот»
+  // "Бот на ИИ" (AI bot) is a bot: the generic "ai" kind does not override the bot if the title contains "бот"
   return best?.kind ?? 'site';
 }
 
-/** Английский заказ: канал помечен lang:'en' или в тексте латиницы втрое больше кириллицы. */
+/** English order: the channel is marked lang:'en', or the text has three times more Latin than Cyrillic letters. */
 export function isEnglishOrder(o) {
   const ch = (o.channels ?? [o.channel])[0];
   if (CHANNELS[ch]?.lang === 'en') return true;
@@ -85,7 +85,7 @@ export function isEnglishOrder(o) {
 
 const KIND_LABEL = { dub: 'перевод и озвучка видео', image: 'изображения по описанию', bot: 'бот', parser: 'парсер', automation: 'автоматизация', ai: 'помощник на материалах', video: 'видео/монтаж', text: 'тексты', landing: 'лендинг', site: 'сайт', fix: 'правка сайта', design: 'интерфейс' };
 
-// Бот не про заявки и запись (поиск по фото, игры, парсинг в бота и т. п.): шаблон «клиент отвечает на вопросы, заявка приходит вам» был бы мимо задачи
+// A bot that is not about requests and bookings (photo search, games, parsing into a bot, etc.): the "client answers questions, the request comes to you" template would miss the task
 const BOT_GENERIC = { what: 'бота', how: 'Сделаю бота под вашу задачу (в Telegram, если нет другой платформы): вы описываете сценарий, я собираю рабочую версию, показываю её на ваших данных и дорабатываю по замечаниям.', need: 'описание сценария и примеры сообщений', price: 5000, days: 4, question: 'Что бот должен делать по шагам и откуда брать данные?' };
 
 function specEn(kind, order) {
@@ -93,11 +93,11 @@ function specEn(kind, order) {
   return EN_SPEC[kind];
 }
 
-/** Отклик по-английски: та же логика цены и скидки, что в русском, цена в валюте заказчика. */
+/** English reply: the same price and discount logic as the Russian one, price in the client's currency. */
 function buildReplyEn(order, kind, { firstClient }) {
   const sp = specEn(kind, order);
   const budget = budgetValue(order.budget);
-  if (budget !== null && budget < BUDGET_MIN) throw new Error(`${order.id}: бюджет ${money(budget)} ниже порога ${money(BUDGET_MIN)}`);
+  if (budget !== null && budget < BUDGET_MIN) throw new Error(`${order.id}: budget ${money(budget)} is below the threshold ${money(BUDGET_MIN)}`);
   let price = budget ?? sp.price;
   let discount = null;
   if (firstClient) {
@@ -109,7 +109,7 @@ function buildReplyEn(order, kind, { firstClient }) {
   const cs = casesForEn(kind);
   const caseLine = cs.length ? `Similar work: ${cs[0].pitch}${cs[0].link ? ` ${cs[0].link}` : ' No public link yet, screenshots on request.'}` : null;
   const raw = order.budget_raw ? String(order.budget_raw).match(/^(\d+)\s+([A-Z]{3})$/) : null;
-  // Цена в валюте заказа, круглая: до 10 при сумме до 1000, до 50 выше (6953 INR → 6950). Скидка уже в цене — в тексте не пишем (14.11).
+  // Price in the order's currency, rounded: to 10 below 1000, to 50 above (6953 INR → 6950). The discount is already in the price — not mentioned in the text (14.11).
   const conv = raw && budget ? (Number(raw[1]) * price) / budget : null;
   const shown = conv !== null ? `${conv < 1000 ? Math.round(conv / 10) * 10 : Math.round(conv / 50) * 50} ${raw[2]}` : usd(price);
   const priceLine = budget !== null
@@ -130,7 +130,7 @@ function spec(kind, order = {}) {
 const roundTo100 = (n) => Math.round(n / 100) * 100;
 const TITLE_MAX = 60;
 
-/** Кейсы для вида заказа: [{id, title, pitch, link|null}], до двух. */
+/** Cases for an order kind: [{id, title, pitch, link|null}], up to two. */
 export function casesFor(kind) {
   return (CASE_FOR[kind] ?? []).slice(0, 2).map((id) => {
     const w = workById(id);
@@ -138,13 +138,13 @@ export function casesFor(kind) {
   }).filter((c) => c.pitch);
 }
 
-/** Отклик от первого лица Саши, 4–6 строк. Бросает ошибку, если заказ ниже порога или нет оснований для цены. */
+/** Reply in Sasha's first person, 4–6 lines. Throws if the order is below the threshold or there is no basis for the price. */
 export function buildReply(order, { firstClient = true } = {}) {
   const kind = detectDigestKind(order);
   if (isEnglishOrder(order)) return buildReplyEn(order, kind, { firstClient });
   const sp = spec(kind, order);
   const budget = budgetValue(order.budget);
-  if (budget !== null && budget < BUDGET_MIN) throw new Error(`${order.id}: бюджет ${money(budget)} ниже порога ${money(BUDGET_MIN)}`);
+  if (budget !== null && budget < BUDGET_MIN) throw new Error(`${order.id}: budget ${money(budget)} is below the threshold ${money(BUDGET_MIN)}`);
   let price = budget ?? sp.price;
   let discount = null;
   if (firstClient) {
@@ -155,7 +155,7 @@ export function buildReply(order, { firstClient = true } = {}) {
   const quote = title && title.length <= TITLE_MAX && !findStopwords(title).length ? ` («${title}»)` : '';
   const cs = casesFor(kind);
   const caseLine = cs.length ? `Похожая работа. ${cs[0].pitch}${cs[0].link ? ` ${cs[0].link}` : ''}` : null;
-  // заказ в $/грн: цену называем в валюте заказчика (пересчёт «на глаз» путал бы его)
+  // order in $/UAH: the price is quoted in the client's currency (an eyeballed conversion would confuse them)
   const raw = order.budget_raw ? String(order.budget_raw).match(/^(\d+)\s+([A-Z]{3})$/) : null;
   const priceShown = raw && raw[2] !== 'RUB' && budget ? `${Math.round((Number(raw[1]) * price) / budget / 10) * 10} ${raw[2]}` : money(price);
   const priceLine = budget !== null
@@ -184,13 +184,13 @@ export function validateReply(text, price, budget) {
   return p;
 }
 
-// Крупное не делается за 1–5 дней (приказ 14.11: «можем сделать за 1–5 дней»): в топ не берём, в дайджесте — счётчиком.
+// Large work is not done in 1–5 days (order 14.11: "we can do it in 1–5 days"): not put in the top, only counted in the digest.
 const HEAVY = ['архитектур', 'масштабируем', 'высоконагруж', 'highload', 'микросервис', 'платформ', 'backend-разработчик', 'бэкенд', 'аудит', 'аудит безопасност', 'команда разработчик', 'или команд', 'enterprise', 'erp'];
 export const isHeavy = (r) => Boolean(findWord(`${r.title ?? ''} ${r.text ?? ''}`, HEAVY));
 
 const hoursOf = (r) => (typeof r.age_hours === 'number' ? r.age_hours : null);
 
-/** Оценка для топа: свежее, с бюджетом и малым числом откликов — выше; «нет бюджета» не вычёркивает. */
+/** Score for the top: fresher, with a budget and fewer replies ranks higher; "no budget" does not exclude an order. */
 export function score(r) {
   let s = 0;
   const h = hoursOf(r);
@@ -200,11 +200,11 @@ export function score(r) {
   if (['bot', 'parser', 'automation', 'landing', 'site'].includes(detectDigestKind(r))) s += 1;
   if (r.channel === 'kwork' || r.channel === 'fl' || r.channel === 'frru' || r.channel === 'weblancer' || r.channel === 'fh' || r.channel === 'pchel' || r.channel === 'flcom' || r.channel === 'pph') s += 1; // площадки с откликом по кнопке
   if ((r.flags ?? []).includes('возможный_дубль')) s -= 1;
-  if (detectDigestKind(r) === 'image') s -= 3; // нет честного кейса по изображениям; фото живого человека — только с согласия
+  if (detectDigestKind(r) === 'image') s -= 3; // no honest case for images; a photo of a real person — only with consent
   return s;
 }
 
-/** Топ-N заказов «берём» с откликами. Для разных каналов один заказ уже склеен dedupe-ом радара. */
+/** Top-N "take it" orders with replies. For different channels one order is already merged by the radar's dedupe step. */
 export function pickTop(records, n = TOP_N) {
   return records
     .filter((r) => r.verdict === 'берём' && r.url && !isHeavy(r))
@@ -228,7 +228,7 @@ export function why(r, kind) {
   return `${bits.join('; ')}. ${r.reason ?? ''}`.trim();
 }
 
-/** @param {object[]} records записи за день (verdict уже стоит) @param {{date: string, report?: object, manual?: {id,name,link,note}[], channelCounts?: object, now?: string}} ctx */
+/** @param {object[]} records the day's records (verdict already set) @param {{date: string, report?: object, manual?: {id,name,link,note}[], channelCounts?: object, now?: string}} ctx */
 export function renderDigest(records, { date, report = null, manual = [], now = null, custom = {} } = {}) {
   const top = pickTop(records);
   const tail = pickTop(records, TOP_N + TAIL_N).slice(TOP_N);

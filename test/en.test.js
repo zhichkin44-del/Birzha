@@ -12,7 +12,7 @@ const fl = readFileSync(new URL('./fixtures/freelancer.synthetic.json', import.m
 const pph = readFileSync(new URL('./fixtures/pph.synthetic.html', import.meta.url), 'utf8');
 const NOW = '2026-11-14T10:00:00Z';
 
-test('Freelancer.com: только английские публичные, бюджет в ₽, почасовые без бюджета', () => {
+test('Freelancer.com: only public English projects, budget in ₽, hourly projects without budget', () => {
   const o = parseFreelancer(fl, NOW);
   assert.deepEqual(o.map((x) => x.id), ['flcom-2000001', 'flcom-2000002', 'flcom-2000005']);
   assert.equal(o[0].budget, 250 * 80);
@@ -22,12 +22,12 @@ test('Freelancer.com: только английские публичные, бю
   assert.ok(!JSON.stringify(o).includes('owner'));
 });
 
-test('Freelancer.com: нет result.projects → LayoutChangedError', () => {
+test('Freelancer.com: no result.projects → LayoutChangedError', () => {
   assert.throws(() => parseFreelancer('{"result":{}}', NOW), LayoutChangedError);
   assert.throws(() => parseFreelancer('not json', NOW), LayoutChangedError);
 });
 
-test('PeoplePerHour: карточки, цена K/£, возраст, автор не хранится', () => {
+test('PeoplePerHour: cards, price K/£, age, author not stored', () => {
   const o = parsePph(pph, NOW);
   assert.equal(o.length, 3);
   assert.equal(o[0].id, 'pph-1000001');
@@ -42,13 +42,13 @@ test('PeoplePerHour: карточки, цена K/£, возраст, автор
   assert.ok(!JSON.stringify(o).includes('Test U'));
 });
 
-test('PeoplePerHour: 0 карточек без признака пустого списка → LayoutChangedError', () => {
+test('PeoplePerHour: 0 cards without an empty-list marker → LayoutChangedError', () => {
   assert.throws(() => parsePphChecked('<html><body>hello</body></html>', NOW), LayoutChangedError);
 });
 
 const v = (title, text = '') => evaluate({ title, text, budget: null, answers: 0, age_hours: 1 }, { profile: 'first' }).verdict;
 
-test('R2 на английских словах: берём / нет', () => {
+test('R2 on English words: take it / no', () => {
   assert.equal(v('Build a landing page for a coffee shop'), 'берём');
   assert.equal(v('Telegram bot for booking appointments'), 'берём');
   assert.equal(v('Landing page with reCAPTCHA form'), 'берём');
@@ -58,7 +58,7 @@ test('R2 на английских словах: берём / нет', () => {
   assert.equal(v('We are hiring a full-time developer'), 'нет');
 });
 
-test('isEnglishOrder: по каналу и по алфавиту', () => {
+test('isEnglishOrder: by channel and by alphabet', () => {
   assert.equal(isEnglishOrder({ channel: 'pph', title: 'x' }), true);
   assert.equal(isEnglishOrder({ channel: 'fl', title: 'Landing page for a shop', text: 'Need a landing page' }), true);
   assert.equal(isEnglishOrder({ channel: 'fl', title: 'Лендинг для кофейни', text: 'нужен лендинг' }), false);
@@ -66,7 +66,7 @@ test('isEnglishOrder: по каналу и по алфавиту', () => {
 
 const STOP = /(^|[^a-z])ai([^a-z]|$)|chatgpt|openai|gpt|claude|gemini|нейросет|модел|flux|ace-step/i;
 
-test('EN-отклик: 4–6 строк, ≤900 знаков, без стоп-слов, цена в валюте заказчика', () => {
+test('EN reply: 4–6 lines, ≤900 characters, no stop-words, price in the client\'s currency', () => {
   for (const o of parsePph(pph, NOW).slice(0, 2).concat(parseFreelancer(fl, NOW).slice(0, 1))) {
     const r = buildReply({ ...o, channels: [o.channel] });
     assert.equal(r.lang, 'en', o.id);
@@ -78,7 +78,7 @@ test('EN-отклик: 4–6 строк, ≤900 знаков, без стоп-с
   }
 });
 
-test('EN-отклик: без публичной ссылки — «screenshots on request»; с проверенной — ссылка', () => {
+test('EN reply: without a public link — "screenshots on request"; with a verified one — the link', () => {
   const landing = buildReply({ id: 'x', channel: 'pph', title: 'Landing page for a cafe', text: '', budget: 24000, budget_raw: '300 USD' });
   assert.match(landing.text, /screenshots on request/);
   assert.doesNotMatch(landing.text, /https?:\/\//);
@@ -86,12 +86,12 @@ test('EN-отклик: без публичной ссылки — «screenshots 
   assert.match(ai.text, /https:\/\/zhichkin44-del\.github\.io\/projects\//);
 });
 
-test('usd: курс 80 ₽/$, округление до 5 $', () => {
+test('usd: rate 80 ₽/$, rounded to $5', () => {
   assert.equal(usd(8000), '$100');
   assert.equal(usd(3000), '$40');
 });
 
-test('writeDigest с suffix пишет <день>-en.md, русский файл не трогает', async () => {
+test('writeDigest with a suffix writes <day>-en.md and does not touch the Russian file', async () => {
   const { mkdtempSync, existsSync } = await import('node:fs');
   const { join } = await import('node:path');
   const { tmpdir } = await import('node:os');

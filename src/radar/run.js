@@ -1,4 +1,4 @@
-// Один запуск: по каналам → дубли → правила → записи + отчёт. Один сбой канала не останавливает остальные.
+// One run: channels → duplicates → rules → records + report. One failing channel does not stop the others.
 import { BlockedError, RobotsClosedError, LayoutChangedError } from './fetch.js';
 import { mergeOrders } from './dedupe.js';
 import { evaluate } from './rules.js';
@@ -8,7 +8,7 @@ const DAY_MS = 24 * 3600_000;
 /**
  * @param {{id: string, load: () => Promise<object[]>}[]} channels
  * @param {{now?: string, state?: object, profile?: string, minIntervalMin?: number, force?: boolean}} opts  state: { [id]: {last_ok, last_attempt, blocked_streak, blocked_until} }
- * minIntervalMin — не читать канал чаще (приказ 14.11: не чаще раза в 2 ч); force — игнорировать интервал.
+ * minIntervalMin — do not read a channel more often than this (order 14.11: at most once every 2 h); force — ignore the interval.
  */
 export async function runChannels(channels, { now = new Date().toISOString(), state = {}, profile, minIntervalMin = 0, force = false } = {}) {
   const nowMs = Date.parse(now);
@@ -43,7 +43,7 @@ export async function runChannels(channels, { now = new Date().toISOString(), st
       st.blocked_streak = 0;
       st.blocked_until = null;
       orders.push(...got);
-      const warnings = got.warnings ?? []; // часть страниц канала не открылась — причина в отчёте, не молчком
+      const warnings = got.warnings ?? []; // some pages of the channel did not open — the reason is in the report, not silently
       report.channels[ch.id] = { status: 'ok', flag: null, reason: `собрано ${got.length}${warnings.length ? `; не открылись страницы: ${warnings.join(', ')}` : ''}`, count: got.length };
       if (warnings.length) (report.partial ??= []).push(ch.id);
     } catch (e) {

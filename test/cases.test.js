@@ -1,4 +1,4 @@
-// Раннер случаев радара: docs/briefs/radar/test-cases.json (формат — PLAN.md §6, «Формат входа раннера»).
+// Radar case runner: docs/briefs/radar/test-cases.json (format — PLAN.md §6, "runner input format").
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -11,7 +11,7 @@ const cases = JSON.parse(
   readFileSync(new URL('../docs/briefs/radar/test-cases.json', import.meta.url), 'utf8'),
 );
 
-test('набор случаев содержит 21 случай (PLAN §2)', () => {
+test('the case set contains 21 cases (PLAN §2)', () => {
   assert.equal(cases.length, 21);
 });
 
@@ -30,7 +30,7 @@ function checkVerdict(got, expect, id) {
 for (const c of cases) {
   const { id, input, expect } = c;
   if (input.fetch_result) {
-    test(`${id}: канал недоступен — остальные собраны, отчёт «канал молчит»`, async () => {
+    test(`${id}: channel unavailable — the others are collected, the report says "канал молчит" (channel silent)`, async () => {
       const channels = [
         {
           id: input.channel,
@@ -58,7 +58,7 @@ for (const c of cases) {
       }
     });
   } else if (input.orders) {
-    test(`${id}: дубль из двух каналов склеен`, () => {
+    test(`${id}: a duplicate from two channels is merged`, () => {
       const records = mergeOrders(input.orders);
       assert.equal(records.length, expect.records);
       assert.deepEqual(records[0].channels, expect.channels);
@@ -69,7 +69,7 @@ for (const c of cases) {
       checkVerdict(evaluate(input), expect, id);
     });
   } else {
-    test(`${id}: неизвестная форма случая`, () => {
+    test(`${id}: unknown case shape`, () => {
       assert.fail('раннер не знает такой формы input');
     });
   }

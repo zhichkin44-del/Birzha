@@ -1,4 +1,4 @@
-// Утренний список для Саши (PLAN §1): только «берём», сверху свежие; сверху строка состояния.
+// Morning list for Sasha (PLAN §1): only "take it" items, freshest on top; a status line at the top.
 const FLAG_TEXT = {
   'нет_бюджета': 'нет бюджета',
   'уточнить': 'уточнить',

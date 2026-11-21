@@ -1,6 +1,6 @@
-// Пакеты откликов (стадия 6): заказы с вердиктом «берём» из радара → текст, цена, срок, работы, вопросы.
-// Ничего не отправляет и никуда не входит: результат — файл docs/replies/<дата>.md, который Саша читает и
-// отправляет сам. Без сети. Запуск: node src/replies/build.js <заказы.json|.jsonl> [--date ГГГГ-ММ-ДД] [--out файл] [--first-client]
+// Reply packages (stage 6): radar orders with the "take it" verdict → text, price, term, works, questions.
+// Sends nothing and logs in nowhere: the result is the file docs/replies/<date>.md, which Sasha reads and
+// sends himself. No network. Run: node src/replies/build.js <orders.json|.jsonl> [--date YYYY-MM-DD] [--out file] [--first-client]
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -9,7 +9,7 @@ import { findStopwords } from '../vitrina/stopwords.js';
 import { TEMPLATES, detectKind, templateFor, compose, money, PITCH } from './templates.ru.js';
 
 export const TEXT_MAX = 900;
-export const DISCOUNT = 30; // решение Саши 13.11: первым клиентам 30 %
+export const DISCOUNT = 30; // Sasha's decision 13.11: 30 % for first clients
 const TITLE_MAX = 60;
 const WORKS = JSON.parse(readFileSync(new URL('../vitrina/works.json', import.meta.url), 'utf8')).works;
 
@@ -42,15 +42,15 @@ export function validatePackage(pkg, order) {
   return p;
 }
 
-/** Один пакет. opts: {firstClient: false, works: данные витрины}. Бросает ошибку, если заказ не «берём» или бюджет ниже порога. */
+/** One package. opts: {firstClient: false, works: showcase data}. Throws if the order is not "take it" or the budget is below the threshold. */
 export function buildPackage(order, opts = {}) {
   const { firstClient = false, works = WORKS } = opts;
   if (order.verdict !== 'берём') {
-    throw new Error(`пакет собирается только для заказов «берём»; у ${order.id} вердикт «${order.verdict}»`);
+    throw new Error(`a package is built only for "take it" orders; ${order.id} has verdict "${order.verdict}"`);
   }
   const budget = budgetValue(order.budget);
   if (budget !== null && budget < BUDGET_MIN) {
-    throw new Error(`у ${order.id} бюджет ${money(budget)} ниже ${money(BUDGET_MIN)} — вердикт должен быть «нет»`);
+    throw new Error(`${order.id} budget ${money(budget)} is below ${money(BUDGET_MIN)} — the verdict must be "no"`);
   }
 
   const kind = detectKind(order);
@@ -103,7 +103,7 @@ export function buildPackage(order, opts = {}) {
   return pkg;
 }
 
-/** Все заказы: «берём» → пакеты, остальные и сорвавшиеся → skipped с причиной. */
+/** All orders: "take it" → packages; the rest and failed ones → skipped with a reason. */
 export function buildAll(orders, opts = {}) {
   const packages = [];
   const skipped = [];
@@ -171,7 +171,7 @@ export function renderMarkdown({ packages, skipped }, { date, firstClient = fals
   return `${L.join('\n')}\n`;
 }
 
-/** Собрать и записать docs/replies/<дата>.md (или file). Возвращает путь. */
+/** Build and write docs/replies/<date>.md (or file). Returns the path. */
 export function writeReplies(orders, { dir = join('docs', 'replies'), date, firstClient = false, file } = {}) {
   const md = renderMarkdown(buildAll(orders, { firstClient }), { date, firstClient });
   const path = file ?? join(dir, `${date}.md`);
@@ -191,7 +191,7 @@ function main(argv) {
   const input = args.find((a) => !a.startsWith('--') && args[args.indexOf(a) - 1] !== '--date' && args[args.indexOf(a) - 1] !== '--out');
   const val = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : undefined; };
   if (!input) {
-    console.error('Нужен файл с заказами: node src/replies/build.js <заказы.json|.jsonl> [--date ГГГГ-ММ-ДД] [--out файл] [--first-client]');
+    console.error('An orders file is required: node src/replies/build.js <orders.json|.jsonl> [--date YYYY-MM-DD] [--out file] [--first-client]');
     process.exit(2);
   }
   const date = val('--date') ?? new Date().toISOString().slice(0, 10);

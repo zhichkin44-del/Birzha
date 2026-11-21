@@ -1,5 +1,5 @@
-// Слова, которых не должно быть на витрине (решение Саши 13.11: без упоминаний ИИ, модели не называть).
-// Ищем по началу слова, без учёта регистра; «ии» — только целым словом.
+// Words that must not appear on the showcase (Sasha's decision 13.11: no mention of AI, do not name models).
+// Matched at the word start, case-insensitive; "ии" (AI) only as a whole word.
 export const STOPWORDS = [
   'ии',
   'ai',
@@ -15,7 +15,7 @@ export const STOPWORDS = [
   'ace-step',
 ];
 
-const WHOLE = new Set(['ии', 'ai']); // сверка 14.11: «AI» и «ChatGPT» не ловились
+const WHOLE = new Set(['ии', 'ai']); // check 14.11: "AI" and "ChatGPT" were not caught
 const L = '\\p{L}\\p{N}';
 
 export function findStopwords(text) {

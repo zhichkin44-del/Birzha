@@ -1,8 +1,8 @@
-// Freelancer.com: открытый JSON API без входа (проверено 14.11.2026: HTTP 200, 50 проектов, свежие, без капчи).
-// Адрес: https://www.freelancer.com/api/projects/0.1/projects/active/?limit=50&full_description=true&job_details=true&sort_field=submitdate&query=<слова>
-// Берём только language=en (в ленте бывают ro/id), пропускаем nonpublic/deleted.
-// Бюджет: fixed — максимум вилки × exchange_rate (к доллару, отдаёт сам API) × RUB_PER.USD; почасовые проекты (hourly) — бюджет неизвестен (это ставка в час, не цена заказа).
-// Заказчик (owner_id) не хранится. Нет result.projects → LayoutChangedError.
+// Freelancer.com: open JSON API, no login (checked 14.11.2026: HTTP 200, 50 projects, fresh, no captcha).
+// Address: https://www.freelancer.com/api/projects/0.1/projects/active/?limit=50&full_description=true&job_details=true&sort_field=submitdate&query=<words>
+// We take only language=en (the feed has ro/id too); nonpublic/deleted are skipped.
+// Budget: fixed — the top of the range × exchange_rate (to the dollar, supplied by the API itself) × RUB_PER.USD; hourly projects (hourly) — budget unknown (it is an hourly rate, not the order price).
+// The client (owner_id) is not stored. No result.projects → LayoutChangedError.
 import { LayoutChangedError } from '../fetch.js';
 import { scrubPersonal, RUB_PER, ageFrom } from './common.js';
 

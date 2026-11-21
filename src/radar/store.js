@@ -1,4 +1,4 @@
-// Хранение (PLAN §5): JSON Lines по файлу на день + state.json. Папка data/ в .gitignore.
+// Storage (PLAN §5): JSON Lines, one file per day, plus state.json. The data/ folder is in .gitignore.
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -10,7 +10,7 @@ export function loadDay(dir, day) {
   return readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
 }
 
-/** Повторный сбор того же id заменяет запись (PLAN §4); id нет — берём канал+заголовок. Отметки Саши сохраняются. */
+/** Collecting the same id again replaces the record (PLAN §4); with no id, channel+title is used. Sasha's marks are kept. */
 export function saveRecords(dir, day, records) {
   const byId = new Map(loadDay(dir, day).map((r) => [r.id, r]));
   for (const r of records) {

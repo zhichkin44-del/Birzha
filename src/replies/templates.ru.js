@@ -1,10 +1,10 @@
-// Шаблоны откликов от первого лица Саши. Простыми словами, без жаргона, без упоминаний ИИ и моделей
-// (решение Саши 13.11). Названия клиентов не пишем (Study On — только по слову Саши).
-// Цены «ориентир» — из TEXTS.ru.md §2 (S10), Саша не подтверждал; используются, только если в заказе нет бюджета.
+// Reply templates in Sasha's first person. Plain words, no jargon, no mention of AI or models
+// (Sasha's decision 13.11). Client names are not written (Study On only with Sasha's word).
+// Reference prices ("ориентир") come from TEXTS.ru.md §2 (S10), not confirmed by Sasha; used only when the order has no budget.
 import { findWord } from '../radar/words.js';
 import { REPLY_FROM, REPLY_TO } from '../radar/rules.js';
 
-// Часы — во времени заказчика (Москва = UTC+7 − 4 ч), замечание проверки заказчиком 14.11.
+// Hours are in the client's time (Moscow = UTC+7 − 4 h), per a client's review remark on 14.11.
 export const HOURS_LINE = `На связи каждый день с ${REPLY_FROM - 4}:00 до ${REPLY_TO - 4}:00 по Москве.`;
 
 export const TEMPLATES = [
@@ -74,9 +74,9 @@ export const TEMPLATES = [
   },
 ];
 
-// Порядок проверки: бот → правка → автоматизация → лендинг/сайт. Слово «сайт» есть и в заказах на парсер,
-// поэтому «сайт» проверяется последним; «Верстка сайта» без других слов — лендинг. Заказ «интеграция с CRM»
-// без слов автоматизации попадёт в «лендинг или сайт»: Саша увидит это в строке «Шаблон».
+// Check order: bot → fix → automation → landing/site. The word "сайт" (site) also appears in parser orders,
+// so "site" is checked last; "Верстка сайта" (site layout) without other words is a landing. An order "интеграция с CRM"
+// (CRM integration) without automation words falls into "landing or site": Sasha will see it in the "Template" line.
 const ORDER = ['bot', 'fix', 'automation', 'landing'];
 const byKind = (k) => TEMPLATES.find((t) => t.kind === k);
 
@@ -90,7 +90,7 @@ export function detectKind(order) {
 
 export const templateFor = (kind) => byKind(kind);
 
-// Одна фраза на работу из витрины (факты — из works.json: done / facts). Без цифр, без названий клиентов, без ИИ.
+// One phrase per showcase work (facts come from works.json: done / facts). No numbers, no client names, no AI.
 export const PITCH = {
   w1: 'Лендинг на Tilda: заявки сразу уходят в CRM, и видно, с какой рекламы пришёл клиент.',
   w3: 'Секретарь собирает предложения из десяти открытых источников, оценивает каждое и готовит черновик ответа; отправляет человек.',
@@ -101,11 +101,11 @@ export const PITCH = {
 const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 export const money = (n) => `${fmt(n)} ₽`;
 
-/** Текст отклика. ctx: {tpl, titleQuote|null, price, discount|null, termDays, pitches[]}. */
+/** Reply text. ctx: {tpl, titleQuote|null, price, discount|null, termDays, pitches[]}. */
 export function compose(ctx) {
   const { tpl } = ctx;
   const ask = `Здравствуйте! Вы ищете ${tpl.what}${ctx.titleQuote ? ` («${ctx.titleQuote}»)` : ''}.`;
-  // Скидка первому клиенту уже в цене; в тексте про неё не пишем — повтор в каждом отклике читается как демпинг (14.11).
+  // The first-client discount is already in the price; the text does not mention it: repeating it in every reply reads as underpricing (14.11).
   const priceLine = `Цена — ${money(ctx.price)}, срок — ${ctx.termDays} дн. после того, как получу ${tpl.need}.`;
   const parts = [ask, tpl.how, priceLine];
   if (ctx.pitches.length) parts.push(`Похожие работы.${ctx.pitches.join(' ')}`);

@@ -1,5 +1,5 @@
-// Ужесточение R2 (14.11, по живому прогону): дизайн логотипа, копирайт, каталог А4 для печати, игровой бот с обходом капчи.
-// Для каждого правила: заказ из прогона → «нет»; близкий заказ, который брать надо → «берём».
+// R2 tightening (14.11, live run): logo design, copywriting, A4 print catalog, game bot with captcha bypass.
+// For each rule: the order from the run → "no"; a close order that should be taken → "take it".
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluate } from '../src/radar/rules.js';
@@ -7,7 +7,7 @@ import { evaluate } from '../src/radar/rules.js';
 const order = (title, text = '') => ({ title, text, budget: 8000, answers: 3, age_hours: 1, deadline_days: 5, collected_at: '2026-11-14T12:00:00+07:00' });
 const verdict = (title, text) => evaluate(order(title, text));
 
-test('R2 чистый дизайн: логотип и айдентика — «нет»', () => {
+test('R2 pure design: logo and identity — "no"', () => {
   for (const t of ['Дизайн логотипа и айдентики', 'Нужен логотип для кофейни', 'Разработка логотипа и фирменного стиля', 'Брендбук для студии']) {
     const v = verdict(t);
     assert.equal(v.verdict, 'нет', t);
@@ -15,7 +15,7 @@ test('R2 чистый дизайн: логотип и айдентика — «�
   }
 });
 
-test('R2 полиграфия: каталог А4 для печати — «нет»', () => {
+test('R2 print: A4 catalog for printing — "no"', () => {
   for (const t of ['Каталог на продукции в формате А4 для производителя сантехники и мебели', 'Каталог А4 для печати', 'Верстка каталога A4 в печать', 'Дизайн буклета и листовки', 'Макет визитки']) {
     const v = verdict(t);
     assert.equal(v.verdict, 'нет', t);
@@ -24,7 +24,7 @@ test('R2 полиграфия: каталог А4 для печати — «не
   }
 });
 
-test('R2 копирайтинг — «нет»', () => {
+test('R2 copywriting — "no"', () => {
   for (const t of ['Нужен копирайтер для текстов сайта', 'Рерайт статей', 'Написание текстов для сайта юриста']) {
     const v = verdict(t);
     assert.equal(v.verdict, 'нет', t);
@@ -33,7 +33,7 @@ test('R2 копирайтинг — «нет»', () => {
   }
 });
 
-test('R2 игровые боты и обход капчи — «нет»', () => {
+test('R2 game bots and captcha bypass — "no"', () => {
   for (const t of ['Python-бот для игры Black Russia', 'Бот для игры с обходом капчи', 'Игровой бот на Python', 'Парсер с обходом капчи', 'Нужен бот для Minecraft']) {
     const v = verdict(t);
     assert.equal(v.verdict, 'нет', t);
@@ -42,7 +42,7 @@ test('R2 игровые боты и обход капчи — «нет»', () =>
   }
 });
 
-test('R2: настоящие заказы с этими словами рядом остаются «берём»', () => {
+test('R2: real orders with these words nearby stay "take it"', () => {
   assert.equal(verdict('Лендинг и логотип для кофейни', 'Нужен лендинг, логотип уже есть').verdict, 'берём', 'лендинг + логотип');
   assert.equal(verdict('Сайт для стоматологии', 'Нужен сайт, тексты для сайта пришлём. Логотип есть').verdict, 'берём', 'сайт; тексты пришлют');
   assert.equal(verdict('Создание сайта и написание текстов', 'Нужен сайт на Tilda').verdict, 'берём', 'сайт на Tilda + тексты');

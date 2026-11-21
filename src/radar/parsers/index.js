@@ -1,4 +1,4 @@
-// Какой парсер у какого канала. Один список на cli и тесты: добавил канал в channels.js — добавь сюда.
+// Which parser belongs to which channel. One list for the CLI and the tests: when you add a channel to channels.js, add it here too.
 import { CHANNELS } from '../channels.js';
 import { parseFlChecked } from './fl.js';
 import { parseKworkChecked } from './kwork.js';

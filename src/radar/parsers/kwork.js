@@ -1,15 +1,15 @@
-// Страница списка Kwork → заказы в общем виде (DATA §2), формат как у parsers/fl.js.
-// Данные лежат не в вёрстке, а в JSON внутри страницы (window.stateData → ключ "wants"); сверено с настоящей
-// https://kwork.ru/projects?c=11 14.11.2026 (12 заказов на странице, «Разработка и IT» = категория 11).
-// Поля заказа: id, name, description, priceLimit (желаемый бюджет, «50000.00»), possiblePriceLimit (допустимый),
-// kwork_count (число предложений), date_active («2026-11-14 10:43:54», время Москвы), timeLeft.
-// Нет ключа "wants" → LayoutChangedError («вёрстка изменилась»); "wants":[] → честно пустой список.
+// Kwork listing page → orders in the common shape (DATA §2), same format as parsers/fl.js.
+// The data is not in the markup but in JSON inside the page (window.stateData → key "wants"); checked against the real
+// https://kwork.ru/projects?c=11 on 14.11.2026 (12 orders per page, "Разработка и IT" (development and IT) = category 11).
+// Order fields: id, name, description, priceLimit (desired budget, "50000.00"), possiblePriceLimit (acceptable),
+// kwork_count (number of offers), date_active ("2026-11-14 10:43:54", Moscow time), timeLeft.
+// No "wants" key → LayoutChangedError ("layout changed"); "wants":[] → a genuinely empty list.
 import { LayoutChangedError } from '../fetch.js';
 import { decode } from './fl.js';
 
 const BASE = 'https://kwork.ru';
 
-/** Достаёт массив после `"wants":` с учётом строк и скобок; нет ключа или битый JSON → null. */
+/** Extracts the array after `"wants":`, respecting strings and brackets; no key or broken JSON → null. */
 export function extractWants(html) {
   const key = html.indexOf('"wants":[');
   if (key < 0) return null;
@@ -41,7 +41,7 @@ const num = (v) => {
 };
 const clean = (s) => decode(String(s ?? '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 
-/** «2026-11-14 10:43:54» (Москва, UTC+3) → ISO или null. */
+/** "2026-11-14 10:43:54" (Moscow, UTC+3) → ISO or null. */
 const mskIso = (s) => {
   const m = String(s ?? '').match(/^(\d{4})-(\d\d)-(\d\d)[ T](\d\d):(\d\d)(?::(\d\d))?/);
   if (!m) return null;
@@ -60,7 +60,7 @@ export function parseKwork(html, nowIso) {
     if (!title) continue;
     seen.add(w.id);
     const posted = mskIso(w.date_active ?? w.date_create);
-    // 14.11: бюджет — желаемая цена заказчика (priceLimit); допустимая (possiblePriceLimit) — только если желаемой нет
+    // 14.11: the budget is the client's desired price (priceLimit); the acceptable one (possiblePriceLimit) is used only if there is no desired one
     const wanted = num(w.priceLimit);
     const budget = wanted !== null ? wanted : num(w.possiblePriceLimit);
     const answers = Number.isFinite(Number(w.kwork_count)) && w.kwork_count !== null && w.kwork_count !== '' ? Number(w.kwork_count) : null;
@@ -81,7 +81,7 @@ export function parseKwork(html, nowIso) {
   return out;
 }
 
-/** parseKwork + проверка: нет ключа "wants" вовсе → LayoutChangedError; "wants":[] → [] (пустой список). */
+/** parseKwork + check: no "wants" key at all → LayoutChangedError; "wants":[] → [] (empty list). */
 export function parseKworkChecked(html, nowIso) {
   if (!extractWants(html)) throw new LayoutChangedError();
   return parseKwork(html, nowIso);

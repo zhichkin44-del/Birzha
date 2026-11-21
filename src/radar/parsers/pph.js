@@ -1,11 +1,11 @@
-// PeoplePerHour: страница списка /freelance-jobs/<раздел> (проверено 14.11.2026: HTTP 200, 20 карточек, без входа).
-// Карточка = <li class="list__item⤍List⤚…"> (хэши классов меняются — ищем по началу класса). Ссылка — a.item__url, заголовок — h6.item__title,
-// описание — p.item__desc, цена — card__price ($364, $2.6K, £…), подвал — «12 hours ago», «49 proposals».
-// Имя автора (card__user) не хранится. 0 карточек и нет признака пустого списка → LayoutChangedError.
+// PeoplePerHour: listing page /freelance-jobs/<section> (checked 14.11.2026: HTTP 200, 20 cards, no login).
+// Card = <li class="list__item⤍List⤚…"> (class hashes change — we match by the class prefix). Link — a.item__url, title — h6.item__title,
+// description — p.item__desc, price — card__price ($364, $2.6K, £…), footer — "12 hours ago", "49 proposals".
+// The author name (card__user) is not stored. 0 cards and no empty-list marker → LayoutChangedError.
 import { LayoutChangedError } from '../fetch.js';
 import { textOf, scrubPersonal, RUB_PER, ageFrom, EMPTY_RE } from './common.js';
 
-const PPH_RUB = { ...RUB_PER, GBP: 100 }; // ориентир ₽/£, курс не проверен
+const PPH_RUB = { ...RUB_PER, GBP: 100 }; // reference ₽/£ rate, not verified
 
 function priceOf(card) {
   const t = textOf((card.match(/class="[^"]*card__price[^"]*">([\s\S]*?)<\/div><div class="u-mgl--1 bookmark/) ?? card.match(/class="[^"]*card__price[^"]*">([\s\S]*?)<\/span><\/div>/) ?? [])[1]);
@@ -18,7 +18,7 @@ function priceOf(card) {
   return { rub: Math.round(n * PPH_RUB[cur]), raw: `${Math.round(n)} ${cur}` };
 }
 
-/** «12 hours ago», «3 days ago», «a day ago», «5 minutes ago» → часы. */
+/** "12 hours ago", "3 days ago", "a day ago", "5 minutes ago" → hours. */
 function hoursOf(s) {
   const m = String(s).match(/(\d+|an?)\s+(minute|hour|day|week|month)s?\s+ago/i);
   if (!m) return null;

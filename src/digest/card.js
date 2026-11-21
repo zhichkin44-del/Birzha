@@ -1,15 +1,15 @@
-// Картинка для Саши: топ-10 дайджеста — название, бюджет, источник, первая строка отклика; читается на телефоне (ширина 540 px, ×2).
-// Запуск: node src/digest/card.js [docs/orders/<день>.md]   → рядом лягут <день>.card.html и <день>.png (нужен установленный Chrome или Edge).
+// Image for Sasha: the digest's top 10 — title, budget, source, first line of the reply; readable on a phone (width 540 px, ×2).
+// Run: node src/digest/card.js [docs/orders/<day>.md]   → writes <day>.card.html and <day>.png next to it (needs installed Chrome or Edge).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-// в шрифте картинки значков нет — рисовались бы квадратами
+// the image font has no icon glyphs — they would render as squares
 const noEmoji = (s) => String(s).replace(/[\u{1F000}-\u{1FFFF}☀-➿️‍]/gu, '').replace(/\s+/g, ' ').trim();
 const esc = (s) => noEmoji(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/** Разбор дайджеста: [{n, title, url, source, budget, age, firstLine}] для заказов топа. */
+/** Parses the digest: [{n, title, url, source, budget, age, firstLine}] for the top orders. */
 export function parseTop(md) {
   const top = md.split('\n## Ещё заказы')[0].split('\n## Топ заказов')[1] ?? '';
   const items = [];
@@ -66,8 +66,8 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.
   const htmlPath = resolve(mdPath.replace(/\.md$/, '.card.html'));
   const pngPath = resolve(mdPath.replace(/\.md$/, '.png'));
   writeFileSync(htmlPath, renderCardHtml(items, { date }));
-  if (!CHROME) { console.error('Chrome/Edge не найден: открой .card.html в браузере и сохрани как картинку.'); process.exit(1); }
+  if (!CHROME) { console.error('Chrome/Edge not found: open .card.html in a browser and save it as an image.'); process.exit(1); }
   const height = 150 + items.length * 190;
   const r = spawnSync(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--force-device-scale-factor=2', `--window-size=540,${height}`, `--screenshot=${pngPath}`, `file:///${htmlPath.replace(/\\/g, '/')}`], { encoding: 'utf8' });
-  console.log(r.status === 0 ? `Картинка: ${pngPath}` : `Не вышло: ${r.stderr}`);
+  console.log(r.status === 0 ? `Image: ${pngPath}` : `Failed: ${r.stderr}`);
 }

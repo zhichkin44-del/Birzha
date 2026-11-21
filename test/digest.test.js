@@ -1,4 +1,4 @@
-// Режим «первый заказ» (приказ Саши 14.11 вечер): профиль фильтра по смыслу, интервал 2 ч, без robots, дайджест с откликами.
+// "First order" mode (Sasha's order 14.11 evening): meaning-based filter profile, 2 h interval, no robots, digest with replies.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluate } from '../src/radar/rules.js';
@@ -12,15 +12,15 @@ const NOW = '2026-11-14T10:00:00+07:00';
 const ord = (title, text = title, extra = {}) => ({ id: `t-${title}`, channel: 'fl', channels: ['fl'], url: `https://x/${encodeURIComponent(title)}`, title, text, budget: null, answers: 3, age_hours: 2, deadline_days: null, collected_at: NOW, ...extra });
 const first = (title, text, extra) => evaluate(ord(title, text, extra), { profile: 'first' });
 
-// ---------- профиль «first» ----------
-test('Профиль «первый заказ»: видео, монтаж, озвучка, тексты, нейросети — «берём»; в обычном профиле — «нет» (старое поведение не тронуто)', () => {
+// ---------- "first" profile ----------
+test('"First order" profile: video, editing, voiceover, texts, neural networks — "take it"; in the default profile — "no" (old behaviour untouched)', () => {
   for (const t of ['Смонтировать ролик для YouTube', 'Озвучка рекламного ролика', 'Написать тексты для сайта юриста', 'Интеграция с нейросетью для ответов клиентам', 'Нужен видеомонтажёр на Reels']) {
     assert.equal(first(t).verdict, 'берём', t);
   }
   for (const t of ['Смонтировать ролик для YouTube', 'Озвучка рекламного ролика']) assert.equal(evaluate(ord(t)).verdict, 'нет', `default: ${t}`);
 });
 
-test('Профиль «первый заказ»: вакансии, отзывы, логотипы, игровые боты и обход капчи по-прежнему «нет»', () => {
+test('"First order" profile: vacancies, reviews, logos, game bots and captcha bypass are still "no"', () => {
   assert.equal(first('Монтажёр', 'Монтажёр в штат, оклад 80 000 ₽').rule, 'R1');
   assert.equal(first('Написать отзыв на карты').rule, 'R1');
   assert.equal(first('Дизайн логотипа и айдентики').rule, 'R2');
@@ -28,13 +28,13 @@ test('Профиль «первый заказ»: вакансии, отзывы
   assert.equal(first('Парсер с обходом капчи').rule, 'R2');
 });
 
-test('Профиль «первый заказ»: бюджет ниже 3 000 ₽ и откликов > 30 у несвежего — по-прежнему «нет» (решения Саши 13.11)', () => {
+test('"First order" profile: budget below 3 000 ₽ and more than 30 replies on a stale order — still "no" (Sasha\'s decisions 13.11)', () => {
   assert.equal(first('Смонтировать ролик', 'Смонтировать ролик', { budget: 1500 }).rule, 'R3');
   assert.equal(first('Сайт-визитка', 'Сайт-визитка', { answers: 40, age_hours: 30 }).rule, 'R4');
 });
 
-// ---------- вид заказа и отклик ----------
-test('Вид заказа: самый узкий признак первым — парсер, а не сайт; видео, а не бот', () => {
+// ---------- order kind and reply ----------
+test('Order kind: the narrowest signal first — parser, not site; video, not bot', () => {
   const cases = [
     ['Парсер цен конкурентов с сайта', 'parser'], ['Telegram-бот для записи клиентов', 'bot'], ['Лендинг на Tilda', 'landing'],
     ['Нужен сайт для кофейни', 'site'], ['Смонтировать ролик для бота-канала', 'video'], ['Интеграция с нейросетью', 'ai'],
@@ -43,7 +43,7 @@ test('Вид заказа: самый узкий признак первым —
   for (const [t, k] of cases) assert.equal(detectDigestKind(ord(t)), k, t);
 });
 
-test('Отклик: 4–6 строк, без слов про ИИ и модели, цена в пределах бюджета, скидка первым клиентам, кейс со ссылкой', () => {
+test('Reply: 4–6 lines, no words about AI or models, price within budget, first-client discount, case with a link', () => {
   for (const [t, b] of [['Telegram-бот для записи клиентов', 10000], ['Лендинг на Tilda', 8000], ['Парсер цен', null], ['Смонтировать ролик', 6000], ['Написать тексты для блога', null], ['Интеграция с нейросетью', 12000]]) {
     const r = buildReply(ord(t, t, { budget: b }));
     assert.ok(r.lines >= 4 && r.lines <= 6, `${t}: строк ${r.lines}`);
@@ -61,23 +61,23 @@ test('Отклик: 4–6 строк, без слов про ИИ и модел�
   assert.match(bot.text, /https:\/\/zhichkin44-del\.github\.io\/projects\//);
 });
 
-test('Отклик: скидка не опускает цену ниже 3 000 ₽; без бюджета — «ориентир»; ниже порога — ошибка', () => {
+test('Reply: the discount does not push the price below 3 000 ₽; no budget → «ориентир» (reference); below the threshold → error', () => {
   const low = buildReply(ord('Лендинг', 'Лендинг', { budget: 3500 }));
   assert.equal(low.price, 3500);
   assert.equal(low.discount, null);
   assert.match(buildReply(ord('Парсер цен')).text, /Ориентир по цене/);
-  assert.throws(() => buildReply(ord('Лендинг', 'Лендинг', { budget: 2000 })), /ниже порога/);
+  assert.throws(() => buildReply(ord('Лендинг', 'Лендинг', { budget: 2000 })), /below the threshold/);
 });
 
-test('Отклик: название заказчика со стоп-словом («с ИИ») в текст не цитируется (урок 35)', () => {
+test('Reply: a client title with a stop-word ("с ИИ") is not quoted in the text (lesson 35)', () => {
   const r = buildReply(ord('Бот на ИИ', 'Нужен бот', { budget: 5000 }));
   assert.deepEqual(findStopwords(r.text), []);
   assert.doesNotMatch(r.text, /«Бот на ИИ»/);
   assert.match(buildReply(ord('Бот записи', 'Нужен бот', { budget: 5000 })).text, /«Бот записи»/);
 });
 
-// ---------- топ-10 и документ ----------
-test('Топ: только «берём» со ссылкой, не больше 10, свежие с бюджетом и малым числом откликов выше', () => {
+// ---------- top 10 and document ----------
+test('Top: only "take it" with a link, at most 10; fresh ones with a budget and few replies rank higher', () => {
   const recs = [];
   for (let i = 0; i < 14; i++) recs.push({ ...ord(`Лендинг ${i}`), verdict: 'берём', reason: 'R1–R7 пройдены', flags: [], age_hours: 50 + i, answers: 25 });
   recs.push({ ...ord('Нет ссылки'), url: null, verdict: 'берём', flags: [] });
@@ -90,7 +90,7 @@ test('Топ: только «берём» со ссылкой, не больше
   assert.ok(score(top[0]) > score(recs[0]));
 });
 
-test('Дайджест: ссылка, бюджет, срок, «почему берём», отклик цитатой, «Ничего не отправлено», блок «Руками» со ссылками', () => {
+test('Digest: link, budget, term, "why take it", reply as a quote, "Nothing sent", a "Manual" block with links', () => {
   const recs = [{ ...ord('Telegram-бот для записи', 'Бот', { budget: 9000, deadline_days: 5, answers: 4 }), verdict: 'берём', reason: 'R1–R7 пройдены', flags: [] }];
   const md = renderDigest(recs, { date: '2026-11-14', manual: [{ id: 'youdo', name: 'YouDo', link: 'https://youdo.com/tasks-all-any-1', note: '403' }], report: { channels: { fh: { status: 'silent', reason: 'канал молчит: защита (HTTP 403)' } }, silent: ['fh'] } });
   assert.match(md, /^# Секретарь заказов — 2026-11-14/);
@@ -104,13 +104,13 @@ test('Дайджест: ссылка, бюджет, срок, «почему б�
   assert.equal(renderDigest([], { date: '2026-11-14' }).includes('Подходящих заказов в этом прогоне нет.'), true);
 });
 
-// ---------- интервал, robots ----------
+// ---------- interval, robots ----------
 const ok = async () => [ord('Лендинг для кофейни')];
-test('Интервал: канал, прочитанный меньше 2 ч назад, пропускается («не читали»), force — читает; last_attempt обновляется', async () => {
+test('Interval: a channel read less than 2 h ago is skipped ("не читали"), force reads it; last_attempt is updated', async () => {
   const state = { fl: { last_ok: null, last_attempt: '2026-11-14T02:30:00.000Z', blocked_streak: 0, blocked_until: null } };
   let calls = 0;
   const ch = [{ id: 'fl', load: async () => { calls++; return ok(); } }];
-  const now = '2026-11-14T03:45:00.000Z'; // 75 мин
+  const now = '2026-11-14T03:45:00.000Z'; // 75 min
   const a = await runChannels(ch, { now, state, minIntervalMin: 120 });
   assert.equal(calls, 0);
   assert.equal(a.report.channels.fl.status, 'skipped');
@@ -119,12 +119,12 @@ test('Интервал: канал, прочитанный меньше 2 ч н�
   const b = await runChannels(ch, { now, state, minIntervalMin: 120, force: true });
   assert.equal(calls, 1);
   assert.equal(b.state.fl.last_attempt, now);
-  const c = await runChannels(ch, { now: '2026-11-14T04:31:00.000Z', state, minIntervalMin: 120 }); // 2 ч 1 мин
+  const c = await runChannels(ch, { now: '2026-11-14T04:31:00.000Z', state, minIntervalMin: 120 }); // 2 h 1 min
   assert.equal(calls, 2);
   assert.equal(c.report.channels.fl.status, 'ok');
 });
 
-test('fetchPage: respectRobots:false — robots.txt не запрашивается, защита (403) по-прежнему BlockedError', async () => {
+test('fetchPage: respectRobots:false — robots.txt is not requested; protection (403) is still BlockedError', async () => {
   const urls = [];
   const fetchImpl = async (u) => { urls.push(u); return { status: 200, ok: true, text: async () => '<html>ok</html>' }; };
   await fetchPage('https://example.test/list', { fetchImpl, pauseMs: 0, sleepImpl: async () => {}, respectRobots: false });
@@ -133,7 +133,7 @@ test('fetchPage: respectRobots:false — robots.txt не запрашивает�
   await assert.rejects(() => fetchPage('https://example.test/x', { fetchImpl: blocked, pauseMs: 0, sleepImpl: async () => {}, respectRobots: false }), /blocked/);
 });
 
-test('Слова (живой прогон 14.11 вечер): подработка под видом заказа — R1, а настоящие заказы в профиле «первый заказ» остаются', () => {
+test('Words (live run 14.11 evening): a side job disguised as an order — R1; real orders in the "first order" profile stay', () => {
   for (const t of ['Копирайтер: писать тексты для карточек - удалённо без опыта', '💻 Помощник по рассылке СМС удаленно', '✨НОВОЕ НАПРАВЛЕНИЕ 2027✨', '⚡️Ищем помощника для заполнения анкет⚡️', 'Чат-менеджер (удаленно)']) {
     assert.equal(first(t).rule, 'R1', t);
   }
@@ -142,14 +142,14 @@ test('Слова (живой прогон 14.11 вечер): подработк�
   }
 });
 
-test('Крупное (платформа, архитектура, высоконагруженный шлюз) в топ не попадает: не за 1–5 дней', () => {
+test('Large work (platform, architecture, high-load gateway) does not reach the top: not doable in 1–5 days', () => {
   const heavy = { ...ord('Агрегатор', 'Разработка архитектуры и бэкенда масштабируемой платформы'), verdict: 'берём', flags: [], budget: 120000 };
   const light = { ...ord('Лендинг', 'Лендинг на Tilda'), verdict: 'берём', flags: [] };
   assert.deepEqual(pickTop([heavy, light]).map((r) => r.title), ['Лендинг']);
   assert.match(renderDigest([heavy, light], { date: '2026-11-14' }), /ещё 1 «берём» — крупные/);
 });
 
-test('Вид заказа (замечания «заказчика» 14.11): слово «видео» в описании сайта не делает правку сайта монтажом; бот с «видео» в тексте — бот', () => {
+test('Order kind (client remarks 14.11): the word "видео" in a site description does not make a site fix into editing; a bot with "видео" in the text is a bot', () => {
   assert.equal(detectDigestKind(ord('Доработка сайта avtovec.ru', 'Дизайн и верстка блока, в блоке будет видео')), 'fix');
   assert.equal(detectDigestKind(ord('Нужно создать телеграмм бота с ИИ', 'Бот присылает видео и отвечает на вопросы')), 'bot');
   assert.equal(detectDigestKind(ord('Бот на ИИ.', 'Требует программа поиска на ИИ по фото')), 'bot');
@@ -159,7 +159,7 @@ test('Вид заказа (замечания «заказчика» 14.11): с�
   assert.equal(detectDigestKind(ord('Копирайтер для написания текстов на сайт', 'тексты для сайта студии')), 'text');
 });
 
-test('Отклик: заказ в гривнах — цена в гривнах; заказ в MAX — вопрос «MAX или Telegram»; название без точки в конце; несколько роликов — «партиями»', () => {
+test('Reply: order in hryvnias — price in hryvnias; order in MAX — the question "MAX или Telegram"; a title without a final period; several videos — "in batches"', () => {
   const uah = buildReply(ord('Перевод и озвучка видео', 'озвучить видео', { budget: 3200, budget_raw: '1600 UAH' }));
   assert.match(uah.text, /Цена — 1[ \d]*0 UAH/);
   assert.doesNotMatch(uah.text, /₽/);
@@ -170,24 +170,24 @@ test('Отклик: заказ в гривнах — цена в гривнах;
   assert.match(buildReply(ord('Монтаж 20 рилс', 'Смонтировать 20 рилс', { budget: 20000 })).text, /остальные — партиями/);
 });
 
-test('Слежка и распознавание лиц («Бот на ИИ»: поиск людей по фото через соцсеть) — R2 в любом профиле', () => {
+test('Surveillance and face recognition ("Бот на ИИ": finding people by photo via a social network) — R2 in any profile', () => {
   const t = 'Требует программа поиска на ИИ по фото через соц сеть с критериями поиска.';
   assert.equal(first('Бот на ИИ.', t).rule, 'R2');
   assert.equal(evaluate(ord('Бот на ИИ.', t)).rule, 'R2');
   assert.equal(first('Парсер сайта', 'Нужен парсер цен').verdict, 'берём');
 });
 
-test('Не берём: 18+, слова чужой песни, размещение объявлений и запуск рекламы (директор 14.11, живой прогон)', () => {
+test('Not taken: 18+, lyrics of someone else\'s song, posting ads and launching ads (director 14.11, live run)', () => {
   assert.equal(first('Копирайтер на сайт', 'тексты для сайта студии телесных практик и массажа 18+').rule, 'R2');
   assert.equal(first('Изменить текст песни через ИИ', 'слова песни заменить на мой текст').rule, 'R2');
   assert.equal(first('разместить готовое объявление о найме водителя и запустить рекламу', 'баннер и текст в группах Telegram').rule, 'R2');
 });
 
-test('Не берём: вакансия-модератор («выплата раз в неделю, опыт не обязателен») и проектирование вентиляции в Revit', () => {
+test('Not taken: moderator vacancy ("payment once a week, no experience needed") and ventilation design in Revit', () => {
   assert.equal(first('#Удаленка', 'Требуется #модератор на удалёнку. Выплата: 8630 руб раз в неделю, опыт не обязателен, бот от группы').rule, 'R1');
   assert.equal(first('Рабочка по вентиляции и автоматизации вентиляции цеха', 'Разработку вести строго в Revit').rule, 'R2');
 });
 
-test('Не берём: обход Cloudflare/защит (CLAUDE.md: защиту не обходим)', () => {
+test('Not taken: bypassing Cloudflare/protection (CLAUDE.md: we do not bypass protection)', () => {
   assert.equal(first('Автоматизация или создание бота', 'бот с рабочим методом обхода Cloudflare').rule, 'R2');
 });

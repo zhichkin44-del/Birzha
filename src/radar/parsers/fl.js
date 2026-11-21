@@ -1,8 +1,8 @@
-// Страница ленты FL.ru → заказы в общем виде (DATA §2).
-// Вёрстка сверена с настоящей страницей https://www.fl.ru/projects/ 14.11.2026 (29 карточек):
-// карточка = блок с id="project-item<N>", заголовок — ссылка id="prj_name_<N>", цена — .b-post__price,
-// текст — .b-post__txt.text-5, вид и время — «Заказ|Вакансия|Конкурс» + «5 часов 9 минут назад» или «1 октября, 15:12».
-// Нашёл 0 карточек — раннер скажет «молчит: вёрстка».
+// FL.ru feed page → orders in the common shape (DATA §2).
+// Layout checked against the real page https://www.fl.ru/projects/ on 14.11.2026 (29 cards):
+// card = block with id="project-item<N>", title — link id="prj_name_<N>", price — .b-post__price,
+// text — .b-post__txt.text-5, kind and time — "Заказ|Вакансия|Конкурс" (Order|Vacancy|Contest) + "5 часов 9 минут назад" (5 hours 9 minutes ago) or "1 октября, 15:12" (1 October, 15:12).
+// Found 0 cards — the runner will report "silent: layout".
 import { LayoutChangedError } from '../fetch.js';
 
 const BASE = 'https://www.fl.ru';
@@ -17,7 +17,7 @@ export const decode = (s) =>
     .replace(/&([a-z]+);/gi, (m, n) => ENTITIES[n.toLowerCase()] ?? m);
 const strip = (s) => decode(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 
-/** «2 часа назад» / «5 часов 9 минут назад» / «30 минут назад» / «1 день назад» → часы или null. */
+/** "2 часа назад" / "5 часов 9 минут назад" / "30 минут назад" / "1 день назад" (ago) → hours or null. */
 export function ageHours(chunk) {
   let h = 0;
   let seen = false;
@@ -30,7 +30,7 @@ export function ageHours(chunk) {
   return seen ? Math.round(h * 100) / 100 : null;
 }
 
-/** «1 октября, 15:12» (время Москвы) → ISO или null; год — текущий, если дата не в будущем, иначе прошлый. */
+/** "1 октября, 15:12" (Moscow time) → ISO or null; the year is the current one if the date is not in the future, otherwise the previous one. */
 export function dateMsk(chunk, nowIso) {
   const m = chunk.match(/(\d{1,2})\s+([а-яё]+),?\s+(\d{1,2}):(\d{2})/i);
   if (!m) return null;
@@ -44,17 +44,17 @@ export function dateMsk(chunk, nowIso) {
   return new Date(at(year)).toISOString();
 }
 
-/** «1 500 ₽», «5 000 ₽ – 10 000 ₽» → верхняя граница; «по договоренности» → null. */
+/** "1 500 ₽", "5 000 ₽ – 10 000 ₽" → upper bound; "по договоренности" (negotiable) → null. */
 export function budgetOf(text) {
   const sums = [...text.matchAll(/(\d[\d\s]*\d|\d)\s*(?:₽|руб)/g)].map((m) => Number(m[1].replace(/\s/g, '')));
   return sums.length ? Math.max(...sums) : null;
 }
 
-// Признаки честно пустого списка (фраз настоящей пустой ленты FL.ru не видели).
+// Markers of a genuinely empty list (the phrases of a real empty FL.ru feed were never seen).
 const EMPTY = /ничего не найдено|проектов не найдено|нет проектов|заказов не найдено/i;
 export const looksEmptyFl = (html) => EMPTY.test(html);
 
-/** parseFl + проверка: 200, заказов 0 и нет признака пустого списка → LayoutChangedError. */
+/** parseFl + check: 200, 0 orders and no empty-list marker → LayoutChangedError. */
 export function parseFlChecked(html, nowIso) {
   const orders = parseFl(html, nowIso);
   if (!orders.length && !looksEmptyFl(html)) throw new LayoutChangedError();
@@ -80,7 +80,7 @@ export function parseFl(html, nowIso) {
     const kindM = block.match(/b-post__bold[^>]*>([\s\S]*?)<\/span>\s*(?:<span[^>]*>([^<]*)<)?/);
     const kind = kindM ? strip(kindM[1]) : 'Заказ';
     const when = kindM?.[2] ? strip(kindM[2]) : '';
-    // отклики — только из счётчика карточки (не из описания); «Нет ответов» → 0
+    // replies — only from the card counter (not from the description); "Нет ответов" (no replies) → 0
     const foot = block.indexOf('b-post__foot');
     const counter = foot < 0 ? '' : strip(block.slice(foot));
     const answersM = /нет ответов/i.test(counter) ? ['0', '0'] : counter.match(/(\d+)\s*(?:ответ|отклик)/i);

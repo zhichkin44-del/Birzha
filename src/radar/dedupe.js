@@ -1,7 +1,7 @@
-// Дубли (PLAN §4): строгое совпадение — одна запись с несколькими каналами; нестрогое — не склеиваем, флаг.
+// Duplicates (PLAN §4): an exact match becomes one record with several channels; a loose match is not merged, it is flagged.
 const norm = (s) => String(s ?? '').toLowerCase().replace(/[^а-яёa-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
 
-/** Ключ строгого дубля: заголовок + первые 200 символов текста + бюджет. */
+/** Exact-duplicate key: title + first 200 characters of the text + budget. */
 export function dedupeKey(o) {
   return [norm(o.title), norm(o.text).slice(0, 200), JSON.stringify(o.budget ?? null)].join('|');
 }
@@ -16,7 +16,7 @@ function similar(a, b) {
   return common / Math.min(wa.size, wb.size) >= 0.8;
 }
 
-/** Склеивает заказы → записи {…заказ, channels:[…], possible_duplicate?}. Первое непустое значение побеждает. */
+/** Merges orders → records {…order, channels:[…], possible_duplicate?}. The first non-empty value wins. */
 export function mergeOrders(orders) {
   const byKey = new Map();
   const records = [];

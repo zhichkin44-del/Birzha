@@ -1,4 +1,4 @@
-// Стадия 4в: robots.txt в коде, «вёрстка изменилась» вместо «молчит», --file без пути, FL в режиме «руками».
+// Stage 4b: robots.txt in code, "layout changed" instead of "silent", --file without a path, FL in "manual" mode.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -22,7 +22,7 @@ function fakeFetch(map, log = []) {
   };
 }
 
-test('robots: путь закрыт Disallow → RobotsClosedError, страница не запрошена', async () => {
+test('robots: path closed by Disallow → RobotsClosedError, page not requested', async () => {
   const log = [];
   const fetchImpl = fakeFetch({ 'https://site.test/robots.txt': { body: fix('robots.closed.txt') } }, log);
   await assert.rejects(
@@ -32,7 +32,7 @@ test('robots: путь закрыт Disallow → RobotsClosedError, страни
   assert.deepEqual(log, ['https://site.test/robots.txt']);
 });
 
-test('robots: путь не закрыт → страница запрошена', async () => {
+test('robots: path not closed → page requested', async () => {
   const log = [];
   const fetchImpl = fakeFetch(
     { 'https://site.test/robots.txt': { body: fix('robots.open.txt') }, 'https://site.test/projects/': { body: '<html>ok</html>' } },
@@ -43,7 +43,7 @@ test('robots: путь не закрыт → страница запрошена
   assert.deepEqual(log, ['https://site.test/robots.txt', 'https://site.test/projects/']);
 });
 
-test('robots: читается один раз за запуск (кэш), второй путь без повторного запроса', async () => {
+test('robots: read once per run (cache); the second path without another request', async () => {
   const log = [];
   const fetchImpl = fakeFetch(
     {
@@ -59,13 +59,13 @@ test('robots: читается один раз за запуск (кэш), вт�
   assert.equal(log.filter((u) => u.endsWith('/robots.txt')).length, 1);
 });
 
-test('robots: закрытый путь не открывает другой — /api/ закрыт, /projects/ нет', async () => {
+test('robots: a closed path does not open another — /api/ is closed, /projects/ is not', async () => {
   const rules = fix('robots.open.txt');
   assert.equal(isPathAllowed(rules, '/api/x'), false);
   assert.equal(isPathAllowed(rules, '/projects/'), true);
 });
 
-test('robots: правило со * и $, более длинное Allow побеждает', () => {
+test('robots: a rule with * and $; the longer Allow wins', () => {
   const t = 'User-agent: *\nDisallow: /*/rss/\nDisallow: /a/\nAllow: /a/open/\nDisallow: /*.pdf$\n';
   assert.equal(isPathAllowed(t, '/x/rss/1'), false);
   assert.equal(isPathAllowed(t, '/a/open/1'), true);
@@ -74,13 +74,13 @@ test('robots: правило со * и $, более длинное Allow поб
   assert.equal(isPathAllowed(t, '/f.pdf.html'), true);
 });
 
-test('robots: группа с нашим именем BirzhaRadar важнее группы *', () => {
+test('robots: the group with our name BirzhaRadar takes precedence over the * group', () => {
   const t = 'User-agent: *\nDisallow: /\n\nUser-agent: BirzhaRadar\nDisallow: /private/\n';
   assert.equal(isPathAllowed(t, '/projects/'), true);
   assert.equal(isPathAllowed(t, '/private/1'), false);
 });
 
-test('robots: нет файла (404) → можно; ответ 403 → BlockedError без запроса страницы; 500 → закрыто', async () => {
+test('robots: no file (404) → allowed; 403 response → BlockedError without requesting the page; 500 → closed', async () => {
   const log = [];
   const ok = fakeFetch({ 'https://a.test/p': { body: 'x' } }, log);
   assert.equal(await fetchPage('https://a.test/p', { fetchImpl: ok, sleepImpl: noSleep, robotsCache: new Map() }), 'x');
@@ -94,7 +94,7 @@ test('robots: нет файла (404) → можно; ответ 403 → Blocked
   await assert.rejects(fetchPage('https://c.test/p', { fetchImpl: f500, sleepImpl: noSleep, robotsCache: new Map() }), RobotsClosedError);
 });
 
-test('раннер: robots закрыл путь → канал «руками», без счётчика блокировок', async () => {
+test('runner: robots closed the path → channel "manual", no block counter', async () => {
   const out = await runChannels(
     [{ id: 'fl', load: async () => { throw new RobotsClosedError('https://www.fl.ru/projects/'); } }],
     { now: NOW },
@@ -106,21 +106,21 @@ test('раннер: robots закрыл путь → канал «руками»
   assert.equal(out.state.fl.blocked_streak, 0);
 });
 
-test('FL: страница 200 с заказами 0 и без признаков пустого списка → «вёрстка изменилась», не «молчит»', () => {
+test('FL: page 200 with 0 orders and no empty-list markers → "layout changed", not "silent"', () => {
   assert.throws(() => parseFlChecked('<html><body>Совсем другая вёрстка</body></html>', NOW), { name: 'LayoutChangedError' });
 });
 
-test('FL: страница с признаком пустого списка → [] без тревоги', () => {
+test('FL: page with an empty-list marker → [] without alarm', () => {
   const empty = fix('fl.empty.html');
   assert.equal(looksEmptyFl(empty), true);
   assert.deepEqual(parseFlChecked(empty, NOW), []);
 });
 
-test('FL: обычная страница с заказами проходит проверку', () => {
+test('FL: a regular page with orders passes the check', () => {
   assert.equal(parseFlChecked(fix('fl.synthetic.html'), NOW).length, 3);
 });
 
-test('раннер: вёрстка изменилась → отдельный флаг и слова «проверь руками»', async () => {
+test('runner: layout changed → a separate flag and the words "проверь руками" (check by hand)', async () => {
   const out = await runChannels(
     [{ id: 'fl', load: async () => parseFlChecked('<html>иначе</html>', NOW) }],
     { now: NOW },
@@ -131,31 +131,31 @@ test('раннер: вёрстка изменилась → отдельный �
   assert.equal(out.state.fl.blocked_streak, 0);
 });
 
-test('отчёт: «вёрстка изменилась» видна в строке состояния и не прячется среди «молчат»', async () => {
+test('report: "layout changed" is visible in the status line and is not hidden among "silent" channels', async () => {
   const out = await runChannels([{ id: 'fl', load: async () => parseFlChecked('<html>иначе</html>', NOW) }], { now: NOW });
   const line = statusLine(out.report);
   assert.match(line, /вёрстка изменилась, проверь руками: fl/);
   assert.doesNotMatch(line, /молчат/);
 });
 
-test('cli: --file без пути → понятная ошибка, код 2', () => {
+test('cli: --file without a path → a clear error, exit code 2', () => {
   const r = spawnSync(process.execPath, ['src/radar/cli.js', '--file'], { encoding: 'utf8' });
   assert.equal(r.status, 2);
-  assert.match(r.stderr + r.stdout, /--file.*путь/);
+  assert.match(r.stderr + r.stdout, /--file.*path/);
 });
 
-test('авто — канал с прочитанными правилами (пункты) либо с явным решением владельца (дата + слово), остальные «руками»', () => {
+test('auto — a channel with read rules (clauses) or with an explicit owner decision (date + quote); the rest are "manual"', () => {
   for (const [id, c] of Object.entries(CHANNELS)) {
     if (c.mode === 'auto') {
       const rulesRead = /п\. \d/.test(c.rules ?? '');
       const ownerSaid = /\d{2}\.\d{2}\.\d{4}.*«.+»/.test(c.owner_decision ?? '');
       // Telegram public feeds (t.me/s) stay auto without a rules citation: they are the only auto channels left without one
-      assert.ok(rulesRead || ownerSaid || c.tg, `${id}: авто без прочитанных правил и без решения владельца`);
+      assert.ok(rulesRead || ownerSaid || c.tg, `${id}: auto without read rules and without an owner decision`);
       assert.ok(c.rules, `${id}: нет поля rules`);
       assert.ok(c.pause_sec >= 10, `${id}: пауза меньше 10 с`);
     }
   }
   for (const id of ['tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
-  for (const id of ['fl', 'frru', 'kwork', 'pchel', 'flcom', 'pph']) assert.ok(!autoChannels().includes(id), `${id} — руками по правилам площадки`);
-  for (const id of ['fh', 'weblancer', 'youdo', 'upwork', 'profi']) assert.ok(!autoChannels().includes(id), `${id} — «руками»`);
+  for (const id of ['fl', 'frru', 'kwork', 'pchel', 'flcom', 'pph']) assert.ok(!autoChannels().includes(id), `${id} — manual per the platform rules`);
+  for (const id of ['fh', 'weblancer', 'youdo', 'upwork', 'profi']) assert.ok(!autoChannels().includes(id), `${id} — manual`);
 });

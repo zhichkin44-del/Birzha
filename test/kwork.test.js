@@ -8,23 +8,23 @@ import { CHANNELS } from '../src/radar/channels.js';
 
 const fix = (n) => readFileSync(new URL(`./fixtures/${n}`, import.meta.url), 'utf8');
 const html = fix('kwork.synthetic.html');
-const NOW = '2026-11-14T20:00:00+07:00'; // = 13:00 UTC = 16:00 МСК
+const NOW = '2026-11-14T20:00:00+07:00'; // = 13:00 UTC = 16:00 Moscow
 
-test('Kwork: страница → три заказа (дубль id отброшен)', () => {
+test('Kwork: page → three orders (duplicate id dropped)', () => {
   const orders = parseKwork(html, NOW);
   assert.equal(orders.length, 3);
   assert.deepEqual(orders.map((o) => o.id), ['kwork-9000001', 'kwork-9000002', 'kwork-9000003']);
   assert.ok(orders.every((o) => o.channel === 'kwork' && o.collected_at === NOW));
 });
 
-test('Kwork: бюджет — желаемая цена заказчика (не верхняя граница); допустимая — только если желаемой нет; 0 → null', () => {
+test('Kwork: budget is the client\'s desired price (not the upper bound); the acceptable one only if there is no desired one; 0 → null', () => {
   const [a, b, c] = parseKwork(html, NOW);
-  assert.equal(a.budget, 15000); // priceLimit 15000, possiblePriceLimit 45000 → берём желаемую
+  assert.equal(a.budget, 15000); // priceLimit 15000, possiblePriceLimit 45000 → the desired one is taken
   assert.equal(b.budget, 3000);
   assert.equal(c.budget, null);
 });
 
-test('Kwork: отклики из kwork_count (число и строка), ссылка на заказ', () => {
+test('Kwork: replies from kwork_count (number and string), link to the order', () => {
   const [a, b, c] = parseKwork(html, NOW);
   assert.equal(a.answers, 7);
   assert.equal(b.answers, 0);
@@ -32,14 +32,14 @@ test('Kwork: отклики из kwork_count (число и строка), сс�
   assert.equal(a.url, 'https://kwork.ru/projects/9000001');
 });
 
-test('Kwork: сущности декодируются, переводы строк схлопываются', () => {
+test('Kwork: entities are decoded, line breaks collapse', () => {
   const [a, b] = parseKwork(html, NOW);
   assert.match(a.text, /услуги & времени, напоминание/);
   assert.match(a.text, /"Лотос"/);
   assert.equal(b.title, 'Правки вёрстки «Каталог»');
 });
 
-test('Kwork: время публикации по Москве → ISO и возраст в часах', () => {
+test('Kwork: publication time in Moscow → ISO and age in hours', () => {
   const [a, , c] = parseKwork(html, NOW);
   assert.equal(a.posted_at, '2026-11-14T09:30:00.000Z');
   assert.equal(a.age_hours, 3.5);
@@ -47,18 +47,18 @@ test('Kwork: время публикации по Москве → ISO и воз
   assert.equal(c.age_hours, 28);
 });
 
-test('Kwork: JSON достаётся скобочным разбором, а не регуляркой (строки со скобками)', () => {
+test('Kwork: JSON is extracted by bracket parsing, not a regex (strings with brackets)', () => {
   const h = 'x"wants":[{"id":1,"name":"a ] b [ \\" c","description":"","kwork_count":2,"priceLimit":"100.00"}],"z":1';
   const w = extractWants(h);
   assert.equal(w.length, 1);
   assert.equal(w[0].name, 'a ] b [ " c');
 });
 
-test('Kwork: пустой список "wants":[] → [] без тревоги', () => {
+test('Kwork: empty list "wants":[] → [] without alarm', () => {
   assert.deepEqual(parseKworkChecked(fix('kwork.empty.html'), NOW), []);
 });
 
-test('Kwork: страница без данных (вёрстка/защита) → «вёрстка изменилась», раннер молчит с причиной', async () => {
+test('Kwork: page without data (layout/protection) → "layout changed", the runner is silent with a reason', async () => {
   assert.throws(() => parseKworkChecked('<html><body>Другая страница</body></html>', NOW), { name: 'LayoutChangedError' });
   const out = await runChannels([{ id: 'kwork', load: async () => parseKworkChecked('<html>иначе</html>', NOW) }], { now: NOW });
   const rep = out.report.channels.kwork;
@@ -66,13 +66,13 @@ test('Kwork: страница без данных (вёрстка/защита) 
   assert.match(rep.reason, /проверь руками/);
 });
 
-test('Kwork: пустой список в раннере → «канал молчит» с причиной', async () => {
+test('Kwork: empty list in the runner → "канал молчит" (channel silent) with a reason', async () => {
   const out = await runChannels([{ id: 'kwork', load: async () => parseKworkChecked(fix('kwork.empty.html'), NOW) }], { now: NOW });
   assert.equal(out.report.channels.kwork.flag, 'канал_молчит');
   assert.match(out.report.channels.kwork.reason, /заказов 0/);
 });
 
-test('Kwork: капча при 200 → BlockedError, раннер «молчит» с причиной «защита»', async () => {
+test('Kwork: captcha at 200 → BlockedError; the runner is silent with the reason "защита" (protection)', async () => {
   const fetchImpl = async (url) =>
     url.endsWith('/robots.txt')
       ? { status: 200, ok: true, text: async () => 'User-agent: *\nDisallow: /search\n' }
@@ -83,7 +83,7 @@ test('Kwork: капча при 200 → BlockedError, раннер «молчит
   assert.match(out.report.channels.kwork.reason, /защита/);
 });
 
-test('Kwork: канал руками по правилам площадки; лента — одна страница без page, пауза ≥ 10 с', () => {
+test('Kwork: the channel is manual per the platform rules; feed — one page without page, pause ≥ 10 s', () => {
   const c = CHANNELS.kwork;
   assert.equal(c.mode, 'manual');
   assert.match(c.blocked_note, /Manual only/);
@@ -91,7 +91,7 @@ test('Kwork: канал руками по правилам площадки; л�
   assert.ok(c.pause_sec >= 10);
 });
 
-test('Kwork: желаемой цены нет (0), есть допустимая → бюджет = допустимая', () => {
+test('Kwork: no desired price (0), an acceptable one exists → budget = acceptable', () => {
   const h = 'x"wants":[{"id":7,"name":"Лендинг","description":"","kwork_count":1,"priceLimit":"0.00","possiblePriceLimit":9000}],"z":1';
   assert.equal(parseKwork(h, NOW)[0].budget, 9000);
 });

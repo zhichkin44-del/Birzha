@@ -1,10 +1,10 @@
-// Страница списка Freelance.ru (/task, куда ведёт /projects/) → заказы в общем виде (DATA §2), формат как у parsers/fl.js.
-// Вёрстка сверена с настоящей страницей https://freelance.ru/task 14.11.2026 (25 карточек за ~2,5 суток).
-// Карточка = <article class="task-card">: заголовок — a.task-card__title-link[href="/task/view/<id>"], описание — p.task-card__desc
-// (обрезано «...»), раздел — .task-chip--cat («Веб-разработка и IT», «Тексты и Переводы», …), внизу значки: время «14.11.2026 10:42»
-// (title, по Москве) + «час назад», регион, число под значком «комментарии», просмотры; справа «Гонорар: 95 000 ₽ / заказ» и «Срок: 31 день».
-// Значок «комментарии» трактуем как отклики — НЕ проверено. Много мусора («заполнение карточек», отзывы, «доход на 2–3 день»):
-// фильтрует R1/R2. Нашёл 0 карточек и нет признака пустого списка → LayoutChangedError.
+// Freelance.ru listing page (/task, where /projects/ leads) → orders in the common shape (DATA §2), same format as parsers/fl.js.
+// Layout checked against the real page https://freelance.ru/task on 14.11.2026 (25 cards over ~2.5 days).
+// Card = <article class="task-card">: title — a.task-card__title-link[href="/task/view/<id>"], description — p.task-card__desc
+// (cut with "..."), section — .task-chip--cat ("Веб-разработка и IT", "Тексты и Переводы", …), badges at the bottom: time "14.11.2026 10:42"
+// (title, Moscow time) + "час назад" (hour ago), region, the number under the "comments" badge, views; on the right "Гонорар: 95 000 ₽ / заказ" (fee per order) and "Срок: 31 день" (term: 31 days).
+// The "comments" badge is treated as replies — NOT verified. Lots of junk ("filling in cards", reviews, "income in 2–3 days"):
+// filtered by R1/R2. Found 0 cards and no empty-list marker → LayoutChangedError.
 import { LayoutChangedError } from '../fetch.js';
 import { textOf, scrubPersonal, moneyOf, ageFrom, EMPTY_RE } from './common.js';
 
