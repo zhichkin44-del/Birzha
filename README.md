@@ -2,7 +2,7 @@
 
 A freelance order radar and showcase toolkit for Russian-speaking freelancers: it collects job listings from freelance sites and Telegram channels, scores them against a fixed set of rules, drafts reply packages for the best matches, and builds a static portfolio page.
 
-**Interface language: Russian.** The product targets the Russian freelance market, so the user-facing site, reply texts and digests are in Russian (English templates are included for English-language platforms). Code comments and documentation are being translated to English.
+**Interface language: Russian.** The product targets the Russian freelance market, so the user-facing site, reply texts and digests are in Russian (English templates are included for English-language platforms).
 
 ## Features
 
@@ -12,6 +12,14 @@ A freelance order radar and showcase toolkit for Russian-speaking freelancers: i
 - **Daily digest** (`src/digest`): top orders of the day with a ready reply for each (`--digest`).
 - **Reply packages** (`src/replies`): price, timeline, relevant works and questions for an order, in Russian and English. A validator flags discount wording and other unwanted phrases.
 - **Showcase page** (`src/vitrina`): builds `site/index.html` from `src/vitrina/works.json`.
+
+## Screenshots
+
+Demo sites built with the showcase toolkit (first screen; full-page shots at 1440 and 390 px are in `demos/*/shots`). All names, addresses and phone numbers are fictional.
+
+| Coffee bar landing | Booking bot for a barbershop | Nail master business card |
+|---|---|---|
+| ![Coffee bar landing](docs/screenshots/kofeynya.jpg) | ![Booking bot](docs/screenshots/bot-zapisi.jpg) | ![Business card site](docs/screenshots/master-vizitka.jpg) |
 
 ## Requirements
 
