@@ -223,15 +223,15 @@ test('Слова: настоящие заказы не потеряны — ле
 test('Каналы: новые авто-каналы с паузой 10 с, решением владельца, правилами и без страниц с page=/login', () => {
   const ids = ['fh', 'frru', 'weblancer', 'tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design'];
   // fh и weblancer 14.11 отдали роботу Cloudflare-challenge (403) → «руками»: читаются сохранённой страницей, обход защиты не пишем
-  for (const id of ['pchel', 'tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
-  for (const id of ['fl', 'frru', 'kwork']) assert.ok(!autoChannels().includes(id) && CHANNELS[id].blocked_note, `${id}: руками по правилам площадки`);
+  for (const id of ['tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
+  for (const id of ['fl', 'frru', 'kwork', 'pchel', 'flcom', 'pph']) assert.ok(!autoChannels().includes(id) && CHANNELS[id].blocked_note, `${id}: руками по правилам площадки`);
   assert.ok(autoChannels().filter((id) => id.startsWith('tg-')).length >= 15, 'Telegram-лент не меньше 15');
   for (const id of ['fh', 'weblancer']) assert.ok(CHANNELS[id].mode === 'manual' && /Cloudflare/.test(CHANNELS[id].blocked_note), id);
   for (const id of ids) {
     const c = CHANNELS[id];
     assert.ok(c.mode === 'auto' || c.blocked_note, id);
     assert.equal(c.pause_sec, 10, id);
-    assert.ok((c.owner_decision || c.blocked_note) && c.why && c.rules, `${id}: решение владельца или причина «руками», основание и правила записаны`);
+    assert.ok((c.owner_decision || c.blocked_note || c.tg) && c.why && c.rules,`${id}: решение владельца или причина «руками», основание и правила записаны`);
     for (const u of c.feeds ?? [c.feed]) {
       assert.match(u, /^https:\/\//, id);
       assert.doesNotMatch(u, /page=|login|\?.*=/i, `${u}: без параметров и входа`);

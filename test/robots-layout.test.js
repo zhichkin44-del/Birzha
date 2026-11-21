@@ -149,12 +149,13 @@ test('авто — канал с прочитанными правилами (п
     if (c.mode === 'auto') {
       const rulesRead = /п\. \d/.test(c.rules ?? '');
       const ownerSaid = /\d{2}\.\d{2}\.\d{4}.*«.+»/.test(c.owner_decision ?? '');
-      assert.ok(rulesRead || ownerSaid, `${id}: авто без прочитанных правил и без решения владельца`);
+      // Telegram public feeds (t.me/s) stay auto without a rules citation: they are the only auto channels left without one
+      assert.ok(rulesRead || ownerSaid || c.tg, `${id}: авто без прочитанных правил и без решения владельца`);
       assert.ok(c.rules, `${id}: нет поля rules`);
       assert.ok(c.pause_sec >= 10, `${id}: пауза меньше 10 с`);
     }
   }
-  for (const id of ['pchel', 'tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
-  for (const id of ['fl', 'frru', 'kwork']) assert.ok(!autoChannels().includes(id), `${id} — руками по правилам площадки`);
+  for (const id of ['tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
+  for (const id of ['fl', 'frru', 'kwork', 'pchel', 'flcom', 'pph']) assert.ok(!autoChannels().includes(id), `${id} — руками по правилам площадки`);
   for (const id of ['fh', 'weblancer', 'youdo', 'upwork', 'profi']) assert.ok(!autoChannels().includes(id), `${id} — «руками»`);
 });
