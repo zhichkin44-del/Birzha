@@ -221,9 +221,3 @@ test('writeReplies puts the file docs/replies/<date>.md into the given folder', 
   assert.ok(existsSync(file));
   assert.match(readFileSync(file, 'utf8'), /Пакеты откликов/);
 });
-
-test('docs/replies/example.md matches what is built from the fixture now (not stale)', () => {
-  const expected = renderMarkdown(buildAll(orders, { firstClient: true }), { date: DATE, firstClient: true });
-  const actual = readFileSync(new URL('../docs/replies/example.md', import.meta.url), 'utf8');
-  assert.equal(actual, expected);
-});

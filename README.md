@@ -112,7 +112,7 @@ Last run: 2026-11-21, Windows 11, Node 24.22.1: 194 tests, 194 passed, 0 failed.
 - `src/vitrina/` - showcase data (`works.json`) and page builder
 - `site/` - generated showcase page and styles
 - `test/` - test suite and HTML/JSON fixtures (synthetic copies of pages)
-- `demos/`, `docs/` - demo materials and product documentation
+- `demos/` - demo sites; `docs/screenshots/` - README screenshots
 - `.github/workflows/` - CI, including the install check
 
 ## License
