@@ -15,9 +15,9 @@ A freelance order radar and showcase toolkit for Russian-speaking freelancers: i
 
 ## Screenshots
 
-Demo sites built with the showcase toolkit (first screen; full-page shots at 1440 and 390 px are in `demos/*/shots`). All names, addresses and phone numbers are fictional.
+Demo sites built with the showcase toolkit (first screen). The sites are made for Russian-speaking clients; these screenshots show them translated to English for this README, and the original full-page shots at 1440 and 390 px are in `demos/*/shots`. All names, addresses and phone numbers are fictional.
 
-| Coffee bar landing | Booking bot for a barbershop | Nail master business card |
+| Coffee bar landing | Booking bot for a barbershop | Nail studio business card |
 |---|---|---|
 | ![Coffee bar landing](docs/screenshots/kofeynya.jpg) | ![Booking bot](docs/screenshots/bot-zapisi.jpg) | ![Business card site](docs/screenshots/master-vizitka.jpg) |
 
