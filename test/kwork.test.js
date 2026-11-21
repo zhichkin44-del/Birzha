@@ -83,10 +83,10 @@ test('Kwork: капча при 200 → BlockedError, раннер «молчит
   assert.match(out.report.channels.kwork.reason, /защита/);
 });
 
-test('Kwork: канал auto по решению владельца, лента — одна страница без page, пауза ≥ 10 с', () => {
+test('Kwork: канал руками по правилам площадки; лента — одна страница без page, пауза ≥ 10 с', () => {
   const c = CHANNELS.kwork;
-  assert.equal(c.mode, 'auto');
-  assert.match(c.owner_decision, /14\.11/);
+  assert.equal(c.mode, 'manual');
+  assert.match(c.blocked_note, /Manual only/);
   assert.doesNotMatch(c.feed, /page=/);
   assert.ok(c.pause_sec >= 10);
 });

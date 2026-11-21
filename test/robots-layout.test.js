@@ -154,6 +154,7 @@ test('авто — канал с прочитанными правилами (п
       assert.ok(c.pause_sec >= 10, `${id}: пауза меньше 10 с`);
     }
   }
-  for (const id of ['fl', 'frru', 'kwork', 'pchel', 'tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
+  for (const id of ['pchel', 'tg-freelancebay', 'tg-frwork3', 'tg-zakaz_design']) assert.ok(autoChannels().includes(id), id);
+  for (const id of ['fl', 'frru', 'kwork']) assert.ok(!autoChannels().includes(id), `${id} — руками по правилам площадки`);
   for (const id of ['fh', 'weblancer', 'youdo', 'upwork', 'profi']) assert.ok(!autoChannels().includes(id), `${id} — «руками»`);
 });

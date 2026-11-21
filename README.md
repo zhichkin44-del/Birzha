@@ -6,7 +6,7 @@ A freelance order radar and showcase toolkit for Russian-speaking freelancers: i
 
 ## Features
 
-- **Order radar** (`src/radar`): reads public listings from configured sources (FL.ru, Kwork, Freelance.ru, Pchel.net, Freelancer.com, PeoplePerHour, Telegram channels, and others). Each source has its own parser in `src/radar/parsers`.
+- **Order radar** (`src/radar`): reads public listings from configured sources (Pchel.net, Freelancer.com, PeoplePerHour, Telegram public channels, and others). FL.ru, Kwork and Freelance.ru are manual-only by default. Each source has its own parser in `src/radar/parsers`.
 - **Offline mode**: parse a page you saved yourself (`--file page.html --channel <id>`), for sources that block automated access.
 - **Rule-based filter**: each order gets a verdict (`rules.js`, `words.js`) and duplicates are removed (`dedupe.js`).
 - **Daily digest** (`src/digest`): top orders of the day with a ready reply for each (`--digest`).
@@ -53,7 +53,9 @@ A freelance order radar and showcase toolkit for Russian-speaking freelancers: i
 
 ## Configuration
 
-The project reads no environment variables and needs no `.env` file or API keys, so there is no `.env.example`. Radar sources are configured in code, in `src/radar/channels.js`: each source has `mode` (`auto` or `manual`), a feed URL and a `why`/`rules` note. Check the terms of a site before switching a source to `auto`.
+The project reads no environment variables and needs no `.env` file or API keys, so there is no `.env.example`. Radar sources are configured in code, in `src/radar/channels.js`: each source has `mode` (`auto` or `manual`), a feed URL and a `why`/`rules` note.
+
+Use automated collection only where the site's terms allow it. Sources whose terms prohibit automated access are `manual` by default; to read them, save the page yourself and pass it with `--file`.
 
 ## Usage
 

@@ -35,10 +35,6 @@ if (!live && (!filePath || filePath.startsWith('--'))) {
   console.error('После --file нужен путь к сохранённой странице: --file <страница.html>.');
   process.exit(2);
 }
-if (live && CHANNELS.fl.mode !== 'auto') {
-  console.error(`FL.ru сейчас «руками»: ${CHANNELS.fl.why}. Живой сбор не запущен.`);
-  process.exit(2);
-}
 
 const DATA = join(process.cwd(), 'data');
 const now = new Date().toISOString();
